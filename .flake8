@@ -1,0 +1,5 @@
+[flake8]
+application-import-names = 
+exclude = .git,__pycache__,venv
+import-order-style = google
+
