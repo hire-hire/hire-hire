@@ -12,7 +12,11 @@ SECRET_KEY = os.getenv(
     default='podpisivajtes-na-kanal-stavte-like'
 )
 
-DEBUG = bool(os.getenv('DEBUG', default=True))
+debug_mode = os.getenv('DEBUG_MODE', default='ON')
+if debug_mode == 'ON':
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
