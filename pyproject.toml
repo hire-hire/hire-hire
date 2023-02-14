@@ -1,2 +1,18 @@
-[tool.black]
-skip-string-normalization = true
+[tool.poetry]
+name = "hire-hire"
+version = "0.1.0"
+description = ""
+authors = ["Pronins Team"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "4.2a1"
+python-dotenv = "^0.21.1"
+django-debug-toolbar = "^3.8.1"
+jinja2 = "^3.1.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
