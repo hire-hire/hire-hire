@@ -9,11 +9,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv(
     'D_KEY',
-    default='django-insecure-vh1ch9*85h!'
-            'fhsk@e(74g=bpt2@a9c^5+)n1ymu(bivrgzh=6w'
+    default='podpisivajtes-na-kanal-stavte-like'
 )
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG', default=True)
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -79,7 +78,7 @@ DATABASES = {
             default=os.path.join(BASE_DIR, 'db.sqlite3')
         ),
         'USER': os.getenv('POSTGRES_USER', default='postgres'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', default='@YT#^6'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', default='password'),
         'HOST': os.getenv('DB_HOST', default='localhost'),
         'PORT': os.getenv('DB_PORT', default='5432')
     }
@@ -124,5 +123,5 @@ if DEBUG is True:
     def show_toolbar(request):
         return True
     DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
     }
