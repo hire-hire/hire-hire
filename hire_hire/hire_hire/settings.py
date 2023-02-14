@@ -1,7 +1,7 @@
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
-from pathlib import Path
 
 load_dotenv()
 
@@ -9,7 +9,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv(
     'D_KEY',
-    default='django-insecure-vh1ch9*85h!fhsk@e(74g=bpt2@a9c^5+)n1ymu(bivrgzh=6w'
+    default='django-insecure-vh1ch9*85h!'
+            'fhsk@e(74g=bpt2@a9c^5+)n1ymu(bivrgzh=6w'
 )
 
 DEBUG = True
@@ -73,7 +74,10 @@ WSGI_APPLICATION = 'hire_hire.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.getenv('DB_ENGINE', default='django.db.backends.sqlite3'),
-        'NAME': os.getenv('DB_NAME', default=os.path.join(BASE_DIR, 'db.sqlite3')),
+        'NAME': os.getenv(
+            'DB_NAME',
+            default=os.path.join(BASE_DIR, 'db.sqlite3')
+        ),
         'USER': os.getenv('POSTGRES_USER', default='postgres'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', default='@YT#^6'),
         'HOST': os.getenv('DB_HOST', default='localhost'),
@@ -83,16 +87,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'NumericPasswordValidator',
     },
 ]
 
@@ -116,5 +124,5 @@ if DEBUG is True:
     def show_toolbar(request):
         return True
     DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
     }
