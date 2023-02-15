@@ -3,8 +3,10 @@ from django.db import models
 
 
 class User(AbstractUser):
-    email = models.EmailField('email address', unique=True)
-    can_start_hungame = models.BooleanField(default=False)
+    email = models.EmailField('Электронная почта', unique=True)
+    is_duel_moderator = models.BooleanField(
+        'Признак модератора для дуэлей', default=False
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [
