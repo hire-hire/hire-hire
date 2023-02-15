@@ -5,7 +5,7 @@ skip-string-normalization = true
 name = "hire-hire"
 version = "0.1.0"
 description = ""
-authors = ["Pronins Team"]
+authors = ["ProninTeam"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
