@@ -3,9 +3,9 @@ from django.db import models
 
 
 class User(AbstractUser):
-    email = models.EmailField('Электронная почта', unique=True)
+    email = models.EmailField('электронная почта', unique=True)
     is_duel_moderator = models.BooleanField(
-        'Признак модератора для дуэлей', default=False
+        'признак модератора для дуэлей', default=False
     )
 
     USERNAME_FIELD = 'email'
