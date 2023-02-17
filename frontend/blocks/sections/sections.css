@@ -1,0 +1,10 @@
+.sections {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 0;
+}
+
+.sections:last-of-type {
+  padding-bottom: 160px;
+}
