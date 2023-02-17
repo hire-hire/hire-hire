@@ -188,36 +188,36 @@ http://www. [TODO]
 #### 4.1. Подход к тестированию
 
 ##### 1. GI – Graphical interface
-Объекты тестирования: кодовая база, GUI
-Уровни тестирования: Unit Tests, System Integration Tests, System Tests, e2e-testing
-Вид тестирования: Non-Functional, Change-Related
-Техники тестирования: Black-box, Experience-Based
-Степень автоматизации: UT - full auto, ST - manual/semi-automated
-Анализ: статический -  Lint, Code Review
+- Объекты тестирования: кодовая база, GUI
+- Уровни тестирования: Unit Tests, System Integration Tests, System Tests, e2e-testing
+- Вид тестирования: Non-Functional, Change-Related
+- Техники тестирования: Black-box, Experience-Based
+- Степень автоматизации: UT - full auto, ST - manual/semi-automated
+- Анализ: статический -  Lint, Code Review
 
 ##### 2. FE – Front-end logic
-Объекты тестирования: кодовая база, GUI
-Уровни тестирования: Unit Tests, System Integration Tests, System Tests, e2e-testing
-Вид тестирования: White Box, Functional, Non-Functional, Change-Related
-Техники тестирования: Black-box, White-Box, Experience-Based
-Степень автоматизации: UT - full auto, SIT - Hybrid/semi-automated (Swagger, Postman), ST - manual/semi-automated
-Анализ: статический - Lint, Code Review
+- Объекты тестирования: кодовая база, GUI
+- Уровни тестирования: Unit Tests, System Integration Tests, System Tests, e2e-testing
+- Вид тестирования: White Box, Functional, Non-Functional, Change-Related
+- Техники тестирования: Black-box, White-Box, Experience-Based
+- Степень автоматизации: UT - full auto, SIT - Hybrid/semi-automated (Swagger, Postman), ST - manual/semi-automated
+- Анализ: статический - Lint, Code Review
 
 ##### 3. BE – Back-end logic
-Объекты тестирования: кодовая база, API
-Уровни тестирования: Unit Tests, System Integration Tests, System Tests
-Вид тестирования: White Box, Functional, Non-Functional, Change-Related
-Техники тестирования: Black-box, White-Box, Experience-Based
-Степень автоматизации: UT - full auto, SIT - Hybrid/semi-automated (Swagger, Postman), ST - manual/semi-automated
+- Объекты тестирования: кодовая база, API
+- Уровни тестирования: Unit Tests, System Integration Tests, System Tests
+- Вид тестирования: White Box, Functional, Non-Functional, Change-Related
+- Техники тестирования: Black-box, White-Box, Experience-Based
+- Степень автоматизации: UT - full auto, SIT - Hybrid/semi-automated (Swagger, Postman), ST - manual/semi-automated
 Анализ: статический - Lint, Code Review
 
 ##### 4. DB – Data Base
-Объекты тестирования: кодовая база, API
-Уровни тестирования: Unit Tests, System Integration Tests, System Tests
-Вид тестирования: White Box, Functional, Non-Functional, Change-Related
-Техники тестирования: Black-box, White-Box, Experience-Based
-Степень автоматизации: UT - full auto, SIT - Hybrid/semi-automated (Swagger, Postman)
-Анализ: статический
+- Объекты тестирования: кодовая база, API
+- Уровни тестирования: Unit Tests, System Integration Tests, System Tests
+- Вид тестирования: White Box, Functional, Non-Functional, Change-Related
+- Техники тестирования: Black-box, White-Box, Experience-Based
+- Степень автоматизации: UT - full auto, SIT - Hybrid/semi-automated (Swagger, Postman)
+- Анализ: статический
 
 
 #### 4.2. Уровни тестирования	
