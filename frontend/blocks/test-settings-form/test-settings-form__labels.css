@@ -1,0 +1,4 @@
+.test-settings-form__labels {
+  display: flex;
+  gap: 32px;
+}

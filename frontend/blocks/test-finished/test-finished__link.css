@@ -1,0 +1,14 @@
+.test-finished__link {
+  width: 376px;
+  font-weight: bold;
+  padding: 12px 0;
+  border-radius: 12px;
+  text-align: center;
+  color: #000AFF;
+  border: 2px solid #000AFF;
+}
+
+.test-finished__link_type_pouring {
+  color: #fff;
+  background-color: #000AFF;
+}

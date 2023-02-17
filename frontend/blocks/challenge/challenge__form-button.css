@@ -1,0 +1,10 @@
+.challenge__form-button {
+  font-weight: bold;
+  color: #fff;
+  padding: 12px 91px;
+  border-radius: 12px;
+  border: none;
+  background-color: #000AFF;
+  max-width: 376px;
+  align-self: flex-end;
+}
