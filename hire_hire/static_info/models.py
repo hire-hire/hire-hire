@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Developer_data(models.Model):
+class DeveloperData(models.Model):
     """Информация о разработчиках проекта."""
 
     first_name = models.CharField(max_length=30, blank=False, null=False)
