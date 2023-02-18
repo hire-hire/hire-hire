@@ -49,4 +49,9 @@ class OurTeam(models.Model):
         ordering = ('role',)
 
     def __str__(self):
-        return ' '.join((self.first_name, self.last_name,))
+        return ' '.join(
+            (
+                self.first_name,
+                self.last_name,
+            )
+        )
