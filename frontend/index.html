@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>НаймиНайми</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
+
 <body class="root">
-  <div class="page">
+  <div class="page page_disabled">
     <header class="header">
       <a href="./index.html" class="logo page__link">
         <img src="./images/logo.png" alt="logo" class="logo__image">
@@ -39,13 +41,17 @@
           Заголовок
         </h1>
         <p class="about__describtion page__text">
-          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. 
+          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+          какой же это очень крутой проект.
         </p>
         <p class="about__describtion page__text">
-          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
+          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.Рыбий текст,
+          какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
         </p>
         <p class="about__describtion page__text">
-          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
+          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.Рыбий текст,
+          какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это
+          очень крутой проект.
         </p>
       </section>
       <section class="interview sections">
@@ -60,7 +66,7 @@
               Программирование
             </h3>
             <p class="card__subtitle page__text">
-              Короткий поясняющий текст, буквально пару предложений. 
+              Короткий поясняющий текст, буквально пару предложений.
             </p>
             <a href="#" class="card__link page__link page__text">
               Перейти
@@ -72,7 +78,7 @@
               Программирование
             </h3>
             <p class="card__subtitle page__text">
-              Короткий поясняющий текст, буквально пару предложений. 
+              Короткий поясняющий текст, буквально пару предложений.
             </p>
             <a href="#" class="card__link page__link page__text">
               Перейти
@@ -84,7 +90,7 @@
               Программирование
             </h3>
             <p class="card__subtitle page__text">
-              Короткий поясняющий текст, буквально пару предложений. 
+              Короткий поясняющий текст, буквально пару предложений.
             </p>
             <a href="#" class="card__link page__link page__text">
               Перейти
@@ -97,7 +103,9 @@
           Голодные игры
         </h2>
         <p class="games__subtitle page__text">
-          Короткий поясняющий текст, буквально пару предложений. Короткий поясняющий текст.  Короткий поясняющий текст, буквально пару предложений. Короткий поясняющий текст. Короткий поясняющий текст, буквально пару предложений. Короткий поясняющий текст. Короткий поясняющий текст, буквально пару предложений. Короткий поясняющий текст. 
+          Короткий поясняющий текст, буквально пару предложений. Короткий поясняющий текст. Короткий поясняющий текст,
+          буквально пару предложений. Короткий поясняющий текст. Короткий поясняющий текст, буквально пару предложений.
+          Короткий поясняющий текст. Короткий поясняющий текст, буквально пару предложений. Короткий поясняющий текст.
         </p>
         <a href="#" class="games__link page__link page__text">
           Перейти
@@ -119,6 +127,64 @@
         © Копирайт и правила, все права защищены и тд. Текст текст текст
       </p>
     </footer>
+    <div class="popup popup_type_auth">
+      <div class="popup__container">
+        <button class="popup__close-btn" type="button" aria-label="Кнопка закрытия попапа"></button>
+        <form class="form form_type_auth" name="auth-form" novalidate>
+          <h2 class="form__title sections__secondary-title">Вход</h2>
+          <input type="email" class="form__input page__text" name="email" id="email" placeholder="Почта" required>
+          <span class="form__input-error email-error page__text">Введена некорректная почта</span>
+          <input type="password" class="form__input page__text form__input_type_error" name="password" id="password"
+            placeholder="Пароль" required>
+          <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
+          <button type="button" class="page__text form__button_type_forgot"
+            aria-label="Кнопка перехода на страницу восстановления пароля">Забыли пароль?</button>
+          <button type="submit" class="form__button page__text form__button_type_pouring" value="Войти"
+            aria-label="Кнопка отправки формы">Войти</button>
+          <p class="form__hint page__text">В первый раз здесь?</p>
+          <button type="button" class="form__button page__text " value="Зарегистрироваться"
+            aria-label="Кнопка перехода на страницу регистрации">Зарегистрироваться</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_revive-password popup_active">
+      <div class="popup__container">
+        <button class="popup__close-btn" type="button" aria-label="Кнопка закрытия попапа"></button>
+        <form class="form form_type_revive-password" name="revive-password-form" novalidate>
+          <h2 class="form__title form__title_type_revive-password sections__secondary-title">Восстановление пароля</h2>
+          <label class="form__label page__text form__label_type_visible">
+            Электронная почта
+            <input type="email" class="form__input page__text" name="email" id="email" placeholder="Почта" required>
+            <span class="form__input-error email-error page__text">Введена некорректная почта</span>
+          </label>
+          <label class="form__label page__text">
+            Придумайте пароль
+            <div class="form__input-container">
+              <input type="password" class="form__input page__text form__input_type_error" name="password" id="password"
+              required>
+              <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+            </div>
+            <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
+          </label>
+          <label class="form__label page__text">
+            Повторите пароль
+            <div class="form__input-container">
+              <input type="password" class="form__input page__text form__input_type_error" name="repeat-password"
+                id="repeat-password" required>
+                <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+            </div>
+            <span class="form__input-error repeat-password-error page__text">Пароли не совпадают</span>
+          </label>
+          <p class="form__info page__text">
+            Ваш пароль успешно изменен!
+          </p>
+          <button type="button"
+            class="form__button page__text form__button_type_pouring form__button_type_revive-password"
+            value="Восстановить пароль" aria-label="Кнопка восстановления пароля">Восстановить пароль</button>
+        </form>
+      </div>
+    </div>
   </div>
 </body>
+
 </html>

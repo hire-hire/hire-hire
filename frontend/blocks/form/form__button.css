@@ -1,0 +1,29 @@
+.form__button {
+  width: 100%;
+  padding: 12px 0;
+  border: 2px solid #000AFF;
+  color: #000AFF;
+  border-radius: 12px;
+  background: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form__button_type_pouring {
+  color: #fff;
+  background-color: #000AFF;
+  margin-bottom: 64px;
+}
+
+.form__button_type_forgot {
+  border: none;
+  background: none;
+  color: #000AFF;
+  align-self: flex-start;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.form__button_type_revive-password {
+  max-width: 509px;
+}

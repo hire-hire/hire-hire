@@ -1,0 +1,9 @@
+.form__label {
+  max-width: 509px;
+  width: 100%;
+  display: none;
+}
+
+.form__label_type_visible {
+  display: block;
+}
