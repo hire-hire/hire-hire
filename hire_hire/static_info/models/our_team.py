@@ -30,6 +30,7 @@ class OurTeam(models.Model):
     photo = ImageField(
         'фото',
         blank=False,
+        upload_to='team',
         help_text='Добавьте фото',
     )
     role = models.PositiveSmallIntegerField(
@@ -49,9 +50,4 @@ class OurTeam(models.Model):
         ordering = ('role',)
 
     def __str__(self):
-        return ' '.join(
-            (
-                self.first_name,
-                self.last_name,
-            )
-        )
+        return f'{self.first_name}, {self.last_name}'

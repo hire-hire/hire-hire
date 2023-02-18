@@ -67,6 +67,14 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-cleanup"
+version = "7.0.0"
+description = "Deletes old files."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "django-debug-toolbar"
 version = "3.8.1"
 description = "A configurable set of panels that display various debug information about the current request/response."
@@ -223,7 +231,7 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.11"
-content-hash = "95bd99f5f1d18b39f9227a4ccfd0a4776bb7c0656c3786814af40c530ddf184a"
+content-hash = "30b6ab804b0fa05d1ae48b67eef15b9fa360fbc6ea3278fb8671d19ba83fe537"
 
 [metadata.files]
 asgiref = [
@@ -268,6 +276,10 @@ colorama = [
 django = [
     {file = "Django-4.2a1-py3-none-any.whl", hash = "sha256:e913e60991a0c2a5f099a80ea1e2ec90b1636e6deb60bad16b89086819b48d4b"},
     {file = "Django-4.2a1.tar.gz", hash = "sha256:3a29fc014f46fd6a552296fd1cfc77f616c4120b68cc117eee4a8237aa163f7a"},
+]
+django-cleanup = [
+    {file = "django-cleanup-7.0.0.tar.gz", hash = "sha256:28a969f889c661eba0d9438978693980f09482c97983bd08ee52955dae8d71e4"},
+    {file = "django_cleanup-7.0.0-py2.py3-none-any.whl", hash = "sha256:f50d54de48527d66ff05d74d2c3aafcdadc6c94ba280ece14a7e4c5b2c591447"},
 ]
 django-debug-toolbar = [
     {file = "django_debug_toolbar-3.8.1-py3-none-any.whl", hash = "sha256:879f8a4672d41621c06a4d322dcffa630fc4df056cada6e417ed01db0e5e0478"},
