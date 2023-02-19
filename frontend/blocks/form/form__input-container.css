@@ -5,4 +5,25 @@
   align-items: center;
   gap: 12px;
   width: 100%;
+  margin-top: 4px;
+  position: relative;
+}
+
+.form__input-container::after {
+  content: "Privet";
+  font-size: 14px;
+  line-height: 16px;
+  color: #fff;
+  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(39%, 65%);
+  padding: 12px 24px;
+  background-color: rgba(8, 6, 23, 0.6);
+  border-radius: 12px;
+}
+
+.form__input-container:hover .form__input-container::after {
+  display: block;
 }

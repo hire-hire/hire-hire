@@ -27,3 +27,7 @@
 .form__button_type_revive-password {
   max-width: 509px;
 }
+
+.form__button_type_register {
+  max-width: 512px;
+}
