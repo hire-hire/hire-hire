@@ -43,7 +43,6 @@
 /* Interview */
 
 @import url(../blocks/interview/interview.css);
-@import url(../blocks/interview/interview__title.css);
 
 /* Cards */
 
@@ -57,7 +56,6 @@
 /* Games */
 
 @import url(../blocks/games/games.css);
-@import url(../blocks/games/games__title.css);
 @import url(../blocks/games/games__subtitle.css);
 @import url(../blocks/games/games__link.css);
 
@@ -71,8 +69,6 @@
 
 /* Info */
 
-@import url(../blocks/info/info.css);
-@import url(../blocks/info/info__title.css);
 @import url(../blocks/info/info__description.css);
 
 /* Directions */

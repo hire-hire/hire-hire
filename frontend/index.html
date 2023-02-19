@@ -9,7 +9,7 @@
 </head>
 
 <body class="root">
-  <div class="page page_disabled">
+  <div class="page">
     <header class="header">
       <a href="./index.html" class="logo page__link">
         <img src="./images/logo.png" alt="logo" class="logo__image">
@@ -28,9 +28,9 @@
             </a>
           </li>
           <li class="header__item">
-            <a href="#" class="header__link header__link_type_blue page__link page__text">
+            <button id="profile-button" type="button" class="header__link header__link_type_blue page__link page__text">
               Вход
-            </a>
+            </button>
           </li>
         </ul>
       </nav>
@@ -142,7 +142,7 @@
           <button type="submit" class="form__button page__text form__button_type_pouring" value="Войти"
             aria-label="Кнопка отправки формы">Войти</button>
           <p class="form__hint page__text">В первый раз здесь?</p>
-          <button type="button" class="form__button page__text " value="Зарегистрироваться"
+          <button type="button" class="form__button page__text form__button_type_register" value="Зарегистрироваться"
             aria-label="Кнопка перехода на страницу регистрации">Зарегистрироваться</button>
         </form>
       </div>
@@ -253,6 +253,7 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript" src="./popups.js"></script>
 </body>
 
 </html>
