@@ -12,3 +12,9 @@
 .form_type_revive-password {
   width: 944px;
 }
+
+@media screen and (max-width: 1200px) {
+  .form_type_revive-password {
+    padding: 40px;
+  }
+}
