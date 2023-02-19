@@ -152,12 +152,12 @@
         <button class="popup__close-btn" type="button" aria-label="Кнопка закрытия попапа"></button>
         <form class="form form_type_revive-password" name="revive-password-form" novalidate>
           <h2 class="form__title form__title_type_revive-password sections__secondary-title">Восстановление пароля</h2>
-          <label class="form__label page__text form__label_type_visible">
+          <label class="form__label page__text form__label_type_visible form__label_type_email">
             Электронная почта
             <input type="email" class="form__input page__text" name="email" id="email" placeholder="Почта" required>
             <span class="form__input-error email-error page__text">Введена некорректная почта</span>
           </label>
-          <label class="form__label page__text">
+          <label class="form__label page__text form__label_type_password">
             Придумайте пароль
             <div class="form__input-container">
               <input type="password" class="form__input page__text form__input_type_error" name="password" id="password"
@@ -171,7 +171,7 @@
             </div>
             <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
           </label>
-          <label class="form__label page__text">
+          <label class="form__label page__text form__label_type_repeat-password">
             Повторите пароль
             <div class="form__input-container">
               <input type="password" class="form__input page__text form__input_type_error" name="repeat-password"
