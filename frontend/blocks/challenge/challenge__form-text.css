@@ -7,4 +7,15 @@
 
 .challenge__form-text_type_correctly {
   background-color: rgba(171, 255, 180, 0.2);
+  visibility: hidden;
+  opacity: 0;
+  transition: all .3s linear;
+  display: none;
 }
+
+.challenge__form-text_type_visible {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+}
+
