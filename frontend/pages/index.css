@@ -137,3 +137,5 @@
 @import url(../blocks/form/form__chekbox.css);
 @import url(../blocks/form/form__chekbox-text.css);
 @import url(../blocks/form/form__chekbox-link.css);
+@import url(../blocks/form/form__label-hint-container.css);
+@import url(../blocks/form/form__label-hint.css);

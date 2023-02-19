@@ -2,6 +2,7 @@
   max-width: 512px;
   width: 100%;
   display: none;
+  position: relative;
 }
 
 .form__label_type_visible {

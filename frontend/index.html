@@ -161,7 +161,7 @@
             Придумайте пароль
             <div class="form__input-container">
               <input type="password" class="form__input page__text form__input_type_error" name="password" id="password"
-              required>
+                required>
               <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
             </div>
             <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
@@ -171,7 +171,7 @@
             <div class="form__input-container">
               <input type="password" class="form__input page__text form__input_type_error" name="repeat-password"
                 id="repeat-password" required>
-                <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+              <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
             </div>
             <span class="form__input-error repeat-password-error page__text">Пароли не совпадают</span>
           </label>
@@ -193,25 +193,39 @@
             Электронная почта
             <div class="form__input-container">
               <input type="email" class="form__input page__text" name="email" id="email" required>
-              <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+              <div class="form__label-hint-container">
+                <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+                <span class="form__label-hint page__text">
+                  Введите адрес электронной почты
+                </span>
+              </div>
             </div>
             <span class="form__input-error email-error page__text">Введена некорректная почта</span>
           </label>
           <label class="form__label page__text form__label_type_visible">
             Придумайте пароль
             <div class="form__input-container">
-              <input type="password" class="form__input page__text" name="password" id="password"
-              required>
-              <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+              <input type="password" class="form__input page__text" name="password" id="password" required>
+              <div class="form__label-hint-container">
+                <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+                <span class="form__label-hint page__text">
+                  Пароль должен содержать столько-то знаков
+                </span>
+              </div>
             </div>
             <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
           </label>
           <label class="form__label page__text form__label_type_visible">
             Повторите пароль
             <div class="form__input-container">
-              <input type="password" class="form__input page__text" name="repeat-password"
-                id="repeat-password" required>
-                <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+              <input type="password" class="form__input page__text" name="repeat-password" id="repeat-password"
+                required>
+                <div class="form__label-hint-container">
+                  <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+                  <span class="form__label-hint page__text">
+                    Повторите пароль введеный выше
+                  </span>
+                </div>
             </div>
             <span class="form__input-error repeat-password-error page__text">Пароли не совпадают</span>
           </label>
@@ -219,11 +233,11 @@
             <input type="checkbox" class="form__chekbox">
             <p class="form__chekbox-text page__text">
               Я ознакомлен с
-              <a href="#" class="form__chekbox-link page__link">Пользовательским соглашением и Политикой конфиденциальности</a>
+              <a href="#" class="form__chekbox-link page__link">Пользовательским соглашением и Политикой
+                конфиденциальности</a>
             </p>
           </div>
-          <button type="submit"
-            class="form__button page__text form__button_type_pouring form__button_type_register"
+          <button type="submit" class="form__button page__text form__button_type_pouring form__button_type_register"
             value="Зарегестрироваться" aria-label="Кнопка регистрации">Зарегестрироваться</button>
         </form>
       </div>
