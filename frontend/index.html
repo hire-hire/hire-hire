@@ -162,7 +162,12 @@
             <div class="form__input-container">
               <input type="password" class="form__input page__text form__input_type_error" name="password" id="password"
                 required>
-              <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+              <div class="form__label-hint-container">
+                <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+                <span class="form__label-hint page__text">
+                  Пароль должен содержать столько-то знаков
+                </span>
+              </div>
             </div>
             <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
           </label>
@@ -171,7 +176,12 @@
             <div class="form__input-container">
               <input type="password" class="form__input page__text form__input_type_error" name="repeat-password"
                 id="repeat-password" required>
-              <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+              <div class="form__label-hint-container">
+                <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+                <span class="form__label-hint page__text">
+                  Повторите пароль введеный выше
+                </span>
+              </div>
             </div>
             <span class="form__input-error repeat-password-error page__text">Пароли не совпадают</span>
           </label>
@@ -184,7 +194,7 @@
         </form>
       </div>
     </div>
-    <div class="popup popup_type_register popup_active">
+    <div class="popup popup_type_register">
       <div class="popup__container">
         <button class="popup__close-btn" type="button" aria-label="Кнопка закрытия попапа"></button>
         <form class="form form_type_revive-password" name="revive-password-form" novalidate>
@@ -220,12 +230,12 @@
             <div class="form__input-container">
               <input type="password" class="form__input page__text" name="repeat-password" id="repeat-password"
                 required>
-                <div class="form__label-hint-container">
-                  <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
-                  <span class="form__label-hint page__text">
-                    Повторите пароль введеный выше
-                  </span>
-                </div>
+              <div class="form__label-hint-container">
+                <img src="./images/help-circle.png" alt="Подсказка" class="form__label-image">
+                <span class="form__label-hint page__text">
+                  Повторите пароль введеный выше
+                </span>
+              </div>
             </div>
             <span class="form__input-error repeat-password-error page__text">Пароли не совпадают</span>
           </label>
