@@ -1,0 +1,12 @@
+{% block content %}
+  {% if result %}
+    <p>{{ result }}</p>
+  {% endif %}
+  <form method="post">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <input type="hidden" name="question_id" value="{{ question.id }}">
+    <p>{{ question.text }}</p>
+    <input type="text" name="answer">
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

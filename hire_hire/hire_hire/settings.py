@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'users.apps.UsersConfig',
+    'test_interview.apps.TestInterviewConfig',
 ]
 
 MIDDLEWARE = [

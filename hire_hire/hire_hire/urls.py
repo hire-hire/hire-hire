@@ -4,6 +4,11 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(
+        'interview/', include(
+            'test_interview.urls', namespace='test_interview'
+            )
+        ),
 ]
 
 if settings.DEBUG:
