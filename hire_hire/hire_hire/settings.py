@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'users.apps.UsersConfig',
+    'interview.apps.InterviewConfig',
 ]
 
 MIDDLEWARE = [
@@ -46,11 +47,19 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
-        'OPTIONS': {'environment': 'hire_hire.jinja2.environment'},
+        'OPTIONS': {
+            'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            'environment': 'hire_hire.jinja2.environment'
+        },
     },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

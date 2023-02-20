@@ -1,0 +1,114 @@
+@import url(vendor/normalize.css);
+@import url(vendor/fonts/fonts.css);
+
+/* Page */
+
+@import url(blocks/page/page.css);
+@import url(blocks/page/page__link.css);
+@import url(blocks/page/page__list.css);
+@import url(blocks/page/page__text.css);
+@import url(blocks/page/page__title.css);
+
+/* Logo */
+
+@import url(blocks/logo/logo.css);
+@import url(blocks/logo/logo__image.css);
+@import url(blocks/logo/logo__title.css);
+
+/* Header */
+
+@import url(blocks/header/header.css);
+@import url(blocks/header/header__items.css);
+@import url(blocks/header/header__item.css);
+@import url(blocks/header/header__link.css);
+
+/* Main */
+
+@import url(blocks/main/main.css);
+
+/* Sections */
+
+@import url(blocks/sections/sections.css);
+@import url(blocks/sections/sections__main-title.css);
+@import url(blocks/sections/sections__secondary-title.css);
+@import url(blocks/sections/sections__description.css);
+
+/* About */
+
+@import url(blocks/about/about.css);
+@import url(blocks/about/about__title.css);
+@import url(blocks/about/about__describtion.css);
+
+/* Interview */
+
+@import url(blocks/interview/interview.css);
+@import url(blocks/interview/interview__title.css);
+
+/* Cards */
+
+@import url(blocks/cards/cards.css);
+@import url(blocks/cards/card.css);
+@import url(blocks/cards/card__image.css);
+@import url(blocks/cards/card__title.css);
+@import url(blocks/cards/card__subtitle.css);
+@import url(blocks/cards/card__link.css);
+
+/* Games */
+
+@import url(blocks/games/games.css);
+@import url(blocks/games/games__title.css);
+@import url(blocks/games/games__subtitle.css);
+@import url(blocks/games/games__link.css);
+
+/* Footer */
+
+@import url(blocks/footer/footer.css);
+@import url(blocks/footer/footer__contacts.css);
+@import url(blocks/footer/footer__links.css);
+@import url(blocks/footer/footer__link.css);
+@import url(blocks/footer/footer__copyright.css);
+
+/* Info */
+
+@import url(blocks/info/info.css);
+@import url(blocks/info/info__title.css);
+@import url(blocks/info/info__description.css);
+
+/* Directions */
+
+@import url(blocks/direction/directions__title.css);
+
+/* Programming */
+
+@import url(blocks/programming/programming__links.css);
+@import url(blocks/programming/programming__link.css);
+
+/* Test-settings */
+
+@import url(blocks/test-settings/test-settings__links.css);
+
+/* Test-settings-form */
+
+@import url(blocks/test-settings-form/test-settings-form.css);
+@import url(blocks/test-settings-form/test-settings-form__subtitle.css);
+@import url(blocks/test-settings-form/test-settings-form__inputs.css);
+@import url(blocks/test-settings-form/test-settings-form__label.css);
+@import url(blocks/test-settings-form/test-settings-form__hint.css);
+@import url(blocks/test-settings-form/test-settings-form__labels.css);
+@import url(blocks/test-settings-form/test-settings-form__select.css);
+
+/* Challenge */
+
+@import url(blocks/challenge/challenge.css);
+@import url(blocks/challenge/challenge__subtitle.css);
+@import url(blocks/challenge/challenge__form.css);
+@import url(blocks/challenge/challenge__form-title.css);
+@import url(blocks/challenge/challenge__form-text.css);
+@import url(blocks/challenge/challenge__form-input.css);
+@import url(blocks/challenge/challenge__form-button.css);
+
+/* Test-finished */
+
+@import url(blocks/test-finished/test-finished__subtitle.css);
+@import url(blocks/test-finished/test-finished__links.css);
+@import url(blocks/test-finished/test-finished__link.css);

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+  {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>НаймиНайми</title>
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+
+<body class="root">
+  <div class="page">
+    <header class="header">
+      <a href="{% url 'interview:languages' %}" class="logo page__link">
+        <img src="{% static 'images/logo.png' %}" alt="logo" class="logo__image">
+        <p class="logo__title">НаймиНайми</p>
+      </a>
+      <nav class="header__menu">
+        <ul class="header__items page__list">
+          <li class="header__item">
+            <a href="#" class="header__link page__link page__text">
+              Собеседование
+            </a>
+          </li>
+          <li class="header__item">
+            <a href="#" class="header__link page__link page__text">
+              Команда
+            </a>
+          </li>
+          <li class="header__item">
+            <a href="#" class="header__link header__link_type_blue page__link page__text">
+              Вход
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <section class="test-settings sections">
+        <h1 class="test-settings__title sections__main-title">
+          Программирование
+        </h1>
+        <p class="test-settings__description sections__describtion">
+          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+          какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
+        </p>
+        <p class="test-settings__description sections__describtion">
+          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+          какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
+        </p>
+      </section>
+      <form class="test-settings-form" method="post" action="{% url 'interview:settings' %}">
+          <h2 class="test-settings-form__title sections__secondary-title">
+            Направление собеседования
+          </h2>
+          <h3 class="test-settings-form__subtitle page__text">
+            Python
+          </h3>
+            {% csrf_token %}
+          <div class="test-settings-form__inputs">
+            <p class="test-settings-form__hint page__text">
+              Настройте параметры для тестирования
+            </p>
+            <div class="test-settings-form__labels">
+              <label class="test-settings-form__label page__text">
+                Количество вопросов
+                <select name="questions-count" class="test-settings-form__select page__text">
+                  <option value="10" selected>10 вопросов</option>
+                  <option value="15">15 вопросов</option>
+                  <option value="20">20 вопросов</option>
+                </select>
+              </label>
+              <label class="test-settings-form__label page__text">
+                Уровень сложности
+                <select name="level" class="test-settings-form__select page__text">
+                  <option value="Junior" selected>Junior</option>
+                  <option value="Middle">Middle</option>
+                  <option value="Senior">Senior</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        <div class="test-settings__links">
+          <a href="./programming.html" class="programming__link page__link page__text">Назад</a>
+          <button type="submit" class="programming__link page__link page__text programming__link_type_pouring">Далее</button>
+          <!-- <a href="./challenge.html" class="programming__link page__link page__text programming__link_type_pouring">Далее</a> -->
+        </div>
+      </form>
+    </main>
+    <footer class="footer">
+      <div class="footer__contacts">
+        <a href="../index.html" class="logo page__link">
+          <img src="{% static 'images/logo-white.png' %}" alt="logo" class="logo__image">
+          <p class="logo__title logo__title_type_white">НаймиНайми</p>
+        </a>
+        <div class="footer__links">
+          <a href="#" class="footer__link page__link footer__link_type_tg"></a>
+          <a href="#" class="footer__link page__link footer__link_type_yt"></a>
+        </div>
+      </div>
+      <p class="footer__copyright page__text">
+        © Копирайт и правила, все права защищены и тд. Текст текст текст
+      </p>
+    </footer>
+  </div>
+</body>
+
+</html>

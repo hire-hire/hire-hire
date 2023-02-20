@@ -1,0 +1,14 @@
+.sections__describtion {
+  max-width: 1056px;
+  text-align: center;
+  font-family: 'Raleway';
+  font-size: 20px;
+  line-height: 136%;
+  margin: 0;
+  margin-bottom: 20px;
+  color: #080617;
+}
+
+.sections__describtion:last-of-type {
+  margin-bottom: 0;
+}

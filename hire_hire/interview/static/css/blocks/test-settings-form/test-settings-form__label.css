@@ -1,0 +1,6 @@
+.test-settings-form__label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-self: flex-end;
+}
