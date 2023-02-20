@@ -1,41 +1,5 @@
-<!DOCTYPE html>
-<html lang="ru">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>НаймиНайми</title>
-  <link rel="stylesheet" href="../pages/index.css">
-</head>
-
-<body class="root">
-  <div class="page">
-    <header class="header">
-      <a href="../index.html" class="logo page__link">
-        <img src="../images/logo.png" alt="logo" class="logo__image">
-        <p class="logo__title">НаймиНайми</p>
-      </a>
-      <nav class="header__menu">
-        <ul class="header__items page__list">
-          <li class="header__item">
-            <a href="./interviews.html" class="header__link page__link page__text">
-              Собеседование
-            </a>
-          </li>
-          <li class="header__item">
-            <a href="#" class="header__link page__link page__text">
-              Команда
-            </a>
-          </li>
-          <li class="header__item">
-            <a href="#" class="header__link header__link_type_blue page__link page__text">
-              Вход
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <main class="main">
+{% extends 'base.html' %}
+{% block main %}
       <section class="challenge sections">
         <h1 class="challenge__title sections__secondary-title">
           Испытание Python
@@ -57,7 +21,7 @@
             Ваш ответ
           </h3>
           <textarea name="" class="challenge__form-input page__text" placeholder="Введите ответ"></textarea>
-          <h3 class="challenge__form-title page__text">
+          <h3 class="challenge__form-title page__text challenge__form-title_type_correctly">
             Правильный ответ
           </h3>
           <p class="challenge__form-text challenge__form-text_type_correctly page__text">
@@ -66,28 +30,10 @@
             Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
             какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
           </p>
-          <a href="./test-finished.html" class="challenge__form-button page__text">
+          <button type="button" class="challenge__form-button page__text challenge__form-button_type_visible challenge__form-button_type_button">Показать правильный ответ</button>
+          <a href="./test-finished.html" class="challenge__form-button page__text page__link challenge__form-button_type_link">
             Следующий вопрос
           </a>
         </form>
       </section>
-    </main>
-    <footer class="footer">
-      <div class="footer__contacts">
-        <a href="../index.html" class="logo page__link">
-          <img src="../images/logo-white.png" alt="logo" class="logo__image">
-          <p class="logo__title logo__title_type_white">НаймиНайми</p>
-        </a>
-        <div class="footer__links">
-          <a href="#" class="footer__link page__link footer__link_type_tg"></a>
-          <a href="#" class="footer__link page__link footer__link_type_yt"></a>
-        </div>
-      </div>
-      <p class="footer__copyright page__text">
-        © Копирайт и правила, все права защищены и тд. Текст текст текст
-      </p>
-    </footer>
-  </div>
-</body>
-
-</html>
+{% endblock %}

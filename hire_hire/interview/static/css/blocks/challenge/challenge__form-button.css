@@ -5,6 +5,10 @@
   border-radius: 12px;
   border: none;
   background-color: #000AFF;
-  max-width: 376px;
   align-self: flex-end;
+  display: none;
+}
+
+.challenge__form-button_type_visible {
+  display: block;
 }

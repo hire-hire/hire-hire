@@ -26,7 +26,6 @@ class InterviewSettings(TemplateView):
 
     def post(self, request, *args, **kwargs):
         count = request.POST.get('questions-count')
-        print(count)
         if count:
             try:
                 count = int(count)
@@ -34,16 +33,13 @@ class InterviewSettings(TemplateView):
                 count = DEFAULT_QUESTIONS_COUNT
         else:
             count = DEFAULT_QUESTIONS_COUNT
-        print('try take questions')
         questions = Question.objects.random(count)
-        print('questions taken')
         settings = dict()
         if request.user.is_authenticated:
             settings['user'] = request.user
         interview = Interview.objects.create(**settings)
         for question in questions:
             interview.questions.add(question)
-        print('HERE WE ARE')
         return HttpResponseRedirect(
                 reverse('interview:interview', kwargs={'interview_id': interview.pk}))
 
