@@ -1,3 +1,4 @@
+__all__ = ['OurTeam']
 from django.db import models
 from sorl.thumbnail import ImageField
 
@@ -33,9 +34,10 @@ class OurTeam(models.Model):
         upload_to='team',
         help_text='Добавьте фото',
     )
-    role = models.PositiveSmallIntegerField(
-        'роль в команде',
-        choices=Role.choices,
+    role = models.ForeignKey(
+        'static_info.TeamRole',
+        verbose_name='роль в команде',
+        on_delete=models.PROTECT,
     )
     contact = models.URLField(
         'контакт',
@@ -45,8 +47,8 @@ class OurTeam(models.Model):
     )
 
     class Meta:
-        verbose_name = 'информация о команде'
-        verbose_name_plural = 'информация о команде'
+        verbose_name = 'член команды'
+        verbose_name_plural = 'члены команды'
         ordering = ('role',)
 
     def __str__(self):

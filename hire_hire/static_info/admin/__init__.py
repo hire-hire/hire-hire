@@ -1,1 +1,2 @@
-from .our_team import OurTeamAdmin
+from .our_team import *
+from .team_role import *
