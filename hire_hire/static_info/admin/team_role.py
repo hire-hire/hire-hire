@@ -1,4 +1,3 @@
-__all__ = ['TeamRoleAdmin']
 from django.contrib import admin
 
 from static_info.models import TeamRole

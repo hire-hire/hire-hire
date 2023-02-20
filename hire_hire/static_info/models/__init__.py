@@ -1,2 +1,7 @@
-from .our_team import *
-from .team_role import *
+from .our_team import OurTeam
+from .team_role import TeamRole
+
+__all__ = [
+    'OurTeam',
+    'TeamRole',
+]

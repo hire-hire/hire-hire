@@ -1,4 +1,3 @@
-__all__ = ['OurTeam']
 from django.db import models
 from sorl.thumbnail import ImageField
 

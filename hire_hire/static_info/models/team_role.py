@@ -1,5 +1,3 @@
-__all__ = ['TeamRole']
-
 from django.db import models
 
 
