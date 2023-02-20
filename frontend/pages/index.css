@@ -8,6 +8,7 @@
 @import url(../blocks/page/page__list.css);
 @import url(../blocks/page/page__text.css);
 @import url(../blocks/page/page__title.css);
+@import url(../blocks/page/page_disabled.css);
 
 /* Logo */
 
@@ -41,9 +42,6 @@
 
 /* Interview */
 
-@import url(../blocks/interview/interview.css);
-@import url(../blocks/interview/interview__title.css);
-
 /* Cards */
 
 @import url(../blocks/cards/cards.css);
@@ -56,7 +54,6 @@
 /* Games */
 
 @import url(../blocks/games/games.css);
-@import url(../blocks/games/games__title.css);
 @import url(../blocks/games/games__subtitle.css);
 @import url(../blocks/games/games__link.css);
 
@@ -70,8 +67,6 @@
 
 /* Info */
 
-@import url(../blocks/info/info.css);
-@import url(../blocks/info/info__title.css);
 @import url(../blocks/info/info__description.css);
 
 /* Directions */
@@ -112,3 +107,29 @@
 @import url(../blocks/test-finished/test-finished__subtitle.css);
 @import url(../blocks/test-finished/test-finished__links.css);
 @import url(../blocks/test-finished/test-finished__link.css);
+
+/* Popup */
+
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/popup__container.css);
+@import url(../blocks/popup/popup__close-btn.css);
+@import url(../blocks/popup/popup_active.css);
+
+/* Form */
+
+@import url(../blocks/form/form.css);
+@import url(../blocks/form/form__title.css);
+@import url(../blocks/form/form__input.css);
+@import url(../blocks/form/form__input-error.css);
+@import url(../blocks/form/form__button.css);
+@import url(../blocks/form/form__hint.css);
+@import url(../blocks/form/form__label.css);
+@import url(../blocks/form/form__input-container.css);
+@import url(../blocks/form/form__label-image.css);
+@import url(../blocks/form/form__info.css);
+@import url(../blocks/form/form__checkbox-container.css);
+@import url(../blocks/form/form__chekbox.css);
+@import url(../blocks/form/form__chekbox-text.css);
+@import url(../blocks/form/form__chekbox-link.css);
+@import url(../blocks/form/form__label-hint-container.css);
+@import url(../blocks/form/form__label-hint.css);
