@@ -134,3 +134,7 @@
 @import url(../blocks/form/form__chekbox-link.css);
 @import url(../blocks/form/form__label-hint-container.css);
 @import url(../blocks/form/form__label-hint.css);
+
+/* Profile */
+
+@import url(../blocks/profile/profile__exit-button.css);
