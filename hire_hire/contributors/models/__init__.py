@@ -3,7 +3,7 @@ from .member_contact import MemberContact
 from .team_role import TeamRole
 
 __all__ = [
+    'MemberContact',
     'OurTeam',
     'TeamRole',
-    'MemberContact'
 ]
