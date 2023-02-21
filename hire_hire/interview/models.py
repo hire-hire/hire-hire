@@ -1,4 +1,4 @@
-from random import random
+from random import sample
 
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -13,18 +13,11 @@ class QuestionManager(models.Manager):
     """
 
     def random(self, cnt):
-        objs = self.get_queryset()
-        if objs.count() <= cnt:
-            cnt = objs.count()
-        result = []
-        while len(result) < cnt:
-            for obj in objs:
-                if obj in result:
-                    continue
-                if random() > .5:
-                    result.append(obj)
-                    break
-        return result
+        ids = list(self.get_queryset().values_list('id', flat=True))
+        if len(ids) < cnt:
+            cnt = len(ids)
+        rand_ids = sample(ids, cnt)
+        return self.get_queryset().filter(id__in=rand_ids)
 
 
 class Language(models.Model):
@@ -41,6 +34,9 @@ class Language(models.Model):
         verbose_name = 'язык программирования'
         verbose_name_plural = 'языки программирования'
 
+    def __str__(self):
+        return self.title
+
 
 class Question(models.Model):
     """
@@ -56,9 +52,9 @@ class Question(models.Model):
         verbose_name='вопрос',
     )
 
-    text = models.TextField('текст вопроса')
+    text = models.CharField('текст вопроса', max_length=256)
 
-    answer = models.TextField('правильный ответ')
+    answer = models.TextField('правильный ответ', max_length=256)
 
     objects = QuestionManager()
 
@@ -66,17 +62,16 @@ class Question(models.Model):
         verbose_name = 'вопрос'
         verbose_name_plural = 'вопросы'
 
+    def __str__(self):
+        return self.text[:15]
+
 
 class Interview(models.Model):
     """
     Объект конкретного интервью.
     В MVP:
         - содержит набор вопросов
-        - в первом приближении не связан с пользователем
-        - во втором приближении может быть связан с пользователем
-        - в первом приближении содержит просто int-счетчик для вопросов.
-        дальше это можно переделать в промежуточную модель с вопросами,
-        где так же можно хранить данные ответы.
+        - может быть связан с пользователем
     """
 
     user = models.ForeignKey(
@@ -84,15 +79,10 @@ class Interview(models.Model):
         on_delete=models.CASCADE,
         null=True,
         related_name='interviews',
-        verbose_name='пользователь'
+        verbose_name='пользователь',
     )
 
-    questions_asked = models.IntegerField('вопросов задано', default=0)
-
-    questions = models.ManyToManyField(
-        Question,
-        verbose_name='набор вопросов'
-    )
+    questions = models.ManyToManyField(Question, verbose_name='набор вопросов')
 
     class Meta:
         verbose_name = 'интервью'

@@ -1,6 +1,12 @@
 from django.urls import path
 
-from .views import InterviewFlow, InterviewSettings, Languages
+from .views import (
+    InterviewFinish,
+    InterviewFlow,
+    InterviewSettings,
+    Languages,
+)
+
 
 app_name = 'interview'
 
@@ -11,5 +17,6 @@ urlpatterns = [
         InterviewFlow.as_view(),
         name='interview'
     ),
+    path('interview/finish/', InterviewFinish.as_view(), name='finish'),
     path('', Languages.as_view(), name='languages'),
 ]
