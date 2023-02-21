@@ -53,9 +53,9 @@
 
 /* Games */
 
-@import url(../blocks/games/games.css);
-@import url(../blocks/games/games__subtitle.css);
-@import url(../blocks/games/games__link.css);
+@import url(blocks/games/games.css);
+@import url(blocks/games/games__subtitle.css);
+@import url(blocks/games/games__link.css);
 
 /* Footer */
 

@@ -1,7 +1,7 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic.base import TemplateView, View
+from django.views.generic.base import TemplateView
 
 from .exceptions import CustomException
 from .models import Interview, Language, Question
@@ -41,7 +41,11 @@ class InterviewSettings(TemplateView):
         for question in questions:
             interview.questions.add(question)
         return HttpResponseRedirect(
-                reverse('interview:interview', kwargs={'interview_id': interview.pk}))
+                reverse(
+                    'interview:interview',
+                    kwargs={'interview_id': interview.pk}
+                )
+        )
 
 
 class InterviewFlow(TemplateView):
