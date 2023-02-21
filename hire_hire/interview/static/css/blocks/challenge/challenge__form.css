@@ -1,4 +1,5 @@
 .challenge__form {
   display: flex;
   flex-direction: column;
+  min-width: 784px;
 }
