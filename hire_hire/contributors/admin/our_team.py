@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from static_info.models import OurTeam
+from contributors.models import OurTeam
 
 
 @admin.register(OurTeam)

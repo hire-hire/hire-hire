@@ -26,15 +26,13 @@ class OurTeam(models.Model):
         help_text='Добавьте фото',
     )
     role = models.ForeignKey(
-        'static_info.TeamRole',
+        'contributors.TeamRole',
         verbose_name='роль в команде',
         on_delete=models.PROTECT,
     )
-    contact = models.URLField(
-        'контакт',
-        blank=True,
-        null=True,
-        help_text='Укажите ссылку (github, telegram, vk и другие)',
+    contact = models.ManyToManyField(
+        'contributors.MemberContact',
+        'контакты',
     )
 
     class Meta:

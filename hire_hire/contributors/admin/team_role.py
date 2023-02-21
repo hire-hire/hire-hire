@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from static_info.models import TeamRole
+from contributors.models import TeamRole
 
 
 @admin.register(TeamRole)
