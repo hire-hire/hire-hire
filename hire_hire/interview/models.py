@@ -87,3 +87,84 @@ class Interview(models.Model):
     class Meta:
         verbose_name = 'интервью'
         verbose_name_plural = 'интервью'
+
+
+class Duel(models.Model):
+    """
+    Объект дуэли.
+    В MVP:
+        - может содержать овнера
+        - считает неверные ответы
+    """
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='duels',
+        null=True,
+    )
+
+    wrong_answers = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = 'дуэль'
+        verbose_name_plural = 'дуэли'
+
+
+class DuelPlayer(models.Model):
+    """
+    Объект счетчика в дуэли.
+    В MVP:
+        - хранит имя игрока
+        - хранит текущий счет
+        - связана с дуэлью
+    """
+
+    name = models.CharField(
+        max_length=100,
+        default='Игрок',
+        verbose_name='имя игрока'
+    )
+
+    counter = models.IntegerField(default=0)
+
+    duel = models.ForeignKey(
+        Duel,
+        on_delete=models.CASCADE,
+        related_name='players'
+    )
+
+    class Meta:
+        verbose_name = 'участник дуэли'
+        verbose_name_plural = 'участники дуэли'
+
+    def __str__(self):
+        return self.name[:15]
+
+
+class DuelQuestion(models.Model):
+    """
+    Объект вопроса в рамках дуэли.
+    В MVP:
+        - хранит вопрос для конкретной дуэли
+        - хранит статус вопроса
+    """
+
+    duel = models.ForeignKey(
+        Duel,
+        on_delete=models.CASCADE,
+        related_name='questions',
+        verbose_name='дуэль'
+    )
+
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name='duels',
+        verbose_name='вопрос'
+    )
+
+    is_answered = models.BooleanField('дан ответ')
+
+    class Meta:
+        verbose_name = 'вопрос в дуэли'
+        verbose_name_plural = 'вопросы в дуэли'

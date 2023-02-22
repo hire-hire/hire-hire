@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block main %}
+<section class="duel-result sections">
+  <h1 class="duel-result__title sections__secondary-title">
+    Результаты
+  </h1>
+    <div class="duel-result__players">
+      <p class="duel-result__player duel-result__player_type_left sections__subtitle">
+        {{ player1.name }}
+      </p>
+      <p class="duel-result__count sections__main-title">
+        {{ player1.counter }} : {{ player2.counter }}
+      </p>
+      <p class="duel-result__player duel-result__player_type_right sections__subtitle">
+        {{ player2.name }}
+      </p>
+    </div>
+    <p class="duel-result__err-counter page__text">
+      Количество неправильных ответов: {{ duel.wrong_answers }}
+    </p>
+    <div class="duel-result__links">
+      <a href="{{ url('interview:index') }}" class="duel-result__link page__link page__text">
+        На главную
+      </a>
+      <a href="{{ url('interview:duel_settings') }}" class="duel-result__link duel-result__link_type_pouring page__link page__text">
+        Новое испытание
+      </a>
+    </div>
+  </section>
+{% endblock %}
