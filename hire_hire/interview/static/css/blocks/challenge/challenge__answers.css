@@ -1,0 +1,7 @@
+.challenge__answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  max-width: 1600px;
+  grid-column-gap: 36px;
+}

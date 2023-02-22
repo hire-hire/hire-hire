@@ -8,6 +8,8 @@
   border-radius: 24px;
   max-width: 512px;
   box-sizing: border-box;
+  width: 100%;
+  gap: 32px;
 }
 
 .card_type_focused {

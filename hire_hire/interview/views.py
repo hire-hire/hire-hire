@@ -2,7 +2,6 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-# from django.views.generic.base import TemplateView
 from django.views.generic import ListView, TemplateView
 from django.conf import settings
 
@@ -12,7 +11,11 @@ from .models import Interview, Language, Question
 
 class Languages(ListView):
     model = Language
-    template_name = 'pages/programming.html'
+    template_name = 'pages/interviews.html'
+
+
+class Index(TemplateView):
+    template_name = 'pages/index.html'
 
 
 class InterviewSettings(TemplateView):

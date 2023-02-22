@@ -1,49 +1,54 @@
 {% extends 'base.html' %}
 {% block main %}
-      <section class="challenge sections">
-        <h1 class="challenge__title sections__secondary-title">
-          Испытание Python
-        </h1>
-        <p class="challenge__subtitle page__text">
-          <span class="questions__counter">1</span>
-          / 
-          <span class="questions__length">10</span>
+  <section class="challenge sections">
+    <h1 class="challenge__title sections__secondary-title">
+      Испытание Python
+    </h1>
+    <p class="challenge__subtitle page__text">
+      <span class="questions__counter">1</span>
+        /
+      <span class="questions__length">10</span>
+      </p>
+    <form class="challenge__form">
+      <h3 class="challenge__form-title page__text">
+        Вопрос
+      </h3>
+      <div class="challenge__answers">
+        <p class="challenge__form-text challenge__form-text_type_question page__text">
+          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+          какой же это очень крутой проект.
+          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+          какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
         </p>
-        <form class="challenge__form">
-          <h3 class="challenge__form-title page__text">
-            Вопрос
-          </h3>
-          <p class="challenge__form-text challenge__form-text_type_question page__text">
-            Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
-            какой же это очень крутой проект.
-            Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
-            какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
-          </p>
-          <h3 class="challenge__form-title page__text">
-            Ваш ответ
-          </h3>
-          <textarea name="" class="challenge__form-input page__text" placeholder="Введите ответ"></textarea>
-          <h3 class="challenge__form-title page__text challenge__form-title_type_correctly">
-            Правильный ответ
-          </h3>
-          <p class="challenge__form-text challenge__form-text_type_correctly page__text">
-            Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
-            какой же это очень крутой проект.
-            Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
-            какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
-          </p>
-          <button type="button" class="challenge__form-button page__text challenge__form-button_type_visible challenge__form-button_type_button">Показать правильный ответ</button>
-          <button type="button" class="challenge__form-button page__text challenge__form-button_type_next">Следующий вопрос</button>
-          <a href="{{ url('interview:finish') }}" class="challenge__form-button page__text page__link challenge__form-button_type_link">
-            Завершить испытание
-          </a>
-        </form>
-      </section>
-      {% for question in questions %}
+      </div>
+      <div class="challenge__answers">
+        <h3 class="challenge__form-title page__text">
+          Ваш ответ
+        </h3>
+        <h3 class="challenge__form-title page__text challenge__form-title_type_correctly">
+          Правильный ответ
+        </h3>
+        <textarea name="" class="challenge__form-input page__text" placeholder="Введите ответ"></textarea>
+        <p class="challenge__form-text challenge__form-text_type_correctly page__text">
+          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+          какой же это очень крутой проект.
+          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+          какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
+        </p>
+        </div>
+        <button type="button"
+          class="challenge__form-button page__text challenge__form-button_type_visible challenge__form-button_type_button">Показать
+          правильный ответ</button>
+        <button type="button" class="challenge__form-button page__text challenge__form-button_type_next">Следующий
+          вопрос</button>
+        <a href="{{ url('interview:finish') }}"
+          class="challenge__form-button page__text page__link challenge__form-button_type_link">
+          Завершить испытание
+        </a>
+      </form>
+    </section>
+    {% for question in questions %}
         <p class="challenge__qa">{{ question.text }}? {{ question.answer }}</p>
-      {% endfor %}
-
-      <script type="text/javascript" src="{{ static('js/challenge.js')}}"></script>
-      <!-- <p class="challenge__qa">Вопрос1? Ответ1</p> -->
-      {% endblock %}
-
+    {% endfor %}
+    <script type="text/javascript" src="{{ static('js/challenge.js') }}"></script>
+{% endblock %}

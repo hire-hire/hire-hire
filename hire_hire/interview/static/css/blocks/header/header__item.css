@@ -5,3 +5,7 @@
 .header__item:last-of-type {
   margin-right: 0;
 }
+
+.header__item_type_hidden {
+  display: none;
+}

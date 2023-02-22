@@ -10,9 +10,9 @@
 }
 
 .footer__link_type_tg {
-  background-image: url('../../../images/tgicon.png');
+  background-image: url(../../../images/tgicon.png);
 }
 
 .footer__link_type_yt {
-  background-image: url('../../../images/yticon.png');
+  background-image: url(../../../images/tgicon.png);
 }

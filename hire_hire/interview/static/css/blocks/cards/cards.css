@@ -1,8 +1,9 @@
 .cards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 32px;
   align-items: center;
+  justify-items: center;
   max-width: 1600px;
   box-sizing: border-box;
   width: 100%;

@@ -29,8 +29,6 @@
           <input type="password" class="form__input page__text form__input_type_error" name="password" id="password"
             placeholder="Пароль" required>
           <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
-          <button type="button" class="page__text form__button_type_forgot"
-            aria-label="Кнопка перехода на страницу восстановления пароля">Забыли пароль?</button>
           <button type="submit" class="form__button page__text form__button_type_pouring" value="Войти"
             aria-label="Кнопка отправки формы">Войти</button>
           <p class="form__hint page__text">В первый раз здесь?</p>
@@ -55,7 +53,7 @@
               <input type="password" class="form__input page__text form__input_type_error" name="password" id="password"
                 required>
               <div class="form__label-hint-container">
-                <img src="{{ static('images/help-circle.png') }}" alt="Подсказка" class="form__label-image">
+                <img src=".{{ static('images/help-circle.png') }}" alt="Подсказка" class="form__label-image">
                 <span class="form__label-hint page__text">
                   Пароль должен содержать столько-то знаков
                 </span>

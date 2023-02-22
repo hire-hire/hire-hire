@@ -1,6 +1,6 @@
-.challenge__form {
+.duel__labels {
   display: flex;
   flex-direction: column;
-  max-width: 1600px;
   width: 100%;
+  gap: 16px;
 }

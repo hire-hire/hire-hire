@@ -1,50 +1,54 @@
 {% extends 'base.html' %}
 {% block main %}
-      <section class="test-settings sections">
-        <h1 class="test-settings__title sections__main-title">
-          Программирование
-        </h1>
-        <p class="test-settings__description sections__describtion">
-          Выбери количество вопросов для собеседования и приступай к испытанию
-        </p>
-        <!-- <p class="test-settings__description sections__describtion">
-          Пройди собеседование по Python!
-        </p> -->
-      </section>
-      <form class="test-settings-form" method="post" action="{{ url('interview:settings') }}">
-        {{ csrf_input }}
-        <h2 class="test-settings-form__title sections__secondary-title">
-          Направление собеседования
-        </h2>
-        <h3 class="test-settings-form__subtitle page__text">
-          Python
-        </h3>
-        <div class="test-settings-form__inputs">
-          <p class="test-settings-form__hint page__text">
-            Настройте параметры для тестирования
-          </p>
-          <div class="test-settings-form__labels">
-            <label class="test-settings-form__label page__text">
-              Количество вопросов
-              <select name="questions-count" class="test-settings-form__select page__text">
-                <option value="10" selected>10 вопросов</option>
-                <option value="15">20 вопросов</option>
-                <option value="20">30 вопросов</option>
-              </select>
-            </label>
-            <label class="test-settings-form__label page__text">
-              Уровень сложности
-              <select name="level" class="test-settings-form__select page__text">
-                <option value="Junior" selected>Junior</option>
-                <option value="Middle">Middle</option>
-                <option value="Senior">Senior</option>
-              </select>
-            </label>
-          </div>
-        </div>
-        <div class="test-settings__links">
-          <a href="{{ url('interview:languages') }}" class="programming__link page__link page__text">Назад</a>
-          <button type="submit" class="programming__link page__link page__text programming__link_type_pouring">Далее</button>
-        </div>
-      </form>
+<section class="test-settings sections">
+  <h1 class="test-settings__title sections__main-title">
+    Пройти собеседование
+  </h1>
+  <p class="test-settings__description sections__describtion">
+    Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+    какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
+  </p>
+  <p class="test-settings__description sections__describtion">
+    Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+    какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
+  </p>
+</section>
+<form class="test-settings-form" method="post" action="{{ url('interview:settings') }}">
+  {{ csrf_input }}
+  <h2 class="test-settings-form__title sections__secondary-title">
+    Пройти собеседование
+  </h2>
+  <h3 class="test-settings-form__subtitle page__text">
+    Python
+  </h3>
+  <div class="test-settings-form__inputs">
+    <p class="test-settings-form__hint page__text">
+      Настройте параметры для тестирования
+    </p>
+    <div class="test-settings-form__labels">
+      <label class="test-settings-form__label page__text">
+        Количество вопросов
+        <select name="questions-count" class="test-settings-form__select page__text">
+          <option value="10" selected>10 вопросов</option>
+          <option value="15">20 вопросов</option>
+          <option value="20">30 вопросов</option>
+        </select>
+      </label>
+      <label class="test-settings-form__label page__text">
+        Уровень сложности (в разработке)
+        <select name="level" class="test-settings-form__select page__text" disabled>
+          <option value="Junior" selected>Junior</option>
+          <option value="Middle">Middle</option>
+          <option value="Senior">Senior</option>
+        </select>
+      </label>
+    </div>
+  </div>
+<!-- </form> -->
+  <div class="test-settings__links">
+    <a href="{{ url('interview:languages') }}" class="programming__link page__link page__text">Назад</a>
+    <!-- <a href="./challenge.html" class="programming__link page__link page__text programming__link_type_pouring">Далее</a> -->
+    <button type="submit" class="programming__link page__link page__text programming__link_type_pouring">Далее</button>
+  </div>
+</form>
 {% endblock %}
