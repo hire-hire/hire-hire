@@ -1,0 +1,6 @@
+.duel__qa-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin-bottom: 40px;
+}

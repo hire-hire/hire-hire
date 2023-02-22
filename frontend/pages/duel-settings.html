@@ -41,37 +41,31 @@
       </nav>
     </header>
     <main class="main">
-      <section class="info sections">
-        <h1 class="info__title sections__main-title">
-          Пройти собеседование
+      <section class="duel-settings sections">
+        <h1 class="duel-settings__title sections__main-title">
+          Голодные игры
         </h1>
-        <p class="info__description page__text">
-          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
-          какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
-        </p>
-        <p class="info__description page__text">
-          Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
-          какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
-        </p>
-      </section>
-      <section class="directions sections">
-        <h2 class="directions__title sections__main-title">
-          Пройти собеседование
+        <h2 class="duel-settings__subtitle sections__subtitle">
+          Python
         </h2>
-        <ul class="cards page__list">
-          <li class="card">
-            <img src="#" alt="" class="card__image">
-            <h3 class="card__title page__text">
-              Python
-            </h3>
-            <!-- <p class="card__subtitle page__text">
-              Короткий поясняющий текст, буквально пару предложений. 
-            </p> -->
-            <a href="./test-settings.html" class="card__link page__link page__text">
-              Перейти
-            </a>
-          </li>
-        </ul>
+        <form class="duel-settings__form">
+          <label class="duel-settings__label page__text">
+            Количество вопросов
+            <select name="duel-questions-count" class="test-settings-form__select duel-settings__select page__text">
+              <option value="10" selected>10 вопросов</option>
+              <option value="15">20 вопросов</option>
+              <option value="20">30 вопросов</option>
+            </select>
+          </label>
+          <label class="duel-settings__label page__text">
+            Введите имена игроков
+            <input type="text" class="duel-settings__input page__text" placeholder="Игрок 1">
+            <input type="text" class="duel-settings__input page__text" placeholder="Игрок 2">
+          </label>
+          <button class="duel-settings__button page__text">
+            Далее
+          </button>
+        </form>
       </section>
     </main>
     <footer class="footer">

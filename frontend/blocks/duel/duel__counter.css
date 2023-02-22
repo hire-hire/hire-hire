@@ -1,6 +1,7 @@
-.card__title {
+.duel__counter {
+  text-align: center;
   font-size: 32px;
   line-height: 106%;
-  color: #080617;
   font-weight: bold;
+  color: #000AFF;
 }

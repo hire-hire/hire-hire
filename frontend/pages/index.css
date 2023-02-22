@@ -33,6 +33,7 @@
 @import url(../blocks/sections/sections__main-title.css);
 @import url(../blocks/sections/sections__secondary-title.css);
 @import url(../blocks/sections/sections__description.css);
+@import url(../blocks/sections/sections__subtitle.css);
 
 /* About */
 
@@ -102,6 +103,7 @@
 @import url(../blocks/challenge/challenge__form-input.css);
 @import url(../blocks/challenge/challenge__form-button.css);
 @import url(../blocks/challenge/challenge__qa.css);
+@import url(../blocks/challenge/challenge__answers.css);
 
 /* Test-finished */
 
@@ -138,3 +140,49 @@
 /* Profile */
 
 @import url(../blocks/profile/profile__exit-button.css);
+
+/* Duel-settings */
+
+@import url(../blocks/duel-settings/duel-settings__form.css);
+@import url(../blocks/duel-settings/duel-settings__label.css);
+@import url(../blocks/duel-settings/duel-settings__input.css);
+@import url(../blocks/duel-settings/duel-settings__select.css);
+@import url(../blocks/duel-settings/duel-settings__button.css);
+
+/* Duel-question */
+
+@import url(../blocks/duel/duel__players.css);
+@import url(../blocks/duel/duel__form.css);
+@import url(../blocks/duel/duel__form-title.css);
+@import url(../blocks/duel/duel__counter.css);
+@import url(../blocks/duel/duel__player.css);
+@import url(../blocks/duel/duel__player_type_left.css);
+@import url(../blocks/duel/duel__player_type_right.css);
+@import url(../blocks/duel/duel__question.css);
+@import url(../blocks/duel/duel__form-subtitle.css);
+@import url(../blocks/duel/duel__labels.css);
+@import url(../blocks/duel/duel__radio.css);
+@import url(../blocks/duel/duel__label.css);
+@import url(../blocks/duel/duel__button.css);
+@import url(../blocks/duel/duel__qa-container.css);
+@import url(../blocks/duel/duel__answer.css);
+
+/* Duel-result */
+
+@import url(../blocks/duel-result/duel-result__title.css);
+@import url(../blocks/duel-result/duel-result__players.css);
+@import url(../blocks/duel-result/duel-result__count.css);
+@import url(../blocks/duel-result/duel-result__player_type_left.css);
+@import url(../blocks/duel-result/duel-result__player_type_right.css);
+@import url(../blocks/duel-result/duel-result__err-counter.css);
+@import url(../blocks/duel-result/duel-result__links.css);
+@import url(../blocks/duel-result/duel-result__link.css);
+
+/* Team */
+
+@import url(../blocks/team/team__title.css);
+@import url(../blocks/team/team__cards.css);
+@import url(../blocks/team/team__card.css);
+@import url(../blocks/team/team__card-image.css);
+@import url(../blocks/team/team__card-info.css);
+@import url(../blocks/team/team__card-title.css);

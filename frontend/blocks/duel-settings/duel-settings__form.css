@@ -1,0 +1,8 @@
+.duel-settings__form {
+  min-width: 512px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}

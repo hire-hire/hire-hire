@@ -33,7 +33,7 @@
             </a>
           </li>
           <li class="header__item header__item_type_hidden">
-            <a href="#" class="header__link page__link page__text">
+            <a href="./profile.html" class="header__link page__link page__text">
               Личный кабинет
             </a>
           </li>
@@ -41,54 +41,64 @@
       </nav>
     </header>
     <main class="main">
-      <section class="challenge sections">
-        <h1 class="challenge__title sections__secondary-title">
+      <section class="duel-question sections">
+        <h1 class="duel__title sections__secondary-title">
           Испытание Python
         </h1>
-        <p class="challenge__subtitle page__text">
-          <span class="questions__counter">1</span>
-          /
-          <span class="questions__length">10</span>
-        </p>
-        <form class="challenge__form">
-          <h3 class="challenge__form-title page__text">
+        <div class="duel__players">
+          <p class="duel__player duel-question__player_type_left page__text">
+            Игрок 1
+          </p>
+          <p class="duel__counter page__text">
+            0 : 0
+          </p>
+          <p class="duel__player duel__player_type_right page__text">
+            Игрок 2
+          </p>
+        </div>
+        <form class="duel__form" name="duel-form">
+          <h2 class="duel__form-title page__text">
             Вопрос
+          </h2>
+          <div class="duel__qa-container">
+            <p class="duel__question page__text">
+              Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+              какой же это очень крутой проект.
+              Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+              какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
+            </p>
+            <p class="duel__answer page__text">
+              Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+              какой же это очень крутой проект.
+              Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
+              какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
+            </p>
+          </div>
+          <h3 class="duel__form-subtitle page__text">
+            Кто ответил правильно
           </h3>
-          <div class="challenge__answers">
-            <p class="challenge__form-text challenge__form-text_type_question page__text">
-              Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
-              какой же это очень крутой проект.
-              Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
-              какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
-            </p>
+          <div class="duel__labels">
+            <label class="duel__label page__text">
+              <input name="duel-radio" type="radio" class="duel__radio">
+              Игрок 1
+            </label>
+            <label class="duel__label page__text">
+              <input name="duel-radio" type="radio" class="duel__radio">
+              Игрок 2
+            </label>
+            <label class="duel__label page__text">
+              <input name="duel-radio" type="radio" class="duel__radio">
+              Нет правильного ответа
+            </label>
           </div>
-          <div class="challenge__answers">
-            <h3 class="challenge__form-title page__text">
-              Ваш ответ
-            </h3>
-            <h3 class="challenge__form-title page__text challenge__form-title_type_correctly">
-              Правильный ответ
-            </h3>
-            <textarea name="" class="challenge__form-input page__text" placeholder="Введите ответ"></textarea>
-            <p class="challenge__form-text challenge__form-text_type_correctly page__text">
-              Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
-              какой же это очень крутой проект.
-              Рыбий текст, какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект. Рыбий текст,
-              какой же это очень крутой проект. Рыбий текст, какой же это очень крутой проект.
-            </p>
-          </div>
-          <button type="button"
-            class="challenge__form-button page__text challenge__form-button_type_visible challenge__form-button_type_button">Показать
-            правильный ответ</button>
-          <button type="button" class="challenge__form-button page__text challenge__form-button_type_next">Следующий
-            вопрос</button>
-          <a href="./test-finished.html"
-            class="challenge__form-button page__text page__link challenge__form-button_type_link">
-            Завершить испытание
-          </a>
+          <button class="duel__button duel__button_type-hidden page__text">
+            Показать правильный ответ
+          </button>
+          <button class="duel__button duel__button_type_next page__text">
+            Следующий вопрос
+          </button>
         </form>
       </section>
-      <p class="challenge__qa">Вопрос1? Ответ1</p>
     </main>
     <footer class="footer">
       <div class="footer__contacts">
@@ -106,7 +116,6 @@
       </p>
     </footer>
   </div>
-  <script type="text/javascript" src="./challenge.js"></script>
 </body>
 
 </html>
