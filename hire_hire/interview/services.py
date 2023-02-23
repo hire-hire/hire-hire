@@ -1,6 +1,12 @@
 from django.conf import settings
 
-from interview.models import Duel, DuelPlayer, DuelQuestion, Question, Interview
+from interview.models import (
+    Duel,
+    DuelPlayer,
+    DuelQuestion,
+    Question,
+    Interview,
+)
 
 
 def create_interview(request):
@@ -24,7 +30,8 @@ def create_duel(request):
     )
 
     DuelPlayer.objects.bulk_create(
-        (DuelPlayer(name=request.POST.get(f'player{pk}'), duel=duel)) for pk in range(1, 3)
+        (DuelPlayer(name=request.POST.get(f'player{pk}'), duel=duel))
+        for pk in range(1, 3)
     )
 
     DuelQuestion.objects.bulk_create((

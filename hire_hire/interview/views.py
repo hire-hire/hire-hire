@@ -8,7 +8,11 @@ from interview.models import (
     Interview,
     Language,
 )
-from interview.services import create_duel, set_duel_question_is_answered, create_interview
+from interview.services import (
+    create_duel,
+    set_duel_question_is_answered,
+    create_interview,
+)
 
 
 class LanguagesView(ListView):
