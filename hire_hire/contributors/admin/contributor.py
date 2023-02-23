@@ -25,7 +25,7 @@ class ContributorAdmin(admin.ModelAdmin):
                     Value(' '),
                     F('last_name'),
                     Value(' '),
-                    F('middle_name')
+                    F('middle_name'),
                 )
             )
         return queryset
