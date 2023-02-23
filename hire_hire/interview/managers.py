@@ -4,10 +4,6 @@ from django.db import models
 
 
 class QuestionManager(models.Manager):
-    """
-    Кастомный менеджер для добавления метода
-    выборки данного кол-ва случайных вопросов.
-    """
 
     def get_random_questions(self, cnt):
         ids = list(self.get_queryset().values_list('id', flat=True))
