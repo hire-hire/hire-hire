@@ -161,7 +161,7 @@ class DuelFlowAnswered(DuelFlowQuestion):
         winner_id = int(request.POST.get('duel-radio-player'))
         if duel.players.filter(pk=winner_id).exists():
             winner = duel.players.filter(pk=winner_id).first()
-            winner.counter += 1
+            winner.good_answers_count += 1
             winner.save()
         else:
             duel.wrong_answers_count += 1

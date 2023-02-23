@@ -128,17 +128,21 @@ class DuelPlayer(models.Model):
     """
 
     name = models.CharField(
+        'имя игрока',
         max_length=100,
         default='Игрок',
-        verbose_name='имя игрока'
     )
 
-    counter = models.IntegerField(default=0, verbose_name='счетчик')
+    good_answers_count = models.IntegerField(
+        default=0,
+        verbose_name='счетчик',
+    )
 
     duel = models.ForeignKey(
         Duel,
         on_delete=models.CASCADE,
         related_name='players',
+        verbose_name='дуэль',
     )
 
     class Meta:
