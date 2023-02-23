@@ -4,11 +4,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView
 
 from duel.models import Duel
-
-from duel.services import (
-    create_duel,
-    set_duel_question_is_answered,
-)
+from duel.services import create_duel, set_duel_question_is_answered
 
 
 class DuelSettingsView(TemplateView):
