@@ -164,7 +164,7 @@ class DuelFlowAnswered(DuelFlowQuestion):
             winner.counter += 1
             winner.save()
         else:
-            duel.wrong_answers += 1
+            duel.wrong_answers_count += 1
             duel.save()
         return HttpResponseRedirect(
             reverse(

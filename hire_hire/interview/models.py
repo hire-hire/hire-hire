@@ -100,15 +100,22 @@ class Duel(models.Model):
     owner = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='duels',
         null=True,
+        related_name='duels',
+        verbose_name='владец игры',
     )
 
-    wrong_answers = models.IntegerField(default=0)
+    wrong_answers_count = models.IntegerField(
+        'количество неправильных ответов',
+        default=0,
+    )
 
     class Meta:
         verbose_name = 'дуэль'
         verbose_name_plural = 'дуэли'
+
+    def __str__(self):
+        return f'дуэль {self.pk}'
 
 
 class DuelPlayer(models.Model):
