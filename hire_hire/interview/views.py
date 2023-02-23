@@ -3,10 +3,9 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView
 
+from interview.mixins import CheckDuelFinishMixin
 from interview.models import (
     Duel,
-    DuelPlayer,
-    DuelQuestion,
     Interview,
     Language,
     Question,
@@ -74,7 +73,7 @@ class DuelSettingsView(TemplateView):
         )
 
 
-class DuelFlowQuestionView(TemplateView):
+class DuelFlowQuestionView(CheckDuelFinishMixin, TemplateView):
     template_name = 'interview/duel.html'
 
     def get_context_data(self, **kwargs):
@@ -91,23 +90,12 @@ class DuelFlowQuestionView(TemplateView):
 
         return context
 
-    def _finish_duel(self, context):
-        if context.get('duel_question'):
-            return self.render_to_response(context)
-
-        return HttpResponseRedirect(
-            reverse(
-                'interview:duel_finish',
-                kwargs={'duel_id': context.get('duel_id')},
-            )
-        )
-
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         return self._finish_duel(context)
 
 
-class DuelFlowAnsweredView(DuelFlowQuestionView):
+class DuelFlowAnsweredView(CheckDuelFinishMixin, TemplateView):
     template_name = 'interview/duel.html'
 
     def get_context_data(self, **kwargs):
