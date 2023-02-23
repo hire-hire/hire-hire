@@ -7,7 +7,6 @@ const registerPopup = page.querySelector('.popup_type_register');
 const popupCloseButtons = page.querySelectorAll('.popup__close-btn');
 const registerButton = authPopup.querySelector('.form__button_type_register');
 const revivePasswordButton = authPopup.querySelector('.form__button_type_forgot');
-const revivePasswordSubmitButton = revivePasswordPopup.querySelector('.form__button_type_revive-password');
 
 function closeAllPopups() {
   page.classList.remove('page_disabled');
@@ -35,7 +34,6 @@ function openRegisterPopup() {
 
 authButton.addEventListener('click', openAuthPopup);
 registerButton.addEventListener('click', openRegisterPopup);
-revivePasswordButton.addEventListener('click', openRevivePasswordPopup);
 
 // Revive Passwor Popup
 
@@ -56,6 +54,3 @@ function changeReviveFormInputs() {
     infoText.classList.add('form__info_type_visible');
   }
 }
-
-revivePasswordSubmitButton.addEventListener('click', changeReviveFormInputs);
-
