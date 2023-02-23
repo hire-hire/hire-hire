@@ -21,7 +21,7 @@ class DuelQuestionManager(models.Manager):
 
 
 class DuelPlayer(models.Manager):
-    def update_score(self, winner_pk, duel):
+    def update_player_and_duel_score(self, winner_pk, duel):
         winner = self.get_queryset().filter(
             pk=winner_pk,
         ).first()

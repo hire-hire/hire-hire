@@ -120,7 +120,7 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
             pk=kwargs.get('duel_id'),
         )
 
-        duel.players.update_score(
+        duel.players.update_player_and_duel_score(
             winner_pk=int(request.POST.get('duel-radio-player', -1)),
             duel=duel,
         )
@@ -142,7 +142,7 @@ class DuelFinishView(TemplateView):
             Duel.objects.select_related(),
             pk=kwargs.get('duel_id'),
         )
-        
+
         context['duel'] = duel
         context['player1'], context['player2'] = duel.players.all()
 
