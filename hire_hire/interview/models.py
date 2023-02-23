@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from interview.managers import QuestionManager
+from interview.managers import QuestionManager, DuelQuestionManager
 
 User = get_user_model()
 
@@ -164,6 +164,8 @@ class DuelQuestion(models.Model):
     )
 
     is_answered = models.BooleanField('дан ответ')
+
+    objects = DuelQuestionManager()
 
     class Meta:
         verbose_name = 'вопрос в дуэли'

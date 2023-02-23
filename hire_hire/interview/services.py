@@ -29,3 +29,9 @@ def get_question_count(post_data, atr_name):
         return int(post_data.get(atr_name))
     except ValueError:
         return settings.DEFAULT_QUESTIONS_COUNT
+
+
+def set_duel_question_is_answered(duel_question):
+    if duel_question:
+        duel_question.is_answered = True
+        duel_question.save()

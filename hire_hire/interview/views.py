@@ -5,13 +5,11 @@ from django.views.generic import ListView, TemplateView
 
 from interview.models import (
     Duel,
-    DuelPlayer,
-    DuelQuestion,
     Interview,
     Language,
     Question,
 )
-from interview.services import get_question_count, create_duel
+from interview.services import get_question_count, create_duel, set_duel_question_is_answered
 
 
 class LanguagesView(ListView):
@@ -77,17 +75,17 @@ class DuelSettingsView(TemplateView):
 class DuelFlowQuestionView(TemplateView):
     template_name = 'interview/duel.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, can_choose_winner=False, **kwargs):
         context = super().get_context_data(**kwargs)
         duel = get_object_or_404(
             Duel.objects.select_related(),
             pk=kwargs.get('duel_id')
         )
         context['duel_id'] = duel.pk
-        context['can_choose_winner'] = False
+        context['can_choose_winner'] = can_choose_winner
 
         context['player1'], context['player2'] = duel.players.all()
-        context['duel_question'] = duel.questions.filter(is_answered=False).first()  # нельзя model manager заюзать :(
+        context['duel_question'] = duel.questions.get_no_answered()
 
         return context
 
@@ -111,12 +109,10 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
     template_name = 'interview/duel.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['can_choose_winner'] = True
-        duel_question = context.get('duel_question')
-        if duel_question:
-            duel_question.is_answered = True
-            duel_question.save()
+        context = super().get_context_data(can_choose_winner=True, **kwargs)
+
+        set_duel_question_is_answered(context.get('duel_question'))
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -124,9 +120,13 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
             Duel.objects.select_related(),
             pk=kwargs.get('duel_id')
         )
-        winner_id = int(request.POST.get('duel-radio-player'))
-        if duel.players.filter(pk=winner_id).exists():
-            winner = duel.players.filter(pk=winner_id).first()
+
+        winner_pk = int(request.POST.get('duel-radio-player', -1))
+        winner = duel.players.filter(
+            pk=winner_pk,
+        ).first()
+
+        if winner:
             winner.good_answers_count += 1
             winner.save()
         else:
@@ -135,7 +135,7 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
         return HttpResponseRedirect(
             reverse(
                 'interview:duel',
-                kwargs={'duel_id': duel.pk}
+                kwargs={'duel_id': duel.pk},
             )
         )
 
