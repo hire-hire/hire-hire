@@ -93,7 +93,9 @@ class DuelQuestion(models.Model):
         verbose_name='вопрос',
     )
 
-    is_answered = models.BooleanField('дан ответ')
+    is_answered = models.BooleanField(
+        'дан ответ',
+    )
 
     objects = DuelQuestionManager()
 
