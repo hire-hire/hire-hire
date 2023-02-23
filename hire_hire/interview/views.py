@@ -1,18 +1,17 @@
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
 from django.views.generic import ListView, TemplateView
 from django.conf import settings
 
-from .exceptions import CustomException
-from .models import (
+from interview.exceptions import CustomException
+from interview.models import (
     Duel,
     DuelPlayer,
     DuelQuestion,
     Interview,
     Language,
-    Question
+    Question,
 )
 
 
@@ -107,7 +106,6 @@ class DuelSettingsView(TemplateView):
 
 
 class DuelFlowQuestionView(TemplateView):
-
     template_name = 'interview/duel.html'
 
     def get_context_data(self, **kwargs):
@@ -141,7 +139,6 @@ class DuelFlowQuestionView(TemplateView):
 
 
 class DuelFlowAnsweredView(DuelFlowQuestionView):
-
     template_name = 'interview/duel.html'
 
     def get_context_data(self, **kwargs):
@@ -175,7 +172,6 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
 
 
 class DuelFinishView(TemplateView):
-
     template_name = 'interview/duel-results.html'
 
     def get_context_data(self, **kwargs):
