@@ -22,3 +22,17 @@ class DuelQuestionManager(models.Manager):
             query = query.first()
 
         return query
+
+
+class DuelPlayer(models.Manager):
+    def update_score(self, winner_pk, duel):
+        winner = self.get_queryset().filter(
+            pk=winner_pk,
+        ).first()
+
+        if winner:
+            winner.good_answers_count += 1
+            winner.save()
+        else:
+            duel.wrong_answers_count += 1
+            duel.save()

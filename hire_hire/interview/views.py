@@ -79,7 +79,7 @@ class DuelFlowQuestionView(TemplateView):
         context = super().get_context_data(**kwargs)
         duel = get_object_or_404(
             Duel.objects.select_related(),
-            pk=kwargs.get('duel_id')
+            pk=kwargs.get('duel_id'),
         )
         context['duel_id'] = duel.pk
         context['can_choose_winner'] = can_choose_winner
@@ -110,7 +110,6 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(can_choose_winner=True, **kwargs)
-
         set_duel_question_is_answered(context.get('duel_question'))
 
         return context
@@ -118,20 +117,14 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
     def post(self, request, *args, **kwargs):
         duel = get_object_or_404(
             Duel.objects.select_related(),
-            pk=kwargs.get('duel_id')
+            pk=kwargs.get('duel_id'),
         )
 
-        winner_pk = int(request.POST.get('duel-radio-player', -1))
-        winner = duel.players.filter(
-            pk=winner_pk,
-        ).first()
+        duel.players.update_score(
+            winner_pk=int(request.POST.get('duel-radio-player', -1)),
+            duel=duel,
+        )
 
-        if winner:
-            winner.good_answers_count += 1
-            winner.save()
-        else:
-            duel.wrong_answers_count += 1
-            duel.save()
         return HttpResponseRedirect(
             reverse(
                 'interview:duel',

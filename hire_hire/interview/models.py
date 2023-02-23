@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from interview.managers import QuestionManager, DuelQuestionManager
+from interview.managers import QuestionManager, DuelQuestionManager, DuelPlayer
 
 User = get_user_model()
 
@@ -132,6 +132,7 @@ class DuelPlayer(models.Model):
         related_name='players',
         verbose_name='дуэль',
     )
+    objects = DuelPlayer()
 
     class Meta:
         verbose_name = 'участник дуэли'
