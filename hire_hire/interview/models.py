@@ -86,6 +86,9 @@ class Interview(models.Model):
         verbose_name = 'интервью'
         verbose_name_plural = 'интервью'
 
+    def __str__(self):
+        return f'интервью {self.pk}'
+
 
 class Duel(models.Model):
     """
