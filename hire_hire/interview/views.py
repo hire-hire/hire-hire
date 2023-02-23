@@ -18,15 +18,15 @@ from .models import (
 
 class Languages(ListView):
     model = Language
-    template_name = 'pages/interviews.html'
+    template_name = 'interview/interviews.html'
 
 
 class Index(TemplateView):
-    template_name = 'pages/index.html'
+    template_name = 'interview/index.html'
 
 
 class InterviewSettings(TemplateView):
-    template_name = 'pages/test-settings.html'
+    template_name = 'interview/test-settings.html'
 
     def post(self, request, *args, **kwargs):
         count = request.POST.get(
@@ -55,7 +55,7 @@ class InterviewSettings(TemplateView):
 
 
 class InterviewFlow(TemplateView):
-    template_name = 'pages/challenge.html'
+    template_name = 'interview/challenge.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -65,11 +65,11 @@ class InterviewFlow(TemplateView):
 
 
 class InterviewFinish(TemplateView):
-    template_name = 'pages/test-finished.html'
+    template_name = 'interview/test-finished.html'
 
 
 class DuelSettings(TemplateView):
-    template_name = 'pages/duel-settings.html'
+    template_name = 'interview/duel-settings.html'
 
     def post(self, request, *args, **kwargs):
         options = request.POST
@@ -108,7 +108,7 @@ class DuelSettings(TemplateView):
 
 class DuelFlowQuestion(TemplateView):
 
-    template_name = 'pages/duel.html'
+    template_name = 'interview/duel.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -142,7 +142,7 @@ class DuelFlowQuestion(TemplateView):
 
 class DuelFlowAnswered(DuelFlowQuestion):
 
-    template_name = 'pages/duel.html'
+    template_name = 'interview/duel.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -176,7 +176,7 @@ class DuelFlowAnswered(DuelFlowQuestion):
 
 class DuelFinish(TemplateView):
 
-    template_name = 'pages/duel-results.html'
+    template_name = 'interview/duel-results.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
