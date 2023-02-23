@@ -2,7 +2,7 @@ from django.db import models
 from sorl.thumbnail import ImageField
 
 
-class OurTeam(models.Model):
+class Contributor(models.Model):
     first_name = models.CharField(
         'имя',
         max_length=150,
@@ -29,10 +29,6 @@ class OurTeam(models.Model):
         'contributors.TeamRole',
         verbose_name='роль в команде',
         on_delete=models.PROTECT,
-    )
-    contact = models.ManyToManyField(
-        'contributors.MemberContact',
-        'контакты',
     )
 
     class Meta:

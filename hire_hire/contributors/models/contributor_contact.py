@@ -1,7 +1,13 @@
 from django.db import models
 
 
-class MemberContact(models.Model):
+class ContributorContact(models.Model):
+    contributor = models.ForeignKey(
+        'contributors.Contributor',
+        verbose_name='член команды',
+        on_delete=models.CASCADE,
+        related_name='contacts',
+    )
     # по этому полю фронт сможет подставлять соответсвующие соцсети значки
     social_network = models.CharField(
         'название соцсети',
