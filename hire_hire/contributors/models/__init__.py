@@ -1,9 +1,9 @@
-from .member_contact import MemberContact
-from .our_team import OurTeam
+from .contributor_contact import ContributorContact
+from .contributor import Contributor
 from .team_role import TeamRole
 
 __all__ = [
-    'MemberContact',
-    'OurTeam',
+    'ContributorContact',
+    'Contributor',
     'TeamRole',
 ]
