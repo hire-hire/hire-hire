@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (
+from interview.views import (
     DuelFinish,
     DuelFlowAnswered,
     DuelFlowQuestion,
@@ -12,14 +12,14 @@ from .views import (
     Languages,
 )
 
-
 app_name = 'interview'
 
 urlpatterns = [
     path(
         'duel_settings/',
         DuelSettings.as_view(),
-        name='duel_settings',),
+        name='duel_settings',
+    ),
     path(
         'duel/<int:duel_id>/finish/',
         DuelFinish.as_view(),
@@ -31,7 +31,7 @@ urlpatterns = [
         name='duel_answer',
     ),
     path(
-        'duel/<int:duel_id>',
+        'duel/<int:duel_id>/',
         DuelFlowQuestion.as_view(),
         name='duel',
     ),
@@ -41,7 +41,7 @@ urlpatterns = [
         name='settings',
     ),
     path(
-        'interview/<int:interview_id>',
+        'interview/<int:interview_id>/',
         InterviewFlow.as_view(),
         name='interview',
     ),
@@ -55,5 +55,9 @@ urlpatterns = [
         Languages.as_view(),
         name='languages',
     ),
-    path('', Index.as_view(), name='index',),
+    path(
+        '',
+        Index.as_view(),
+        name='index',
+    ),
 ]
