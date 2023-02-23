@@ -1,15 +1,15 @@
 from django.contrib import admin
 
-from .models import Language, Question
+from interview.models import Language, Question
 
 
+@admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(Language, LanguageAdmin)
-admin.site.register(Question, QuestionAdmin)
