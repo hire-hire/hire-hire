@@ -16,16 +16,16 @@ from .models import (
 )
 
 
-class Languages(ListView):
+class LanguagesView(ListView):
     model = Language
     template_name = 'interview/interviews.html'
 
 
-class Index(TemplateView):
+class IndexView(TemplateView):
     template_name = 'interview/index.html'
 
 
-class InterviewSettings(TemplateView):
+class InterviewSettingsView(TemplateView):
     template_name = 'interview/test-settings.html'
 
     def post(self, request, *args, **kwargs):
@@ -54,7 +54,7 @@ class InterviewSettings(TemplateView):
         )
 
 
-class InterviewFlow(TemplateView):
+class InterviewFlowView(TemplateView):
     template_name = 'interview/challenge.html'
 
     def get_context_data(self, **kwargs):
@@ -64,11 +64,11 @@ class InterviewFlow(TemplateView):
         return context
 
 
-class InterviewFinish(TemplateView):
+class InterviewFinishView(TemplateView):
     template_name = 'interview/test-finished.html'
 
 
-class DuelSettings(TemplateView):
+class DuelSettingsView(TemplateView):
     template_name = 'interview/duel-settings.html'
 
     def post(self, request, *args, **kwargs):
@@ -106,7 +106,7 @@ class DuelSettings(TemplateView):
         )
 
 
-class DuelFlowQuestion(TemplateView):
+class DuelFlowQuestionView(TemplateView):
 
     template_name = 'interview/duel.html'
 
@@ -140,7 +140,7 @@ class DuelFlowQuestion(TemplateView):
         return self._finish_duel(context)
 
 
-class DuelFlowAnswered(DuelFlowQuestion):
+class DuelFlowAnsweredView(DuelFlowQuestionView):
 
     template_name = 'interview/duel.html'
 
@@ -174,7 +174,7 @@ class DuelFlowAnswered(DuelFlowQuestion):
         )
 
 
-class DuelFinish(TemplateView):
+class DuelFinishView(TemplateView):
 
     template_name = 'interview/duel-results.html'
 

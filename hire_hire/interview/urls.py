@@ -1,15 +1,15 @@
 from django.urls import path
 
 from interview.views import (
-    DuelFinish,
-    DuelFlowAnswered,
-    DuelFlowQuestion,
-    DuelSettings,
-    Index,
-    InterviewFinish,
-    InterviewFlow,
-    InterviewSettings,
-    Languages,
+    DuelFinishView,
+    DuelFlowAnsweredView,
+    DuelFlowQuestionView,
+    DuelSettingsView,
+    IndexView,
+    InterviewFinishView,
+    InterviewFlowView,
+    InterviewSettingsView,
+    LanguagesView,
 )
 
 app_name = 'interview'
@@ -17,47 +17,47 @@ app_name = 'interview'
 urlpatterns = [
     path(
         'duel_settings/',
-        DuelSettings.as_view(),
+        DuelSettingsView.as_view(),
         name='duel_settings',
     ),
     path(
         'duel/<int:duel_id>/finish/',
-        DuelFinish.as_view(),
+        DuelFinishView.as_view(),
         name='duel_finish',
     ),
     path(
         'duel/<int:duel_id>/answer/',
-        DuelFlowAnswered.as_view(),
+        DuelFlowAnsweredView.as_view(),
         name='duel_answer',
     ),
     path(
         'duel/<int:duel_id>/',
-        DuelFlowQuestion.as_view(),
+        DuelFlowQuestionView.as_view(),
         name='duel',
     ),
     path(
         'settings/',
-        InterviewSettings.as_view(),
+        InterviewSettingsView.as_view(),
         name='settings',
     ),
     path(
         'interview/<int:interview_id>/',
-        InterviewFlow.as_view(),
+        InterviewFlowView.as_view(),
         name='interview',
     ),
     path(
         'interview/finish/',
-        InterviewFinish.as_view(),
+        InterviewFinishView.as_view(),
         name='finish',
     ),
     path(
         'languages/',
-        Languages.as_view(),
+        LanguagesView.as_view(),
         name='languages',
     ),
     path(
         '',
-        Index.as_view(),
+        IndexView.as_view(),
         name='index',
     ),
 ]
