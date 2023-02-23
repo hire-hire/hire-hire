@@ -1,10 +1,8 @@
-from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView
 
-from interview.exceptions import CustomException
 from interview.models import (
     Duel,
     DuelPlayer,
@@ -13,7 +11,7 @@ from interview.models import (
     Language,
     Question,
 )
-from interview.utils import get_question_count
+from interview.services import get_question_count, create_duel
 
 
 class LanguagesView(ListView):
@@ -29,7 +27,7 @@ class InterviewSettingsView(TemplateView):
     template_name = 'interview/test-settings.html'
 
     def post(self, request, *args, **kwargs):
-        count = get_question_count(request.POST)
+        count = get_question_count(request.POST, 'questions-count')
 
         options = dict()
         if request.user.is_authenticated:
@@ -66,36 +64,12 @@ class DuelSettingsView(TemplateView):
     template_name = 'interview/duel-settings.html'
 
     def post(self, request, *args, **kwargs):
-        options = request.POST
-        count = options.get(
-            'duel-questions-count', default=settings.DEFAULT_QUESTIONS_COUNT
-        )
-
-        try:
-            count = int(count)
-        except CustomException:
-            count = settings.DEFAULT_QUESTIONS_COUNT
-
-        questions = Question.objects.get_random_questions(count)
-        user = None
-        if request.user.is_authenticated:
-            user = request.user
-        duel = Duel.objects.create(owner=user)
-        DuelPlayer.objects.create(name=options.get('player1'), duel=duel)
-        DuelPlayer.objects.create(name=options.get('player2'), duel=duel)
-        duel_questions = (
-            DuelQuestion(
-                duel=duel,
-                is_answered=False,
-                question=question
-            ) for question in questions
-        )
-        DuelQuestion.objects.bulk_create(duel_questions)
+        duel = create_duel(request)
 
         return HttpResponseRedirect(
             reverse(
                 'interview:duel',
-                kwargs={'duel_id': duel.pk}
+                kwargs={'duel_id': duel.pk},
             )
         )
 
