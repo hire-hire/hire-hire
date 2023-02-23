@@ -90,10 +90,6 @@ class DuelFlowQuestionView(CheckDuelFinishMixin, TemplateView):
 
         return context
 
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        return self._finish_duel(context)
-
 
 class DuelFlowAnsweredView(CheckDuelFinishMixin, TemplateView):
     template_name = 'interview/duel.html'

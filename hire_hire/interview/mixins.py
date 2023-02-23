@@ -15,3 +15,7 @@ class CheckDuelFinishMixin:
                 kwargs={'duel_id': context.get('duel_id')},
             )
         )
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self._finish_duel(context)
