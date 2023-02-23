@@ -1,6 +1,6 @@
+from duel.models import Duel, DuelQuestion, DuelPlayer
 from interview.models import Question
 from interview.services import get_question_count
-from duel.models import Duel, DuelQuestion, DuelPlayer
 
 
 def set_duel_question_is_answered(duel_question):
