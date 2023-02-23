@@ -140,9 +140,10 @@ class DuelFinishView(TemplateView):
         context = super().get_context_data(**kwargs)
         duel = get_object_or_404(
             Duel.objects.select_related(),
-            pk=kwargs.get('duel_id')
+            pk=kwargs.get('duel_id'),
         )
+        
         context['duel'] = duel
-        context['player1'] = duel.players.first()
-        context['player2'] = duel.players.last()
+        context['player1'], context['player2'] = duel.players.all()
+
         return context
