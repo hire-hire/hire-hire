@@ -11,5 +11,3 @@ class LanguageAdmin(admin.ModelAdmin):
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     pass
-
-
