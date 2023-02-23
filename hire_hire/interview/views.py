@@ -92,14 +92,15 @@ class DuelFlowQuestionView(TemplateView):
         return context
 
     def _finish_duel(self, context):
-        if not context.get('duel_question'):
-            return HttpResponseRedirect(
-                reverse(
-                    'interview:duel_finish',
-                    kwargs={'duel_id': context.get('duel_id')},
-                )
+        if context.get('duel_question'):
+            return self.render_to_response(context)
+
+        return HttpResponseRedirect(
+            reverse(
+                'interview:duel_finish',
+                kwargs={'duel_id': context.get('duel_id')},
             )
-        return self.render_to_response(context)
+        )
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
