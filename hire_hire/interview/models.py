@@ -50,9 +50,9 @@ class Question(models.Model):
         verbose_name='вопрос',
     )
 
-    text = models.TextField('текст вопроса',)
+    text = models.TextField('текст вопроса')
 
-    answer = models.TextField('правильный ответ',)
+    answer = models.TextField('правильный ответ')
 
     objects = QuestionManager()
 
