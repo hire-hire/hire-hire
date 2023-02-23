@@ -20,10 +20,6 @@ class LanguagesView(ListView):
     template_name = 'interview/interviews.html'
 
 
-class IndexView(TemplateView):
-    template_name = 'interview/index.html'
-
-
 class InterviewSettingsView(TemplateView):
     template_name = 'interview/test-settings.html'
 

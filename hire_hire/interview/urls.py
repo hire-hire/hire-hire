@@ -5,7 +5,6 @@ from interview.views import (
     DuelFlowAnsweredView,
     DuelFlowQuestionView,
     DuelSettingsView,
-    IndexView,
     InterviewFinishView,
     InterviewFlowView,
     InterviewSettingsView,
@@ -54,10 +53,5 @@ urlpatterns = [
         'languages/',
         LanguagesView.as_view(),
         name='languages',
-    ),
-    path(
-        '',
-        IndexView.as_view(),
-        name='index',
     ),
 ]

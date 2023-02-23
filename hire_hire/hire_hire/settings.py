@@ -27,6 +27,7 @@ INSTALLED_APPS = [
 
     'contributors.apps.StaticInfoConfig',
     'interview.apps.InterviewConfig',
+    'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
 ]
 
