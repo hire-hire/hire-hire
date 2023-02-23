@@ -18,7 +18,7 @@
         </div>
         <form class="duel__form" name="duel-form" {% if can_choose_winner %}
               method="post"action="
-                    {{ url('interview:duel_answer', args=[duel_id]) }}" {% endif %}>
+                    {{ url('duel:duel_answer', args=[duel_id]) }}" {% endif %}>
             {{ csrf_input }}
             <h2 class="duel__form-title page__text">
                 Вопрос
@@ -62,7 +62,7 @@
                     Следующий вопрос
                 </button>
             {% else %}
-                <a href="{{ url('interview:duel_answer', args=[duel_id]) }}"
+                <a href="{{ url('duel:duel_answer', args=[duel_id]) }}"
                    class="duel__button duel__button_type_next page__text">
                     Показать правильный ответ
                 </a>

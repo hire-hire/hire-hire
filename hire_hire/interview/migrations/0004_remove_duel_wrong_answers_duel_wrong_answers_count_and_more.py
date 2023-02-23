@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name='duels',
+                related_name='duel',
                 to=settings.AUTH_USER_MODEL,
                 verbose_name='владец игры',
             ),

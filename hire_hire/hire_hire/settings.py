@@ -22,10 +22,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'django_cleanup.apps.CleanupConfig',
+    'debug_toolbar',
 
     'contributors.apps.StaticInfoConfig',
+    'duel.apps.DuelsConfig',
     'interview.apps.InterviewConfig',
     'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
