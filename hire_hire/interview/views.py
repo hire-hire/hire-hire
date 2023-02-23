@@ -7,9 +7,8 @@ from interview.models import (
     Duel,
     Interview,
     Language,
-    Question,
 )
-from interview.services import get_question_count, create_duel, set_duel_question_is_answered
+from interview.services import create_duel, set_duel_question_is_answered, create_interview
 
 
 class LanguagesView(ListView):
@@ -25,16 +24,7 @@ class InterviewSettingsView(TemplateView):
     template_name = 'interview/test-settings.html'
 
     def post(self, request, *args, **kwargs):
-        count = get_question_count(request.POST, 'questions-count')
-
-        options = dict()
-        if request.user.is_authenticated:
-            options['user'] = request.user
-
-        interview = Interview.objects.create(**options)
-        interview.questions.add(
-            *Question.objects.get_random_questions(count),
-        )
+        interview = create_interview(request)
 
         return HttpResponseRedirect(
             reverse(

@@ -1,6 +1,19 @@
 from django.conf import settings
 
-from interview.models import Duel, DuelPlayer, DuelQuestion, Question
+from interview.models import Duel, DuelPlayer, DuelQuestion, Question, Interview
+
+
+def create_interview(request):
+    count = get_question_count(request.POST, 'questions-count')
+
+    interview = Interview.objects.create(
+        user=request.user if request.user.is_authenticated else None,
+    )
+    interview.questions.add(
+        *Question.objects.get_random_questions(count),
+    )
+
+    return interview
 
 
 def create_duel(request):
