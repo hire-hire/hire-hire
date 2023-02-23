@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import F, Value
 from django.db.models.functions import Concat
 
-from contributors.models import ContributorContact, Contributor
+from contributors.models import Contributor, ContributorContact
 
 
 class ContributorContactInline(admin.StackedInline):
