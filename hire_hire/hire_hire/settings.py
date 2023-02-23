@@ -23,8 +23,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-    'users.apps.UsersConfig',
+    'django_cleanup.apps.CleanupConfig',
+    
+
+    'contributors.apps.StaticInfoConfig',
     'interview.apps.InterviewConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
