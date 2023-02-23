@@ -165,14 +165,14 @@ class DuelQuestion(models.Model):
         Duel,
         on_delete=models.CASCADE,
         related_name='questions',
-        verbose_name='дуэль'
+        verbose_name='дуэль',
     )
 
     question = models.ForeignKey(
         Question,
         on_delete=models.CASCADE,
         related_name='duels',
-        verbose_name='вопрос'
+        verbose_name='вопрос',
     )
 
     is_answered = models.BooleanField('дан ответ')
@@ -180,3 +180,6 @@ class DuelQuestion(models.Model):
     class Meta:
         verbose_name = 'вопрос в дуэли'
         verbose_name_plural = 'вопросы в дуэли'
+
+    def __str__(self):
+        return f'вопрос дуэли {self.pk}'
