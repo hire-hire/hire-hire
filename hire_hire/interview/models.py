@@ -14,9 +14,7 @@ class QuestionManager(models.Manager):
 
     def random(self, cnt):
         ids = list(self.get_queryset().values_list('id', flat=True))
-        if len(ids) < cnt:
-            cnt = len(ids)
-        rand_ids = sample(ids, cnt)
+        rand_ids = sample(ids, min(cnt, len(ids)))
         return self.get_queryset().filter(id__in=rand_ids)
 
 
@@ -52,9 +50,9 @@ class Question(models.Model):
         verbose_name='вопрос',
     )
 
-    text = models.CharField('текст вопроса', max_length=256)
+    text = models.TextField('текст вопроса',)
 
-    answer = models.TextField('правильный ответ', max_length=256)
+    answer = models.TextField('правильный ответ',)
 
     objects = QuestionManager()
 
@@ -63,7 +61,7 @@ class Question(models.Model):
         verbose_name_plural = 'вопросы'
 
     def __str__(self):
-        return self.text[:15]
+        return self.text[:45]
 
 
 class Interview(models.Model):
@@ -125,12 +123,12 @@ class DuelPlayer(models.Model):
         verbose_name='имя игрока'
     )
 
-    counter = models.IntegerField(default=0)
+    counter = models.IntegerField(default=0, verbose_name='счетчик')
 
     duel = models.ForeignKey(
         Duel,
         on_delete=models.CASCADE,
-        related_name='players'
+        related_name='players',
     )
 
     class Meta:
