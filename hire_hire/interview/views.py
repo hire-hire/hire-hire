@@ -1,8 +1,8 @@
-from django.shortcuts import get_object_or_404
+from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView
-from django.conf import settings
 
 from interview.exceptions import CustomException
 from interview.models import (
@@ -13,6 +13,7 @@ from interview.models import (
     Language,
     Question,
 )
+from interview.utils import get_question_count
 
 
 class LanguagesView(ListView):
@@ -28,27 +29,21 @@ class InterviewSettingsView(TemplateView):
     template_name = 'interview/test-settings.html'
 
     def post(self, request, *args, **kwargs):
-        count = request.POST.get(
-            'questions-count', default=settings.DEFAULT_QUESTIONS_COUNT
-        )
+        count = get_question_count(request.POST)
 
-        try:
-            count = int(count)
-        except CustomException:
-            count = settings.DEFAULT_QUESTIONS_COUNT
-
-        questions = Question.objects.random(count)
         options = dict()
         if request.user.is_authenticated:
             options['user'] = request.user
 
         interview = Interview.objects.create(**options)
-        interview.questions.add(*questions)
+        interview.questions.add(
+            *Question.objects.get_random_questions(count),
+        )
 
         return HttpResponseRedirect(
             reverse(
                 'interview:interview',
-                kwargs={'interview_id': interview.pk}
+                kwargs={'interview_id': interview.pk},
             )
         )
 
@@ -81,7 +76,7 @@ class DuelSettingsView(TemplateView):
         except CustomException:
             count = settings.DEFAULT_QUESTIONS_COUNT
 
-        questions = Question.objects.random(count)
+        questions = Question.objects.get_random_questions(count)
         user = None
         if request.user.is_authenticated:
             user = request.user
