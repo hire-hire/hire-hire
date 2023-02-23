@@ -84,20 +84,19 @@ class DuelFlowQuestionView(TemplateView):
             pk=kwargs.get('duel_id')
         )
         context['duel_id'] = duel.pk
-        duel_question = duel.questions.filter(is_answered=False).first()
-        if duel_question:
-            context['duel_question'] = duel_question
-        context['player1'] = duel.players.first()
-        context['player2'] = duel.players.last()
         context['can_choose_winner'] = False
+
+        context['player1'], context['player2'] = duel.players.all()
+        context['duel_question'] = duel.questions.filter(is_answered=False).first()  # нельзя model manager заюзать :(
+
         return context
 
     def _finish_duel(self, context):
-        if context.get('duel_question') is None:
+        if not context.get('duel_question'):
             return HttpResponseRedirect(
                 reverse(
                     'interview:duel_finish',
-                    kwargs={'duel_id': context.get('duel_id')}
+                    kwargs={'duel_id': context.get('duel_id')},
                 )
             )
         return self.render_to_response(context)
