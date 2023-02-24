@@ -19,7 +19,7 @@ def create_interview(request):
 def get_question_count(post_data, atr_name):
     try:
         return min(
-            int(post_data.get(atr_name)),
+            abs(int(post_data.get(atr_name))),
             settings.MAX_QUESTIONS_COUNT_BY_ONE_SESSION,
         )
     except ValueError:
