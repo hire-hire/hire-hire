@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-import django.urls
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -130,4 +130,4 @@ AUTH_USER_MODEL = 'users.User'
 
 DEFAULT_QUESTIONS_COUNT = 10
 
-LOGIN_URL = django.urls.reverse_lazy('homepage:index')
+LOGIN_URL = reverse_lazy('homepage:index')
