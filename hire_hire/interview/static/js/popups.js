@@ -58,4 +58,3 @@ function changeReviveFormInputs() {
 }
 
 revivePasswordSubmitButton.addEventListener('click', changeReviveFormInputs);
-
