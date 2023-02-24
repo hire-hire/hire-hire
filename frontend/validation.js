@@ -3,6 +3,12 @@ const registerForm = document.querySelector('.form_type_register');
 const openAuthFormButton = document.querySelector('.header__link_type_blue');
 const openRegisterFormButton = document.querySelector('.form__button_type_register');
 const registerSubmitButton = registerForm.querySelector('.form__button');
+const agreementElement = registerForm.querySelector('.form__checkbox-container');
+const authLoginInput = authForm.querySelector('#email');
+
+authLoginInput.setAttribute('placeholder', 'Логин');
+
+agreementElement.innerHTML = '';
 
 registerSubmitButton.textContent = "Зарегистрироваться";
 
@@ -85,7 +91,6 @@ allInputsArr.forEach((input) => {
   };
   if (input.type === 'email') {
     input.setAttribute('type', 'text');
-    input.setAttribute('placeholder', 'Логин')
     input.setAttribute('maxlength', '150');
     input.setAttribute('minlength', '2');
   }
@@ -96,7 +101,9 @@ inputContainerArr.forEach((inputContainer) => {
   const input = inputContainer.querySelector('.form__input');
   const hintElement = inputContainer.querySelector('.form__label-hint');
   if(input.name === 'email') {
+    hintElement.textContent = 'Длина логина должна быть от 2 до 150 символов. Логин и пароль не должны совпадать';
   } else {
+    hintElement.textContent = 'Длина пароля должна быть от 8 до 128 символов. В пароле должна быть хотя бы одна латинская буква. Пароль не должен совпадать с логином';
   }
 })
 
