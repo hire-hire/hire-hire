@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from interview.managers import QuestionManager
+from interview.managers import QuestionManager, InterviewManager
 
 User = get_user_model()
 
@@ -68,6 +68,8 @@ class Interview(models.Model):
     )
 
     questions = models.ManyToManyField(Question, verbose_name='набор вопросов')
+
+    objects = InterviewManager()
 
     class Meta:
         verbose_name = 'интервью'

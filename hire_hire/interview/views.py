@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -12,7 +13,7 @@ class LanguagesView(ListView):
     template_name = 'interview/interviews.html'
 
 
-class InterviewSettingsView(TemplateView):
+class InterviewSettingsView(LoginRequiredMixin, TemplateView):
     template_name = 'interview/test-settings.html'
 
     def post(self, request, *args, **kwargs):
@@ -26,12 +27,17 @@ class InterviewSettingsView(TemplateView):
         )
 
 
-class InterviewFlowView(TemplateView):
+class InterviewFlowView(LoginRequiredMixin, TemplateView):
     template_name = 'interview/challenge.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        interview = get_object_or_404(Interview, pk=kwargs.get('interview_id'))
+        interview = get_object_or_404(
+            Interview.objects.get_interview_by_user(
+                interview_pk=kwargs.get('interview_id'),
+                user=self.request.user,
+            )
+        )
         context['questions'] = interview.questions.all()
         return context
 

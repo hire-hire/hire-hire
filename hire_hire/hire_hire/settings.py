@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import django.urls
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -128,3 +129,5 @@ INTERNAL_IPS = [
 AUTH_USER_MODEL = 'users.User'
 
 DEFAULT_QUESTIONS_COUNT = 10
+
+LOGIN_URL = django.urls.reverse_lazy('homepage:index')

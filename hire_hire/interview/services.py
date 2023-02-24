@@ -7,7 +7,7 @@ def create_interview(request):
     count = get_question_count(request.POST, 'questions-count')
 
     interview = Interview.objects.create(
-        user=request.user if request.user.is_authenticated else None,
+        user=request.user,
     )
     interview.questions.add(
         *Question.objects.get_random_questions(count),
