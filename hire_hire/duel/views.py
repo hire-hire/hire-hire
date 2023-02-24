@@ -93,14 +93,21 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
 class DuelFinishView(LoginRequiredMixin, TemplateView):
     template_name = 'duel/duel-results.html'
 
-    def get_context_data(self, duel_id, **kwargs):
+    def get_context_data(self, duel, **kwargs):
         context = super().get_context_data(**kwargs)
-        duel = Duel.objects.get_duel_by_user(
-            duel_pk=duel_id,
-            user=self.request.user,
-        )
 
         context['duel'] = duel
         context['player1'], context['player2'] = duel.players.all()
 
         return context
+
+    def get(self, request, duel_id, *args, **kwargs):
+        duel = Duel.objects.get_duel_by_user(
+            duel_pk=duel_id,
+            user=self.request.user,
+        )
+        if duel.questions.get_no_answered():
+            return HttpResponseRedirect(reverse('duel:duel', args=(duel_id,)))
+
+        context = self.get_context_data(duel, **kwargs)
+        return self.render_to_response(context)
