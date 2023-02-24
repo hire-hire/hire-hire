@@ -1,5 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView
 
@@ -7,7 +7,7 @@ from duel.models import Duel
 from duel.services import create_duel, set_duel_question_is_answered
 
 
-class DuelSettingsView(TemplateView):
+class DuelSettingsView(LoginRequiredMixin, TemplateView):
     template_name = 'duel/duel-settings.html'
 
     def post(self, request, *args, **kwargs):
@@ -21,15 +21,16 @@ class DuelSettingsView(TemplateView):
         )
 
 
-class DuelFlowQuestionView(TemplateView):
+class DuelFlowQuestionView(LoginRequiredMixin, TemplateView):
     template_name = 'duel/duel.html'
 
     def get_context_data(self, can_choose_winner=False, **kwargs):
         context = super().get_context_data(**kwargs)
-        duel = get_object_or_404(
-            Duel.objects.select_related(),
-            pk=kwargs.get('duel_id'),
+        duel = Duel.objects.get_duel_by_user(
+            duel_pk=kwargs.get('duel_id'),
+            user=self.request.user,
         )
+
         context['duel_id'] = duel.pk
         context['can_choose_winner'] = can_choose_winner
 
@@ -63,9 +64,9 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
         return context
 
     def post(self, request, *args, **kwargs):
-        duel = get_object_or_404(
-            Duel.objects.select_related(),
-            pk=kwargs.get('duel_id'),
+        duel = Duel.objects.get_duel_by_user(
+            duel_pk=kwargs.get('duel_id'),
+            user=self.request.user,
         )
 
         duel.players.update_player_and_duel_score(
@@ -81,14 +82,14 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
         )
 
 
-class DuelFinishView(TemplateView):
+class DuelFinishView(LoginRequiredMixin, TemplateView):
     template_name = 'duel/duel-results.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        duel = get_object_or_404(
-            Duel.objects.select_related(),
-            pk=kwargs.get('duel_id'),
+        duel = Duel.objects.get_duel_by_user(
+            duel_pk=kwargs.get('duel_id'),
+            user=self.request.user,
         )
 
         context['duel'] = duel

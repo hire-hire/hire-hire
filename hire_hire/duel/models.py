@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from duel.managers import DuelQuestionManager, DuelPlayerManager
+from duel.managers import DuelQuestionManager, DuelPlayerManager, DuelManager
 from interview.models import Question
 
 User = get_user_model()
@@ -25,6 +25,8 @@ class Duel(models.Model):
         'количество неправильных ответов',
         default=0,
     )
+
+    objects = DuelManager()
 
     class Meta:
         verbose_name = 'дуэль'

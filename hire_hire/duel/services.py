@@ -13,7 +13,7 @@ def create_duel(request):
     count = get_question_count(request.POST, 'duel-questions-count')
 
     duel = Duel.objects.create(
-        owner=request.user if request.user.is_authenticated else None,
+        owner=request.user,
     )
 
     DuelPlayer.objects.bulk_create(
