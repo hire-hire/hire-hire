@@ -10,6 +10,14 @@ from duel.services import create_duel, set_duel_question_is_answered
 class DuelSettingsView(LoginRequiredMixin, TemplateView):
     template_name = 'duel/duel-settings.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+
+        if user.is_authenticated and not user.is_duel_moderator:
+            return HttpResponseRedirect(reverse('homepage:index'))
+
+        return super().dispatch(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
         duel = create_duel(request)
 

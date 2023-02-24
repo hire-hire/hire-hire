@@ -15,11 +15,14 @@ def create_duel(request):
     duel = Duel.objects.create(
         owner=request.user,
     )
+    duel_players = []
+    for pk in range(1, 3):
+        name = request.POST.get(f'player{pk}')
+        if not name:
+            name = f'Игрок {pk}'
+        duel_players.append(DuelPlayer(name=name, duel=duel))
 
-    DuelPlayer.objects.bulk_create(
-        (DuelPlayer(name=request.POST.get(f'player{pk}'), duel=duel))
-        for pk in range(1, 3)
-    )
+    DuelPlayer.objects.bulk_create(duel_players)
 
     DuelQuestion.objects.bulk_create((
         DuelQuestion(
