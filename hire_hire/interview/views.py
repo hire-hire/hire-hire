@@ -30,11 +30,11 @@ class InterviewSettingsView(LoginRequiredMixin, TemplateView):
 class InterviewFlowView(LoginRequiredMixin, TemplateView):
     template_name = 'interview/challenge.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, interview_id, **kwargs):
         context = super().get_context_data(**kwargs)
         interview = get_object_or_404(
             Interview.objects.get_interview_by_user(
-                interview_pk=kwargs.get('interview_id'),
+                interview_pk=interview_id,
                 user=self.request.user,
             )
         )
