@@ -7,6 +7,26 @@ const questionsAnswersNodesArr = document.querySelectorAll('.challenge__qa');
 const questionsLength = document.querySelector('.questions__length');
 const questionText = document.querySelector('.challenge__form-text_type_question');
 const questionCounter = document.querySelector('.questions__counter');
+const textArea = document.querySelector('.challenge__form-input');
+const challengeForm = document.querySelector('.challenge__form');
+
+textArea.setAttribute('maxlength', '400');
+textArea.setAttribute('minlength', '2');
+textArea.setAttribute('required', 'true');
+
+const formValidation = () => {
+  const isFormValid = challengeForm.checkValidity();
+  if(isFormValid) {
+    challengeFormButton.disabled = false;
+    challengeFormButton.style.opacity = 1;
+  } else {
+    challengeFormButton.disabled = true;
+    challengeFormButton.style.opacity = 0.4;
+  };
+};
+
+formValidation();
+textArea.addEventListener('input', formValidation);
 
 (() => questionsLength.textContent = questionsAnswersNodesArr.length)();
 
@@ -31,8 +51,6 @@ function setQuestionCounter() {
 };
 
 setQuestionCounter();
-
-console.log(questionsAnswersArr)
 
 function showAnswer() {
   answerTitle.classList.add('challenge__form-title_type_visible');

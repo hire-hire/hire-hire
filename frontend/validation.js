@@ -2,6 +2,9 @@ const authForm = document.querySelector('.form_type_auth');
 const registerForm = document.querySelector('.form_type_register');
 const openAuthFormButton = document.querySelector('.header__link_type_blue');
 const openRegisterFormButton = document.querySelector('.form__button_type_register');
+const registerSubmitButton = registerForm.querySelector('.form__button');
+
+registerSubmitButton.textContent = "Зарегистрироваться";
 
 document.querySelectorAll('.form__input-error').forEach((element) => {
   element.style.minHeight = `35px`;
@@ -81,6 +84,8 @@ allInputsArr.forEach((input) => {
     input.setAttribute('pattern', '\(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}');
   };
   if (input.type === 'email') {
+    input.setAttribute('type', 'text');
+    input.setAttribute('placeholder', 'Логин')
     input.setAttribute('maxlength', '150');
     input.setAttribute('minlength', '2');
   }
