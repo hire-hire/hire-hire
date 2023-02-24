@@ -75,9 +75,9 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
             user=self.request.user,
         )
 
-        no_answered_questions = duel.questions.get_no_answered()
-        if no_answered_questions:
-            set_duel_question_is_answered(no_answered_questions)
+        no_answered_question = duel.questions.get_no_answered()
+        if no_answered_question:
+            set_duel_question_is_answered(no_answered_question)
             duel.players.update_player_and_duel_score(
                 winner_pk=int(request.POST.get('duel-radio-player', -1)),
                 duel=duel,
