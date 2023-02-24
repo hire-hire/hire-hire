@@ -32,10 +32,10 @@ class DuelSettingsView(LoginRequiredMixin, TemplateView):
 class DuelFlowQuestionView(LoginRequiredMixin, TemplateView):
     template_name = 'duel/duel.html'
 
-    def get_context_data(self, can_choose_winner=False, **kwargs):
+    def get_context_data(self, duel_id, can_choose_winner=False, **kwargs):
         context = super().get_context_data(**kwargs)
         duel = Duel.objects.get_duel_by_user(
-            duel_pk=kwargs.get('duel_id'),
+            duel_pk=duel_id,
             user=self.request.user,
         )
 
@@ -71,9 +71,9 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
 
         return context
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, duel_id, *args, **kwargs):
         duel = Duel.objects.get_duel_by_user(
-            duel_pk=kwargs.get('duel_id'),
+            duel_pk=duel_id,
             user=self.request.user,
         )
 
@@ -85,7 +85,7 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
         return HttpResponseRedirect(
             reverse(
                 'duel:duel',
-                kwargs={'duel_id': duel.pk},
+                kwargs={'duel_id': duel_id},
             )
         )
 
@@ -93,10 +93,10 @@ class DuelFlowAnsweredView(DuelFlowQuestionView):
 class DuelFinishView(LoginRequiredMixin, TemplateView):
     template_name = 'duel/duel-results.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, duel_id, **kwargs):
         context = super().get_context_data(**kwargs)
         duel = Duel.objects.get_duel_by_user(
-            duel_pk=kwargs.get('duel_id'),
+            duel_pk=duel_id,
             user=self.request.user,
         )
 
