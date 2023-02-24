@@ -12,15 +12,19 @@ class ContributorContactInline(admin.StackedInline):
 
 @admin.register(Contributor)
 class ContributorAdmin(admin.ModelAdmin):
-    list_display = ['id', 'fio', 'role']
-    list_filter = ['role']
-    inlines = [ContributorContactInline]
+    list_display = (
+        Contributor.id.field.name,
+        'full_name',
+        Contributor.role.field.name,
+    )
+    list_filter = ('role',)
+    inlines = (ContributorContactInline,)
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         if 'changelist' in request.resolver_match.url_name:
             queryset = queryset.annotate(
-                fio=Concat(
+                full_name=Concat(
                     F('first_name'),
                     Value(' '),
                     F('last_name'),
@@ -32,7 +36,7 @@ class ContributorAdmin(admin.ModelAdmin):
 
     @admin.display(
         description='фио',
-        ordering='fio',
+        ordering='full_name',
     )
-    def fio(self, obj):
-        return obj.fio
+    def full_name(self, obj):
+        return obj.full_name
