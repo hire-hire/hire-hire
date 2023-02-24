@@ -13,21 +13,21 @@ const questionCounter = document.querySelector('.questions__counter');
 let questionsAnswersArr = [];
 
 questionsAnswersNodesArr.forEach((qa) => {
-  const qaArr = qa.textContent.split('?');
-  questionsAnswersArr.push({question: qaArr[0], answer: qaArr[1]});
+    const qaArr = qa.textContent.split('?');
+    questionsAnswersArr.push({question: qaArr[0], answer: qaArr[1]});
 });
 
 let counter = 0;
 
 function setQA() {
-  questionText.textContent = questionsAnswersArr[counter].question;
-  answerText.textContent = questionsAnswersArr[counter].answer;
+    questionText.textContent = questionsAnswersArr[counter].question;
+    answerText.textContent = questionsAnswersArr[counter].answer;
 };
 
 setQA();
 
 function setQuestionCounter() {
-  questionCounter.textContent = counter + 1;
+    questionCounter.textContent = counter + 1;
 };
 
 setQuestionCounter();
@@ -35,25 +35,26 @@ setQuestionCounter();
 console.log(questionsAnswersArr)
 
 function showAnswer() {
-  answerTitle.classList.add('challenge__form-title_type_visible');
-  answerText.classList.add('challenge__form-text_type_visible');
-  challengeFormButton.classList.remove('challenge__form-button_type_visible');
-  if(counter === questionsAnswersArr.length - 1) {
-    challengeFormLink.classList.add('challenge__form-button_type_visible');
-  } else {
-    challengeNextButton.classList.add('challenge__form-button_type_visible');
-  }
-  counter = counter + 1;
+    answerTitle.classList.add('challenge__form-title_type_visible');
+    answerText.classList.add('challenge__form-text_type_visible');
+    challengeFormButton.classList.remove('challenge__form-button_type_visible');
+    if (counter === questionsAnswersArr.length - 1) {
+        challengeFormLink.classList.add('challenge__form-button_type_visible');
+    } else {
+        challengeNextButton.classList.add('challenge__form-button_type_visible');
+    }
+    counter = counter + 1;
 }
 
 function nextQuestion() {
-  answerTitle.classList.remove('challenge__form-title_type_visible');
-  answerText.classList.remove('challenge__form-text_type_visible');
-  challengeFormButton.classList.add('challenge__form-button_type_visible');
-  challengeFormLink.classList.remove('challenge__form-button_type_visible');
-  challengeNextButton.classList.remove('challenge__form-button_type_visible');
-  setQA();
-  setQuestionCounter();
+    answerTitle.classList.remove('challenge__form-title_type_visible');
+    answerText.classList.remove('challenge__form-text_type_visible');
+    challengeFormButton.classList.add('challenge__form-button_type_visible');
+    challengeFormLink.classList.remove('challenge__form-button_type_visible');
+    challengeNextButton.classList.remove('challenge__form-button_type_visible');
+    document.getElementById('challenge__input').value = '';
+    setQA();
+    setQuestionCounter();
 }
 
 challengeFormButton.addEventListener('click', showAnswer);
