@@ -17,7 +17,6 @@ class Duel(models.Model):
     owner = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        null=True,
         related_name='duel',
         verbose_name='владец игры',
     )
