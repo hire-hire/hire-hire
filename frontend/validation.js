@@ -52,9 +52,14 @@ const resetValidation = ((form) => {
 });
 
 const checkInputValidity = ((input) => {
-  const isInputValid = input.validity.valid;
+  let isInputValid = input.validity.valid;
   const closestForm = input.closest('.form');
-  const closestInput = input.closest('.form__input');
+  const emailInput = closestForm.querySelector('#email');
+
+  if(input.name === 'password' && input.value === emailInput.value) {
+    isInputValid = false;
+  };
+
   if (isInputValid) {
     hideError(input, closestForm);
   } else {
@@ -63,7 +68,6 @@ const checkInputValidity = ((input) => {
 });
 
 const setValidation = ((input) => {
-  console.log('tut')
   toggleButtonState(input);
   checkInputValidity(input);
 });
@@ -72,12 +76,25 @@ const allInputsArr = document.querySelectorAll('.form__input');
 
 allInputsArr.forEach((input) => {
   if (input.type === 'password') {
-
+    input.setAttribute('maxlength', '128');
+    input.setAttribute('minlength', '8');
+    input.setAttribute('pattern', '\(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}');
   };
   if (input.type === 'email') {
-
+    input.setAttribute('maxlength', '150');
+    input.setAttribute('minlength', '2');
   }
 });
+
+const inputContainerArr = registerForm.querySelectorAll('.form__input-container');
+inputContainerArr.forEach((inputContainer) => {
+  const input = inputContainer.querySelector('.form__input');
+  const hintElement = inputContainer.querySelector('.form__label-hint');
+  if(input.name === 'email') {
+  } else {
+  }
+})
+
 
 openAuthFormButton.addEventListener('click', () => resetValidation(authForm));
 openRegisterFormButton.addEventListener('click', () => resetValidation(registerForm));
