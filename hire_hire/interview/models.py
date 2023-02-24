@@ -63,7 +63,6 @@ class Interview(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        null=True,
         related_name='interviews',
         verbose_name='пользователь',
     )
