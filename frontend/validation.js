@@ -5,6 +5,11 @@ const openRegisterFormButton = document.querySelector('.form__button_type_regist
 const registerSubmitButton = registerForm.querySelector('.form__button');
 const agreementElement = registerForm.querySelector('.form__checkbox-container');
 const authLoginInput = authForm.querySelector('#email');
+const headerItems = document.querySelector('.header__items');
+const headerItemArr = headerItems.querySelectorAll('.header__item');
+
+headerItems.style.gap = '48px';
+headerItemArr.forEach(headerItem => headerItem.style.marginRight = 0);
 
 authLoginInput.setAttribute('placeholder', 'Логин');
 
