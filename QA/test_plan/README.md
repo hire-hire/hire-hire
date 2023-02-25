@@ -63,14 +63,14 @@
         - BUG-Management 
         - Status Dashboard
 
-| Зоны ответственности | Ответственный |Ответственный |Ответственный    |
-| :---:              |     :---:      |     :---:     |     :---:       |
-| PR-Review          | Senior Dev     |[TODO]         |[TODO]           |
-| Re-Testing         | отдел QA       |[TODO]         |[TODO]           |
-| BUG-Tracking       | Senior Dev     | QA Manager    | PM              |
-| BUG-Analysis       | Senior Dev     |QA Manager     | Team-/Tech-lead |
-| BUG-Management     | Senior Dev     |QA Manager     | PM              |
-| Status Dashboard   | QA Engineer    | PO            |PM               |
+| Зоны ответственности | Ответственный |
+| :---:              |     :---:      |
+| PR-Review          | Senior Dev     |
+| Re-Testing         | отдел QA       |
+| BUG-Tracking       | Senior Dev, QA Manager, PM |
+| BUG-Analysis       | Senior Dev, QA Manager, Team-/Tech-lead |
+| BUG-Management     | Senior Dev, QA Manager, PM |
+| Status Dashboard   | QA Engineer, PO, PM |
 
 
 ### 3.Область тестирования сайта
@@ -143,37 +143,37 @@ http://www. [TODO]
 
 #### 4.1. Подход к тестированию
 
-1. ###### [FE] – Front-end
-Объекты тестирования: GUI
-Уровни тестирования: System Tests, e2e-testing
-Вид тестирования: Functional, Non-Functional, Change-Related
-Техники тестирования: Black-box, Experience-Based
-Степень автоматизации: manual/semi-automated
-Анализ: Динамический
-
-2. ###### [BE] – Back-end
-Объекты тестирования:  API
-Уровни тестирования: System Integration Tests
+1. ###### Unit Tests
+Объекты тестирования: кодовая база
+Уровни тестирования: Unit Tests, Unit-Integration Tests, System-Integration Tests
 Вид тестирования: White Box, Functional, Change-Related
 Техники тестирования: White-Box
+Степень автоматизации: Full auto
+Анализ: статический - Lint, Code Review
+
+2. ###### [DB] – Data Base
+Объекты тестирования: База данных
+Уровни тестирования: System Integration Tests
+Вид тестирования: White Box, Structural Database Testing, Functional, Non-Functional, Change-Related
+Техники тестирования: White-Box, Grey Box
+Степень автоматизации: Manual/semi-automated
+Анализ: Динамический
+
+3. ###### [BE] – Back-end
+Объекты тестирования:  API
+Уровни тестирования: System Integration Tests
+Вид тестирования: White Box, Functional, Change-Related, Non-Functional
+Техники тестирования: Grey Box
 Степень автоматизации: Hybrid/semi-automated (Swagger, Postman)
 Анализ: Динамический
 
-3. ###### [DB] – Data Base
-Объекты тестирования: База данных
-Уровни тестирования: System Integration Tests, System Tests
-Вид тестирования: White Box, Structural Database Testing, Functional, Non-Functional, Change-Related
-Техники тестирования: White-Box, Black Box
-Степень автоматизации: manual/semi-automated
+4. ###### [FE] – Front-end
+Объекты тестирования: GUI
+Уровни тестирования: System Tests, E2E-testing
+Вид тестирования: Functional, Non-Functional, Change-Related
+Техники тестирования: Black-box, Experience-Based
+Степень автоматизации: Manual/semi-automated
 Анализ: Динамический
-
-4. ###### Unit Tests
-Объекты тестирования: кодовая база
-Уровни тестирования: Unit Tests, System Integration Tests, System Tests
-Вид тестирования: White Box, Functional, Change-Related
-Техники тестирования: White-Box, Experience-Based
-Степень автоматизации: UT - full auto
-Анализ: статический - Lint, Code Review
 
 #### 4.2. Уровни тестирования	
 
@@ -377,19 +377,24 @@ http://www. [TODO]
 
 #### 4.4. Группы тестов используемые на проекте
 В CI-фазе :
-- Unit-тесты — проверка отдельных компонентов
-- Интеграционные тесты — проверка внедренных компонентов
-- Smoke-тесты — проверка работы базовых функций
-- Базовый линтинг — проверка кода на договоренности внутри команды
+- Unit Tests — проверка отдельных компонентов
+    - Smoke-тесты — проверка работы базовых функций
+    - Базовый линтинг — проверка кода на договоренности внутри команды
+- Unit-Integration Tests — проверка внедренных компонентов
+    - Smoke-тесты — проверка работы базовых функций
+    - Регрессионные тесты
 
 В CD-фазе :
+- System-Integration Tests
+    - Smoke-тесты — проверка работы базовых функций
+    - Регрессионные тесты
+    - Performance-тесты — проверка производительности
+
 - E2E-тесты — проверка UI
-- Регрессионные тесты
 
 В рамках тест-плана не будут выполняться группы тестов:
 - Security-тесты — проверка на уязвимости
 - Penetration-тесты — проверка устойчивости
-- Performance-тесты — проверка производительности
 - Статистический код-анализ — проверка уязвимости кода
 
 #### 4.5. Сообщения об ошибках
