@@ -36,25 +36,15 @@
             <h3 class="duel__form-subtitle page__text">
                 Кто ответил правильно
             </h3>
+
+
             <div class="duel__labels">
-                <label class="duel__label page__text">
-                    <input name="duel-radio-player" type="radio"
-                           class="duel__radio" value="{{ player1.id }}"
-                           {% if not can_choose_winner %}disabled{% endif %}>
-                    {{ player1.name }}
-                </label>
-                <label class="duel__label page__text">
-                    <input name="duel-radio-player" type="radio"
-                           class="duel__radio" value="{{ player2.id }}"
-                           {% if not can_choose_winner %}disabled{% endif %}>
-                    {{ player2.name }}
-                </label>
-                <label class="duel__label page__text">
-                    <input name="duel-radio-player" type="radio"
-                           class="duel__radio" value="0"
-                           {% if not can_choose_winner %}disabled{% endif %}>
-                    Нет правильного ответа
-                </label>
+                {% for player in form.player_pk %}
+                    <label class="duel__label page__text">
+                        {{ player }}
+                    </label>
+                {% endfor %}
+
             </div>
             {% if can_choose_winner %}
                 <button type="submit"
@@ -66,9 +56,9 @@
                    class="duel__button duel__button_type_next page__text">
                     Показать правильный ответ
                 </a>
-                <!-- <button class="duel__button duel__button_type_next page__text">
-                  Следующий вопрос
-                </button> -->
+{#                <!-- <button class="duel__button duel__button_type_next page__text">#}
+                {#                  Следующий вопрос#}
+                {#                </button> -->#}
             {% endif %}
         </form>
     </section>

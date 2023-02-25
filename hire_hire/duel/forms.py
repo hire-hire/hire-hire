@@ -31,3 +31,21 @@ class DuelSettingsForm(forms.Form):
             },
         ),
     )
+
+
+class DuelFlowAnsweredForm(forms.Form):
+    player_pk = forms.TypedChoiceField(
+        coerce=int,
+        widget=forms.RadioSelect(
+            attrs={
+                'class': 'duel__radio '
+            },
+        ),
+    )
+
+    def __init__(self, players, can_choose_winner, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['player_pk'].choices = players
+
+        if not can_choose_winner:
+            self.fields['player_pk'].widget.attrs['disabled'] = True

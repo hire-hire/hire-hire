@@ -5,7 +5,7 @@ from django.views.generic import TemplateView, FormView
 
 from duel.models import Duel
 from duel.services import create_duel, set_duel_question_is_answered
-from duel.forms import DuelSettingsForm
+from duel.forms import DuelSettingsForm, DuelFlowAnsweredForm
 
 
 class DuelSettingsView(LoginRequiredMixin, FormView):
@@ -29,6 +29,7 @@ class DuelSettingsView(LoginRequiredMixin, FormView):
                 form.cleaned_data['second_player'],
             ),
         )
+
         self.success_url = reverse(
             'duel:duel',
             kwargs={'duel_id': duel.pk},
@@ -36,21 +37,40 @@ class DuelSettingsView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
-class DuelFlowQuestionView(LoginRequiredMixin, TemplateView):
+class DuelFlowQuestionView(LoginRequiredMixin, FormView):
     template_name = 'duel/duel.html'
+    form_class = DuelFlowAnsweredForm
+    duel = None
+    duel_players = None
+
+    def get_form_class(self):
+        self.duel = Duel.objects.get_duel_by_user(
+            duel_pk=self.kwargs.get('duel_id'),
+            user=self.request.user,
+        )
+        self.duel_players = self.duel.players.all()
+
+        return super().get_form_class()
+
+    def get_form_kwargs(self, can_choose_winner=False):
+        kwargs = super().get_form_kwargs()
+
+        kwargs['players'] = (
+            *[(player.pk, player.name) for player in self.duel_players],
+            [-1, 'Нет правильного ответа']
+        )
+
+        kwargs['can_choose_winner'] = can_choose_winner
+        return kwargs
 
     def get_context_data(self, duel_id, can_choose_winner=False, **kwargs):
         context = super().get_context_data(**kwargs)
-        duel = Duel.objects.get_duel_by_user(
-            duel_pk=duel_id,
-            user=self.request.user,
-        )
 
-        context['duel_id'] = duel.pk
+        context['duel_id'] = self.duel.pk
         context['can_choose_winner'] = can_choose_winner
 
-        context['player1'], context['player2'] = duel.players.all()
-        context['duel_question'] = duel.questions.get_no_answered()
+        context['player1'], context['player2'] = self.duel_players
+        context['duel_question'] = self.duel.questions.get_no_answered()
 
         return context
 
@@ -66,35 +86,35 @@ class DuelFlowQuestionView(LoginRequiredMixin, TemplateView):
         )
 
     def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
+        context = self.get_context_data(*args, **kwargs)
         return self._finish_duel(context)
 
 
 class DuelFlowAnsweredView(DuelFlowQuestionView):
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(can_choose_winner=True, **kwargs)
-        return context
+    def get_form_kwargs(self):
+        return super().get_form_kwargs(can_choose_winner=True)
 
-    def post(self, request, duel_id, *args, **kwargs):
-        duel = Duel.objects.get_duel_by_user(
-            duel_pk=duel_id,
-            user=self.request.user,
-        )
-
-        no_answered_question = duel.questions.get_no_answered()
+    def form_valid(self, form):
+        no_answered_question = self.duel.questions.get_no_answered()
         if no_answered_question:
             set_duel_question_is_answered(no_answered_question)
-            duel.players.update_player_and_duel_score(
-                winner_pk=int(request.POST.get('duel-radio-player', -1)),
-                duel=duel,
+            self.duel.players.update_player_and_duel_score(
+                winner_pk=form.cleaned_data['player_pk'],
+                duel=self.duel,
             )
 
-        return HttpResponseRedirect(
-            reverse(
-                'duel:duel',
-                kwargs={'duel_id': duel_id},
-            )
+        self.success_url = reverse(
+            'duel:duel',
+            kwargs={'duel_id': self.duel.pk},
+        )
+        return super().form_valid(form)
+
+    def get_context_data(self, duel_id, can_choose_winner=False, **kwargs):
+        return super().get_context_data(
+            duel_id,
+            can_choose_winner=True,
+            **kwargs,
         )
 
 

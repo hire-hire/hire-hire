@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, FormView, TemplateView
@@ -23,7 +22,6 @@ class InterviewSettingsView(LoginRequiredMixin, FormView):
             user=self.request.user,
             question_count=form.cleaned_data['questions_count'],
         )
-        # TODO спросить про это
         self.success_url = reverse(
             'interview:interview',
             kwargs={'interview_id': interview.pk},
