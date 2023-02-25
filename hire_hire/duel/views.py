@@ -1,14 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 
 from duel.models import Duel
 from duel.services import create_duel, set_duel_question_is_answered
+from duel.forms import DuelSettingsForm
 
 
-class DuelSettingsView(LoginRequiredMixin, TemplateView):
+class DuelSettingsView(LoginRequiredMixin, FormView):
     template_name = 'duel/duel-settings.html'
+    form_class = DuelSettingsForm
 
     def dispatch(self, request, *args, **kwargs):
         user = request.user
@@ -18,18 +20,20 @@ class DuelSettingsView(LoginRequiredMixin, TemplateView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
+    def form_valid(self, form):
         duel = create_duel(
-            user=request.user,
-            post_data=request.POST,
+            user=self.request.user,
+            question_count=form.cleaned_data['questions_count'],
+            players_names=(
+                form.cleaned_data['first_player'],
+                form.cleaned_data['second_player'],
+            ),
         )
-
-        return HttpResponseRedirect(
-            reverse(
-                'duel:duel',
-                kwargs={'duel_id': duel.pk},
-            )
+        self.success_url = reverse(
+            'duel:duel',
+            kwargs={'duel_id': duel.pk},
         )
+        return super().form_valid(form)
 
 
 class DuelFlowQuestionView(LoginRequiredMixin, TemplateView):

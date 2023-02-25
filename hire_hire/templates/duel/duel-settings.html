@@ -12,21 +12,22 @@
             {{ csrf_input }}
             <label class="duel-settings__label page__text">
                 Количество вопросов
-                <select name="duel-questions-count"
-                        class="test-settings-form__select duel-settings__select page__text">
-                    <option value="10" selected>10 вопросов</option>
-                    <option value="20">20 вопросов</option>
-                    <option value="30">30 вопросов</option>
-                </select>
+                {{ form.questions_count }}
+                {% if form.errors.questions_count %}
+                    {{ form.errors.questions_count }}
+                {% endif %}
             </label>
             <label class="duel-settings__label page__text">
                 Введите имена игроков
-                <input type="text" name="player1"
-                       class="duel-settings__input page__text"
-                       placeholder="Игрок 1">
-                <input type="text" name="player2"
-                       class="duel-settings__input page__text"
-                       placeholder="Игрок 2">
+                {{ form.first_player }}
+                {% if form.errors.first_player %}
+                    {{ form.errors.first_player }}
+                {% endif %}
+                {{ form.second_player }}
+                {% if form.errors.second_player %}
+                    {{ form.errors.second_player }}
+                {% endif %}
+
             </label>
             <button type="submit" class="duel-settings__button page__text">
                 Далее

@@ -21,9 +21,9 @@ class InterviewSettingsView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         interview = create_interview(
             user=self.request.user,
-            count=form.cleaned_data['questions_count'],
+            question_count=form.cleaned_data['questions_count'],
         )
-
+        # TODO спросить про это
         self.success_url = reverse(
             'interview:interview',
             kwargs={'interview_id': interview.pk},
