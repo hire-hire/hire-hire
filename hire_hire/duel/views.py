@@ -19,7 +19,10 @@ class DuelSettingsView(LoginRequiredMixin, TemplateView):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        duel = create_duel(request)
+        duel = create_duel(
+            user=request.user,
+            post_data=request.POST,
+        )
 
         return HttpResponseRedirect(
             reverse(

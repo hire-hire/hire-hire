@@ -9,16 +9,16 @@ def set_duel_question_is_answered(duel_question):
         duel_question.save()
 
 
-def create_duel(request):
-    count = get_question_count(request.POST, 'duel-questions-count')
+def create_duel(user, post_data):
+    count = get_question_count(post_data, 'duel-questions-count')
 
     duel = Duel.objects.create(
-        owner=request.user,
+        owner=user,
     )
 
     DuelPlayer.objects.bulk_create((
         DuelPlayer(
-            name=request.POST.get(f'player{pk}') or f'Игрок {pk}',
+            name=post_data.get(f'player{pk}') or f'Игрок {pk}',
             duel=duel,
         )
         for pk in range(1, 3)

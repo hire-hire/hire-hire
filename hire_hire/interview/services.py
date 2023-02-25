@@ -3,11 +3,11 @@ from django.conf import settings
 from interview.models import Question, Interview
 
 
-def create_interview(request):
-    count = get_question_count(request.POST, 'questions-count')
+def create_interview(user, post_data):
+    count = get_question_count(post_data, 'questions-count')
 
     interview = Interview.objects.create(
-        user=request.user,
+        user=user,
     )
     interview.questions.add(
         *Question.objects.get_random_questions(count),

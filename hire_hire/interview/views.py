@@ -17,7 +17,10 @@ class InterviewSettingsView(LoginRequiredMixin, TemplateView):
     template_name = 'interview/test-settings.html'
 
     def post(self, request, *args, **kwargs):
-        interview = create_interview(request)
+        interview = create_interview(
+            user=request.user,
+            post_data=request.POST,
+        )
 
         return HttpResponseRedirect(
             reverse(
