@@ -3,9 +3,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 
+from duel.forms import DuelSettingsForm, DuelFlowAnsweredForm
+from duel.mixins import DuelFlowGetDuelMixin
 from duel.models import Duel
 from duel.services import create_duel, set_duel_question_is_answered
-from duel.forms import DuelSettingsForm, DuelFlowAnsweredForm
 
 
 class DuelSettingsView(LoginRequiredMixin, FormView):
@@ -37,20 +38,9 @@ class DuelSettingsView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
-class DuelFlowQuestionView(LoginRequiredMixin, FormView):
+class DuelFlowQuestionView(DuelFlowGetDuelMixin, LoginRequiredMixin, FormView):
     template_name = 'duel/duel.html'
     form_class = DuelFlowAnsweredForm
-    duel = None
-    duel_players = None
-
-    def get_form_class(self):
-        self.duel = Duel.objects.get_duel_by_user(
-            duel_pk=self.kwargs.get('duel_id'),
-            user=self.request.user,
-        )
-        self.duel_players = self.duel.players.all()
-
-        return super().get_form_class()
 
     def get_form_kwargs(self, can_choose_winner=False):
         kwargs = super().get_form_kwargs()
@@ -84,6 +74,10 @@ class DuelFlowQuestionView(LoginRequiredMixin, FormView):
                 kwargs={'duel_id': context.get('duel_id')},
             )
         )
+
+    def dispatch(self, request, *args, **kwargs):
+        self.configurate_duel()
+        return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(*args, **kwargs)
