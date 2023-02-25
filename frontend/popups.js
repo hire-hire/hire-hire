@@ -54,3 +54,12 @@ function changeReviveFormInputs() {
     infoText.classList.add('form__info_type_visible');
   }
 }
+
+popups.forEach((popup) => {
+  popup.addEventListener('click', (e) => {
+    if(e.target.classList.contains('popup_active')) {
+      closeAllPopups();
+    };
+  });
+  
+});
