@@ -19,19 +19,20 @@
         <h3 class="test-settings-form__subtitle page__text">
             Python
         </h3>
+
         <div class="test-settings-form__inputs">
             <p class="test-settings-form__hint page__text">
                 Настройте параметры для тестирования
             </p>
+
             <div class="test-settings-form__labels">
+
                 <label class="test-settings-form__label page__text">
                     Количество вопросов
-                    <select name="questions-count"
-                            class="test-settings-form__select page__text">
-                        <option value="10" selected>10 вопросов</option>
-                        <option value="20">20 вопросов</option>
-                        <option value="30">30 вопросов</option>
-                    </select>
+                    {{ form.questions_count }}
+                    {% if form.errors.questions_count %}
+                        {{ form.errors.questions_count }}
+                    {% endif %}
                 </label>
                 <label class="test-settings-form__label page__text">
                     Уровень сложности (в разработке)

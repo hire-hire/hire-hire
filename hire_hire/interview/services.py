@@ -3,9 +3,7 @@ from django.conf import settings
 from interview.models import Question, Interview
 
 
-def create_interview(user, post_data):
-    count = get_question_count(post_data, 'questions-count')
-
+def create_interview(user, count):
     interview = Interview.objects.create(
         user=user,
     )
