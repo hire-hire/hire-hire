@@ -12,9 +12,9 @@ class DuelManager(models.Manager):
 
 
 class DuelQuestionManager(models.Manager):
-    def get_no_answered(self, queryset=False):
+    def get_no_answered(self, get_object=True):
         query = self.get_queryset().filter(is_answered=False)
-        if not queryset:
+        if get_object:
             query = query.first()
 
         return query
