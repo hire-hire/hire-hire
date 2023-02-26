@@ -5,11 +5,11 @@
         <h1 class="team__title sections__main-title">
             Команда
         </h1>
-        {% set ns = namespace(prev=0) %}
+        {% set ns = namespace(prev=-1) %}
 
         {% for contributor in contributors %}
             {% if ns.prev != contributor.role %}
-                {% if ns.prev != 0 %}
+                {% if ns.prev != -1 %}
                     </ul>
                 {% endif %}
                 <h2 class="team__department sections__subtitle">
