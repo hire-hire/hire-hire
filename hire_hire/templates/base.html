@@ -115,7 +115,9 @@
             <button class="popup__close-btn" type="button"
                     aria-label="Кнопка закрытия попапа"></button>
             <form class="form form_type_register" name="register-form"
+                  form method="post" action="{{ url('users:signup') }}"
                   novalidate>
+                {{ csrf_input }}
                 <h2 class="form__title form__title_type_register sections__secondary-title">
                     Регистрация</h2>
                 <label class="form__label page__text form__label_type_visible">
