@@ -1,0 +1,6 @@
+.challenge__form {
+  display: flex;
+  flex-direction: column;
+  max-width: 1600px;
+  width: 100%;
+}

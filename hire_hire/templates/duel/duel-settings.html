@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block main %}
+    <section class="duel-settings sections">
+        <h1 class="duel-settings__title sections__main-title">
+            Голодные игры
+        </h1>
+        <h2 class="duel-settings__subtitle sections__subtitle">
+            Python
+        </h2>
+        <form method="post" action="{{ url('duel:duel_settings') }}"
+              class="duel-settings__form">
+            {{ csrf_input }}
+            <label class="duel-settings__label page__text">
+                Количество вопросов
+                {{ form.questions_count }}
+                {% if form.errors.questions_count %}
+                    {{ form.errors.questions_count }}
+                {% endif %}
+            </label>
+            <label class="duel-settings__label page__text">
+                Введите имена игроков
+                {{ form.first_player }}
+                {% if form.errors.first_player %}
+                    {{ form.errors.first_player }}
+                {% endif %}
+                {{ form.second_player }}
+                {% if form.errors.second_player %}
+                    {{ form.errors.second_player }}
+                {% endif %}
+
+            </label>
+            <button type="submit" class="duel-settings__button page__text">
+                Далее
+            </button>
+        </form>
+    </section>
+{% endblock %}

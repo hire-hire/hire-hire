@@ -1,0 +1,9 @@
+.info__description {
+  max-width: 1056px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.info__description:last-of-type {
+  margin-bottom: 0;
+}

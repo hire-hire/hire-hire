@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,10 +23,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'django_cleanup.apps.CleanupConfig',
-    'users.apps.UsersConfig',
+    'debug_toolbar',
+
     'contributors.apps.StaticInfoConfig',
+    'duel.apps.DuelsConfig',
+    'interview.apps.InterviewConfig',
+    'homepage.apps.HomepageConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -48,11 +53,19 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
-        'OPTIONS': {'environment': 'hire_hire.jinja2.environment'},
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'environment': 'hire_hire.jinja2.environment',
+        },
     },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,7 +79,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'hire_hire.wsgi.application'
-
 
 DATABASES = {
     'default': {
@@ -82,7 +94,7 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.'
-        'UserAttributeSimilarityValidator',
+                'UserAttributeSimilarityValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
@@ -95,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -115,3 +127,13 @@ INTERNAL_IPS = [
 ]
 
 AUTH_USER_MODEL = 'users.User'
+
+DEFAULT_QUESTIONS_COUNT = 10
+MAX_QUESTIONS_COUNT_BY_ONE_SESSION = 30
+QUESTION_COUNT_CHOICE = (
+    (10, '10 вопросов'),
+    (20, '20 вопросов'),
+    (30, '30 вопросов'),
+)
+
+LOGIN_URL = reverse_lazy('homepage:index')

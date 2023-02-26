@@ -1,0 +1,8 @@
+.programming__links {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1600px
+}

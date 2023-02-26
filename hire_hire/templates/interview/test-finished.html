@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block main %}
+  <section class="test-finished sections">
+    <h1 class="test-finished__title sections__secondary-title">
+      Испытание Python
+    </h1>
+    <h2 class="test-finished__subtitle page__text">
+      Поздравляем! Вы закончили испытание.
+    </h2>
+    <div class="test-finished__links">
+      <a href="{{ url('homepage:index') }}" class="test-finished__link page__link page__text">На главную</a>
+      <a href="{{ url('interview:settings') }}" class="test-finished__link test-finished__link_type_pouring page__link page__text">Новое испытание</a>
+    </div>
+  </section>
+{% endblock %}

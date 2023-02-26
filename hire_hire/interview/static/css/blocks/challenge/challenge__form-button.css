@@ -1,0 +1,14 @@
+.challenge__form-button {
+  font-weight: bold;
+  color: #fff;
+  padding: 12px 91px;
+  border-radius: 12px;
+  border: none;
+  background-color: #000AFF;
+  align-self: flex-start;
+  display: none;
+}
+
+.challenge__form-button_type_visible {
+  display: block;
+}

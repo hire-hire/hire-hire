@@ -1,0 +1,20 @@
+.duel__button {
+  border-radius: 12px;
+  padding: 12px 119px;
+  border: 2px solid #000AFF;
+  color: #000AFF;
+  font-weight: bold;
+  background: none;
+  margin-top: 40px;
+  align-self: flex-start;
+  display: block;
+}
+
+.duel__button_type_next {
+  background-color: #000AFF;
+  color: #fff;
+}
+
+.duel__button_type-hidden {
+  display: none;
+}

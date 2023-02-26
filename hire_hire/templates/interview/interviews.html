@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block main %}
+    <section class="info sections">
+        <h1 class="info__title sections__main-title">
+            Пройти собеседование
+        </h1>
+        <p class="info__description page__text">
+            Покажи насколько мощно ты разбираешься в коде и готов к решению
+            реальных задач!
+        </p>
+        <p class="info__description page__text">
+            Пройди собеседование по Python!
+        </p>
+    </section>
+    <section class="directions sections">
+        <h2 class="directions__title sections__main-title">
+            Пройти собеседование
+        </h2>
+        <ul class="cards page__list">
+            <li class="card">
+                <img src="#" alt="" class="card__image">
+                <h3 class="card__title page__text">
+                    Python
+                </h3>
+                <a href="{{ url('interview:settings') }}"
+                   class="card__link page__link page__text">
+                    Перейти
+                </a>
+            </li>
+        </ul>
+    </section>
+{% endblock %}
