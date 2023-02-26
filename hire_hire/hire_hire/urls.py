@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path('auth/', include('users.urls')),
+    path('auth/', include('django.contrib.auth.urls')),
     path('', include('homepage.urls')),
     path('contributors/', include('contributors.urls')),
     path('duel/', include('duel.urls')),

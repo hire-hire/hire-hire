@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Зарегистрироваться{% endblock %}
+{% block main %}
+  <form method="post" action="{{ url('users:signup') }}">
+    {{ csrf_input }}
+    {{ form.as_p() }}
+    <input type="submit" value="Зарегистрироваться">
+  </form>
+{% endblock %}
