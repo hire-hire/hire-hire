@@ -72,7 +72,7 @@
                                name="password" id="password"
                                required>
                         <div class="form__label-hint-container">
-                            <img src=".{{ static('images/help-circle.png') }}"
+                            <img src="{{ static('images/help-circle.png') }}"
                                  alt="Подсказка" class="form__label-image">
                             <span class="form__label-hint page__text">
                   Пароль должен содержать столько-то знаков
@@ -183,6 +183,7 @@
     </div>
 </div>
 <script type="text/javascript" src="{{ static('js/popups.js') }}"></script>
+<script type="text/javascript" src="{{ static('js/validation.js') }}"></script>
 </body>
 
 </html>
