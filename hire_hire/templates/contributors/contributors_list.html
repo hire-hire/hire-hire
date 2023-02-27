@@ -19,14 +19,18 @@
                 {% set ns.prev = contributor.role %}
             {% endif %}
             <li class="team__card">
-                <img src="{{ contributor.photo.url }}" alt="" class="team__card-image">
+                <img src="{{ contributor.photo.url }}" alt=""
+                     class="team__card-image">
                 <div class="team__card-info">
                     <h3 class="team__card-title page__text">
                         {{ contributor.last_name }} {{ contributor.first_name }}
                     </h3>
                     <p class="team__card-description page__text">
                         {% for contact in contributor.contacts.all() %}
-                            {{ contact.contact }}<br>
+                            <a href="{{ contact.contact }}"
+                               class="page__link page__text"
+                               style="text-decoration: underline">{{ contact.social_network }}</a>
+                            <br/>
                         {% endfor %}
                     </p>
                 </div>
