@@ -1,6 +1,7 @@
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from users.forms import CreationForm, LoginForm
 
@@ -17,5 +18,5 @@ class CustomLoginView(LoginView):
     template_name = 'users/login.html'
 
 
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'users/profile.html'

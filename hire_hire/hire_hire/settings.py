@@ -138,5 +138,5 @@ QUESTION_COUNT_CHOICE = (
     (30, '30 вопросов'),
 )
 
-LOGIN_URL = reverse_lazy('homepage:index')
+LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')

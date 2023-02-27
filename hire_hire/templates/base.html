@@ -9,7 +9,7 @@
 </head>
 
 <body class="root">
-<div class="page {% if request.GET.next %}page_disabled{% endif %}">
+<div class="page">
     <header class="header">
         {% include 'includes/header.html' %}
     </header>
@@ -20,7 +20,7 @@
         {% include 'includes/footer.html' %}
     </footer>
 
-    <div class="popup popup_type_auth {% if request.GET.next %}popup_active{% endif %}">
+    <div class="popup popup_type_auth">
         <div class="popup__container">
             <button class="popup__close-btn" type="button"
                     aria-label="Кнопка закрытия попапа"></button>
