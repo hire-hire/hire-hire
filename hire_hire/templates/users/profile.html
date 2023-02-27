@@ -5,8 +5,12 @@
         <h1 class="profile__title sections__main-title">
             Личный кабинет
         </h1>
-        <button class="profile__exit-button page__text">
-            Выйти
-        </button>
+        <form method="post" action="{{ url('users:logout') }}">
+            {{ csrf_input }}
+            <button type="submit" class="profile__exit-button page__text">
+                Выйти
+            </button>
+        </form>
+
     </section>
 {% endblock %}
