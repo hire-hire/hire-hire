@@ -121,15 +121,19 @@
                 <h2 class="form__title form__title_type_register sections__secondary-title">
                     Регистрация</h2>
                 <label class="form__label page__text form__label_type_visible">
-                    Электронная почта
+                    Юзернейм
                     <div class="form__input-container">
-                        <input type="email" class="form__input page__text"
-                               name="email" id="email" required>
+                        <input type="username" class="form__input page__text"
+                               name="username" id="username" required>
+                        {{ login_form.username }}
+                        {% if login_form.errors.username %}
+                            {{ login_form.errors.username }}
+                        {% endif %}
                         <div class="form__label-hint-container">
                             <img src="{{ static('images/help-circle.png') }}"
                                  alt="Подсказка" class="form__label-image">
                             <span class="form__label-hint page__text">
-                  Введите адрес электронной почты
+                  Придумайте юзернейм
                 </span>
                         </div>
                     </div>
@@ -140,6 +144,10 @@
                     <div class="form__input-container">
                         <input type="password" class="form__input page__text"
                                name="password" id="password" required>
+                        {{ login_form.password1 }}
+                        {% if login_form.errors.password1 %}
+                            {{ login_form.errors.password1 }}
+                        {% endif %}
                         <div class="form__label-hint-container">
                             <img src="{{ static('images/help-circle.png') }}"
                                  alt="Подсказка" class="form__label-image">
@@ -156,6 +164,10 @@
                         <input type="password" class="form__input page__text"
                                name="repeat-password" id="repeat-password"
                                required>
+                        {{ login_form.password2 }}
+                        {% if login_form.errors.password2 %}
+                            {{ login_form.errors.password2 }}
+                        {% endif %}
                         <div class="form__label-hint-container">
                             <img src="{{ static('images/help-circle.png') }}"
                                  alt="Подсказка" class="form__label-image">
