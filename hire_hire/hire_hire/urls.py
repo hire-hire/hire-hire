@@ -9,7 +9,6 @@ urlpatterns = [
     path('contributors/', include('contributors.urls')),
     path('duel/', include('duel.urls')),
     path('interview/', include('interview.urls')),
-
     path('', include('homepage.urls')),
 ]
 
