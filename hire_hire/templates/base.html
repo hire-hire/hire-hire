@@ -24,16 +24,26 @@
         <div class="popup__container">
             <button class="popup__close-btn" type="button"
                     aria-label="Кнопка закрытия попапа"></button>
-            <form class="form form_type_auth" name="auth-form" novalidate>
+
+            <form class="form form_type_auth" name="auth-form"
+                  method="post" action="{{ url('users:login') }}"
+                  novalidate>
                 <h2 class="form__title sections__secondary-title">Вход</h2>
-                <input type="email" class="form__input page__text" name="email"
-                       id="email" placeholder="Почта" required>
-                <span class="form__input-error email-error page__text">Введена некорректная почта</span>
-                <input type="password"
-                       class="form__input page__text form__input_type_error"
-                       name="password" id="password"
-                       placeholder="Пароль" required>
-                <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
+                {{ csrf_input }}
+                <label class="form__label page__text form__label_type_visible">
+                    Юзернейм
+                    <div class="form__input-container">
+                        {{ login_form.username }}
+                    </div>
+                    <span class="form__input-error password-error page__text">ф</span>
+                </label>
+                <label class="form__label page__text form__label_type_visible">
+                    Введите пароль
+                    <div class="form__input-container">
+                        {{ login_form.password }}
+                    </div>
+                    <span class="form__input-error password-error page__text">ф</span>
+                </label>
                 <button type="submit"
                         class="form__button page__text form__button_type_pouring"
                         value="Войти"
@@ -116,7 +126,7 @@
             <button class="popup__close-btn" type="button"
                     aria-label="Кнопка закрытия попапа"></button>
             <form class="form form_type_register" name="register-form"
-                  form method="post" action="{{ url('users:signup') }}"
+                  method="post" action="{{ url('users:signup') }}"
                   novalidate>
                 {{ csrf_input }}
                 <h2 class="form__title form__title_type_register sections__secondary-title">
@@ -124,7 +134,7 @@
                 <label class="form__label page__text form__label_type_visible">
                     Юзернейм
                     <div class="form__input-container">
-                        {{ login_form.username }}
+                        {{ signup_form.username }}
                         <div class="form__label-hint-container">
                             <img src="{{ static('images/help-circle.png') }}"
                                  alt="Подсказка" class="form__label-image">
@@ -133,26 +143,26 @@
                 </span>
                         </div>
                     </div>
-                    <span class="form__input-error email-error page__text">Введена некорректная почта</span>
+                    <span class="form__input-error password-error page__text">ф</span>
                 </label>
                 <label class="form__label page__text form__label_type_visible">
                     Придумайте пароль
                     <div class="form__input-container">
-                        {{ login_form.password1 }}
+                        {{ signup_form.password1 }}
                         <div class="form__label-hint-container">
                             <img src="{{ static('images/help-circle.png') }}"
                                  alt="Подсказка" class="form__label-image">
                             <span class="form__label-hint page__text">
-                  Пароль должен содержать столько-то знаков
+                  Пароль должен содержать 8 символов и иметь хотя бы 1 цифру и 1 заглавную букву
                 </span>
                         </div>
                     </div>
-                    <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
+                    <span class="form__input-error password-error page__text">ф</span>
                 </label>
                 <label class="form__label page__text form__label_type_visible">
                     Повторите пароль
                     <div class="form__input-container">
-                        {{ login_form.password2 }}
+                        {{ signup_form.password2 }}
                         <div class="form__label-hint-container">
                             <img src="{{ static('images/help-circle.png') }}"
                                  alt="Подсказка" class="form__label-image">
@@ -161,7 +171,7 @@
                 </span>
                         </div>
                     </div>
-                    <span class="form__input-error repeat-password-error page__text">Пароли не совпадают</span>
+                    <span class="form__input-error repeat-password-error page__text">ч</span>
                 </label>
                 <div class="form__checkbox-container">
                     <input type="checkbox" class="form__chekbox">

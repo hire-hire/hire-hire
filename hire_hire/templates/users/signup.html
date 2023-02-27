@@ -2,7 +2,7 @@
 {% block title %}Зарегистрироваться{% endblock %}
 {% block main %}
     <form class="form form_type_register" name="register-form"
-          form method="post" action="{{ url('users:signup') }}"
+          method="post" action="{{ url('users:signup') }}"
           novalidate>
         {{ csrf_input }}
         <h2 class="form__title form__title_type_register sections__secondary-title">
@@ -22,6 +22,8 @@
             {% if form.errors.username %}
                 {{ form.errors.username }}
             {% endif %}
+            <span class="form__input-error password-error page__text">ф</span>
+
         </label>
         <label class="form__label page__text form__label_type_visible">
             Придумайте пароль
@@ -38,6 +40,8 @@
             {% if form.errors.password1 %}
                 {{ form.errors.password1 }}
             {% endif %}
+            <span class="form__input-error password-error page__text">ф</span>
+
         </label>
         <label class="form__label page__text form__label_type_visible">
             Повторите пароль
@@ -54,6 +58,8 @@
             {% if form.errors.password2 %}
                 {{ form.errors.password2 }}
             {% endif %}
+            <span class="form__input-error password-error page__text">ф</span>
+
         </label>
         <div class="form__checkbox-container">
             <input type="checkbox" class="form__chekbox">

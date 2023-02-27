@@ -1,6 +1,5 @@
-from users.forms import CreationForm
+from users.forms import CreationForm, LoginForm
 
 
-def login_everywhere(request):
-    form = CreationForm()
-    return {'login_form': form}
+def get_login_and_signup_forms(request):
+    return {'signup_form': CreationForm(), 'login_form': LoginForm()}

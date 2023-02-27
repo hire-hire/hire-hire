@@ -59,7 +59,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'users.context_processors.login_everywhere',
+                'users.context_processors.get_login_and_signup_forms',
             ],
             'environment': 'hire_hire.jinja2.environment',
         },
@@ -74,7 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'users.context_processors.login_everywhere',
+                'users.context_processors.get_login_and_signup_forms',
             ],
         },
     },
@@ -139,3 +139,4 @@ QUESTION_COUNT_CHOICE = (
 )
 
 LOGIN_URL = reverse_lazy('homepage:index')
+LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
