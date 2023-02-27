@@ -16,11 +16,20 @@
                 Команда
             </a>
         </li>
-        <li class="header__item">
-            <button id="profile-button" type="button"
-                    class="header__link header__link_type_blue page__link page__text">
-                Вход
-            </button>
-        </li>
+        {% if user.is_anonymous %}
+            <li class="header__item">
+                <button id="profile-button" type="button"
+                        class="header__link header__link_type_blue page__link page__text">
+                    Вход
+                </button>
+            </li>
+        {% else %}
+            <li class="header__item">
+                <a id="profile-button" href="{{ url('users:profile') }}"
+                   class="header__link header__link_type_blue page__link page__text">
+                    Профиль
+                </a>
+            </li>
+        {% endif %}
     </ul>
 </nav>

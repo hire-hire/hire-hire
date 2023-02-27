@@ -19,177 +19,184 @@
     <footer class="footer">
         {% include 'includes/footer.html' %}
     </footer>
+    {% if user.is_anonymous %}
+        <div class="popup popup_type_auth">
+            <div class="popup__container">
+                <button class="popup__close-btn" type="button"
+                        aria-label="Кнопка закрытия попапа"></button>
 
-    <div class="popup popup_type_auth">
-        <div class="popup__container">
-            <button class="popup__close-btn" type="button"
-                    aria-label="Кнопка закрытия попапа"></button>
-
-            <form class="form form_type_auth" name="auth-form"
-                  method="post" action="{{ url('users:login') }}"
-                  novalidate>
-                <h2 class="form__title sections__secondary-title">Вход</h2>
-                {{ csrf_input }}
-                <label class="form__label page__text form__label_type_visible">
-                    Юзернейм
-                    <div class="form__input-container">
-                        {{ login_form.username }}
-                    </div>
-                    <span class="form__input-error password-error page__text">ф</span>
-                </label>
-                <label class="form__label page__text form__label_type_visible">
-                    Введите пароль
-                    <div class="form__input-container">
-                        {{ login_form.password }}
-                    </div>
-                    <span class="form__input-error password-error page__text">ф</span>
-                </label>
-                <button type="submit"
-                        class="form__button page__text form__button_type_pouring"
-                        value="Войти"
-                        aria-label="Кнопка отправки формы">Войти
-                </button>
-                <p class="form__hint page__text">В первый раз здесь?</p>
-                <button type="button"
-                        class="form__button page__text form__button_type_register"
-                        value="Зарегистрироваться"
-                        aria-label="Кнопка перехода на страницу регистрации">
-                    Зарегистрироваться
-                </button>
-            </form>
+                <form class="form form_type_auth" name="auth-form"
+                      method="post" action="{{ url('users:login') }}"
+                      novalidate>
+                    <h2 class="form__title sections__secondary-title">Вход</h2>
+                    {{ csrf_input }}
+                    <label class="form__label page__text form__label_type_visible">
+                        Юзернейм
+                        <div class="form__input-container">
+                            {{ login_form.username }}
+                        </div>
+                        <span class="form__input-error password-error page__text">ф</span>
+                    </label>
+                    <label class="form__label page__text form__label_type_visible">
+                        Введите пароль
+                        <div class="form__input-container">
+                            {{ login_form.password }}
+                        </div>
+                        <span class="form__input-error password-error page__text">ф</span>
+                    </label>
+                    <button type="submit"
+                            class="form__button page__text form__button_type_pouring"
+                            value="Войти"
+                            aria-label="Кнопка отправки формы">Войти
+                    </button>
+                    <p class="form__hint page__text">В первый раз здесь?</p>
+                    <button type="button"
+                            class="form__button page__text form__button_type_register"
+                            value="Зарегистрироваться"
+                            aria-label="Кнопка перехода на страницу регистрации">
+                        Зарегистрироваться
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="popup popup_type_revive-password">
-        <div class="popup__container">
-            <button class="popup__close-btn" type="button"
-                    aria-label="Кнопка закрытия попапа"></button>
-            <form class="form form_type_revive-password"
-                  name="revive-password-form" novalidate>
-                <h2 class="form__title form__title_type_revive-password sections__secondary-title">
-                    Восстановление пароля</h2>
-                <label class="form__label page__text form__label_type_visible form__label_type_email">
-                    Электронная почта
-                    <input type="email" class="form__input page__text"
-                           name="email" id="email" placeholder="Почта"
-                           required>
-                    <span class="form__input-error email-error page__text">Введена некорректная почта</span>
-                </label>
-                <label class="form__label page__text form__label_type_password">
-                    Придумайте пароль
-                    <div class="form__input-container">
-                        <input type="password"
-                               class="form__input page__text form__input_type_error"
-                               name="password" id="password"
+        <div class="popup popup_type_revive-password">
+            <div class="popup__container">
+                <button class="popup__close-btn" type="button"
+                        aria-label="Кнопка закрытия попапа"></button>
+                <form class="form form_type_revive-password"
+                      name="revive-password-form" novalidate>
+                    <h2 class="form__title form__title_type_revive-password sections__secondary-title">
+                        Восстановление пароля</h2>
+                    <label class="form__label page__text form__label_type_visible form__label_type_email">
+                        Электронная почта
+                        <input type="email" class="form__input page__text"
+                               name="email" id="email" placeholder="Почта"
                                required>
-                        <div class="form__label-hint-container">
-                            <img src=".{{ static('images/help-circle.png') }}"
-                                 alt="Подсказка" class="form__label-image">
-                            <span class="form__label-hint page__text">
+                        <span class="form__input-error email-error page__text">Введена некорректная почта</span>
+                    </label>
+                    <label class="form__label page__text form__label_type_password">
+                        Придумайте пароль
+                        <div class="form__input-container">
+                            <input type="password"
+                                   class="form__input page__text form__input_type_error"
+                                   name="password" id="password"
+                                   required>
+                            <div class="form__label-hint-container">
+                                <img src=".
+                                        {{ static('images/help-circle.png') }}"
+                                     alt="Подсказка" class="form__label-image">
+                                <span class="form__label-hint page__text">
                   Пароль должен содержать столько-то знаков
                 </span>
+                            </div>
                         </div>
-                    </div>
-                    <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
-                </label>
-                <label class="form__label page__text form__label_type_repeat-password">
-                    Повторите пароль
-                    <div class="form__input-container">
-                        <input type="password"
-                               class="form__input page__text form__input_type_error"
-                               name="repeat-password"
-                               id="repeat-password" required>
-                        <div class="form__label-hint-container">
-                            <img src="{{ static('images/help-circle.png') }}"
-                                 alt="Подсказка" class="form__label-image">
-                            <span class="form__label-hint page__text">
+                        <span class="form__input-error password-error page__text">Введен некорректный пароль</span>
+                    </label>
+                    <label class="form__label page__text form__label_type_repeat-password">
+                        Повторите пароль
+                        <div class="form__input-container">
+                            <input type="password"
+                                   class="form__input page__text form__input_type_error"
+                                   name="repeat-password"
+                                   id="repeat-password" required>
+                            <div class="form__label-hint-container">
+                                <img src="
+                                        {{ static('images/help-circle.png') }}"
+                                     alt="Подсказка" class="form__label-image">
+                                <span class="form__label-hint page__text">
                   Повторите пароль введеный выше
                 </span>
+                            </div>
                         </div>
-                    </div>
-                    <span class="form__input-error repeat-password-error page__text">Пароли не совпадают</span>
-                </label>
-                <p class="form__info page__text">
-                    Ваш пароль успешно изменен!
-                </p>
-                <button type="button"
-                        class="form__button page__text form__button_type_pouring form__button_type_revive-password"
-                        value="Восстановить пароль"
-                        aria-label="Кнопка восстановления пароля">Восстановить
-                    пароль
-                </button>
-            </form>
+                        <span class="form__input-error repeat-password-error page__text">Пароли не совпадают</span>
+                    </label>
+                    <p class="form__info page__text">
+                        Ваш пароль успешно изменен!
+                    </p>
+                    <button type="button"
+                            class="form__button page__text form__button_type_pouring form__button_type_revive-password"
+                            value="Восстановить пароль"
+                            aria-label="Кнопка восстановления пароля">
+                        Восстановить
+                        пароль
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div class="popup popup_type_register">
-        <div class="popup__container">
-            <button class="popup__close-btn" type="button"
-                    aria-label="Кнопка закрытия попапа"></button>
-            <form class="form form_type_register" name="register-form"
-                  method="post" action="{{ url('users:signup') }}"
-                  novalidate>
-                {{ csrf_input }}
-                <h2 class="form__title form__title_type_register sections__secondary-title">
-                    Регистрация</h2>
-                <label class="form__label page__text form__label_type_visible">
-                    Юзернейм
-                    <div class="form__input-container">
-                        {{ signup_form.username }}
-                        <div class="form__label-hint-container">
-                            <img src="{{ static('images/help-circle.png') }}"
-                                 alt="Подсказка" class="form__label-image">
-                            <span class="form__label-hint page__text">
+        <div class="popup popup_type_register">
+            <div class="popup__container">
+                <button class="popup__close-btn" type="button"
+                        aria-label="Кнопка закрытия попапа"></button>
+                <form class="form form_type_register" name="register-form"
+                      method="post" action="{{ url('users:signup') }}"
+                      novalidate>
+                    {{ csrf_input }}
+                    <h2 class="form__title form__title_type_register sections__secondary-title">
+                        Регистрация</h2>
+                    <label class="form__label page__text form__label_type_visible">
+                        Юзернейм
+                        <div class="form__input-container">
+                            {{ signup_form.username }}
+                            <div class="form__label-hint-container">
+                                <img src="
+                                        {{ static('images/help-circle.png') }}"
+                                     alt="Подсказка" class="form__label-image">
+                                <span class="form__label-hint page__text">
                   Придумайте юзернейм
                 </span>
+                            </div>
                         </div>
-                    </div>
-                    <span class="form__input-error password-error page__text">ф</span>
-                </label>
-                <label class="form__label page__text form__label_type_visible">
-                    Придумайте пароль
-                    <div class="form__input-container">
-                        {{ signup_form.password1 }}
-                        <div class="form__label-hint-container">
-                            <img src="{{ static('images/help-circle.png') }}"
-                                 alt="Подсказка" class="form__label-image">
-                            <span class="form__label-hint page__text">
+                        <span class="form__input-error password-error page__text">ф</span>
+                    </label>
+                    <label class="form__label page__text form__label_type_visible">
+                        Придумайте пароль
+                        <div class="form__input-container">
+                            {{ signup_form.password1 }}
+                            <div class="form__label-hint-container">
+                                <img src="
+                                        {{ static('images/help-circle.png') }}"
+                                     alt="Подсказка" class="form__label-image">
+                                <span class="form__label-hint page__text">
                   Пароль должен содержать 8 символов и иметь хотя бы 1 цифру и 1 заглавную букву
                 </span>
+                            </div>
                         </div>
-                    </div>
-                    <span class="form__input-error password-error page__text">ф</span>
-                </label>
-                <label class="form__label page__text form__label_type_visible">
-                    Повторите пароль
-                    <div class="form__input-container">
-                        {{ signup_form.password2 }}
-                        <div class="form__label-hint-container">
-                            <img src="{{ static('images/help-circle.png') }}"
-                                 alt="Подсказка" class="form__label-image">
-                            <span class="form__label-hint page__text">
+                        <span class="form__input-error password-error page__text">ф</span>
+                    </label>
+                    <label class="form__label page__text form__label_type_visible">
+                        Повторите пароль
+                        <div class="form__input-container">
+                            {{ signup_form.password2 }}
+                            <div class="form__label-hint-container">
+                                <img src="
+                                        {{ static('images/help-circle.png') }}"
+                                     alt="Подсказка" class="form__label-image">
+                                <span class="form__label-hint page__text">
                   Повторите пароль введеный выше
                 </span>
+                            </div>
                         </div>
+                        <span class="form__input-error repeat-password-error page__text">ч</span>
+                    </label>
+                    <div class="form__checkbox-container">
+                        <input type="checkbox" class="form__chekbox">
+                        <p class="form__chekbox-text page__text">
+                            Я ознакомлен с
+                            <a href="#" class="form__chekbox-link page__link">Пользовательским
+                                соглашением и Политикой
+                                конфиденциальности</a>
+                        </p>
                     </div>
-                    <span class="form__input-error repeat-password-error page__text">ч</span>
-                </label>
-                <div class="form__checkbox-container">
-                    <input type="checkbox" class="form__chekbox">
-                    <p class="form__chekbox-text page__text">
-                        Я ознакомлен с
-                        <a href="#" class="form__chekbox-link page__link">Пользовательским
-                            соглашением и Политикой
-                            конфиденциальности</a>
-                    </p>
-                </div>
-                <button type="submit"
-                        class="form__button page__text form__button_type_pouring form__button_type_register"
-                        value="Зарегестрироваться"
-                        aria-label="Кнопка регистрации">Зарегистрироваться
-                </button>
-            </form>
+                    <button type="submit"
+                            class="form__button page__text form__button_type_pouring form__button_type_register"
+                            value="Зарегестрироваться"
+                            aria-label="Кнопка регистрации">Зарегистрироваться
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
+    {% endif %}
 </div>
 
 <script type="text/javascript" src="{{ static('js/popups.js') }}"></script>

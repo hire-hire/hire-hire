@@ -4,15 +4,16 @@ from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from users.forms import CreationForm, LoginForm
+from users.mixins import NoLoginRequiredMixin
 
 
-class SignUpView(CreateView):
+class SignUpView(NoLoginRequiredMixin, CreateView):
     form_class = CreationForm
     success_url = reverse_lazy('homepage:index')
     template_name = 'users/signup.html'
 
 
-class CustomLoginView(LoginView):
+class CustomLoginView(NoLoginRequiredMixin, LoginView):
     success_url = reverse_lazy('homepage:index')
     form_class = LoginForm
     template_name = 'users/login.html'
