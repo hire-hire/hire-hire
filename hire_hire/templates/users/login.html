@@ -41,7 +41,8 @@
                 class="form__button page__text form__button_type_register"
                 value="Зарегистрироваться"
                 aria-label="Кнопка перехода на страницу регистрации">
-            Зарегистрироваться
+
+            <a href="{{ url('users:signup') }}" class="page__link">Зарегистрироваться</a>
         </button>
     </form>
 {% endblock %}

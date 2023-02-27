@@ -75,5 +75,12 @@
                 value="Зарегестрироваться"
                 aria-label="Кнопка регистрации">Зарегистрироваться
         </button>
+        <p class="form__hint page__text">Уже есть аккаунт?</p>
+        <button type="button"
+                class="form__button page__text form__button_type_register"
+                value="Войти">
+
+            <a href="{{ url('users:login') }}" class="page__link">Войти</a>
+        </button>
     </form>
 {% endblock %}
