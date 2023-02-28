@@ -4,7 +4,8 @@ from django.db import models
 
 class User(AbstractUser):
     is_duel_moderator = models.BooleanField(
-        'признак модератора для дуэлей', default=False
+        'признак модератора для дуэлей',
+        default=False,
     )
 
     class Meta:
