@@ -132,3 +132,5 @@ dmypy.json
 
 .idea/
 .vscode/settings.json
+media/
+
