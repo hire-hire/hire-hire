@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from interview.managers import QuestionManager, InterviewManager
+from interview.managers import InterviewManager, QuestionManager
 
 User = get_user_model()
 

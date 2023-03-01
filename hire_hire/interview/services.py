@@ -1,4 +1,4 @@
-from interview.models import Question, Interview
+from interview.models import Interview, Question
 
 
 def create_interview(user, question_count):

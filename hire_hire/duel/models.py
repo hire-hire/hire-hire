@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from duel.managers import DuelQuestionManager, DuelPlayerManager, DuelManager
+from duel.managers import DuelManager, DuelPlayerManager, DuelQuestionManager
 from interview.models import Question
 
 User = get_user_model()
