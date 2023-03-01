@@ -1,6 +1,8 @@
 from django.db import models
 from sorl.thumbnail import ImageField
 
+from contributors.managers import ContributorManager
+
 
 class Contributor(models.Model):
     first_name = models.CharField(
@@ -30,6 +32,8 @@ class Contributor(models.Model):
         verbose_name='роль в команде',
         on_delete=models.PROTECT,
     )
+
+    objects = ContributorManager()
 
     class Meta:
         verbose_name = 'член команды'
