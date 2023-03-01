@@ -1,4 +1,4 @@
-from duel.models import Duel, DuelQuestion, DuelPlayer
+from duel.models import Duel, DuelPlayer, DuelQuestion
 from interview.models import Question
 
 

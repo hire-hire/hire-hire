@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import TemplateView, FormView
+from django.views.generic import FormView, TemplateView
 
-from duel.forms import DuelSettingsForm, DuelFlowAnsweredForm
+from duel.forms import DuelFlowAnsweredForm, DuelSettingsForm
 from duel.mixins import DuelFlowGetDuelMixin
 from duel.models import Duel
 from duel.services import create_duel, set_duel_question_is_answered

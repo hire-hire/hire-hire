@@ -1,5 +1,5 @@
 [flake8]
-application-import-names = hire_hire,contributors
+application-import-names = hire_hire,contributors,duel,interview,homepage,users,
 exclude = .git,__pycache__,venv,manage.py,settings.py, migrations,
 import-order-style = google
 
