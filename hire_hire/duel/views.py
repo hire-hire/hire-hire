@@ -61,6 +61,13 @@ class DuelFlowQuestionView(DuelFlowGetDuelMixin, LoginRequiredMixin, FormView):
 
         context['player1'], context['player2'] = self.duel_players
         context['duel_question'] = self.duel.questions.get_no_answered()
+        context['total_questions'] = self.duel.questions.count()
+        context['current_question'] = (
+            context['player1'].good_answers_count +
+            context['player2'].good_answers_count +
+            self.duel.wrong_answers_count +
+            1
+        )
 
         return context
 
