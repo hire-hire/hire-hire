@@ -63,12 +63,10 @@ class DuelFlowQuestionView(DuelFlowGetDuelMixin, LoginRequiredMixin, FormView):
         context['duel_question'] = self.duel.questions.get_no_answered()
         context['total_questions_count'] = self.duel.questions.count()
         context['current_question_number'] = (
-            context['player1'].good_answers_count +
-            context['player2'].good_answers_count +
-            self.duel.wrong_answers_count +
+            context['total_questions_count'] -
+            self.duel.questions.get_no_answered(get_object=False).count() +
             1
         )
-
         return context
 
     def _finish_duel(self, context):
