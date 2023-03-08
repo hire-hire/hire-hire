@@ -19,6 +19,12 @@ class DuelQuestionManager(models.Manager):
 
         return query
 
+    def get_current_question_number(self):
+        query = self.get_queryset().filter(is_answered=True)
+        if not query:
+            return 1
+        return query.count() + 1
+
 
 class DuelPlayerManager(models.Manager):
     def update_player_and_duel_score(self, winner_pk, duel):
