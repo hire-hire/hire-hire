@@ -21,8 +21,6 @@ class DuelQuestionManager(models.Manager):
 
     def get_current_question_number(self):
         query = self.get_queryset().filter(is_answered=True)
-        if not query:
-            return 1
         return query.count() + 1
 
 
