@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block main %}
+<div>
+    {% include 'addquestion/includes/formerrors.html' %}
+    <form method="post">{{ csrf_input }}
+        {% include 'addquestion/includes/createform.html' %}
+        <button type="submit">
+            Добавить
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% for field in form %} 
+  <div>
+    <label>
+      {{ field.label }}
+        {% if field.field.required %}
+          <span>*</span>
+        {% endif %}
+    </label>
+    {{ field }} 
+      {% if field.help_text %}
+        <small>
+          {{ field.help_text }}
+        </small>
+      {% endif %}
+  </div>
+{% endfor %}
