@@ -1,23 +1,6 @@
 {% extends "base.html" %}
 {% block main %}
 
-**************************************** это без разметки
-<div>
-    <div>
-        {% include 'addquestion/includes/formerrors.html' %}
-    </div>
-    <div>
-        Вы отправили {{ added_questions }} вопросов из 10 доступных сегодня.
-    </div>
-    <form method="post">{{ csrf_input }}
-        {% include 'addquestion/includes/createform.html' %}
-        <button type="submit">
-            Добавить
-        </button>
-    </form>
-</div>
-**************************************** ниже закопировал шаблон фронта
-
 <main class="main">
     <section class="offer">
         <h1 class="offer__title sections__secondary-title">
@@ -35,10 +18,17 @@
             информацию, которую получаем. После модерации ваши вопросы-ответы попадут в нашу базу данных и помогут
             пользователям учиться и проверять свои знания.
         </p>
+
+        <h1 class="offer__title sections__secondary-title">
+            {% include 'addquestion/includes/formerrors.html' %}
+        </h1>
+
         <form method="post" class="offer__form sections" name="offer-form">
             {{ csrf_input }}
             <div class="offer__qa-container">
-                {{ form.language.label }}
+                <h2 class="offer__form-title sections__subtitle">
+                    {{ form.language.label }}
+                </h2>
                 {{ form.language }}
                 <h2 class="offer__form-title sections__subtitle">
                     {{ form.text.label }}
@@ -46,16 +36,14 @@
                 <h2 class="offer__form-title sections__subtitle">
                     {{ form.answer.label }}
                 </h2>
-                {{ form.text }}
+
                 <div class="offer__textarea-container">
-                    <textarea id="question" class="offer__textarea page__text" minlength="10" maxlength="500"
-                        placeholder="Введите вопрос" required></textarea>
+                    {{ form.text }}
                     <span id="questionError" class="offer__error page__text">Privet</span>
                 </div>
-                {{ form.answer }}
+
                 <div class="offer__textarea-container">
-                    <textarea id="answer" class="offer__textarea page__text" minlength="10" maxlength="500"
-                        placeholder="Введите ответ" required></textarea>
+                    {{ form.answer }}
                     <span id="answerError" class="offer__error page__text">Privet</span>
                 </div>
                 <p id="questionHint" class="offer__hints page__text">
