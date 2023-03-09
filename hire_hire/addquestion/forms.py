@@ -10,5 +10,5 @@ class AddQuestionForm(forms.ModelForm):
         model = AddQuestion
         fields = ('language', 'text', 'answer', )
         labels = {'language': 'Язык',
-                  'text': 'Предложите вопрос',
+                  'text': 'Ваш вопрос',
                   'answer': 'Ваш ответ', }

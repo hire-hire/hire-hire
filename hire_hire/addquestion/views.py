@@ -1,18 +1,17 @@
+import time
+
 from django.db.models import Q
-from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 
 from .forms import AddQuestionForm
 from .models import AddQuestion
 from hire_hire.settings import MAX_ADDQUESTIONS_PER_DAY
 
 
-class AddQuestionView(CreateView):
-    success_url = reverse_lazy('addquestion:addquestion')
-    form_class = AddQuestionForm
-    template_name = 'addquestion/addquestion.html'
-
+class AddQuestionMixin:
     def dispatch(self, request, *args, **kwargs):
         ago_24_hours = timezone.now() - timezone.timedelta(hours=24)
         self.current_ip_address = request.META.get('REMOTE_ADDR')
@@ -27,6 +26,12 @@ class AddQuestionView(CreateView):
         context['added_questions'] = self.addquestions_for24_count
         return context
 
+
+class AddQuestionView(AddQuestionMixin, CreateView):
+    success_url = reverse_lazy('addquestion:finished')
+    form_class = AddQuestionForm
+    template_name = 'addquestion/addquestion.html'
+
     def form_valid(self, form):
         form.instance.ip_address = self.request.META.get('REMOTE_ADDR')
         if self.request.user.is_authenticated:
@@ -34,4 +39,10 @@ class AddQuestionView(CreateView):
         if self.addquestions_for24_count >= MAX_ADDQUESTIONS_PER_DAY:
             form.add_error(None, 'Вы исчерпали лимит вопросов на день.')
             return super().form_invalid(form)
+            # time.sleep(5) # задержка на 5 секунд, шляпа полная
+            # return HttpResponseRedirect(reverse('homepage:index'))
         return super().form_valid(form)
+
+
+class AddQuestionFinishView(AddQuestionMixin, TemplateView):
+    template_name = 'addquestion/addquestion-finished.html'
