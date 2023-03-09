@@ -1,0 +1,15 @@
+.duel-result__link {
+  width: 376px;
+  border: 2px solid #000AFF;
+  border-radius: 12px;
+  padding: 12px 0;
+  color: #000AFF;
+  text-align: center;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.duel-result__link_type_pouring {
+  background-color: #000AFF;
+  color: #fff;
+}

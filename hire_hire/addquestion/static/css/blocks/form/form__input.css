@@ -1,0 +1,12 @@
+.form__input {
+  width: 100%;
+  padding: 12px 24px;
+  border-radius: 12px;
+  margin-bottom: 4px;
+  box-sizing: border-box;
+  border: 1px solid rgba(8, 6, 23, 0.6);
+}
+
+.form__input_type_error {
+  border: 1px solid #FF0000;
+}

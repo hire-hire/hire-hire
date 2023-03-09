@@ -1,0 +1,9 @@
+.form__label-hint-container {
+  display: inline-block;
+  position: relative;
+}
+
+.form__label-hint-container:hover .form__label-hint {
+  visibility: visible;
+  opacity: 1;
+}

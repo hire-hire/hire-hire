@@ -1,0 +1,18 @@
+.challenge__form-text {
+  background-color: rgba(191, 191, 191, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.challenge__form-text_type_correctly {
+  background-color: rgba(171, 255, 180, 0.2);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.challenge__form-text_type_visible {
+  visibility: visible;
+  opacity: 1;
+  transition: all .3s linear;
+}
