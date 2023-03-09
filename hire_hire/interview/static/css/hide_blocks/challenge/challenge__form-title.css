@@ -1,0 +1,23 @@
+.challenge__form-title {
+    margin: 0;
+    margin-bottom: 12px;
+    font-size: 32px;
+    line-height: 106%;
+    font-weight: bold;
+}
+
+.challenge__form-title_type_correctly {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.challenge__form-title_type_visible {
+    visibility: visible;
+    opacity: 1;
+    transition: all .3s linear;
+}
+
+.challenge__form-subtitle {
+    color: rgba(8, 6, 23, 0.6);
+    font-size: 20px;
+}

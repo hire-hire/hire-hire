@@ -4,7 +4,7 @@
   position: absolute;
   top: 0;
   right: -16px;
-  background-image: url('../../../images/popup-close-btn.png');
+  background-image: url(../../images/popup-close-btn.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-color: rgba(0, 0, 0, .0);

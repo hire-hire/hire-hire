@@ -1,0 +1,16 @@
+.offer__error {
+  color: rgba(255, 0, 0, 1);
+  font-size: 14px;
+  line-height: 16px;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: opacity .3s linear;
+  max-width: 70%;
+}
+
+.offer__error_type_visible {
+  opacity: 1;
+}

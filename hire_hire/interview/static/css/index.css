@@ -186,3 +186,27 @@
 @import url(blocks/team/team__card-image.css);
 @import url(blocks/team/team__card-info.css);
 @import url(blocks/team/team__card-title.css);
+
+/* Offer */
+
+@import url(blocks/offer/offer.css);
+@import url(blocks/offer/offer__form.css);
+@import url(blocks/offer/offer__qa-container.css);
+@import url(blocks/offer/offer__textarea.css);
+@import url(blocks/offer/offer__hints.css);
+@import url(blocks/offer/offer__label.css);
+@import url(blocks/offer/offer__button.css);
+@import url(blocks/offer/offer__textarea-container.css);
+@import url(blocks/offer/offer__error.css);
+@import url(blocks/offer/offer__button-container.css);
+
+/* Suggest-question */
+
+@import url(blocks/suggest-question/suggest-question.css);
+@import url(blocks/suggest-question/suggest-question__button.css);
+
+/* Offer-finished */
+
+@import url(blocks/offer-finished/offer-finished__subtitle.css);
+@import url(blocks/offer-finished/offer-finished__links.css);
+@import url(blocks/offer-finished/offer-finished__link.css);

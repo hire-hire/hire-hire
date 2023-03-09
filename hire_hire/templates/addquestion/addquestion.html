@@ -35,19 +35,24 @@
             информацию, которую получаем. После модерации ваши вопросы-ответы попадут в нашу базу данных и помогут
             пользователям учиться и проверять свои знания.
         </p>
-        <form class="offer__form sections" name="offer-form">
+        <form method="post" class="offer__form sections" name="offer-form">
+            {{ csrf_input }}
             <div class="offer__qa-container">
+                {{ form.language.label }}
+                {{ form.language }}
                 <h2 class="offer__form-title sections__subtitle">
-                    Ваш вопрос
+                    {{ form.text.label }}
                 </h2>
                 <h2 class="offer__form-title sections__subtitle">
-                    Ваш ответ
+                    {{ form.answer.label }}
                 </h2>
+                {{ form.text }}
                 <div class="offer__textarea-container">
                     <textarea id="question" class="offer__textarea page__text" minlength="10" maxlength="500"
                         placeholder="Введите вопрос" required></textarea>
                     <span id="questionError" class="offer__error page__text">Privet</span>
                 </div>
+                {{ form.answer }}
                 <div class="offer__textarea-container">
                     <textarea id="answer" class="offer__textarea page__text" minlength="10" maxlength="500"
                         placeholder="Введите ответ" required></textarea>
@@ -61,11 +66,11 @@
                 </p>
             </div>
             <div class="offer__button-container">
-                <button class="offer__button offer__button_type_disabled page__text" disabled>
+                <button type="submit" class="offer__button offer__button_type_disabled page__text" disabled>
                     Отправить вопрос
                 </button>
                 <p class="offer__button-hint page__text">
-                    Вы отправили 0 вопросов из 10 доступных сегодня.
+                    Вы отправили {{ added_questions }} вопросов из 10 доступных сегодня.
                 </p>
             </div>
         </form>
