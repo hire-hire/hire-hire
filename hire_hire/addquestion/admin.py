@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-from addquestion.models import AddQuestion
 from interview.models import Question
+from .models import AddQuestion
 
 
 @admin.register(AddQuestion)
