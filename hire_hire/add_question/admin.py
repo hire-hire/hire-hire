@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
+from add_question.models import AddQuestion
 from interview.models import Question
-from .models import AddQuestion
 
 
 @admin.register(AddQuestion)
@@ -13,23 +13,20 @@ class AddQuestionAdmin(admin.ModelAdmin):
     list_display = (
         'pk', 'language', 'text', 'answer', 'ip_address', 'pub_date', 'author',
         )
-    # list_editable = ('language', )
     search_fields = ('language', 'text', 'answer', )
     list_filter = ('language',)
     empty_value_display = '-пусто-'
 
     readonly_fields = ('ip_address', 'author', 'custom_button',)
-    actions = ['approve', 'appr']
+    actions = ('approve', )
 
     def approve(self, request, queryset):
-        for obj in queryset:
-            Question.objects.create(
-                language=obj.language,
-                text=obj.text,
-                answer=obj.answer
-            )
-            obj.delete()
-        self.message_user(request, f'Одобрено {queryset.count()} вопроса.')
+        questions = [
+            Question(language=obj.language, text=obj.text, answer=obj.answer, )
+            for obj in queryset]
+        Question.objects.bulk_create(questions)
+        queryset.delete()
+        self.message_user(request, f'Одобрено {len(questions)} вопроса.')
 
     approve.short_description = 'Одобрить выбранные вопросы'
 
@@ -38,12 +35,12 @@ class AddQuestionAdmin(admin.ModelAdmin):
             Question.objects.create(
                 language=obj.language,
                 text=obj.text,
-                answer=obj.answer
+                answer=obj.answer,
                 )
             obj.delete()
             self.message_user(request, 'Вопрос одобрен.')
             return HttpResponseRedirect(
-                reverse('admin:addquestion_addquestion_changelist'))  # ('.')
+                reverse('admin:add_question_add_question_changelist'))
         return super().response_change(request, obj)
 
     def custom_button(self, obj):

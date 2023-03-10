@@ -6,7 +6,7 @@
       Предложи свой вопрос
     </h1>
     <h2 class="offer-finished__subtitle sections__subtitle">
-      Спасибо за ваш вклад, сегодня вы отправили {{ added_questions }} вопрос из 10!
+      Спасибо за ваш вклад, сегодня вы отправили {{ added_questions }} вопрос из {{ limit_add_questions_per_day }}!
       <br>
       Мы проверим ваши вопросы и добавим их в свою базу
     </h2>
@@ -14,7 +14,7 @@
       <a href="{{ url('homepage:index') }}" class="offer-finished__link page__link page__text">
         На главную
       </a>
-      <a href="{{ url('addquestion:addquestion') }}"
+      <a href="{{ url('add_question:add_question') }}"
         class="offer-finished__link offer-finished__link_type_pouring page__link page__text">
         Предложить новый вопрос
       </a>

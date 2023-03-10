@@ -9,7 +9,7 @@
         <p class="offer__description sections__description">
             Здесь у вас есть возможность предложить нам свои варианты вопросов и ответов для наших пользователей. Всего
             вы
-            можете добавить <strong>до 10 вопросов в день</strong>.
+            можете добавить <strong>до {{ limit_add_questions_per_day }} вопросов в день</strong>.
             <br>
             В поле «Ваш вопрос» введите вопрос, он должен быть понятным и конкретным, представьте, что такой вопрос
             задают
@@ -20,7 +20,7 @@
         </p>
 
         <h1 class="offer__title sections__secondary-title">
-            {% include 'addquestion/includes/formerrors.html' %}
+            {% include 'add_question/includes/formerrors.html' %}
         </h1>
 
         <form method="post" class="offer__form sections" name="offer-form">
@@ -58,7 +58,7 @@
                     Отправить вопрос
                 </button>
                 <p class="offer__button-hint page__text">
-                    Вы отправили {{ added_questions }} вопросов из 10 доступных сегодня.
+                    Вы отправили {{ added_questions }} вопросов из {{ limit_add_questions_per_day }} доступных сегодня.
                 </p>
             </div>
         </form>

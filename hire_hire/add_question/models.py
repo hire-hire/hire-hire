@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from add_question.managers import AddQuestionManager
 from interview.models import AbstractQuestion, Language
 
 User = get_user_model()
@@ -15,7 +16,7 @@ class AddQuestion(AbstractQuestion):
     language = models.ForeignKey(
         Language,
         on_delete=models.CASCADE,
-        related_name='addquestions',
+        related_name='add_questions',
         verbose_name='язык',
     )
     author = models.ForeignKey(
@@ -23,7 +24,7 @@ class AddQuestion(AbstractQuestion):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='addquestions',
+        related_name='add_questions',
         verbose_name='автор',
     )
     ip_address = models.CharField(
@@ -34,7 +35,11 @@ class AddQuestion(AbstractQuestion):
     )
     pub_date = models.DateTimeField(
         auto_now_add=True,
-        verbose_name='Дата публикации',
-        blank=True,
-        null=True,
+        verbose_name='дата публикации',
     )
+
+    objects = AddQuestionManager()
+
+    class Meta:
+        verbose_name = 'предложенный вопрос'
+        verbose_name_plural = 'предложенные вопросы'

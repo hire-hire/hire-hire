@@ -1,15 +1,14 @@
 from django import forms
 
-from interview.models import Language
-from .models import AddQuestion
+from add_question.models import AddQuestion
+# from interview.models import Language
 
 
 class AddQuestionForm(forms.ModelForm):
-    """Add question form."""
 
     class Meta:
         model = AddQuestion
-        fields = ('language', 'text', 'answer', )
+        fields = ('language', 'text', 'answer')
         labels = {'language': 'Язык',
                   'text': 'Ваш вопрос',
                   'answer': 'Ваш ответ', }
@@ -31,8 +30,8 @@ class AddQuestionForm(forms.ModelForm):
                 'placeholder': 'Введите ответ',
                 'required': True,
             }),
-            'language': forms.Select(attrs={'class': 'form-control'}),
+            # 'language': forms.Select(attrs={'class': 'form-control'}),
         }
-        initial = {
-            'language': Language.objects.get(title='Python'),
-        }
+        # initial = {
+        #     'language': Language.objects.get(title='Python'),
+        # }

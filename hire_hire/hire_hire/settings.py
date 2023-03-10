@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'interview.apps.InterviewConfig',
     'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
-    'addquestion.apps.AddquestionConfig',
+    'add_question.apps.AddquestionConfig',
 ]
 
 MIDDLEWARE = [
@@ -139,7 +139,7 @@ QUESTION_COUNT_CHOICE = (
     (30, '30 вопросов'),
 )
 
-MAX_ADDQUESTIONS_PER_DAY = 10
+LIMIT_ADD_QUESTIONS_PER_DAY = 10
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
