@@ -1,14 +1,11 @@
-import time
-
 from django.db.models import Q
-from django.http import HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import CreateView, TemplateView
 
+from hire_hire.settings import MAX_ADDQUESTIONS_PER_DAY
 from .forms import AddQuestionForm
 from .models import AddQuestion
-from hire_hire.settings import MAX_ADDQUESTIONS_PER_DAY
 
 
 class AddQuestionMixin:

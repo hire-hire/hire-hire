@@ -1,7 +1,7 @@
 from django import forms
 
-from .models import AddQuestion
 from interview.models import Language
+from .models import AddQuestion
 
 
 class AddQuestionForm(forms.ModelForm):

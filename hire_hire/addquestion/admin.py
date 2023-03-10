@@ -29,21 +29,21 @@ class AddQuestionAdmin(admin.ModelAdmin):
                 answer=obj.answer
             )
             obj.delete()
-        self.message_user(request, f"Одобрено {queryset.count()} вопроса.")
+        self.message_user(request, f'Одобрено {queryset.count()} вопроса.')
 
-    approve.short_description = "Одобрить выбранные вопросы"
+    approve.short_description = 'Одобрить выбранные вопросы'
 
     def response_change(self, request, obj):
-        if "_approve" in request.POST:
+        if '_approve' in request.POST:
             Question.objects.create(
                 language=obj.language,
                 text=obj.text,
                 answer=obj.answer
                 )
             obj.delete()
-            self.message_user(request, "Вопрос одобрен.")
+            self.message_user(request, 'Вопрос одобрен.')
             return HttpResponseRedirect(
-                reverse("admin:addquestion_addquestion_changelist"))  # (".")
+                reverse('admin:addquestion_addquestion_changelist'))  # ('.')
         return super().response_change(request, obj)
 
     def custom_button(self, obj):

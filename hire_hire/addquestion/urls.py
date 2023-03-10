@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import AddQuestionView, AddQuestionFinishView
+from .views import AddQuestionFinishView, AddQuestionView
 
 app_name = 'addquestion'
 
