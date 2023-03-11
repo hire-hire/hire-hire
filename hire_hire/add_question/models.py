@@ -18,6 +18,7 @@ class AddQuestion(AbstractQuestion):
         on_delete=models.CASCADE,
         related_name='add_questions',
         verbose_name='язык',
+        default=1,
     )
     author = models.ForeignKey(
         User,

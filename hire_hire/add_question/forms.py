@@ -7,8 +7,8 @@ class AddQuestionForm(forms.ModelForm):
 
     class Meta:
         model = AddQuestion
-        fields = ('language', 'text', 'answer')
-        labels = {'language': 'Язык',
+        fields = ('text', 'answer')  # 'language'
+        labels = {  # 'language': 'Язык',
                   'text': 'Ваш вопрос',
                   'answer': 'Ваш ответ', }
 
