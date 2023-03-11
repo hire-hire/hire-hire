@@ -1,12 +1,6 @@
 from django import forms
-# from django.conf import settings
 
 from add_question.models import AddQuestion
-# from interview.models import Language
-
-
-# limit_add_questions_per_day = getattr(
-#         settings, 'LIMIT_ADD_QUESTIONS_PER_DAY', 10)
 
 
 class AddQuestionForm(forms.ModelForm):
@@ -35,11 +29,7 @@ class AddQuestionForm(forms.ModelForm):
                 'placeholder': 'Введите ответ',
                 'required': True,
             }),
-            # 'language': forms.Select(attrs={'class': 'form-control'}),
         }
-        # initial = {
-        #     'language': Language.objects.get(title='Python'),
-        # }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -49,5 +39,4 @@ class AddQuestionForm(forms.ModelForm):
             'limit_add_questions_per_day')
         if add_questions_for24_count >= limit_add_questions_per_day:
             self.add_error(None, 'Вы исчерпали лимит вопросов на день.')
-            # raise forms.ValidationError('Вы исчерпали лимит вопросов на день.')
         return cleaned_data

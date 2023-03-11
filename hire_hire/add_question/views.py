@@ -39,9 +39,6 @@ class AddQuestionView(AddQuestionMixin, CreateView):
         form.instance.ip_address = self.request.META.get('REMOTE_ADDR')
         if self.request.user.is_authenticated:
             form.instance.author = self.request.user
-        # if self.add_questions_for24_count >= self.limit_add_questions_per_day:
-        #     form.add_error(None, 'Вы исчерпали лимит вопросов на день.')
-        #     return super().form_invalid(form)
         return super().form_valid(form)
 
 
