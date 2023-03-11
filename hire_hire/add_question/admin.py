@@ -11,26 +11,32 @@ from interview.models import Question
 class AddQuestionAdmin(admin.ModelAdmin):
     """Админ панель предложенных вопросов."""
     list_display = (
-        'pk', 'rejected', 'language', 'text', 'answer', 'ip_address',
+        'pk', 'status', 'language', 'text', 'answer', 'ip_address',
         'pub_date', 'author'
         )
     search_fields = ('language', 'text', 'answer')
-    list_filter = ('language', 'rejected')
+    list_filter = ('language', 'status')
     empty_value_display = '-пусто-'
 
-    readonly_fields = ('ip_address', 'author', 'custom_button',
-                       )  # 'reject_button'
-    actions = ('approve', )
+    readonly_fields = ('status', 'ip_address', 'author', 'approve_button',
+                       'reject_button')
+    actions = ('approve', 'reject')
 
     def approve(self, request, queryset):
         questions = [
             Question(language=obj.language, text=obj.text, answer=obj.answer, )
             for obj in queryset]
         Question.objects.bulk_create(questions)
-        queryset.delete()
+        queryset.update(status='approved')
         self.message_user(request, f'Одобрено {len(questions)} вопроса.')
 
     approve.short_description = 'Одобрить выбранные вопросы'
+
+    def reject(self, request, queryset):
+        queryset.update(status='rejected')
+        self.message_user(request, f'Отклонено {len(queryset)} вопроса.')
+
+    reject.short_description = 'Отклонить выбранные вопросы'
 
     def response_change(self, request, obj):
         if '_approve' in request.POST:
@@ -39,22 +45,30 @@ class AddQuestionAdmin(admin.ModelAdmin):
                 text=obj.text,
                 answer=obj.answer,
                 )
-            obj.delete()
+            # obj.delete()
+            obj.status = 'approved'
+            obj.save()
             self.message_user(request, 'Вопрос одобрен.')
+            return HttpResponseRedirect(
+                reverse('admin:add_question_addquestion_changelist'))
+        if '_reject' in request.POST:
+            obj.status = 'rejected'
+            obj.save()
+            self.message_user(request, 'Вопрос отклонён.')
             return HttpResponseRedirect(
                 reverse('admin:add_question_addquestion_changelist'))
         return super().response_change(request, obj)
 
-    def custom_button(self, obj):
+    def approve_button(self, obj):
         return mark_safe(
             '<div class="submit-row">'
             '<input type="submit" value="ОДОБРИТЬ" name="_approve"> </div>')
 
-    custom_button.short_description = 'Одобряем?'
+    approve_button.short_description = 'Одобряем?'
 
-    # def reject_button(self, obj):
-    #     return mark_safe(
-    #         '<div class="submit-row">'
-    #         '<input type="submit" value="ОТКЛОНИТЬ" name="_approve"> </div>')
+    def reject_button(self, obj):
+        return mark_safe(
+            '<div class="submit-row">'
+            '<input type="submit" value="ОТКЛОНИТЬ" name="_reject"> </div>')
 
-    # reject_button.short_description = 'Отклонить?'
+    reject_button.short_description = 'Отклонить?'

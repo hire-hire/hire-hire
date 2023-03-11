@@ -13,6 +13,12 @@ class AddQuestion(AbstractQuestion):
     Предложенный вопрос.
     + автор?
     """
+    STATUS_CHOICES = (
+        ('proposed', 'Предложенный'),
+        ('rejected', 'Отклоненный'),
+        ('approved', 'Одобренный'),
+    )
+
     language = models.ForeignKey(
         Language,
         on_delete=models.CASCADE,
@@ -37,10 +43,11 @@ class AddQuestion(AbstractQuestion):
         auto_now_add=True,
         verbose_name='дата публикации',
     )
-    rejected = models.BooleanField(
-        verbose_name='отклонено',
-        null=True,
-        default=False,
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default='proposed',
+        verbose_name='статус',
     )
 
     objects = AddQuestionManager()
