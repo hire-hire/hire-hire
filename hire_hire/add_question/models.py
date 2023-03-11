@@ -27,9 +27,8 @@ class AddQuestion(AbstractQuestion):
         related_name='add_questions',
         verbose_name='автор',
     )
-    ip_address = models.CharField(
+    ip_address = models.GenericIPAddressField(
         'IP-адрес',
-        max_length=50,
         blank=True,
         null=True,
     )
