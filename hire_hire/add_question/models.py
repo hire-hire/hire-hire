@@ -37,6 +37,11 @@ class AddQuestion(AbstractQuestion):
         auto_now_add=True,
         verbose_name='дата публикации',
     )
+    rejected = models.BooleanField(
+        verbose_name='отклонено',
+        null=True,
+        default=False,
+    )
 
     objects = AddQuestionManager()
 

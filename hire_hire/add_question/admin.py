@@ -11,13 +11,15 @@ from interview.models import Question
 class AddQuestionAdmin(admin.ModelAdmin):
     """Админ панель предложенных вопросов."""
     list_display = (
-        'pk', 'language', 'text', 'answer', 'ip_address', 'pub_date', 'author',
+        'pk', 'rejected', 'language', 'text', 'answer', 'ip_address',
+        'pub_date', 'author'
         )
-    search_fields = ('language', 'text', 'answer', )
-    list_filter = ('language',)
+    search_fields = ('language', 'text', 'answer')
+    list_filter = ('language', 'rejected')
     empty_value_display = '-пусто-'
 
-    readonly_fields = ('ip_address', 'author', 'custom_button',)
+    readonly_fields = ('ip_address', 'author', 'custom_button',
+                       )  # 'reject_button'
     actions = ('approve', )
 
     def approve(self, request, queryset):
@@ -40,7 +42,7 @@ class AddQuestionAdmin(admin.ModelAdmin):
             obj.delete()
             self.message_user(request, 'Вопрос одобрен.')
             return HttpResponseRedirect(
-                reverse('admin:add_question_add_question_changelist'))
+                reverse('admin:add_question_addquestion_changelist'))
         return super().response_change(request, obj)
 
     def custom_button(self, obj):
@@ -49,3 +51,10 @@ class AddQuestionAdmin(admin.ModelAdmin):
             '<input type="submit" value="ОДОБРИТЬ" name="_approve"> </div>')
 
     custom_button.short_description = 'Одобряем?'
+
+    # def reject_button(self, obj):
+    #     return mark_safe(
+    #         '<div class="submit-row">'
+    #         '<input type="submit" value="ОТКЛОНИТЬ" name="_approve"> </div>')
+
+    # reject_button.short_description = 'Отклонить?'
