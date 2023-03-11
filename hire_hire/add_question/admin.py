@@ -10,6 +10,9 @@ from interview.models import Question
 @admin.register(AddQuestion)
 class AddQuestionAdmin(admin.ModelAdmin):
     """Админ панель предложенных вопросов."""
+    APPROVE = '_approve'
+    REJECT = '_reject'
+
     list_display = (
         'pk', 'status', 'language', 'text', 'answer', 'ip_address',
         'pub_date', 'author'
@@ -39,7 +42,7 @@ class AddQuestionAdmin(admin.ModelAdmin):
     reject.short_description = 'Отклонить выбранные вопросы'
 
     def response_change(self, request, obj):
-        if '_approve' in request.POST:
+        if self.APPROVE in request.POST:
             Question.objects.create(
                 language=obj.language,
                 text=obj.text,
@@ -51,7 +54,7 @@ class AddQuestionAdmin(admin.ModelAdmin):
             self.message_user(request, 'Вопрос одобрен.')
             return HttpResponseRedirect(
                 reverse('admin:add_question_addquestion_changelist'))
-        if '_reject' in request.POST:
+        if self.REJECT in request.POST:
             obj.status = 'rejected'
             obj.save()
             self.message_user(request, 'Вопрос отклонён.')
@@ -62,13 +65,15 @@ class AddQuestionAdmin(admin.ModelAdmin):
     def approve_button(self, obj):
         return mark_safe(
             '<div class="submit-row">'
-            '<input type="submit" value="ОДОБРИТЬ" name="_approve"> </div>')
+            f'<input type="submit" value="ОДОБРИТЬ" name={self.APPROVE}>'
+            '</div>')
 
     approve_button.short_description = 'Одобряем?'
 
     def reject_button(self, obj):
         return mark_safe(
             '<div class="submit-row">'
-            '<input type="submit" value="ОТКЛОНИТЬ" name="_reject"> </div>')
+            f'<input type="submit" value="ОТКЛОНИТЬ" name={self.REJECT}>'
+            '</div>')
 
     reject_button.short_description = 'Отклонить?'
