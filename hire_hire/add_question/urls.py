@@ -8,11 +8,11 @@ urlpatterns = [
     path(
         '',
         AddQuestionView.as_view(),
-        name='add_question'
+        name='add_question',
     ),
     path(
         'finished/',
         AddQuestionFinishView.as_view(),
-        name='finished'
+        name='finished',
     ),
 ]
