@@ -22,4 +22,3 @@ settingsInputs.forEach((input) => {
 });
 
 checkValidation();
-
