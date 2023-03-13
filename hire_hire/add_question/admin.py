@@ -31,13 +31,13 @@ class AddQuestionAdmin(admin.ModelAdmin):
             for obj in queryset
             ]
         Question.objects.bulk_create(questions)
-        queryset.update(status='approved')
+        queryset.update(status=AddQuestion.StatusChoice.APPROVED)
         self.message_user(request, f'Одобрено {len(questions)} вопроса.')
 
     approve.short_description = 'Одобрить выбранные вопросы'
 
     def reject(self, request, queryset):
-        queryset.update(status='rejected')
+        queryset.update(status=AddQuestion.StatusChoice.REJECTED)
         self.message_user(request, f'Отклонено {len(queryset)} вопроса.')
 
     reject.short_description = 'Отклонить выбранные вопросы'
@@ -49,13 +49,13 @@ class AddQuestionAdmin(admin.ModelAdmin):
                 text=obj.text,
                 answer=obj.answer,
                 )
-            obj.status = 'approved'
+            obj.status = AddQuestion.StatusChoice.APPROVED
             obj.save()
             self.message_user(request, 'Вопрос одобрен.')
             return HttpResponseRedirect(
                 reverse('admin:add_question_addquestion_changelist'))
         if self.REJECT in request.POST:
-            obj.status = 'rejected'
+            obj.status = AddQuestion.StatusChoice.REJECTED
             obj.save()
             self.message_user(request, 'Вопрос отклонён.')
             return HttpResponseRedirect(
