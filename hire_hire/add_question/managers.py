@@ -9,4 +9,5 @@ class AddQuestionManager(models.Manager):
         current_ip_address = request.META.get('REMOTE_ADDR')
         return self.get_queryset().filter(
             pub_date__gte=ago_24_hours,
-            ip_address=current_ip_address).count()
+            ip_address=current_ip_address
+            ).count()

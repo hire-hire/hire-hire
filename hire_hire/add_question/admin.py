@@ -15,7 +15,7 @@ class AddQuestionAdmin(admin.ModelAdmin):
 
     list_display = (
         'pk', 'status', 'language', 'text', 'answer', 'ip_address',
-        'pub_date', 'author'
+        'pub_date', 'author',
         )
     search_fields = ('language', 'text', 'answer')
     list_filter = ('language', 'status')
@@ -27,8 +27,9 @@ class AddQuestionAdmin(admin.ModelAdmin):
 
     def approve(self, request, queryset):
         questions = [
-            Question(language=obj.language, text=obj.text, answer=obj.answer, )
-            for obj in queryset]
+            Question(language=obj.language, text=obj.text, answer=obj.answer)
+            for obj in queryset
+            ]
         Question.objects.bulk_create(questions)
         queryset.update(status='approved')
         self.message_user(request, f'Одобрено {len(questions)} вопроса.')
@@ -48,7 +49,6 @@ class AddQuestionAdmin(admin.ModelAdmin):
                 text=obj.text,
                 answer=obj.answer,
                 )
-            # obj.delete()
             obj.status = 'approved'
             obj.save()
             self.message_user(request, 'Вопрос одобрен.')

@@ -7,10 +7,11 @@ class AddQuestionForm(forms.ModelForm):
 
     class Meta:
         model = AddQuestion
-        fields = ('text', 'answer')  # 'language'
-        labels = {  # 'language': 'Язык',
-                  'text': 'Ваш вопрос',
-                  'answer': 'Ваш ответ', }
+        fields = ('text', 'answer')
+        labels = {
+            'text': 'Ваш вопрос',
+            'answer': 'Ваш ответ',
+            }
 
         widgets = {
             'text': forms.Textarea(attrs={
