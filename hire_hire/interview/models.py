@@ -6,15 +6,37 @@ from interview.managers import InterviewManager, QuestionManager
 User = get_user_model()
 
 
+class Category(models.Model):
+    """
+    Сущность-раздел для агрегации "языков" и вопросов.
+    """
+
+    title = models.CharField('название', max_length=40)
+
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+
+    def __str__(self):
+        return self.title
+
+
 class Language(models.Model):
     """
     Язык программирования - одна из сущностей,
     объединяющих и разделяющих вопросы.
-    Выше специализация, ниже - сложность.
-    В MVP пока без них.
+    Выше категория.
     """
 
     title = models.CharField('название', max_length=40)
+
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='languages',
+        verbose_name='категория',
+        null=True,
+    )
 
     class Meta:
         verbose_name = 'язык программирования'
