@@ -10,8 +10,8 @@
 }
 
 @media screen and (max-width: 1400px) {
-    .cards {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
+   .cards {
+       grid-template-columns: 1fr;
+       gap: 32px;
+   }
 }
