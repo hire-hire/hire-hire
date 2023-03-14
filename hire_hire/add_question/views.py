@@ -12,7 +12,7 @@ class AddQuestionMixin:
     def dispatch(self, request, *args, **kwargs):
         self.add_questions_for24_count = (
             AddQuestion.objects.get_24_hours_added_question(request)
-            )
+        )
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

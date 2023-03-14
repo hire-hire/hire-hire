@@ -10,4 +10,4 @@ class AddQuestionManager(models.Manager):
         return self.get_queryset().filter(
             pub_date__gte=ago_24_hours,
             ip_address=current_ip_address
-            ).count()
+        ).count()

@@ -11,7 +11,7 @@ class AddQuestionForm(forms.ModelForm):
         labels = {
             'text': 'Ваш вопрос',
             'answer': 'Ваш ответ',
-            }
+        }
 
         widgets = {
             'text': forms.Textarea(attrs={
