@@ -22,8 +22,8 @@ class AddQuestionAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
     readonly_fields = (
-        'status', 'ip_address', 'author', 'approve_button',
-        'reject_button'
+        'status', 'ip_address',  'user_cookie', 'author', 'approve_button',
+        'reject_button',
     )
     actions = ('approve', 'reject')
 

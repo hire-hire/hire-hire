@@ -6,21 +6,21 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-    replaces = [
-        ('add_question', '0001_initial'),
-        ('add_question', '0002_alter_addquestion_ip_address'),
-        ('add_question', '0003_alter_addquestion_language'),
-        ('add_question', '0004_addquestion_approved'),
-        (
-            'add_question',
-            '0005_remove_addquestion_approved_addquestion_rejected',
-        ),
-        (
-            'add_question',
-            '0006_remove_addquestion_rejected_addquestion_status',
-        ),
-        ('add_question', '0007_alter_addquestion_status'),
-    ]
+    # replaces = [
+    #     ('add_question', '0001_initial'),
+    #     ('add_question', '0002_alter_addquestion_ip_address'),
+    #     ('add_question', '0003_alter_addquestion_language'),
+    #     ('add_question', '0004_addquestion_approved'),
+    #     (
+    #         'add_question',
+    #         '0005_remove_addquestion_approved_addquestion_rejected',
+    #     ),
+    #     (
+    #         'add_question',
+    #         '0006_remove_addquestion_rejected_addquestion_status',
+    #     ),
+    #     ('add_question', '0007_alter_addquestion_status'),
+    # ]
 
     initial = True
 

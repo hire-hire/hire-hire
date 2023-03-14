@@ -1,3 +1,5 @@
+import uuid
+
 from django.conf import settings
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
@@ -13,7 +15,13 @@ class AddQuestionMixin:
         self.add_questions_for24_count = (
             AddQuestion.objects.get_24_hours_added_question(request)
         )
-        return super().dispatch(request, *args, **kwargs)
+
+        user_cookie = request.COOKIES.get('user_cookie')
+        response = super().dispatch(request, *args, **kwargs)
+        if not user_cookie:
+            user_cookie = uuid.uuid4().hex
+            response.set_cookie('user_cookie', user_cookie)
+        return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -37,6 +45,7 @@ class AddQuestionView(AddQuestionMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.ip_address = self.request.META.get('REMOTE_ADDR')
+        form.instance.user_cookie = self.request.COOKIES.get('user_cookie')
         if self.request.user.is_authenticated:
             form.instance.author = self.request.user
         return super().form_valid(form)

@@ -46,6 +46,13 @@ class AddQuestion(AbstractQuestion):
         verbose_name='статус',
     )
 
+    user_cookie = models.CharField(
+        'user cookie id',
+        max_length=32,
+        blank=True,
+        null=True,
+    )
+
     objects = AddQuestionManager()
 
     class Meta:
