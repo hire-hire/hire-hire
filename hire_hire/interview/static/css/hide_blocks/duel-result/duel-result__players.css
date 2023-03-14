@@ -1,7 +1,0 @@
-.duel-result__players {
-  display: grid;
-  grid-template-columns: 1fr 250px 1fr;
-  gap: 64px;
-  align-items: center;
-  margin-bottom: 40px;
-}
