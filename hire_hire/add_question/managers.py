@@ -9,7 +9,6 @@ class AddQuestionManager(models.Manager):
         current_user_cookie = request.COOKIES.get('user_cookie')
 
         if request.user.is_authenticated:
-            print(request.user)
             return self.get_queryset().filter(
                 pub_date__gte=ago_24_hours,
                 author=request.user,
