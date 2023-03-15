@@ -24,8 +24,9 @@ class Language(models.Model):
         return self.title
 
 
-class Question(models.Model):
+class AbstractQuestion(models.Model):
     """
+    Модель для наследования.
     Вопрос. В MVP:
         - содержит верный ответ
         - связан только с Языком Программирования.
@@ -45,11 +46,19 @@ class Question(models.Model):
     objects = QuestionManager()
 
     class Meta:
+        abstract = True
         verbose_name = 'вопрос'
         verbose_name_plural = 'вопросы'
 
     def __str__(self):
         return self.text[:45]
+
+
+class Question(AbstractQuestion):
+    """
+    Наследуется от AbstractQuestion.
+    """
+    pass
 
 
 class Interview(models.Model):
