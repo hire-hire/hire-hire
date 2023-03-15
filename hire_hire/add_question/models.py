@@ -30,8 +30,8 @@ class AddQuestion(AbstractQuestion):
         null=True,
     )
     pub_date = models.DateTimeField(
+        'дата публикации',
         auto_now_add=True,
-        verbose_name='дата публикации',
     )
 
     class StatusChoice(models.TextChoices):
@@ -40,10 +40,10 @@ class AddQuestion(AbstractQuestion):
         APPROVED = 'approved', 'Одобренный'
 
     status = models.CharField(
+        'статус',
         max_length=10,
         choices=StatusChoice.choices,
         default=StatusChoice.PROPOSED,
-        verbose_name='статус',
     )
 
     user_cookie = models.CharField(
