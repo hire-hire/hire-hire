@@ -27,11 +27,10 @@ class AddQuestionAdmin(admin.ModelAdmin):
     )
     actions = ('approve', 'reject')
 
-    def num_questions_text(self, questions):
-        num_questions = len(questions)
-        if num_questions == 1:
+    def count_questions_text(self, num_questions):
+        if num_questions % 10 == 1:
             return f' {num_questions} вопрос'
-        elif num_questions in (2, 3, 4):
+        elif num_questions % 10 in (2, 3, 4):
             return f'о {num_questions} вопроса'
         else:
             return f'о {num_questions} вопросов'
@@ -47,7 +46,7 @@ class AddQuestionAdmin(admin.ModelAdmin):
         Question.objects.bulk_create(questions)
         queryset.update(status=AddQuestion.StatusChoice.APPROVED)
         self.message_user(
-            request, f'Одобрен{self.num_questions_text(questions)}.'
+            request, f'Одобрен{self.count_questions_text(len(questions))}.'
         )
 
     approve.short_description = 'Одобрить выбранные вопросы'
@@ -55,7 +54,7 @@ class AddQuestionAdmin(admin.ModelAdmin):
     def reject(self, request, queryset):
         queryset.update(status=AddQuestion.StatusChoice.REJECTED)
         self.message_user(
-            request, f'Отклонен{self.num_questions_text(queryset)}.'
+            request, f'Отклонен{self.count_questions_text(len(queryset))}.'
         )
 
     reject.short_description = 'Отклонить выбранные вопросы'
