@@ -45,9 +45,10 @@ class AddQuestionView(AddQuestionMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.ip_address = self.request.META.get('REMOTE_ADDR')
-        form.instance.user_cookie = self.request.COOKIES.get('user_cookie')
         if self.request.user.is_authenticated:
             form.instance.author = self.request.user
+        else:
+            form.instance.user_cookie = self.request.COOKIES.get('user_cookie')
         return super().form_valid(form)
 
 
