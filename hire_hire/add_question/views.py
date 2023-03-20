@@ -25,9 +25,26 @@ class AddQuestionMixin:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['added_questions'] = self.add_questions_for24_count
-        context['limit_add_questions_per_day'] = (
-            self.limit_add_questions_per_day)
+        last_digit = self.add_questions_for24_count % 10
+        if (
+            10 <= self.add_questions_for24_count <= 20
+            or last_digit == 0
+            or last_digit >= 5
+        ):
+            context[
+                'added_questions'
+            ] = f'{self.add_questions_for24_count} вопросов'
+        elif self.add_questions_for24_count % 10 == 1:
+            context[
+                'added_questions'
+            ] = f'{self.add_questions_for24_count} вопрос'
+        else:
+            context[
+                'added_questions'
+            ] = f'{self.add_questions_for24_count} вопроса'
+        context[
+            'limit_add_questions_per_day'
+        ] = self.limit_add_questions_per_day
         return context
 
 
@@ -39,8 +56,9 @@ class AddQuestionView(AddQuestionMixin, CreateView):
     def get_initial(self):
         initial = super().get_initial()
         initial['add_questions_for24_count'] = self.add_questions_for24_count
-        initial['limit_add_questions_per_day'] = (
-            self.limit_add_questions_per_day)
+        initial[
+            'limit_add_questions_per_day'
+        ] = self.limit_add_questions_per_day
         return initial
 
     def form_valid(self, form):

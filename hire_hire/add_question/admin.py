@@ -27,13 +27,14 @@ class AddQuestionAdmin(admin.ModelAdmin):
     )
     actions = ('approve', 'reject')
 
-    def count_questions_text(self, num_questions):
-        if num_questions % 10 == 1:
-            return f' {num_questions} вопрос'
-        elif num_questions % 10 in (2, 3, 4):
-            return f'о {num_questions} вопроса'
+    def count_questions_text(self, count_questions):
+        last_digit = count_questions % 10
+        if 11 <= count_questions <= 20 or last_digit == 0 or last_digit >= 5:
+            return f'о {count_questions} вопросов'
+        elif last_digit == 1:
+            return f' {count_questions} вопрос'
         else:
-            return f'о {num_questions} вопросов'
+            return f'о {count_questions} вопроса'
 
     def approve(self, request, queryset):
         questions = [
