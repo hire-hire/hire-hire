@@ -3,12 +3,13 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
+from add_question.mixins import DefaultFilterMixin
 from add_question.models import AddQuestion
 from interview.models import Question
 
 
 @admin.register(AddQuestion)
-class AddQuestionAdmin(admin.ModelAdmin):
+class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
     """Админ панель предложенных вопросов."""
     APPROVE = '_approve'
     REJECT = '_reject'
@@ -19,6 +20,7 @@ class AddQuestionAdmin(admin.ModelAdmin):
     )
     search_fields = ('language', 'text', 'answer')
     list_filter = ('language', 'status')
+    default_filters = (('status__exact', AddQuestion.StatusChoice.PROPOSED),)
     empty_value_display = '-пусто-'
 
     readonly_fields = (
