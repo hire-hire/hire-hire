@@ -13,7 +13,7 @@ SECRET_KEY = os.getenv('D_KEY', default='share-like-repost')
 DEBUG = os.getenv('DEBUG_MODE', default='ON').lower() in ('on', 'yes', 'true')
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
+    '*'
 ]
 
 INSTALLED_APPS = [
@@ -25,12 +25,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cleanup.apps.CleanupConfig',
     'debug_toolbar',
+    'rest_framework',
+    'djoser',
 
     'contributors.apps.StaticInfoConfig',
     'duel.apps.DuelsConfig',
     'interview.apps.InterviewConfig',
     'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +143,17 @@ QUESTION_COUNT_CHOICE = (
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+}
