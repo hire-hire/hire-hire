@@ -1,16 +1,15 @@
 from urllib.parse import urlencode
 
 from django.contrib.admin.views.main import SEARCH_VAR
-from django.http import HttpRequest, QueryDict
+from django.http import QueryDict
 
 
 class DefaultFilterMixin:
-    default_filters: None
 
-    def get_default_filters(self, request: HttpRequest):
+    def get_default_filters(self, request):
         return self.default_filters
 
-    def changelist_view(self, request: HttpRequest, extra_context=None):
+    def changelist_view(self, request, extra_context=None):
         if request.method == 'GET' and not request.GET:
             if default_filters := self.get_default_filters(request):
                 request.GET = QueryDict(

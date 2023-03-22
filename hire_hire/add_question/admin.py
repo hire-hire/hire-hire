@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 
 from add_question.mixins import DefaultFilterMixin
 from add_question.models import AddQuestion
+from add_question.services import count_questions_text
 from interview.models import Question
 
 
@@ -29,15 +30,6 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
     )
     actions = ('approve', 'reject')
 
-    def count_questions_text(self, count_questions):
-        last_digit = count_questions % 10
-        if 11 <= count_questions <= 20 or last_digit == 0 or last_digit >= 5:
-            return f'о {count_questions} вопросов'
-        elif last_digit == 1:
-            return f' {count_questions} вопрос'
-        else:
-            return f'о {count_questions} вопроса'
-
     def approve(self, request, queryset):
         questions = [
             Question(
@@ -49,7 +41,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         Question.objects.bulk_create(questions)
         queryset.update(status=AddQuestion.StatusChoice.APPROVED)
         self.message_user(
-            request, f'Одобрен{self.count_questions_text(len(questions))}.'
+            request, f'Одобрен{count_questions_text(len(questions))}.'
         )
 
     approve.short_description = 'Одобрить выбранные вопросы'
@@ -57,7 +49,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
     def reject(self, request, queryset):
         queryset.update(status=AddQuestion.StatusChoice.REJECTED)
         self.message_user(
-            request, f'Отклонен{self.count_questions_text(len(queryset))}.'
+            request, f'Отклонен{count_questions_text(len(queryset))}.'
         )
 
     reject.short_description = 'Отклонить выбранные вопросы'
