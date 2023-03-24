@@ -6,16 +6,13 @@ from django.http import QueryDict
 
 class DefaultFilterMixin:
 
-    def get_default_filters(self, request):
-        return self.default_filters
-
     def changelist_view(self, request, extra_context=None):
         if request.method == 'GET' and not request.GET:
-            if default_filters := self.get_default_filters(request):
+            if hasattr(self, 'default_filters'):
                 request.GET = QueryDict(
-                    f'{urlencode(default_filters)}&{SEARCH_VAR}=',
+                    f'{urlencode(self.default_filters)}&{SEARCH_VAR}=',
                     encoding=request.encoding,
                 )
-                request.META['QUERY_STRING'] = request.GET.urlencode()
-
+            request.META['QUERY_STRING'] = request.GET.urlencode()
+            print(request.META['QUERY_STRING'])
         return super().changelist_view(request, extra_context=extra_context)
