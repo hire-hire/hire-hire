@@ -14,5 +14,4 @@ class DefaultFilterMixin:
                     encoding=request.encoding,
                 )
             request.META['QUERY_STRING'] = request.GET.urlencode()
-            print(request.META['QUERY_STRING'])
         return super().changelist_view(request, extra_context=extra_context)
