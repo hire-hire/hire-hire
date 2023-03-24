@@ -1,11 +1,11 @@
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from rest_framework import serializers
 
+from api_users.serializers import UserSerializer
 from interview.models import Category, Interview, Language, Question
 
 
 class LanguageSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Language
         fields = '__all__'
@@ -20,29 +20,31 @@ class CategoryRetrieveSerializer(serializers.ModelSerializer):
 
 
 class CategoryListSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Category
         fields = '__all__'
 
 
-class QuestionsSerializer(serializers.ModelSerializer):
-
+class QuestionsAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('id', 'text',)
+        fields = ('answer',)
 
 
-class UserSerializer(serializers.ModelSerializer):
-
+class QuestionsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = get_user_model()
-        fields = ('pk',)
+        model = Question
+        fields = (
+            'id',
+            'text',
+        )
 
 
 class InterviewCreateSerializer(serializers.ModelSerializer):
     user = UserSerializer
-    question_count = serializers.IntegerField(required=True)
+    question_count = serializers.ChoiceField(
+        choices=settings.QUESTION_COUNT_CHOICE
+    )
 
     def create(self, validated_data):
         cnt = validated_data.pop('question_count')
@@ -65,4 +67,7 @@ class InterviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Interview
-        fields = ('id', 'questions',)
+        fields = (
+            'id',
+            'questions',
+        )

@@ -35,7 +35,12 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
     'api.apps.ApiConfig',
+    'api_interview.apps.ApiInterviewConfig',
+    'api_users.apps.ApiUsersConfig',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ['drf_yasg']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -158,4 +163,8 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
 }

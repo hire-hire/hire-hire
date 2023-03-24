@@ -1,14 +1,14 @@
-from rest_framework import viewsets
-from rest_framework import mixins
+from rest_framework import mixins, permissions, viewsets
 
 from interview.models import Category, Interview, Language, Question
 
-from api.serializers import (
+from api_interview.serializers import (
     CategoryListSerializer,
     CategoryRetrieveSerializer,
     InterviewCreateSerializer,
     InterviewSerializer,
     LanguageSerializer,
+    QuestionsAnswerSerializer,
 )
 
 
@@ -28,12 +28,9 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class InterviewViewset(
-    mixins.CreateModelMixin,
-    mixins.RetrieveModelMixin,
-    viewsets.GenericViewSet
+    mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet
 ):
-
-    # обязательно дописать пермишны
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         if self.action == 'retrieve':
@@ -48,7 +45,10 @@ class InterviewViewset(
             return InterviewCreateSerializer
         return InterviewSerializer
 
-    def perform_create(self, serializer):
-        print(serializer.validated_data)
-        serializer.save()
 
+class QuestionAnswerViewset(
+    mixins.RetrieveModelMixin, viewsets.GenericViewSet
+):
+    serializer_class = QuestionsAnswerSerializer
+    queryset = Question.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)

@@ -1,0 +1,18 @@
+.footer__link {
+  width: 64px;
+  height: 64px;
+  border-radius: 99em;
+  overflow: hidden;
+  background-color: #000AFF;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 64px;
+}
+
+.footer__link_type_tg {
+  background-image: url(../../../images/tgicon.png);
+}
+
+.footer__link_type_yt {
+  background-image: url(../../../images/yticon.png);
+}
