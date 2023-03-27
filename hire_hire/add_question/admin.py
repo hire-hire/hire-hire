@@ -41,7 +41,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         Question.objects.bulk_create(questions)
         queryset.update(status=AddQuestion.StatusChoice.APPROVED)
         self.message_user(
-            request, f'Одобрен{count_questions_text(len(questions))}.'
+            request, f'Одобрен{count_questions_text(len(questions))}.',
         )
 
     approve.short_description = 'Одобрить выбранные вопросы'
@@ -49,7 +49,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
     def reject(self, request, queryset):
         queryset.update(status=AddQuestion.StatusChoice.REJECTED)
         self.message_user(
-            request, f'Отклонен{count_questions_text(len(queryset))}.'
+            request, f'Отклонен{count_questions_text(len(queryset))}.',
         )
 
     reject.short_description = 'Отклонить выбранные вопросы'
