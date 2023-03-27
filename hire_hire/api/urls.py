@@ -8,15 +8,15 @@ from api_interview.views import (
     QuestionAnswerViewset,
 )
 
-router = DefaultRouter()
+router_v1 = DefaultRouter()
 
-router.register(r'category', CategoryViewSet)
-router.register(r'language', LanguageViewSet)
-router.register(r'interview', InterviewViewset, basename='interview')
-router.register(r'question', QuestionAnswerViewset)
+router_v1.register(r'category', CategoryViewSet)
+router_v1.register(r'language', LanguageViewSet)
+router_v1.register(r'interview', InterviewViewset, basename='interview')
+router_v1.register(r'question', QuestionAnswerViewset)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    re_path(r'^auth/', include('djoser.urls')),
-    re_path(r'^auth/', include('djoser.urls.jwt')),
+    path('v1/', include(router_v1.urls)),
+    re_path(r'^v1/auth/', include('djoser.urls')),
+    re_path(r'^v1/auth/', include('djoser.urls.jwt')),
 ]
