@@ -46,7 +46,7 @@ class InterviewViewset(
 
 
 class QuestionAnswerViewset(
-    mixins.RetrieveModelMixin, viewsets.GenericViewSet
+    mixins.RetrieveModelMixin, viewsets.GenericViewSet,
 ):
     serializer_class = QuestionsAnswerSerializer
     queryset = Question.objects.all()

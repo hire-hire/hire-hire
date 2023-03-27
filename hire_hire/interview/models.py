@@ -12,10 +12,9 @@ class Entity(models.Model):
 
     icon = models.ImageField(
         'иконка',
-        blank=False,
         upload_to='icons',
         help_text='иконка',
-        default='icons/python3_logo.jpg'
+        default='icons/python3_logo.jpg',
     )
 
     class Meta:

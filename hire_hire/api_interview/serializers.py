@@ -32,14 +32,18 @@ class QuestionsSerializer(serializers.ModelSerializer):
         model = Question
         fields = (
             Question.id.field.name,
-            Question.text.field.name
+            Question.text.field.name,
         )
 
 
 class InterviewCreateSerializer(serializers.ModelSerializer):
     question_count = serializers.ChoiceField(
-        choices=settings.QUESTION_COUNT_CHOICE
+        choices=settings.QUESTION_COUNT_CHOICE,
     )
+
+    class Meta:
+        model = Interview
+        fields = ('question_count',)
 
     def create(self, validated_data):
         request = self.context.get('request')
@@ -49,10 +53,6 @@ class InterviewCreateSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         serializer = InterviewSerializer(instance)
         return serializer.data
-
-    class Meta:
-        model = Interview
-        fields = ('question_count',)
 
 
 class InterviewSerializer(serializers.ModelSerializer):
