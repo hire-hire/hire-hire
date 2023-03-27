@@ -1,7 +1,7 @@
 from django.conf import settings
 from rest_framework import serializers
 
-from api_users.serializers import UserSerializer
+from api_interview.services import create_interview
 from interview.models import Category, Interview, Language, Question
 
 
@@ -11,47 +11,40 @@ class LanguageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CategoryRetrieveSerializer(serializers.ModelSerializer):
-    languages = LanguageSerializer(many=True)
-
-    class Meta:
-        model = Category
-        fields = '__all__'
-
-
 class CategoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
 
 
+class CategoryRetrieveSerializer(CategoryListSerializer):
+    languages = LanguageSerializer(many=True)
+
+
 class QuestionsAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('answer',)
+        fields = (Question.answer.field.name,)
 
 
 class QuestionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = (
-            'id',
-            'text',
+            Question.id.field.name,
+            Question.text.field.name
         )
 
 
 class InterviewCreateSerializer(serializers.ModelSerializer):
-    user = UserSerializer
     question_count = serializers.ChoiceField(
         choices=settings.QUESTION_COUNT_CHOICE
     )
 
     def create(self, validated_data):
-        cnt = validated_data.pop('question_count')
-        instance = Interview.objects.create(**validated_data)
-        questions = Question.objects.get_random_questions(cnt)
-        instance.questions.add(*questions)
-        return instance
+        request = self.context.get('request')
+        validated_data['user'] = request.user
+        return create_interview(validated_data)
 
     def to_representation(self, instance):
         serializer = InterviewSerializer(instance)
@@ -59,7 +52,7 @@ class InterviewCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Interview
-        fields = ('user', 'question_count')
+        fields = ('question_count',)
 
 
 class InterviewSerializer(serializers.ModelSerializer):
@@ -68,6 +61,6 @@ class InterviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Interview
         fields = (
-            'id',
-            'questions',
+            Interview.id.field.name,
+            Interview.questions.field.name,
         )

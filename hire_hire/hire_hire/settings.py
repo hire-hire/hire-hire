@@ -1,6 +1,6 @@
 import os
-from pathlib import Path
 from datetime import timedelta
+from pathlib import Path
 
 from django.urls import reverse_lazy
 from dotenv import load_dotenv
@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'api.apps.ApiConfig',
     'api_interview.apps.ApiInterviewConfig',
-    'api_users.apps.ApiUsersConfig',
 ]
 
 if DEBUG:

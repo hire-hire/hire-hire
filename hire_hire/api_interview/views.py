@@ -1,7 +1,5 @@
 from rest_framework import mixins, permissions, viewsets
 
-from interview.models import Category, Interview, Language, Question
-
 from api_interview.serializers import (
     CategoryListSerializer,
     CategoryRetrieveSerializer,
@@ -10,6 +8,7 @@ from api_interview.serializers import (
     LanguageSerializer,
     QuestionsAnswerSerializer,
 )
+from interview.models import Category, Interview, Language, Question
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
