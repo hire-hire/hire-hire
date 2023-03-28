@@ -27,7 +27,7 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class InterviewViewset(
-    mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet
+    mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet,
 ):
     permission_classes = (permissions.IsAuthenticated,)
 
