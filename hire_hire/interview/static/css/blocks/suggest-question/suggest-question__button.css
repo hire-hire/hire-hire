@@ -1,0 +1,10 @@
+.suggest-question__button {
+  width: 240px;
+  border-radius: 12px;
+  border: 2px solid rgba(0, 10, 255, 1);
+  padding: 12px 24px;
+  color: rgba(0, 10, 255, 1);
+  margin-top: 40px;
+  background: none;
+  font-weight: bold;
+}
