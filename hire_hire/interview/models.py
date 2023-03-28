@@ -6,12 +6,22 @@ from interview.managers import InterviewManager, QuestionManager
 User = get_user_model()
 
 
-class Category(models.Model):
-    """
-    Сущность-раздел для агрегации "языков" и вопросов.
-    """
+class Entity(models.Model):
 
     title = models.CharField('название', max_length=40)
+
+    icon = models.ImageField(
+        'иконка',
+        upload_to='icons',
+        help_text='иконка',
+        default='icons/python3_logo.jpg',
+    )
+
+    class Meta:
+        abstract = True
+
+
+class Category(Entity):
 
     class Meta:
         verbose_name = 'категория'
@@ -21,14 +31,7 @@ class Category(models.Model):
         return self.title
 
 
-class Language(models.Model):
-    """
-    Язык программирования - одна из сущностей,
-    объединяющих и разделяющих вопросы.
-    Выше категория.
-    """
-
-    title = models.CharField('название', max_length=40)
+class Language(Entity):
 
     category = models.ForeignKey(
         Category,
@@ -84,12 +87,6 @@ class Question(AbstractQuestion):
 
 
 class Interview(models.Model):
-    """
-    Объект конкретного интервью.
-    В MVP:
-        - содержит набор вопросов
-        - может быть связан с пользователем
-    """
 
     user = models.ForeignKey(
         User,
