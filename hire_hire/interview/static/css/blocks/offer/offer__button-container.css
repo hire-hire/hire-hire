@@ -1,0 +1,8 @@
+.offer__button-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 32px;
+  margin-top: 40px;
+  align-self: flex-start;
+}

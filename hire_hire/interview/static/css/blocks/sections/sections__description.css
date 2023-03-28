@@ -1,4 +1,4 @@
-.sections__describtion {
+.sections__description {
   max-width: 1056px;
   text-align: center;
   font-family: 'Raleway';
@@ -10,6 +10,6 @@
   padding: 0 10px;
 }
 
-.sections__describtion:last-of-type {
+.sections__description:last-of-type {
   margin-bottom: 0;
 }

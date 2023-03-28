@@ -1,0 +1,7 @@
+.offer__qa-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 32px;
+  grid-row-gap: 12px;
+}
