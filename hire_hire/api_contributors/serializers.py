@@ -9,7 +9,7 @@ class ContributorContactSerializer(serializers.ModelSerializer):
         model = ContributorContact
         fields = (
             ContributorContact.social_network.field.name,
-            ContributorContact.contact.field.name
+            ContributorContact.contact.field.name,
         )
 
 
@@ -25,7 +25,7 @@ class ContributorSerializer(serializers.ModelSerializer):
             Contributor.middle_name.field.name,
             Contributor.photo.field.name,
             Contributor.role.field.name,
-            Contributor.contacts.rel.name
+            Contributor.contacts.rel.name,
         )
 
     @staticmethod

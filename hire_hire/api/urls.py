@@ -11,11 +11,31 @@ from api_interview.views import (
 
 router_v1 = DefaultRouter()
 
-router_v1.register(r'category', CategoryViewSet, basename='category')
-router_v1.register(r'contributors', ContributorsListViewSet)
-router_v1.register(r'language', LanguageViewSet, basename='language')
-router_v1.register(r'interview', InterviewViewset, basename='interview')
-router_v1.register(r'question', QuestionAnswerViewset, basename='question')
+router_v1.register(
+    r'category',
+    CategoryViewSet,
+    basename='category',
+)
+router_v1.register(
+    r'contributors',
+    ContributorsListViewSet,
+    basename='contributors',
+)
+router_v1.register(
+    r'language',
+    LanguageViewSet,
+    basename='language',
+)
+router_v1.register(
+    r'interview',
+    InterviewViewset,
+    basename='interview',
+)
+router_v1.register(
+    r'question',
+    QuestionAnswerViewset,
+    basename='question',
+)
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),
