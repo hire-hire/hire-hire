@@ -28,9 +28,9 @@ if settings.DEBUG:
 
     schema_view = get_schema_view(
         openapi.Info(
-            title="Snippets API",
+            title='Snippets API',
             default_version='v1',
-            description="Ты хотел ручки, вот они",
+            description='Ты хотел ручки, вот они',
         ),
         public=True,
         permission_classes=[permissions.AllowAny],
