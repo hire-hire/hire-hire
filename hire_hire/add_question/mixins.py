@@ -16,7 +16,7 @@ class DefaultFilterMixin:
         if (
             request.method == 'GET'
             and not request.GET
-            and self.default_filters
+            and self.default_filters is not None
         ):
             request.GET = QueryDict('', mutable=True)
             request.GET.update(self.default_filters, q='')
