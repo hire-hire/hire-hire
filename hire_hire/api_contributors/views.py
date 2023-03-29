@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from api.serializers import ContributorSerializer
+from api_contributors.serializers import ContributorSerializer
 from contributors.models import Contributor
 
 

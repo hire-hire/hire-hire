@@ -25,6 +25,7 @@ class ContributorSerializer(serializers.ModelSerializer):
             Contributor.middle_name.field.name,
             Contributor.photo.field.name,
             Contributor.role.field.name,
+            Contributor.contacts.rel.name
         )
 
     @staticmethod
