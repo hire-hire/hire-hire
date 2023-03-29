@@ -132,6 +132,10 @@ dmypy.json
 
 .idea/
 .vscode/settings.json
+.vscode/launch.json
 media/
 
-poetry.lock
+node_modules/
+package.json
+package-lock.json
+.stylelintrc.json

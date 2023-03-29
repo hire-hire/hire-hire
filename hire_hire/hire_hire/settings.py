@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from django.urls import reverse_lazy
@@ -33,8 +34,13 @@ INSTALLED_APPS = [
     'interview.apps.InterviewConfig',
     'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
+    'add_question.apps.AddquestionConfig',
     'api.apps.ApiConfig',
+    'api_interview.apps.ApiInterviewConfig',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ['drf_yasg']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,6 +147,8 @@ QUESTION_COUNT_CHOICE = (
     (30, '30 вопросов'),
 )
 
+LIMIT_ADD_QUESTIONS_PER_DAY = 10
+
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
 
@@ -155,5 +163,15 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+}
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://hire-hire.proninteam.ru',
+    'https://test-hire-hire.proninteam.ru'
+]

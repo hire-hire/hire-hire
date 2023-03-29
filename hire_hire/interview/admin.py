@@ -7,6 +7,7 @@ from interview.models import Category, Language, Question
 class CategoryAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
     pass
