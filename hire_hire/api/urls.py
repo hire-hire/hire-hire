@@ -1,11 +1,11 @@
 from django.urls import include, path, re_path
 
-from api_contributors import urls as contributor_urls
-from api_interview import urls as interview_urls
+import api_contributors.urls
+import api_interview.urls
 
 urlpatterns = [
-    path('', include(contributor_urls)),
-    path('', include(interview_urls)),
+    path('', include(api_contributors.urls)),
+    path('', include(api_interview.urls)),
     re_path(r'^auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.jwt')),
 ]
