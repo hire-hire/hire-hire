@@ -5,7 +5,7 @@ from django.urls import include, path, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),
+    path('api/v1/', include('api.urls')),
     path('', include('homepage.urls')),
     path('auth/', include('users.urls')),
     path('contributors/', include('contributors.urls')),
@@ -28,9 +28,9 @@ if settings.DEBUG:
 
     schema_view = get_schema_view(
         openapi.Info(
-            title="Snippets API",
+            title='Snippets API',
             default_version='v1',
-            description="Ты хотел ручки, вот они",
+            description='Ты хотел ручки, вот они',
         ),
         public=True,
         permission_classes=[permissions.AllowAny],
