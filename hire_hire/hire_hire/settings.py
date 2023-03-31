@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'debug_toolbar',
     'rest_framework',
-    'rest_framework.authtoken',
     'djoser',
 
     'contributors.apps.StaticInfoConfig',
