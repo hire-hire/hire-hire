@@ -1,10 +1,15 @@
 from rest_framework import mixins, permissions, viewsets
 
-from api_duel.serializers import DuelSerializer, DuelCreateSerializer
+from api_duel.serializers import (
+    DuelSerializer,
+    DuelCreateSerializer,
+    DuelPartialUpdateSerializer,
+)
 from duel.models import Duel
 
 
 class DuelViewSet(
+    mixins.UpdateModelMixin,
     mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
     viewsets.GenericViewSet,
@@ -22,4 +27,6 @@ class DuelViewSet(
     def get_serializer_class(self):
         if self.action == 'create':
             return DuelCreateSerializer
+        elif self.action == 'partial_update':
+            return DuelPartialUpdateSerializer
         return DuelSerializer

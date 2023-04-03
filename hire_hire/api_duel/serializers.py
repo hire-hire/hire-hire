@@ -72,3 +72,11 @@ class DuelCreateSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         serializer = DuelSerializer(instance)
         return serializer.data
+
+
+class DuelPartialUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Duel
+        fields = (
+            'wrong_answers_count',
+        )
