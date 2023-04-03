@@ -1,8 +1,8 @@
 from django.urls import include, path, re_path
 
 import api_contributors.urls
-import api_interview.urls
 import api_duel.urls
+import api_interview.urls
 
 urlpatterns = [
     path('', include(api_contributors.urls)),

@@ -1,9 +1,9 @@
 from rest_framework import mixins, permissions, viewsets
 
 from api_duel.serializers import (
-    DuelSerializer,
     DuelCreateSerializer,
     DuelPartialUpdateSerializer,
+    DuelSerializer,
 )
 from duel.models import Duel
 

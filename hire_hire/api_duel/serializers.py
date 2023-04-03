@@ -1,11 +1,11 @@
-from rest_framework import serializers
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from rest_framework import serializers
 
-from api_interview.serializers import QuestionsSerializer
 from api_duel.services import create_duel
+from api_interview.serializers import QuestionsSerializer
 from duel.models import Duel, DuelPlayer, DuelQuestion
 from duel.services import set_duel_question_is_answered
-from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
@@ -102,7 +102,10 @@ class DuelPartialUpdateSerializer(serializers.ModelSerializer):
         winner_pk = validated_data.get('winner_id')
         question_id = validated_data.get('question_id')
         duel = instance
-        DuelPlayer.objects.update_player_and_duel_score(winner_pk=winner_pk, duel=duel)
+        DuelPlayer.objects.update_player_and_duel_score(
+            winner_pk=winner_pk,
+            duel=duel,
+        )
         duel_question = duel.questions.get(pk=question_id)
         set_duel_question_is_answered(duel_question=duel_question)
         return duel
