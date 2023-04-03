@@ -1,11 +1,23 @@
 from rest_framework import serializers
 from django.conf import settings
 
+from api_interview.serializers import QuestionsSerializer
 from api_duel.services import create_duel
-from duel.models import Duel, DuelPlayer
+from duel.models import Duel, DuelPlayer, DuelQuestion
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
+
+class DuelQuestionsSerializer(serializers.ModelSerializer):
+    question = QuestionsSerializer()
+
+    class Meta:
+        model = DuelQuestion
+        fields = (
+            'id',
+            'question',
+        )
 
 
 class OwnerSerializer(serializers.ModelSerializer):
@@ -17,20 +29,23 @@ class OwnerSerializer(serializers.ModelSerializer):
         )
 
 
+class DuelPlayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DuelPlayer
+        fields = (
+            "id",
+            "name",
+        )
+
+
 class DuelSerializer(serializers.ModelSerializer):
+    questions = DuelQuestionsSerializer(many=True, read_only=True)
+    players = DuelPlayerSerializer(many=True, read_only=True)
     owner = OwnerSerializer()
 
     class Meta:
         model = Duel
         fields = '__all__'
-
-
-class DuelPlayerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DuelPlayer
-        fields = (
-            "name",
-        )
 
 
 class DuelCreateSerializer(serializers.ModelSerializer):
