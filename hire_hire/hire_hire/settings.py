@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'debug_toolbar',
     'rest_framework',
+    'rest_framework.authtoken',
     'djoser',
 
     'contributors.apps.StaticInfoConfig',
@@ -152,7 +153,6 @@ LIMIT_ADD_QUESTIONS_PER_DAY = 10
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
