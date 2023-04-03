@@ -25,8 +25,8 @@ class OwnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            "id",
-            "username",
+            'id',
+            'username',
         )
 
 
@@ -34,9 +34,9 @@ class DuelPlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = DuelPlayer
         fields = (
-            "id",
-            "name",
-            "good_answers_count",
+            'id',
+            'name',
+            'good_answers_count',
         )
 
 
