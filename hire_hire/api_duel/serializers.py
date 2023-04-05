@@ -1,8 +1,13 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
-from api_duel.services import create_duel
+from api_duel.services import (
+    create_duel,
+    create_duel_players,
+    create_duel_questions,
+)
 from api_interview.serializers import QuestionsSerializer
 from duel.models import Duel, DuelPlayer, DuelQuestion
 from duel.services import set_duel_question_is_answered
@@ -16,8 +21,8 @@ class DuelQuestionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = DuelQuestion
         fields = (
-            'id',
-            'question',
+            DuelQuestion.id.field.name,
+            DuelQuestion.question.field.name,
         )
 
 
@@ -25,8 +30,8 @@ class OwnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'id',
-            'username',
+            User.id.field.name,
+            User.username.field.name,
         )
 
 
@@ -34,9 +39,9 @@ class DuelPlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = DuelPlayer
         fields = (
-            'id',
-            'name',
-            'good_answers_count',
+            DuelPlayer.id.field.name,
+            DuelPlayer.name.field.name,
+            DuelPlayer.good_answers_count.field.name,
         )
 
 
@@ -46,8 +51,8 @@ class DuelUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Duel
         fields = (
-            'wrong_answers_count',
-            'players',
+            Duel.wrong_answers_count.field.name,
+            Duel.players.field._related_name,
         )
 
 
@@ -71,7 +76,6 @@ class DuelCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Duel
         fields = (
-
             'question_count',
             'player_1',
             'player_2',
@@ -79,8 +83,10 @@ class DuelCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         request = self.context.get('request')
-        validated_data['user'] = request.user
-        return create_duel(validated_data)
+        duel = create_duel(request.user)
+        create_duel_questions(duel, validated_data.pop('question_count'))
+        create_duel_players(duel, validated_data)
+        return duel
 
     def to_representation(self, instance):
         serializer = DuelSerializer(instance)
@@ -101,14 +107,13 @@ class DuelPartialUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         winner_pk = validated_data.get('winner_id')
         question_id = validated_data.get('question_id')
-        duel = instance
+        duel_question = get_object_or_404(instance.questions, pk=question_id)
+        set_duel_question_is_answered(duel_question=duel_question)
         DuelPlayer.objects.update_player_and_duel_score(
             winner_pk=winner_pk,
-            duel=duel,
+            duel=instance,
         )
-        duel_question = duel.questions.get(pk=question_id)
-        set_duel_question_is_answered(duel_question=duel_question)
-        return duel
+        return instance
 
     def to_representation(self, instance):
         serializer = DuelUpdateSerializer(instance)

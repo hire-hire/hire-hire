@@ -7,7 +7,7 @@ class DuelManager(models.Manager):
         query = self.get_queryset()
         if do_select_related:
             query = query.select_related()
-        return query.filter(pk=duel_pk, owner=user)
+        return get_object_or_404(query.filter(pk=duel_pk, owner=user))
 
 
 class DuelQuestionManager(models.Manager):
