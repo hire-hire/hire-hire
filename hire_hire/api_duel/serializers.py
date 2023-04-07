@@ -70,22 +70,22 @@ class DuelCreateSerializer(serializers.ModelSerializer):
     question_count = serializers.ChoiceField(
         choices=settings.QUESTION_COUNT_CHOICE,
     )
-    player_1 = DuelPlayerSerializer()
-    player_2 = DuelPlayerSerializer()
+    players = DuelPlayerSerializer(many=True)
 
     class Meta:
         model = Duel
         fields = (
             'question_count',
-            'player_1',
-            'player_2',
+            Duel.players.field._related_name,
         )
 
     def create(self, validated_data):
         request = self.context.get('request')
         duel = create_duel(request.user)
-        create_duel_questions(duel, validated_data.pop('question_count'))
-        create_duel_players(duel, validated_data)
+        question_count = validated_data.get('question_count')
+        create_duel_questions(duel, question_count)
+        players = validated_data.get('players')
+        create_duel_players(duel, players)
         return duel
 
     def to_representation(self, instance):

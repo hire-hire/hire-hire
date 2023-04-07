@@ -1,16 +1,12 @@
 from rest_framework import mixins, permissions, viewsets
 
+from api_duel.permissions import IsDuelModerator
 from api_duel.serializers import (
     DuelCreateSerializer,
     DuelPartialUpdateSerializer,
     DuelSerializer,
 )
 from duel.models import Duel
-
-
-class IsDuelModerator(permissions.BasePermission):
-    def has_permission(self, request, view):
-        return bool(request.user and request.user.is_duel_moderator)
 
 
 class DuelViewSet(

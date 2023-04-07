@@ -12,7 +12,7 @@ def create_duel_players(duel, players):
             name=player.get('name'),
             duel=duel,
         )
-        for player in players.values()
+        for player in players
     ))
 
 
