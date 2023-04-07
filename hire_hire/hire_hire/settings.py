@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'add_question.apps.AddquestionConfig',
     'api.apps.ApiConfig',
     'api_interview.apps.ApiInterviewConfig',
+    'api_add_question.apps.ApiAddQuestionConfig',
 ]
 
 if DEBUG:
@@ -163,8 +164,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('JWT', 'Bearer',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
 }
 
 SWAGGER_SETTINGS = {
