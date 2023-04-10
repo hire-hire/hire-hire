@@ -9,7 +9,7 @@ def create_duel(owner):
 def create_duel_players(duel, players):
     DuelPlayer.objects.bulk_create((
         DuelPlayer(
-            name=player.get('name'),
+            name=player.get(DuelPlayer.name.field.name),
             duel=duel,
         )
         for player in players

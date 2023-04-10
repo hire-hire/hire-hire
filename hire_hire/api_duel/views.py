@@ -22,9 +22,9 @@ class DuelViewSet(
 
     def get_queryset(self):
         if self.action == 'retrieve':
-            return Duel.objects.filter(
-                id=self.kwargs.get('pk'),
-                owner=self.request.user,
+            return Duel.objects.filter_duel_by_user(
+                duel_pk=self.kwargs.get('pk'),
+                user=self.request.user,
             )
         return Duel.objects.all()
 
