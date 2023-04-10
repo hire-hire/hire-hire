@@ -52,7 +52,7 @@ class DuelUpdateSerializer(serializers.ModelSerializer):
         model = Duel
         fields = (
             Duel.wrong_answers_count.field.name,
-            Duel.players.field._related_name,
+            Duel.players.rel.name,
         )
 
 
@@ -76,7 +76,7 @@ class DuelCreateSerializer(serializers.ModelSerializer):
         model = Duel
         fields = (
             'question_count',
-            Duel.players.field._related_name,
+            Duel.players.rel.name,
         )
 
     def create(self, validated_data):
