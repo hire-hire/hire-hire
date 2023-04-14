@@ -1,6 +1,8 @@
 from django.db import models
 from django.shortcuts import get_object_or_404
 
+import duel.models
+
 
 class DuelManager(models.Manager):
     def get_duel_by_user(self, duel_pk, user, do_select_related=True):
@@ -13,7 +15,10 @@ class DuelManager(models.Manager):
         query = self.get_queryset()
         if do_prefetch_related:
             query = query.prefetch_related(
-                self.model.questions.rel.name,
+                models.Prefetch(
+                    self.model.questions.rel.name,
+                    queryset=duel.models.DuelQuestion.objects.select_related(),
+                ),
                 self.model.players.rel.name,
             )
         return query.filter(pk=duel_pk, owner=user)
