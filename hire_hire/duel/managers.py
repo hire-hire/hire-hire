@@ -11,17 +11,18 @@ class DuelManager(models.Manager):
             query = query.select_related()
         return get_object_or_404(query.filter(pk=duel_pk, owner=user))
 
-    def filter_duel_by_user(self, duel_pk, user, do_prefetch_related=True):
-        query = self.get_queryset()
-        if do_prefetch_related:
-            query = query.prefetch_related(
+    def filter_duel_by_user(self, duel_pk, user):
+        return (
+            self.get_queryset()
+            .filter(pk=duel_pk, owner=user)
+            .prefetch_related(
                 models.Prefetch(
                     self.model.questions.rel.name,
                     queryset=duel.models.DuelQuestion.objects.select_related(),
                 ),
                 self.model.players.rel.name,
             )
-        return query.filter(pk=duel_pk, owner=user)
+        )
 
 
 class DuelQuestionManager(models.Manager):
