@@ -19,6 +19,7 @@ class DuelViewSet(
         permissions.IsAuthenticated,
         IsDuelModerator,
     )
+    http_method_names = ['get', 'post', 'patch']
 
     def get_queryset(self):
         if self.action == 'retrieve':
