@@ -31,8 +31,7 @@ def create_duel_questions(duel, question_count):
 def update_duel_question_status(duel_question):
     if duel_question.is_answered:
         raise QuestionAlreadyAnswered
-    else:
-        set_duel_question_is_answered(duel_question=duel_question)
+    set_duel_question_is_answered(duel_question=duel_question)
 
 
 def update_duel_player_score(winner_pk, duel):
