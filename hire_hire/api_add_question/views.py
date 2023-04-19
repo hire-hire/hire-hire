@@ -17,17 +17,22 @@ class AddQuestionViewSet(
 
     def dispatch(self, request, *args, **kwargs):
         self.user_cookie = request.COOKIES.get('user_cookie')
-        response = super().dispatch(request, *args, **kwargs)
         if not self.user_cookie:
             self.user_cookie = uuid.uuid4().hex
+            response = super().dispatch(request, *args, **kwargs)
             response.set_cookie('user_cookie', self.user_cookie)
+        else:
+            response = super().dispatch(request, *args, **kwargs)
         return response
 
     def perform_create(self, serializer):
-        instance = serializer.save()
-        instance.ip_address = self.request.META.get('REMOTE_ADDR')
-        if self.request.user.is_authenticated:
-            instance.author = self.request.user
-        else:
-            instance.user_cookie = self.user_cookie
-        instance.save()
+        ip_address = self.request.META.get('REMOTE_ADDR')
+        author = (
+            self.request.user if self.request.user.is_authenticated else None
+        )
+        user_cookie = self.user_cookie if not author else None
+        serializer.save(
+            ip_address=ip_address,
+            author=author,
+            user_cookie=user_cookie,
+        )

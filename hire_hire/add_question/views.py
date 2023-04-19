@@ -13,11 +13,13 @@ class AddQuestionMixin:
     limit_add_questions_per_day = settings.LIMIT_ADD_QUESTIONS_PER_DAY
 
     def dispatch(self, request, *args, **kwargs):
-        self.add_questions_for24_count = (
-            AddQuestion.objects.get_24_hours_added_question(request)
-        )
-
         user_cookie = request.COOKIES.get('user_cookie')
+        self.add_questions_for24_count = (
+            AddQuestion.objects.get_24_hours_added_question(
+                request.user,
+                user_cookie,
+            )
+        )
         response = super().dispatch(request, *args, **kwargs)
         if not user_cookie:
             user_cookie = uuid.uuid4().hex

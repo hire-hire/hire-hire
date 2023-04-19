@@ -8,7 +8,7 @@ router_v1_add_question = DefaultRouter()
 router_v1_add_question.register(
     r'add_question',
     AddQuestionViewSet,
-    basename='add_question'
+    basename='add_question',
 )
 
 urlpatterns = [
