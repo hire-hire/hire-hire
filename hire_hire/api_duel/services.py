@@ -1,4 +1,6 @@
+from api_duel.exceptions import QuestionAlreadyAnswered
 from duel.models import Duel, DuelPlayer, DuelQuestion
+from duel.services import set_duel_question_is_answered
 from interview.models import Question
 
 
@@ -24,3 +26,17 @@ def create_duel_questions(duel, question_count):
             question=question,
         ) for question in Question.objects.get_random_questions(question_count)
     ))
+
+
+def update_duel_question_status(duel_question):
+    if duel_question.is_answered:
+        raise QuestionAlreadyAnswered
+    else:
+        set_duel_question_is_answered(duel_question=duel_question)
+
+
+def update_duel_player_score(winner_pk, duel):
+    DuelPlayer.objects.update_player_and_duel_score(
+        winner_pk=winner_pk,
+        duel=duel,
+    )
