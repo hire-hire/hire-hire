@@ -48,6 +48,7 @@ class DuelPlayerManager(models.Manager):
         winner = get_object_or_404(
             self.get_queryset(),
             pk=winner_pk,
+            duel=duel,
         )
 
         winner.good_answers_count += 1
