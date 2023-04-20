@@ -13,7 +13,7 @@ const questionCounter = document.querySelector('.questions__counter');
 let questionsAnswersArr = [];
 
 questionsAnswersNodesArr.forEach((qa) => {
-    const qaArr = qa.textContent.split('?');
+    const qaArr = qa.textContent.split('|||');
     questionsAnswersArr.push({question: qaArr[0], answer: qaArr[1]});
 });
 
