@@ -1,15 +1,10 @@
-# from django.conf import settings
 from django.contrib.auth import get_user_model
-# from django.core.exceptions import ValidationError
 from django.db import models
 
 from add_question.managers import AddQuestionManager
 from interview.models import AbstractQuestion, Language
 
 User = get_user_model()
-
-
-# from rest_framework import serializers
 
 
 class AddQuestion(AbstractQuestion):
@@ -63,18 +58,3 @@ class AddQuestion(AbstractQuestion):
     class Meta:
         verbose_name = 'предложенный вопрос'
         verbose_name_plural = 'предложенные вопросы'
-
-    # def save(self, *args, **kwargs):
-    #     # raise ValidationError('save ValidationError')
-    #     # print('save!!!!!!!!!!!!!!!!!!!!!!!!')
-    #     # print(self.author)
-    #     # print(self.user_cookie)
-    #     if AddQuestion.objects.get_24_hours_added_question(
-    #         author=self.author,
-    #         user_cookie=self.user_cookie,
-    #     ) >= settings.LIMIT_ADD_QUESTIONS_PER_DAY:
-    #         raise serializers.ValidationError('Вы исчерпали лимит вопросов на день.')
-    #     super().save(*args, **kwargs)
-
-    # def clean(self):
-    #     raise ValidationError('clean ValidationError')

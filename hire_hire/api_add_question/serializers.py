@@ -23,9 +23,8 @@ class AddQuestionSerializer(serializers.ModelSerializer):
         return {
             'add_questions_for24_count': (
                 AddQuestion.objects.get_24_hours_added_question(
-                    author=self.context.get('request').user,
-                    user_cookie=self.context.get('view').user_cookie,
-                    # user_cookie=self.context.get('request').COOKIES.get('user_cookie'),
+                    self.context.get('request').user,
+                    self.context.get('view').user_cookie,
                 )
             ),
             'limit_add_questions_per_day': (
@@ -34,16 +33,5 @@ class AddQuestionSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        # if (
-        #     AddQuestion.objects.get_24_hours_added_question(
-        #         author=self.context.get('request').user,
-        #         user_cookie=self.context.get('view').user_cookie,
-        #         # user_cookie=self.context.get('request').COOKIES.get('user_cookie'),
-        #     )
-        #     >= settings.LIMIT_ADD_QUESTIONS_PER_DAY
-        # ):
-        #     raise serializers.ValidationError(
-        #         'Вы исчерпали лимит вопросов на день.'
-        #     )
         questions_per_day_limit_validator(self)
         return attrs
