@@ -21,15 +21,12 @@ class AddQuestionViewSet(
         return response
 
     def perform_create(self, serializer):
-        ip_address = self.request.META.get('REMOTE_ADDR')
-        if self.request.user.is_authenticated:
-            author = self.request.user
-            user_cookie = None
-        else:
-            author = None
-            user_cookie = self.user_cookie
+        user_data_dict = (
+            dict(author=self.request.user)
+            if self.request.user.is_authenticated
+            else dict(user_cookie=self.user_cookie)
+        )
         serializer.save(
-            ip_address=ip_address,
-            author=author,
-            user_cookie=user_cookie,
+            ip_address=self.request.META.get('REMOTE_ADDR'),
+            **user_data_dict,
         )
