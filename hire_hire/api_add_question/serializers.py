@@ -12,17 +12,17 @@ class AddQuestionSerializer(serializers.ModelSerializer):
         model = AddQuestion
         fields = '__all__'
         read_only_fields = (
-            'author',
-            'ip_address',
-            'pub_date',
-            'status',
-            'user_cookie',
+            AddQuestion.author.field.name,
+            AddQuestion.ip_address.field.name,
+            AddQuestion.pub_date.field.name,
+            AddQuestion.status.field.name,
+            AddQuestion.user_cookie.field.name,
         )
 
     def get_extra_data(self, obj):
         return {
             'add_questions_for24_count': (
-                AddQuestion.objects.get_24_hours_added_question(
+                AddQuestion.objects.get_24_hours_added_question_count(
                     self.context.get('request').user,
                     self.context.get('view').user_cookie,
                 )
@@ -33,5 +33,8 @@ class AddQuestionSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        questions_per_day_limit_validator(self)
+        questions_per_day_limit_validator(
+            self.context.get('request').user,
+            self.context.get('view').user_cookie,
+        )
         return attrs

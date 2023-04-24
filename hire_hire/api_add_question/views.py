@@ -16,7 +16,7 @@ class AddQuestionViewSet(
 
     def dispatch(self, request, *args, **kwargs):
         response = get_or_set_user_cookie(
-            self, request, super().dispatch, *args, **kwargs
+            self, request, super().dispatch, *args, **kwargs,
         )
         return response
 

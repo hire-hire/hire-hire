@@ -4,11 +4,11 @@ from rest_framework import serializers
 from add_question.models import AddQuestion
 
 
-def questions_per_day_limit_validator(self):
+def questions_per_day_limit_validator(user, user_cookie):
     if (
-        AddQuestion.objects.get_24_hours_added_question(
-            self.context.get('request').user,
-            self.context.get('view').user_cookie,
+        AddQuestion.objects.get_24_hours_added_question_count(
+            user,
+            user_cookie,
         )
         >= settings.LIMIT_ADD_QUESTIONS_PER_DAY
     ):

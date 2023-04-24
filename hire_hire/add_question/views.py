@@ -12,13 +12,13 @@ class AddQuestionMixin:
 
     def dispatch(self, request, *args, **kwargs):
         self.add_questions_for24_count = (
-            AddQuestion.objects.get_24_hours_added_question(
+            AddQuestion.objects.get_24_hours_added_question_count(
                 request.user,
                 request.COOKIES.get('user_cookie'),
             )
         )
         response = get_or_set_user_cookie(
-            self, request, super().dispatch, *args, **kwargs
+            self, request, super().dispatch, *args, **kwargs,
         )
         return response
 
