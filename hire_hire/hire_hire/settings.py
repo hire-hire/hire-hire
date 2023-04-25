@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'add_question.apps.AddquestionConfig',
     'api.apps.ApiConfig',
     'api_interview.apps.ApiInterviewConfig',
+    'api_add_question.apps.ApiAddQuestionConfig',
     'api_duel.apps.ApiDuelConfig',
 ]
 
