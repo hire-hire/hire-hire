@@ -177,3 +177,11 @@ CSRF_TRUSTED_ORIGINS = [
     'https://hire-hire.proninteam.ru',
     'https://test-hire-hire.proninteam.ru'
 ]
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'api_users.serializers.NewUserSerializer'
+    }
+}
+
+PASSWORD_MAX_LENGTH = 40
