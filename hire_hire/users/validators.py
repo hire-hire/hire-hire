@@ -19,9 +19,9 @@ class PasswordMaxLengthValidator:
 
     def validate(self, password, user=None):
         if len(password) > self.max_length:
-            raise ValidationError(f"Пароль слишком длинный, "
-                                  f"должно быть не более "
-                                  f"{self.max_length} символов",)
+            raise ValidationError(f'Пароль слишком длинный, '
+                                  f'должно быть не более '
+                                  f'{self.max_length} символов',)
 
     def get_help_text(self):
-        return "Пароль не должен быть длиннее 40 символов"
+        return 'Пароль не должен быть длиннее 40 символов'
