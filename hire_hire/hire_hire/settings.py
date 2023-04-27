@@ -119,6 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'users.validators.PasswordMaxLengthValidator',
+    },
 ]
 
 LANGUAGE_CODE = 'ru'
@@ -177,3 +180,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://hire-hire.proninteam.ru',
     'https://test-hire-hire.proninteam.ru'
 ]
+
+USERNAME_MIN_LENGTH = 2
+USERNAME_MAX_LENGTH = 25
+PASSWORD_MAX_LENGTH = 40
