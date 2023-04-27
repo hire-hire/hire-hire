@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 def username_length_validator(value):
     if len(value) < settings.USERNAME_MIN_LENGTH:
         raise ValidationError(
-            'Имя пользователя не должно быть короче 2'
+            'Имя пользователя не должно быть короче 2 символов'
         )
 
 
