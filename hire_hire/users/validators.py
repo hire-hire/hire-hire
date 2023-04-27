@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 def username_length_validator(value):
     if len(value) < settings.USERNAME_MIN_LENGTH:
         raise ValidationError(
-            'Имя пользователя не должно быть короче 2 символов'
+            f'Имя пользователя не должно быть короче {settings.USERNAME_MIN_LENGTH} символов'
         )
 
 
@@ -21,4 +21,4 @@ class PasswordMaxLengthValidator:
                                   f'{self.max_length} символов',)
 
     def get_help_text(self):
-        return 'Пароль не должен быть длиннее 40 символов'
+        return f'Пароль не должен быть длиннее {self.max_length} символов'
