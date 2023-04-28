@@ -1,9 +1,8 @@
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.core.validators import MinLengthValidator
 from django.db import models
-
-from users.validators import username_length_validator
 
 
 class User(AbstractUser):
@@ -11,11 +10,12 @@ class User(AbstractUser):
         'имя пользователя',
         max_length=settings.USERNAME_MAX_LENGTH,
         unique=True,
-        help_text='Обязательное поле. От 2 до 25 символов. '
+        help_text=f'Обязательное поле. От {settings.USERNAME_MIN_LENGTH} '
+                  f'до {settings.USERNAME_MAX_LENGTH} символов. '
                   'Буквы, цифры, @/./+/-/_ допускаются.',
         validators=[
             UnicodeUsernameValidator(),
-            username_length_validator,
+            MinLengthValidator(settings.USERNAME_MIN_LENGTH),
         ],
         error_messages={
             'unique': 'Имя пользователя занято',

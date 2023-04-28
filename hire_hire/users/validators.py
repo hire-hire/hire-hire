@@ -2,14 +2,6 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 
 
-def username_length_validator(value):
-    if len(value) < settings.USERNAME_MIN_LENGTH:
-        raise ValidationError(
-            f'Имя пользователя не должно быть '
-            f'короче {settings.USERNAME_MIN_LENGTH} символов'
-        )
-
-
 class PasswordMaxLengthValidator:
 
     def __init__(self, max_length=settings.PASSWORD_MAX_LENGTH):
