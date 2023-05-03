@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 
 
 class PasswordMaxLengthValidator:
@@ -15,3 +16,11 @@ class PasswordMaxLengthValidator:
 
     def get_help_text(self):
         return f'Пароль не должен быть длиннее {self.max_length} символов'
+
+
+class UnicodeAndLatinUsernameValidator(RegexValidator):
+    regex = r"^[\da-zA-Z.@+-]+\Z"
+    message = ("Введите правильное имя пользователя. Оно может содержать "
+               "только латинские буквы, цифры и знаки @/./+/-/_.")
+
+    flags = 0
