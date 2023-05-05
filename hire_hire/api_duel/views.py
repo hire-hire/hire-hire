@@ -4,7 +4,7 @@ from drf_spectacular.utils import (
     OpenApiResponse,
     OpenApiTypes,
     extend_schema,
-    extend_schema_view
+    extend_schema_view,
 )
 from rest_framework import mixins, permissions, viewsets
 
@@ -36,13 +36,13 @@ from hire_hire import schema
                             'players': [
                                 {
                                     'name': 'player1',
-                                    'good_answers_count': 0
+                                    'good_answers_count': 0,
                                 },
                                 {
                                     'name': 'player2',
-                                    'good_answers_count': 0
-                                }
-                            ]
+                                    'good_answers_count': 0,
+                                },
+                            ],
                         },
                     ),
                 ],
@@ -59,17 +59,17 @@ from hire_hire import schema
                         },
                         response_only=False,
                     ),
-                ]
+                ],
             ),
             401: OpenApiResponse(
                 response=DuelCreateSerializer,
-                examples=[schema.not_authenticated]
+                examples=[schema.not_authenticated],
             ),
             403: OpenApiResponse(
                 response=DuelCreateSerializer,
                 examples=[schema.forbidden_response_example],
             ),
-        }
+        },
     ),
     retrieve=extend_schema(
         parameters=[
@@ -93,29 +93,29 @@ from hire_hire import schema
                                     'id': 0,
                                     'question': {
                                         'id': 0,
-                                        'text': 'string'
-                                    }
-                                }
+                                        'text': 'string',
+                                    },
+                                },
                             ],
                             'players': [
                                 {
                                     'id': 0,
                                     'name': 'string',
-                                    'good_answers_count': 0
-                                }
+                                    'good_answers_count': 0,
+                                },
                             ],
                             'owner': {
                                 'id': 0,
-                                'username': 'HdcIeCw.qnL-54L0lBKAybKeS'
+                                'username': 'HdcIeCw.qnL-54L0lBKAybKeS',
                             },
-                            'wrong_answers_count': 0
+                            'wrong_answers_count': 0,
                         },
                     ),
                 ],
             ),
             401: OpenApiResponse(
                 response=DuelSerializer,
-                examples=[schema.not_authenticated]
+                examples=[schema.not_authenticated],
             ),
             403: OpenApiResponse(
                 response=DuelSerializer,
@@ -141,14 +141,14 @@ from hire_hire import schema
                                 {
                                     'id': 1,
                                     'name': 'player1',
-                                    'good_answers_count': 2
+                                    'good_answers_count': 2,
                                 },
                                 {
                                     'id': 2,
                                     'name': 'player2',
-                                    'good_answers_count': 0
-                                }
-                            ]
+                                    'good_answers_count': 0,
+                                },
+                            ],
                         },
                     ),
                 ],
@@ -169,7 +169,7 @@ from hire_hire import schema
             ),
             401: OpenApiResponse(
                 response=DuelPartialUpdateSerializer,
-                examples=[schema.not_authenticated]
+                examples=[schema.not_authenticated],
             ),
             403: OpenApiResponse(
                 response=DuelPartialUpdateSerializer,
@@ -196,11 +196,11 @@ from hire_hire import schema
                                     'игрока не из этой дуэли',
                         value=schema.not_found.value,
                         response_only=False,
-                    )
-                ]
+                    ),
+                ],
             ),
-        }
-    )
+        },
+    ),
 )
 class DuelViewSet(
     mixins.UpdateModelMixin,

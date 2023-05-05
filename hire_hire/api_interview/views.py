@@ -4,7 +4,7 @@ from drf_spectacular.utils import (
     OpenApiResponse,
     OpenApiTypes,
     extend_schema,
-    extend_schema_view
+    extend_schema_view,
 )
 from rest_framework import mixins, permissions, viewsets
 
@@ -36,12 +36,12 @@ from interview.models import Category, Interview, Language, Question
                         value={
                             'id': 1,
                             'title': 'Программирование',
-                            'icon': 'какой-то урл'
+                            'icon': 'какой-то урл',
                         },
                     ),
                 ],
-            )
-        }
+            ),
+        },
     ),
     retrieve=extend_schema(
         tags=['Categories & Languages'],
@@ -73,8 +73,8 @@ from interview.models import Category, Interview, Language, Question
                                     'title': 'javascript',
                                     'icon': 'какая-то иконка',
                                     'category': 1
-                                }
-                            ]
+                                },
+                            ],
                         },
                         response_only=False,
                     ),
@@ -82,13 +82,13 @@ from interview.models import Category, Interview, Language, Question
             ),
             401: OpenApiResponse(
                 response=CategoryRetrieveSerializer,
-                examples=[not_authenticated]
+                examples=[not_authenticated],
             ),
             404: OpenApiResponse(
                 response=CategoryRetrieveSerializer,
-                examples=[not_found]
-            )
-        }
+                examples=[not_found],
+            ),
+        },
     ),
 )
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -106,7 +106,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
         tags=['Categories & Languages'],
         description='Список всех подкатегорий (языков)',
         request=CategoryListSerializer,
-        responses=CategoryListSerializer
+        responses=CategoryListSerializer,
     ),
     retrieve=extend_schema(
         tags=['Categories & Languages'],
@@ -116,13 +116,13 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
             200: OpenApiResponse(response=LanguageSerializer),
             401: OpenApiResponse(
                 response=LanguageSerializer,
-                examples=[not_authenticated]
+                examples=[not_authenticated],
             ),
             404: OpenApiResponse(
                 response=LanguageSerializer,
-                examples=[not_found]
-            )
-        }
+                examples=[not_found],
+            ),
+        },
     ),
 )
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
@@ -150,17 +150,17 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
                             'question_count': [
                                 'Значения N нет среди '
                                 'допустимых вариантов.'
-                            ]
+                            ],
                         },
                         response_only=False,
-                    )
-                ]
+                    ),
+                ],
             ),
             401: OpenApiResponse(
                 response=InterviewSerializer,
-                examples=[not_authenticated]
-            )
-        }
+                examples=[not_authenticated],
+            ),
+        },
     ),
     retrieve=extend_schema(
         parameters=[
@@ -173,13 +173,13 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
             200: OpenApiResponse(response=InterviewSerializer),
             401: OpenApiResponse(
                 response=InterviewSerializer,
-                examples=[not_authenticated]
+                examples=[not_authenticated],
             ),
             404: OpenApiResponse(
                 response=InterviewSerializer,
-                examples=[not_found]
-            )
-        }
+                examples=[not_found],
+            ),
+        },
     ),
 )
 class InterviewViewset(
@@ -206,19 +206,19 @@ class InterviewViewset(
 @extend_schema_view(
     retrieve=extend_schema(
         tags=['Interview'],
-        description='',
+        description='Получение ответа на конкретный вопрос',
         request=QuestionsAnswerSerializer,
         responses={
             200: OpenApiResponse(response=QuestionsAnswerSerializer),
             401: OpenApiResponse(
                 response=QuestionsAnswerSerializer,
-                examples=[not_authenticated]
+                examples=[not_authenticated],
             ),
             404: OpenApiResponse(
                 response=QuestionsAnswerSerializer,
-                examples=[not_found]
-            )
-        }
+                examples=[not_found],
+            ),
+        },
     ),
 )
 class QuestionAnswerViewset(

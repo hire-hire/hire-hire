@@ -2,7 +2,7 @@ from drf_spectacular.utils import (
     OpenApiExample,
     OpenApiResponse,
     extend_schema,
-    extend_schema_view
+    extend_schema_view,
 )
 from rest_framework import viewsets
 
@@ -40,10 +40,10 @@ from hire_hire.schema import not_found
                                 ]
                             },
                         response_only=False,
-                    )
-                ]
+                    ),
+                ],
             ),
-        }
+        },
     ),
     retrieve=extend_schema(
         tags=['Contributors'],
@@ -53,9 +53,9 @@ from hire_hire.schema import not_found
             200: OpenApiResponse(response=ContributorSerializer),
             404: OpenApiResponse(
                 response=ContributorSerializer,
-                examples=[not_found]
-            )
-        }
+                examples=[not_found],
+            ),
+        },
     ),
 )
 class ContributorsListViewSet(viewsets.ReadOnlyModelViewSet):
