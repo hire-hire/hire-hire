@@ -25,7 +25,7 @@ INVALID_TOKEN_EXAMPLE = OpenApiExample(
     description='Возвращает ошибку о невалидности refresh-token',
     value={
         'detail': 'Token is invalid or expired',
-        'code': 'token_not_valid'
+        'code': 'token_not_valid',
     },
     response_only=False,
 )
@@ -107,13 +107,13 @@ class DjoserUsersView(OpenApiViewExtension):
                     200: OpenApiResponse(response=UserSerializer),
                     401: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_authenticated]
+                        examples=[not_authenticated],
                     ),
                     404: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_found]
-                    )
-                }
+                        examples=[not_found],
+                    ),
+                },
             )
             def retrieve(self, request, *args, **kwargs):
                 pass
@@ -133,17 +133,17 @@ class DjoserUsersView(OpenApiViewExtension):
                                 value=INVALID_EMAIL_VALUE,
                                 response_only=False,
                             ),
-                        ]
+                        ],
                     ),
                     401: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_authenticated]
+                        examples=[not_authenticated],
                     ),
                     404: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_found]
-                    )
-                }
+                        examples=[not_found],
+                    ),
+                },
             )
             def update(self, request, *args, **kwargs):
                 pass
@@ -163,17 +163,17 @@ class DjoserUsersView(OpenApiViewExtension):
                                 value=INVALID_EMAIL_VALUE,
                                 response_only=False,
                             ),
-                        ]
+                        ],
                     ),
                     401: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_authenticated]
+                        examples=[not_authenticated],
                     ),
                     404: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_found]
-                    )
-                }
+                        examples=[not_found],
+                    ),
+                },
             )
             def partial_update(self, request, *args, **kwargs):
                 pass
@@ -185,7 +185,7 @@ class DjoserUsersView(OpenApiViewExtension):
                     200: OpenApiResponse(response=UserSerializer),
                     401: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_authenticated]
+                        examples=[not_authenticated],
                     )
                 }
             )
@@ -206,7 +206,7 @@ class DjoserUsersView(OpenApiViewExtension):
                                 description=REQUIRED_ERROR_DESCR,
                                 value={
                                     'username': [REQUIRED_FIELD],
-                                    'password': [REQUIRED_FIELD]
+                                    'password': [REQUIRED_FIELD],
                                 },
                                 response_only=False,
                             ),
@@ -220,7 +220,7 @@ class DjoserUsersView(OpenApiViewExtension):
                                         'Оно может содержать '
                                         'только латинские буквы, '
                                         'цифры и знаки @/./+/-/_.'
-                                    ]
+                                    ],
                                 },
                                 response_only=False,
                             ),
@@ -233,14 +233,14 @@ class DjoserUsersView(OpenApiViewExtension):
                                     'username': ['Имя пользователя занято']
                                 },
                                 response_only=False,
-                            )
-                        ]
+                            ),
+                        ],
                     ),
                     401: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_authenticated]
-                    )
-                }
+                        examples=[not_authenticated],
+                    ),
+                },
             )
             def create(self):
                 pass
@@ -262,21 +262,21 @@ class DjoserUsersView(OpenApiViewExtension):
                                 },
                                 response_only=False,
                             ),
-                        ]
+                        ],
                     ),
                     401: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_authenticated]
+                        examples=[not_authenticated],
                     ),
                     403: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[forbidden_response_example]
+                        examples=[forbidden_response_example],
                     ),
                     404: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_found]
+                        examples=[not_found],
                     ),
-                }
+                },
             )
             def destroy(self, request, *args, **kwargs):
                 pass
@@ -303,21 +303,21 @@ class DjoserUsersView(OpenApiViewExtension):
                                 },
                                 response_only=False,
                             ),
-                        ]
+                        ],
                     ),
                     401: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_authenticated]
+                        examples=[not_authenticated],
                     ),
                     403: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[forbidden_response_example]
+                        examples=[forbidden_response_example],
                     ),
                     404: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_found]
+                        examples=[not_found],
                     ),
-                }
+                },
             )
             def set_username(self, request, *args, **kwargs):
                 pass
@@ -340,25 +340,25 @@ class DjoserUsersView(OpenApiViewExtension):
                                     ],
                                     'new_password': [
                                         REQUIRED_FIELD
-                                    ]
+                                    ],
                                 },
                                 response_only=False,
                             ),
-                        ]
+                        ],
                     ),
                     401: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_authenticated]
+                        examples=[not_authenticated],
                     ),
                     403: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[forbidden_response_example]
+                        examples=[forbidden_response_example],
                     ),
                     404: OpenApiResponse(
                         response=UserSerializer,
-                        examples=[not_found]
+                        examples=[not_found],
                     ),
-                }
+                },
             )
             def set_password(self, request, *args, **kwargs):
                 pass
@@ -381,9 +381,9 @@ class JWTTokenObtainPairView(OpenApiViewExtension):
                             'ObtainSerializer',
                             {
                                 'refresh': CharField(),
-                                'access': CharField()
-                            }
-                        )
+                                'access': CharField(),
+                            },
+                        ),
                     ),
                     400: OpenApiResponse(
                         response=inline_serializer(
@@ -400,20 +400,20 @@ class JWTTokenObtainPairView(OpenApiViewExtension):
                                     ],
                                     'password': [
                                         REQUIRED_FIELD
-                                    ]
+                                    ],
                                 },
                                 response_only=False,
-                            )
-                        ]
+                            ),
+                        ],
                     ),
                     404: OpenApiResponse(
                         response=inline_serializer(
                             'Obtain404Serializer',
                             FAKE_SERIALIZER_FIELDS
                         ),
-                        examples=[not_found]
-                    )
-                }
+                        examples=[not_found],
+                    ),
+                },
             )
             def post(self, request, *args, **kwargs):
                 pass
@@ -433,13 +433,12 @@ class JWTTokenRefreshView(OpenApiViewExtension):
                     200: OpenApiResponse(
                         response=inline_serializer(
                             'RefreshSerializer',
-                            {'access': CharField()})
-
+                            {'access': CharField()}),
                     ),
                     400: OpenApiResponse(
                         response=inline_serializer(
                             'RefreshFakeSerializer',
-                            FAKE_SERIALIZER_FIELDS
+                            FAKE_SERIALIZER_FIELDS,
                         ),
                         examples=[
                             OpenApiExample(
@@ -450,8 +449,8 @@ class JWTTokenRefreshView(OpenApiViewExtension):
                                     'refresh': [REQUIRED_FIELD]
                                 },
                                 response_only=False,
-                            )
-                        ]
+                            ),
+                        ],
                     ),
                     401: OpenApiResponse(
                         response=inline_serializer(
@@ -466,13 +465,13 @@ class JWTTokenRefreshView(OpenApiViewExtension):
                                             'о невалидности refresh-token',
                                 value={
                                     'detail': 'Token is invalid or expired',
-                                    'code': 'token_not_valid'
+                                    'code': 'token_not_valid',
                                 },
                                 response_only=False,
-                            )
-                        ]
-                    )
-                }
+                            ),
+                        ],
+                    ),
+                },
             )
             def post(self, request, *args, **kwargs):
                 pass
@@ -494,16 +493,16 @@ class JWTTokenVerifyView(OpenApiViewExtension):
                         response=inline_serializer(
                             'VerifyFakeSerializer',
                             FAKE_SERIALIZER_FIELDS),
-                        examples=[INVALID_TOKEN_EXAMPLE]
+                        examples=[INVALID_TOKEN_EXAMPLE],
                     ),
                     401: OpenApiResponse(
                         response=inline_serializer(
                             'Verify401Serializer',
-                            FAKE_SERIALIZER_FIELDS
+                            FAKE_SERIALIZER_FIELDS,
                         ),
-                        examples=[INVALID_TOKEN_EXAMPLE]
-                    )
-                }
+                        examples=[INVALID_TOKEN_EXAMPLE],
+                    ),
+                },
             )
             def post(self, request, *args, **kwargs):
                 pass
