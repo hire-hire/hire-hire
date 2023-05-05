@@ -1,4 +1,5 @@
 from django.conf import settings
+from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from rest_framework import serializers
 
 from api_interview.services import create_interview
@@ -11,12 +12,56 @@ class LanguageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+@extend_schema_serializer(
+    examples=[
+        OpenApiExample(
+            '200',
+            summary='Валидный ответ',
+            description='Возвращает список категорий',
+            value={
+                    'id': 1,
+                    'title': 'Программирование',
+                    'icon': 'какой-то урл'
+            },
+        ),
+    ],
+)
 class CategoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
 
 
+@extend_schema_serializer(
+    examples=[
+        OpenApiExample(
+            '200',
+            summary='Валидный ответ',
+            description='Возвращает подробности по конкретной '
+                        'категории со влолженными языками',
+            value={
+                    'id': 1,
+                    'title': 'Программирование',
+                    'icon': 'какой-то урл',
+                    'lanuages': [
+                        {
+                            'id': 1,
+                            'title': 'python',
+                            'icon': 'какая-то иконка',
+                            'category': 1
+                        },
+                        {
+                            'id': 2,
+                            'title': 'javascript',
+                            'icon': 'какая-то иконка',
+                            'category': 1
+                        }
+                    ]
+            },
+            response_only=False,
+        ),
+    ]
+)
 class CategoryRetrieveSerializer(CategoryListSerializer):
     languages = LanguageSerializer(many=True)
 

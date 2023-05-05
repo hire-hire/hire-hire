@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 ]
 
 if DEBUG:
-    INSTALLED_APPS += ['drf_yasg']
+    INSTALLED_APPS += ['drf_spectacular']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -162,16 +162,19 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'BLACKLIST_AFTER_ROTATION': False
 }
 
-SWAGGER_SETTINGS = {
-    'USE_SESSION_AUTH': False,
-}
+# # old swagger
+# SWAGGER_SETTINGS = {
+#     'USE_SESSION_AUTH': False,
+# }
 
 CSRF_TRUSTED_ORIGINS = [
     'https://hire-hire.proninteam.ru',
@@ -181,3 +184,10 @@ CSRF_TRUSTED_ORIGINS = [
 USERNAME_MIN_LENGTH = 2
 USERNAME_MAX_LENGTH = 25
 PASSWORD_MAX_LENGTH = 40
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'HireHire API',
+    'DESCRIPTION': 'Interview service',
+    'VERSION': '0.0.1',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
