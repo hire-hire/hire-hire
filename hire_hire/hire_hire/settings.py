@@ -171,11 +171,6 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': False
 }
 
-# # old swagger
-# SWAGGER_SETTINGS = {
-#     'USE_SESSION_AUTH': False,
-# }
-
 CSRF_TRUSTED_ORIGINS = [
     'https://hire-hire.proninteam.ru',
     'https://test-hire-hire.proninteam.ru'
