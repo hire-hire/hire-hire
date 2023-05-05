@@ -1,4 +1,11 @@
-from drf_spectacular.utils import OpenApiExample, OpenApiResponse, extend_schema, extend_schema_view
+from drf_spectacular.utils import (
+    OpenApiExample,
+    OpenApiParameter,
+    OpenApiResponse,
+    OpenApiTypes,
+    extend_schema,
+    extend_schema_view
+)
 from rest_framework import mixins, permissions, viewsets
 
 from api_interview.serializers import (
@@ -16,17 +23,64 @@ from interview.models import Category, Interview, Language, Question
 @extend_schema_view(
     list=extend_schema(
         tags=['Categories & Languages'],
-        description='',
+        description='Список всех категорий',
         request=CategoryListSerializer,
-        responses=CategoryListSerializer
+        responses={
+            200: OpenApiResponse(
+                response=CategoryListSerializer,
+                examples=[
+                    OpenApiExample(
+                        '200',
+                        summary='Валидный ответ',
+                        description='Возвращает список категорий',
+                        value={
+                            'id': 1,
+                            'title': 'Программирование',
+                            'icon': 'какой-то урл'
+                        },
+                    ),
+                ],
+            )
+        }
     ),
     retrieve=extend_schema(
         tags=['Categories & Languages'],
-        description='',
+        description='Информация по конкретной категории '
+                    'со вложенными подкатегориями (языками)',
         request=CategoryRetrieveSerializer,
         responses={
-            200: OpenApiResponse(response=CategoryRetrieveSerializer),
-            400: OpenApiResponse(
+            200: OpenApiResponse(
+                response=CategoryRetrieveSerializer,
+                examples=[
+                    OpenApiExample(
+                        '200',
+                        summary='Валидный ответ',
+                        description='Возвращает подробности по конкретной '
+                                    'категории со вложенными языками',
+                        value={
+                            'id': 1,
+                            'title': 'Программирование',
+                            'icon': 'какой-то урл',
+                            'lanuages': [
+                                {
+                                    'id': 1,
+                                    'title': 'python',
+                                    'icon': 'какая-то иконка',
+                                    'category': 1
+                                },
+                                {
+                                    'id': 2,
+                                    'title': 'javascript',
+                                    'icon': 'какая-то иконка',
+                                    'category': 1
+                                }
+                            ]
+                        },
+                        response_only=False,
+                    ),
+                ]
+            ),
+            401: OpenApiResponse(
                 response=CategoryRetrieveSerializer,
                 examples=[not_authenticated]
             ),
@@ -50,17 +104,17 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
 @extend_schema_view(
     list=extend_schema(
         tags=['Categories & Languages'],
-        description='',
+        description='Список всех подкатегорий (языков)',
         request=CategoryListSerializer,
         responses=CategoryListSerializer
     ),
     retrieve=extend_schema(
         tags=['Categories & Languages'],
-        description='',
+        description='Информация по конкретной подкатегории (языку)',
         request=CategoryRetrieveSerializer,
         responses={
             200: OpenApiResponse(response=LanguageSerializer),
-            400: OpenApiResponse(
+            401: OpenApiResponse(
                 response=LanguageSerializer,
                 examples=[not_authenticated]
             ),
@@ -79,19 +133,19 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
 @extend_schema_view(
     create=extend_schema(
         tags=['Interview'],
-        description='',
+        description='Создание нового интервью. Ждет количество вопросов',
         request=InterviewCreateSerializer,
         responses={
             201: OpenApiResponse(response=InterviewSerializer),
             400: OpenApiResponse(
                 response=InterviewSerializer,
                 examples=[
-                    not_authenticated,
                     OpenApiExample(
                         'invalid_question_count',
                         summary='Некорректное число вопросов',
                         description='Возвращает ошибку '
-                                    'о несоответствии кол-ва вопросов допустимому',
+                                    'о несоответствии кол-ва '
+                                    'вопросов допустимому',
                         value={
                             'question_count': [
                                 'Значения N нет среди '
@@ -102,15 +156,22 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
                     )
                 ]
             ),
+            401: OpenApiResponse(
+                response=InterviewSerializer,
+                examples=[not_authenticated]
+            )
         }
     ),
     retrieve=extend_schema(
+        parameters=[
+            OpenApiParameter('id', OpenApiTypes.INT, OpenApiParameter.PATH),
+        ],
         tags=['Interview'],
-        description='',
+        description='Информация по конкретному интервью',
         request=InterviewSerializer,
         responses={
             200: OpenApiResponse(response=InterviewSerializer),
-            400: OpenApiResponse(
+            401: OpenApiResponse(
                 response=InterviewSerializer,
                 examples=[not_authenticated]
             ),
@@ -142,6 +203,24 @@ class InterviewViewset(
         return InterviewSerializer
 
 
+@extend_schema_view(
+    retrieve=extend_schema(
+        tags=['Interview'],
+        description='',
+        request=QuestionsAnswerSerializer,
+        responses={
+            200: OpenApiResponse(response=QuestionsAnswerSerializer),
+            401: OpenApiResponse(
+                response=QuestionsAnswerSerializer,
+                examples=[not_authenticated]
+            ),
+            404: OpenApiResponse(
+                response=QuestionsAnswerSerializer,
+                examples=[not_found]
+            )
+        }
+    ),
+)
 class QuestionAnswerViewset(
     mixins.RetrieveModelMixin, viewsets.GenericViewSet,
 ):

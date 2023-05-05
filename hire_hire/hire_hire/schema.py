@@ -14,7 +14,11 @@ REQUIRED_ERROR_NAME = 'required'
 REQUIRED_ERROR_SUMMARY = 'Обязательные поля'
 REQUIRED_ERROR_DESCR = 'Возвращает список незаполненных обязательных полей'
 REQUIRED_FIELD = 'Обязательное поле.'
-INVALID_EMAIL_VALUE = {'email': ['Введите правильный адрес электронной почты.']},
+INVALID_EMAIL_VALUE = {
+                          'email': [
+                              'Введите правильный адрес электронной почты.'
+                          ]
+                      },
 INVALID_TOKEN_EXAMPLE = OpenApiExample(
     'not_valid',
     summary='Невалидный токен',
@@ -119,10 +123,6 @@ class DjoserUsersView(OpenApiViewExtension):
                 tags=[USERS_TAG],
                 responses={
                     200: OpenApiResponse(response=UserSerializer),
-                    401: OpenApiResponse(
-                        response=UserSerializer,
-                        examples=[not_authenticated]
-                    ),
                     400: OpenApiResponse(
                         response=UserSerializer,
                         examples=[
@@ -134,6 +134,10 @@ class DjoserUsersView(OpenApiViewExtension):
                                 response_only=False,
                             ),
                         ]
+                    ),
+                    401: OpenApiResponse(
+                        response=UserSerializer,
+                        examples=[not_authenticated]
                     ),
                     404: OpenApiResponse(
                         response=UserSerializer,
@@ -149,10 +153,6 @@ class DjoserUsersView(OpenApiViewExtension):
                 tags=[USERS_TAG],
                 responses={
                     200: OpenApiResponse(response=UserSerializer),
-                    401: OpenApiResponse(
-                        response=UserSerializer,
-                        examples=[not_authenticated]
-                    ),
                     400: OpenApiResponse(
                         response=UserSerializer,
                         examples=[
@@ -164,6 +164,10 @@ class DjoserUsersView(OpenApiViewExtension):
                                 response_only=False,
                             ),
                         ]
+                    ),
+                    401: OpenApiResponse(
+                        response=UserSerializer,
+                        examples=[not_authenticated]
                     ),
                     404: OpenApiResponse(
                         response=UserSerializer,
@@ -246,10 +250,6 @@ class DjoserUsersView(OpenApiViewExtension):
                 tags=[USERS_TAG],
                 responses={
                     204: OpenApiResponse(response=UserSerializer),
-                    401: OpenApiResponse(
-                        response=UserSerializer,
-                        examples=[not_authenticated]
-                    ),
                     400: OpenApiResponse(
                         response=UserSerializer,
                         examples=[
@@ -263,6 +263,10 @@ class DjoserUsersView(OpenApiViewExtension):
                                 response_only=False,
                             ),
                         ]
+                    ),
+                    401: OpenApiResponse(
+                        response=UserSerializer,
+                        examples=[not_authenticated]
                     ),
                     403: OpenApiResponse(
                         response=UserSerializer,
