@@ -1,8 +1,8 @@
 from drf_spectacular.utils import (
-    OpenApiExample,
-    OpenApiResponse,
     extend_schema,
     extend_schema_view,
+    OpenApiExample,
+    OpenApiResponse,
 )
 from rest_framework import viewsets
 

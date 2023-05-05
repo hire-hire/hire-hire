@@ -1,8 +1,7 @@
 from drf_spectacular.extensions import OpenApiViewExtension
 from drf_spectacular.utils import (
-    OpenApiExample, OpenApiResponse, extend_schema, inline_serializer
+    extend_schema, inline_serializer, OpenApiExample, OpenApiResponse
 )
-
 from rest_framework.fields import CharField
 
 INVALID_FIELD = 'Невалидное поле'

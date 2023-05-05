@@ -19,8 +19,8 @@ class PasswordMaxLengthValidator:
 
 
 class UnicodeAndLatinUsernameValidator(RegexValidator):
-    regex = r"^[\da-zA-Z.@+-]+\Z"
-    message = ("Введите правильное имя пользователя. Оно может содержать "
-               "только латинские буквы, цифры и знаки @/./+/-/_.")
+    regex = r'^[\da-zA-Z.@+-]+\Z'
+    message = ('Введите правильное имя пользователя. Оно может содержать '
+               'только латинские буквы, цифры и знаки @/./+/-/_.')
 
     flags = 0

@@ -1,10 +1,10 @@
 from drf_spectacular.utils import (
+    extend_schema,
+    extend_schema_view,
     OpenApiExample,
     OpenApiParameter,
     OpenApiResponse,
     OpenApiTypes,
-    extend_schema,
-    extend_schema_view,
 )
 from rest_framework import mixins, permissions, viewsets
 
