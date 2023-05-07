@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class ContributorContact(models.Model):
@@ -8,7 +9,6 @@ class ContributorContact(models.Model):
         on_delete=models.CASCADE,
         related_name='contacts',
     )
-    # по этому полю фронт сможет подставлять соответсвующие соцсети значки
     social_network = models.CharField(
         'название соцсети',
         max_length=150,
@@ -19,6 +19,13 @@ class ContributorContact(models.Model):
         null=True,
         help_text='Укажите ссылку (github, telegram, vk и другие)',
     )
+
+    def save(self, *args, **kwargs):
+        """Создавать более трех контактов запрещено, нарушает верстку."""
+        if ContributorContact.objects.select_related().count() >= 3:
+            return ValidationError('Можно добавить не более трех контактов')
+
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'контакт'

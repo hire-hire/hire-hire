@@ -8,6 +8,7 @@ from contributors.models import Contributor, ContributorContact
 class ContributorContactInline(admin.StackedInline):
     model = ContributorContact
     extra = 1
+    max_num = 3
 
 
 @admin.register(Contributor)
