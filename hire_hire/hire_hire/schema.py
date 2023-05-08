@@ -1,6 +1,11 @@
 from drf_spectacular.extensions import OpenApiViewExtension
 from drf_spectacular.utils import (
-    extend_schema, inline_serializer, OpenApiExample, OpenApiResponse
+    extend_schema,
+    inline_serializer,
+    OpenApiExample,
+    OpenApiResponse,
+    OpenApiParameter,
+    OpenApiTypes,
 )
 from rest_framework.fields import CharField
 
@@ -69,7 +74,7 @@ class DjoserUsersView(OpenApiViewExtension):
     def view_replacement(self):
         from djoser.serializers import UserSerializer
 
-        class ExtendedBySchema(self.target_class):
+        class Extended(self.target_class):
 
             @extend_schema(exclude=True)
             def activation(self, request, *args, **kwargs):
@@ -362,7 +367,7 @@ class DjoserUsersView(OpenApiViewExtension):
             def set_password(self, request, *args, **kwargs):
                 pass
 
-        return ExtendedBySchema
+        return Extended
 
 
 class JWTTokenObtainPairView(OpenApiViewExtension):
@@ -370,7 +375,7 @@ class JWTTokenObtainPairView(OpenApiViewExtension):
 
     def view_replacement(self):
 
-        class ExtendedBySchema(self.target_class):
+        class Extended(self.target_class):
             @extend_schema(
                 description='Получение токена',
                 tags=[JWT_TAG],
@@ -416,7 +421,7 @@ class JWTTokenObtainPairView(OpenApiViewExtension):
             )
             def post(self, request, *args, **kwargs):
                 pass
-        return ExtendedBySchema
+        return Extended
 
 
 class JWTTokenRefreshView(OpenApiViewExtension):
@@ -424,7 +429,7 @@ class JWTTokenRefreshView(OpenApiViewExtension):
 
     def view_replacement(self):
 
-        class Extended2BySchema(self.target_class):
+        class Extended(self.target_class):
             @extend_schema(
                 description='Обновление токена',
                 tags=[JWT_TAG],
@@ -474,7 +479,7 @@ class JWTTokenRefreshView(OpenApiViewExtension):
             )
             def post(self, request, *args, **kwargs):
                 pass
-        return Extended2BySchema
+        return Extended
 
 
 class JWTTokenVerifyView(OpenApiViewExtension):
@@ -482,7 +487,7 @@ class JWTTokenVerifyView(OpenApiViewExtension):
 
     def view_replacement(self):
 
-        class Extended2BySchema(self.target_class):
+        class Extended(self.target_class):
             @extend_schema(
                 description='Обновление токена',
                 tags=[JWT_TAG],
@@ -505,4 +510,506 @@ class JWTTokenVerifyView(OpenApiViewExtension):
             )
             def post(self, request, *args, **kwargs):
                 pass
-        return Extended2BySchema
+        return Extended
+
+
+class CategoryView(OpenApiViewExtension):
+    target_class = 'api_interview.views.CategoryViewSet'
+
+    def view_replacement(self):
+        from api_interview.serializers import (
+            CategoryListSerializer, CategoryRetrieveSerializer
+        )
+
+        class Extended(self.target_class):
+
+            @extend_schema(
+                description='Список всех категорий',
+                tags=['Categories & Languages'],
+                request=CategoryListSerializer,
+                responses={
+                    200: OpenApiResponse(
+                        response=CategoryListSerializer,
+                        examples=[
+                            OpenApiExample(
+                                '200',
+                                summary='Валидный ответ',
+                                description='Возвращает список категорий',
+                                value={
+                                    'id': 1,
+                                    'title': 'Программирование',
+                                    'icon': 'какой-то урл',
+                                },
+                            ),
+                        ],
+                    ),
+                },
+            )
+            def list(self):
+                pass
+
+            @extend_schema(
+                description='Информация по конкретной категории '
+                            'со вложенными подкатегориями (языками)',
+                tags=['Categories & Languages'],
+                request=CategoryRetrieveSerializer,
+                responses={
+                    200: OpenApiResponse(
+                        response=CategoryRetrieveSerializer,
+                        examples=[
+                            OpenApiExample(
+                                '200',
+                                summary='Валидный ответ',
+                                description='Возвращает подробности '
+                                            'по конкретной категории '
+                                            'со вложенными языками',
+                                value={
+                                    'id': 1,
+                                    'title': 'Программирование',
+                                    'icon': 'какой-то урл',
+                                    'lanuages': [
+                                        {
+                                            'id': 1,
+                                            'title': 'python',
+                                            'icon': 'какая-то иконка',
+                                            'category': 1
+                                        },
+                                        {
+                                            'id': 2,
+                                            'title': 'javascript',
+                                            'icon': 'какая-то иконка',
+                                            'category': 1
+                                        },
+                                    ],
+                                },
+                                response_only=False,
+                            ),
+                        ]
+                    ),
+                    401: OpenApiResponse(
+                        response=CategoryRetrieveSerializer,
+                        examples=[not_authenticated],
+                    ),
+                    404: OpenApiResponse(
+                        response=CategoryRetrieveSerializer,
+                        examples=[not_found],
+                    ),
+                },
+            )
+            def retrieve(self):
+                pass
+
+        return Extended
+
+
+class LanguageView(OpenApiViewExtension):
+    target_class = 'api_interview.views.LanguageViewSet'
+
+    def view_replacement(self):
+        from api_interview.serializers import LanguageSerializer
+
+        class Extended(self.target_class):
+
+            @extend_schema(
+                description='Список всех подкатегорий (языков)',
+                tags=['Categories & Languages'],
+                request=LanguageSerializer,
+                responses=LanguageSerializer
+            )
+            def list(self):
+                pass
+
+            @extend_schema(
+                description='Информация по конкретной подкатегории (языку)',
+                tags=['Categories & Languages'],
+                request=LanguageSerializer,
+                responses={
+                    200: OpenApiResponse(response=LanguageSerializer),
+                    401: OpenApiResponse(
+                        response=LanguageSerializer,
+                        examples=[not_authenticated],
+                    ),
+                    404: OpenApiResponse(
+                        response=LanguageSerializer,
+                        examples=[not_found],
+                    ),
+                },
+            )
+            def retrieve(self):
+                pass
+
+        return Extended
+
+
+class InterviewView(OpenApiViewExtension):
+    target_class = 'api_interview.views.InterviewViewset'
+
+    def view_replacement(self):
+        from api_interview.serializers import (
+            InterviewCreateSerializer, InterviewSerializer
+        )
+
+        class Extended(self.target_class):
+
+            @extend_schema(
+                description='Создание нового интервью. '
+                            'Ждет количество вопросов',
+                tags=['Interview'],
+                request=InterviewCreateSerializer,
+                responses={
+                    201: OpenApiResponse(response=InterviewSerializer),
+                    400: OpenApiResponse(
+                        response=InterviewSerializer,
+                        examples=[
+                            OpenApiExample(
+                                'invalid_question_count',
+                                summary='Некорректное число вопросов',
+                                description='Возвращает ошибку '
+                                            'о несоответствии кол-ва '
+                                            'вопросов допустимому',
+                                value={
+                                    'question_count': [
+                                        'Значения N нет среди '
+                                        'допустимых вариантов.'
+                                    ],
+                                },
+                                response_only=False,
+                            ),
+                        ],
+                    ),
+                    401: OpenApiResponse(
+                        response=InterviewSerializer,
+                        examples=[not_authenticated],
+                    ),
+                },
+            )
+            def create(self):
+                pass
+
+            @extend_schema(
+                parameters=[
+                    OpenApiParameter(
+                        'id',
+                        OpenApiTypes.INT,
+                        OpenApiParameter.PATH
+                    ),
+                ],
+                description='Информация по конкретному интервью',
+                tags=['Interview'],
+                request=InterviewSerializer,
+                responses={
+                    200: OpenApiResponse(response=InterviewSerializer),
+                    401: OpenApiResponse(
+                        response=InterviewSerializer,
+                        examples=[not_authenticated],
+                    ),
+                    404: OpenApiResponse(
+                        response=InterviewSerializer,
+                        examples=[not_found],
+                    ),
+                },
+            )
+            def retrieve(self):
+                pass
+
+        return Extended
+
+
+class QuestionAnswerView(OpenApiViewExtension):
+    target_class = 'api_interview.views.QuestionAnswerViewset'
+
+    def view_replacement(self):
+        from api_interview.serializers import QuestionsAnswerSerializer
+
+        class Extended(self.target_class):
+
+            @extend_schema(
+                description='Получение ответа на конкретный вопрос',
+                tags=['Interview'],
+                request=QuestionsAnswerSerializer,
+                responses={
+                    200: OpenApiResponse(response=QuestionsAnswerSerializer),
+                    401: OpenApiResponse(
+                        response=QuestionsAnswerSerializer,
+                        examples=[not_authenticated],
+                    ),
+                    404: OpenApiResponse(
+                        response=QuestionsAnswerSerializer,
+                        examples=[not_found],
+                    ),
+                },
+            )
+            def retrieve(self):
+                pass
+
+        return Extended
+
+
+class ContributorsView(OpenApiViewExtension):
+    target_class = 'api_contributors.views.ContributorsListViewSet'
+
+    def view_replacement(self):
+        from api_contributors.serializers import ContributorSerializer
+
+        class Extended(self.target_class):
+
+            @extend_schema(
+                description='Список участников команды с ролями',
+                tags=['Contributors'],
+                request=ContributorSerializer,
+                responses={
+                    200: OpenApiResponse(
+                        response=ContributorSerializer,
+                        examples=[
+                            OpenApiExample(
+                                'valid_result',
+                                summary='Валидный результат',
+                                description='Возвращает ошибку '
+                                            'о несоответствии кол-ва '
+                                            'вопросов допустимому',
+                                value={
+                                    'first_name': 'кукла',
+                                    'last_name': 'колдуна',
+                                    'middle_name': 'кишовна',
+                                    'photo': 'урл какой-то фотки',
+                                    'role': 'мужик',
+                                    'contacts': [
+                                        {
+                                            'social_network': 'сеть1',
+                                            'contact': 'http://ya.ru'
+                                        }
+                                    ]
+                                },
+                                response_only=False,
+                            ),
+                        ],
+                    ),
+                },
+            )
+            def list(self):
+                pass
+
+            @extend_schema(
+                description='Информация по конкретному интервью',
+                tags=['Contributors'],
+                request=ContributorSerializer,
+                responses={
+                    200: OpenApiResponse(response=ContributorSerializer),
+                    404: OpenApiResponse(
+                        response=ContributorSerializer,
+                        examples=[not_found],
+                    ),
+                },
+            )
+            def retrieve(self):
+                pass
+
+        return Extended
+
+
+class DuelView(OpenApiViewExtension):
+    target_class = 'api_duel.views.DuelViewSet'
+
+    def view_replacement(self):
+        from api_duel.serializers import (
+            DuelCreateSerializer, DuelPartialUpdateSerializer, DuelSerializer
+        )
+
+        class Extended(self.target_class):
+
+            @extend_schema(
+                description='Создание дуэли',
+                tags=['Duels'],
+                request=DuelCreateSerializer,
+                responses={
+                    201: OpenApiResponse(
+                        response=DuelCreateSerializer,
+                        examples=[
+                            OpenApiExample(
+                                '201',
+                                summary='Валидный ответ',
+                                description='Возвращает созданную дуэль',
+                                value={
+                                    'question_count': 10,
+                                    'players': [
+                                        {
+                                            'name': 'player1',
+                                            'good_answers_count': 0,
+                                        },
+                                        {
+                                            'name': 'player2',
+                                            'good_answers_count': 0,
+                                        },
+                                    ],
+                                },
+                            ),
+                        ],
+                    ),
+                    400: OpenApiResponse(
+                        response=DuelCreateSerializer,
+                        examples=[
+                            OpenApiExample(
+                                REQUIRED_ERROR_NAME,
+                                summary=REQUIRED_ERROR_SUMMARY,
+                                description=REQUIRED_ERROR_DESCR,
+                                value={
+                                    'current_password': [REQUIRED_FIELD],
+                                },
+                                response_only=False,
+                            ),
+                        ],
+                    ),
+                    401: OpenApiResponse(
+                        response=DuelCreateSerializer,
+                        examples=[not_authenticated],
+                    ),
+                    403: OpenApiResponse(
+                        response=DuelCreateSerializer,
+                        examples=[forbidden_response_example],
+                    ),
+                },
+            )
+            def create(self):
+                pass
+
+            @extend_schema(
+                parameters=[
+                    OpenApiParameter(
+                        'id',
+                        OpenApiTypes.INT,
+                        OpenApiParameter.PATH
+                    ),
+                ],
+                description='Получение конкретной дуэли',
+                tags=['Duels'],
+                request=DuelSerializer,
+                responses={
+                    200: OpenApiResponse(
+                        response=DuelSerializer,
+                        examples=[
+                            OpenApiExample(
+                                '200',
+                                summary='Валидный ответ',
+                                description='Возвращает созданную дуэль',
+                                value={
+                                    'id': 0,
+                                    'questions': [
+                                        {
+                                            'id': 0,
+                                            'question': {
+                                                'id': 0,
+                                                'text': 'string',
+                                            },
+                                        },
+                                    ],
+                                    'players': [
+                                        {
+                                            'id': 0,
+                                            'name': 'string',
+                                            'good_answers_count': 0,
+                                        },
+                                    ],
+                                    'owner': {
+                                        'id': 0,
+                                        'username': '0lBKAybKeS',
+                                    },
+                                    'wrong_answers_count': 0,
+                                },
+                            ),
+                        ],
+                    ),
+                    401: OpenApiResponse(
+                        response=DuelSerializer,
+                        examples=[not_authenticated],
+                    ),
+                    403: OpenApiResponse(
+                        response=DuelSerializer,
+                        examples=[forbidden_response_example],
+                    ),
+                }
+            )
+            def retrieve(self):
+                pass
+
+            @extend_schema(
+                description='Получение конкретной дуэли',
+                tags=['Duels'],
+                request=DuelPartialUpdateSerializer,
+                responses={
+                    200: OpenApiResponse(
+                        response=DuelPartialUpdateSerializer,
+                        examples=[
+                            OpenApiExample(
+                                '200',
+                                summary='Валидный ответ',
+                                description='Возвращает созданную дуэль',
+                                value={
+                                    'wrong_answers_count': 0,
+                                    'players': [
+                                        {
+                                            'id': 1,
+                                            'name': 'player1',
+                                            'good_answers_count': 2,
+                                        },
+                                        {
+                                            'id': 2,
+                                            'name': 'player2',
+                                            'good_answers_count': 0,
+                                        },
+                                    ],
+                                },
+                            ),
+                        ],
+                    ),
+                    400: OpenApiResponse(
+                        response=DuelPartialUpdateSerializer,
+                        examples=[
+                            OpenApiExample(
+                                'question_answered',
+                                summary='Уже отвеченный вопрос',
+                                description='Возвращает ошибку о том, '
+                                            'что ответ на вопрос уже был дан',
+                                value={
+                                    'detail': 'Question is already answered!'
+                                },
+                            ),
+                        ],
+                    ),
+                    401: OpenApiResponse(
+                        response=DuelPartialUpdateSerializer,
+                        examples=[not_authenticated],
+                    ),
+                    403: OpenApiResponse(
+                        response=DuelPartialUpdateSerializer,
+                        examples=[forbidden_response_example],
+                    ),
+                    404: OpenApiResponse(
+                        response=DuelPartialUpdateSerializer,
+                        examples=[
+                            not_found,
+                            OpenApiExample(
+                                'question not found',
+                                summary='Вопроса нет в дуэли',
+                                description='Возвращает ошибку если совершена '
+                                            'попытка отправить ответ '
+                                            'на вопрос не из этой дуэли',
+                                value=not_found.value,
+                                response_only=False,
+                            ),
+                            OpenApiExample(
+                                'player not found',
+                                summary='Игрока нет в дуэли',
+                                description='Возвращает ошибку если совершена '
+                                            'попытка отправить ответ от имени '
+                                            'игрока не из этой дуэли',
+                                value=not_found.value,
+                                response_only=False,
+                            ),
+                        ],
+                    ),
+                },
+            )
+            def partial_update(self):
+                pass
+
+        return Extended
