@@ -3,8 +3,8 @@ from drf_spectacular.utils import (
     extend_schema,
     inline_serializer,
     OpenApiExample,
-    OpenApiResponse,
     OpenApiParameter,
+    OpenApiResponse,
     OpenApiTypes,
 )
 from rest_framework.fields import CharField
