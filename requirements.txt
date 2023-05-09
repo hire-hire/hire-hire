@@ -48,3 +48,4 @@ sqlparse==0.4.3
 uritemplate==4.1.1
 urllib3==1.26.15
 drf-spectacular==0.26.2
+django-cors-headers==3.14.0
