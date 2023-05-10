@@ -20,6 +20,13 @@ class ContributorContact(models.Model):
         help_text='Укажите ссылку (github, telegram, vk и другие)',
     )
 
+    class Meta:
+        verbose_name = 'контакт'
+        verbose_name_plural = 'контакты'
+
+    def __str__(self):
+        return f'{self.social_network}: {self.contact}'
+
     def save(self, *args, **kwargs):
         """Создавать более трех контактов запрещено, нарушает верстку."""
         if (
@@ -30,10 +37,3 @@ class ContributorContact(models.Model):
             return "Создавать более трех контактов запрещено"
 
         super().save(*args, **kwargs)
-
-    class Meta:
-        verbose_name = 'контакт'
-        verbose_name_plural = 'контакты'
-
-    def __str__(self):
-        return f'{self.social_network}: {self.contact}'
