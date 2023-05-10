@@ -1,3 +1,5 @@
+from sorl.thumbnail.shortcuts import get_thumbnail
+
 from rest_framework import serializers
 
 from contributors.models import Contributor, ContributorContact
@@ -16,6 +18,7 @@ class ContributorContactSerializer(serializers.ModelSerializer):
 class ContributorSerializer(serializers.ModelSerializer):
     role = serializers.SerializerMethodField(read_only=True)
     contacts = ContributorContactSerializer(many=True, read_only=True)
+    photo = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Contributor
@@ -31,3 +34,7 @@ class ContributorSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_role(model):
         return model.role.name
+
+    @staticmethod
+    def get_photo(model):
+        return get_thumbnail(model.photo, '1000x1000').url

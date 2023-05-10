@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.conf import settings
 from django.db import models
 
 
@@ -22,8 +23,12 @@ class ContributorContact(models.Model):
 
     def save(self, *args, **kwargs):
         """Создавать более трех контактов запрещено, нарушает верстку."""
-        if ContributorContact.objects.select_related().count() >= 3:
-            return ValidationError('Можно добавить не более трех контактов')
+        if (
+            ContributorContact.objects.
+            select_related().filter(contributor=self.contributor).count() >=
+            settings.LIMIT_CONTRIBUTORS_CONTACTS
+        ):
+            return "Создавать более трех контактов запрещено"
 
         super().save(*args, **kwargs)
 

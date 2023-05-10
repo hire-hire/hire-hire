@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'sorl.thumbnail',
 
     'contributors.apps.StaticInfoConfig',
     'duel.apps.DuelsConfig',
@@ -184,3 +185,5 @@ CSRF_TRUSTED_ORIGINS = [
 USERNAME_MIN_LENGTH = 2
 USERNAME_MAX_LENGTH = 25
 PASSWORD_MAX_LENGTH = 40
+
+LIMIT_CONTRIBUTORS_CONTACTS = 3
