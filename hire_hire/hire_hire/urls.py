@@ -30,7 +30,7 @@ if settings.DEBUG:
         path(
             'api/schema/',
             SpectacularAPIView.as_view(),
-            name='schema'
+            name='schema',
         ),
         path(
             'api/schema/swagger-ui/',
