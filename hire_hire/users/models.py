@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from users.validators import UnicodeAndLatinUsernameValidator
+from users.validators import CustomUsernameValidator
 
 
 class User(AbstractUser):
@@ -15,7 +15,7 @@ class User(AbstractUser):
                   f'до {settings.USERNAME_MAX_LENGTH} символов. '
                   'Буквы, цифры, @/./+/-/_ допускаются.',
         validators=[
-            UnicodeAndLatinUsernameValidator(),
+            CustomUsernameValidator(),
             MinLengthValidator(settings.USERNAME_MIN_LENGTH),
         ],
         error_messages={
