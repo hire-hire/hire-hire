@@ -9,20 +9,20 @@ from rest_framework.fields import CharField
 
 from hire_hire.schema_settings import (
     FAKE_SERIALIZER_FIELDS,
+    forbidden_response_example,
     INVALID_FIELD,
     INVALID_FIELD_DESCR,
     INVALID_TOKEN_EXAMPLE,
     INVALID_EMAIL_VALUE,
     JWT_TAG,
+    not_authenticated,
+    not_found,
     REQUIRED_ERROR_DESCR,
     REQUIRED_FIELD,
     REQUIRED_ERROR_NAME,
     REQUIRED_ERROR_SUMMARY,
     USERS_TAG,
     VALIDATION_ERROR_NAME,
-    forbidden_response_example,
-    not_authenticated,
-    not_found,
 )
 
 

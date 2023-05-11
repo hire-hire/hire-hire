@@ -8,13 +8,13 @@ from drf_spectacular.utils import (
 )
 
 from hire_hire.schema_settings import (
+    forbidden_response_example,
+    not_authenticated,
+    not_found,
     REQUIRED_ERROR_DESCR,
     REQUIRED_FIELD,
     REQUIRED_ERROR_NAME,
     REQUIRED_ERROR_SUMMARY,
-    forbidden_response_example,
-    not_authenticated,
-    not_found,
 )
 
 
