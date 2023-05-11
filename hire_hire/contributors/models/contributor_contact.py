@@ -37,6 +37,6 @@ class ContributorContact(models.Model):
             get_contributor_contacts_count(self.contributor) >=
             settings.LIMIT_CONTRIBUTORS_CONTACTS
         ):
-            raise ValueError("Нельзя добавлять больше 3х контактов")
+            raise ValueError('Нельзя добавлять больше 3х контактов')
 
         super().save(*args, **kwargs)
