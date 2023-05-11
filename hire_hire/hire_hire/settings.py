@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'sorl.thumbnail',
+    'corsheaders',
 
     'contributors.apps.StaticInfoConfig',
     'duel.apps.DuelsConfig',
@@ -49,6 +50,7 @@ if DEBUG:
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -133,8 +135,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = '/static_files/'
+STATIC_ROOT = BASE_DIR / 'static_files'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -187,4 +189,9 @@ USERNAME_MAX_LENGTH = 25
 PASSWORD_MAX_LENGTH = 40
 
 LIMIT_CONTRIBUTORS_CONTACTS = 3
-THUMBNAIL_SIZE = '1000x1000'
+
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGINS = ["https://test-hire-hire.proninteam.ru"]
+
