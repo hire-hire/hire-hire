@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.db import models
 
+from contributors.managers import ContributorContactManager
+
 
 class ContributorContact(models.Model):
     contributor = models.ForeignKey(
@@ -19,6 +21,7 @@ class ContributorContact(models.Model):
         null=True,
         help_text='Укажите ссылку (github, telegram, vk и другие)',
     )
+    objects = ContributorContactManager()
 
     class Meta:
         verbose_name = 'контакт'
@@ -31,9 +34,9 @@ class ContributorContact(models.Model):
         """Создавать более трех контактов запрещено, нарушает верстку."""
         if (
             ContributorContact.objects.
-            select_related().filter(contributor=self.contributor).count() >=
+            get_contributor_contacts_count(self.contributor) >=
             settings.LIMIT_CONTRIBUTORS_CONTACTS
         ):
-            return "Создавать более трех контактов запрещено"
+            raise ValueError("Нельзя добавлять больше 3х контактов")
 
         super().save(*args, **kwargs)

@@ -1,5 +1,8 @@
-from django.db import models
 from sorl.thumbnail import ImageField
+from sorl.thumbnail.shortcuts import get_thumbnail
+
+from django.conf import settings
+from django.db import models
 
 from contributors.managers import ContributorManager
 
@@ -34,6 +37,10 @@ class Contributor(models.Model):
     )
 
     objects = ContributorManager()
+
+    @property
+    def thumbnail_image(self):
+        return get_thumbnail(self.photo, settings.THUMBNAIL_SIZE).url
 
     class Meta:
         verbose_name = 'член команды'
