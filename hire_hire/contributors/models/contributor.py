@@ -1,8 +1,7 @@
-from sorl.thumbnail import ImageField
-from sorl.thumbnail.shortcuts import get_thumbnail
-
 from django.conf import settings
 from django.db import models
+from sorl.thumbnail import ImageField
+from sorl.thumbnail.shortcuts import get_thumbnail
 
 from contributors.managers import ContributorManager
 
