@@ -12,9 +12,9 @@ from hire_hire.schema_settings import (
     not_authenticated,
     not_found,
     REQUIRED_ERROR_DESCR,
-    REQUIRED_FIELD,
     REQUIRED_ERROR_NAME,
     REQUIRED_ERROR_SUMMARY,
+    REQUIRED_FIELD,
 )
 
 
