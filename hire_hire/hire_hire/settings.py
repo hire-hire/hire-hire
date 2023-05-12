@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'sorl.thumbnail',
     'corsheaders',
 
     'contributors.apps.StaticInfoConfig',
@@ -182,6 +183,9 @@ USERNAME_MIN_LENGTH = 2
 USERNAME_MAX_LENGTH = 25
 PASSWORD_MAX_LENGTH = 40
 
+LIMIT_CONTRIBUTORS_CONTACTS = 3
+THUMBNAIL_SIZE = '1000x1000'
+
 SPECTACULAR_SETTINGS = {
     'TITLE': 'HireHire API',
     'DESCRIPTION': 'Interview service',
@@ -193,3 +197,4 @@ if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
     CORS_ALLOWED_ORIGINS = ["https://test-hire-hire.proninteam.ru"]
+
