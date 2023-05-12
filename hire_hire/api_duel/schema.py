@@ -181,7 +181,7 @@ class DuelView(OpenApiViewExtension):
                                 description='Возвращает ошибку о том, '
                                             'что ответ на вопрос уже был дан',
                                 value={
-                                    'detail': 'Question is already answered!'
+                                    'detail': 'Question is already answered!',
                                 },
                             ),
                         ],

@@ -15,7 +15,7 @@ class CategoryView(OpenApiViewExtension):
 
     def view_replacement(self):
         from api_interview.serializers import (
-            CategoryListSerializer, CategoryRetrieveSerializer
+            CategoryListSerializer, CategoryRetrieveSerializer,
         )
 
         class Extended(self.target_class):
@@ -69,13 +69,13 @@ class CategoryView(OpenApiViewExtension):
                                             'id': 1,
                                             'title': 'python',
                                             'icon': 'какая-то иконка',
-                                            'category': 1
+                                            'category': 1,
                                         },
                                         {
                                             'id': 2,
                                             'title': 'javascript',
                                             'icon': 'какая-то иконка',
-                                            'category': 1
+                                            'category': 1,
                                         },
                                     ],
                                 },
@@ -111,7 +111,7 @@ class LanguageView(OpenApiViewExtension):
                 description='Список всех подкатегорий (языков)',
                 tags=['Categories & Languages'],
                 request=LanguageSerializer,
-                responses=LanguageSerializer
+                responses=LanguageSerializer,
             )
             def list(self):
                 pass
@@ -143,7 +143,7 @@ class InterviewView(OpenApiViewExtension):
 
     def view_replacement(self):
         from api_interview.serializers import (
-            InterviewCreateSerializer, InterviewSerializer
+            InterviewCreateSerializer, InterviewSerializer,
         )
 
         class Extended(self.target_class):
@@ -167,7 +167,7 @@ class InterviewView(OpenApiViewExtension):
                                 value={
                                     'question_count': [
                                         'Значения N нет среди '
-                                        'допустимых вариантов.'
+                                        'допустимых вариантов.',
                                     ],
                                 },
                                 response_only=False,
@@ -188,7 +188,7 @@ class InterviewView(OpenApiViewExtension):
                     OpenApiParameter(
                         'id',
                         OpenApiTypes.INT,
-                        OpenApiParameter.PATH
+                        OpenApiParameter.PATH,
                     ),
                 ],
                 description='Информация по конкретному интервью',

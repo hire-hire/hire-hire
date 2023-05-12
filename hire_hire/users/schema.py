@@ -181,7 +181,7 @@ class DjoserUsersView(OpenApiViewExtension):
                                         'Введите правильное имя пользователя. '
                                         'Оно может содержать '
                                         'только латинские буквы, '
-                                        'цифры и знаки @/./+/-/_.'
+                                        'цифры и знаки @/./+/-/_.',
                                     ],
                                 },
                                 response_only=False,
@@ -192,7 +192,7 @@ class DjoserUsersView(OpenApiViewExtension):
                                 description='Возвращает список '
                                             'ошибок unique constraint',
                                 value={
-                                    'username': ['Имя пользователя занято']
+                                    'username': ['Имя пользователя занято'],
                                 },
                                 response_only=False,
                             ),
@@ -257,10 +257,10 @@ class DjoserUsersView(OpenApiViewExtension):
                                 description=REQUIRED_ERROR_DESCR,
                                 value={
                                     'current_password': [
-                                        REQUIRED_FIELD
+                                        REQUIRED_FIELD,
                                     ],
                                     'new_username': [
-                                        REQUIRED_FIELD
+                                        REQUIRED_FIELD,
                                     ]
                                 },
                                 response_only=False,
@@ -298,10 +298,10 @@ class DjoserUsersView(OpenApiViewExtension):
                                 description=REQUIRED_ERROR_DESCR,
                                 value={
                                     'current_password': [
-                                        REQUIRED_FIELD
+                                        REQUIRED_FIELD,
                                     ],
                                     'new_password': [
-                                        REQUIRED_FIELD
+                                        REQUIRED_FIELD,
                                     ],
                                 },
                                 response_only=False,
@@ -358,10 +358,10 @@ class JWTTokenObtainPairView(OpenApiViewExtension):
                                 description=REQUIRED_ERROR_DESCR,
                                 value={
                                     'username': [
-                                        REQUIRED_FIELD
+                                        REQUIRED_FIELD,
                                     ],
                                     'password': [
-                                        REQUIRED_FIELD
+                                        REQUIRED_FIELD,
                                     ],
                                 },
                                 response_only=False,
@@ -371,7 +371,7 @@ class JWTTokenObtainPairView(OpenApiViewExtension):
                     404: OpenApiResponse(
                         response=inline_serializer(
                             'Obtain404Serializer',
-                            FAKE_SERIALIZER_FIELDS
+                            FAKE_SERIALIZER_FIELDS,
                         ),
                         examples=[not_found],
                     ),
@@ -408,7 +408,7 @@ class JWTTokenRefreshView(OpenApiViewExtension):
                                 summary=REQUIRED_ERROR_SUMMARY,
                                 description=REQUIRED_ERROR_DESCR,
                                 value={
-                                    'refresh': [REQUIRED_FIELD]
+                                    'refresh': [REQUIRED_FIELD],
                                 },
                                 response_only=False,
                             ),

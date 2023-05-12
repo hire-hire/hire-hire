@@ -39,7 +39,7 @@ class ContributorsView(OpenApiViewExtension):
                                     'contacts': [
                                         {
                                             'social_network': 'сеть1',
-                                            'contact': 'http://ya.ru'
+                                            'contact': 'http://ya.ru',
                                         }
                                     ]
                                 },

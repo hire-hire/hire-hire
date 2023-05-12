@@ -9,12 +9,10 @@ VALIDATION_ERROR_NAME = 'validation'
 REQUIRED_ERROR_NAME = 'required'
 REQUIRED_ERROR_SUMMARY = 'Обязательные поля'
 REQUIRED_ERROR_DESCR = 'Возвращает список незаполненных обязательных полей'
-REQUIRED_FIELD = 'Обязательное поле.'
-INVALID_EMAIL_VALUE = {
-                          'email': [
-                              'Введите правильный адрес электронной почты.'
-                          ]
-                      },
+REQUIRED_FIELD = 'Обязательное поле'
+INVALID_EMAIL_VALUE = {'email': [
+    'Введите правильный адрес электронной почты.',
+]},
 INVALID_TOKEN_EXAMPLE = OpenApiExample(
     'not_valid',
     summary='Невалидный токен',
@@ -33,7 +31,7 @@ not_authenticated = OpenApiExample(
     summary='Не авторизован',
     description='Возвращает ошибку аутентификации',
     value={
-        'detail': 'Учетные данные не были предоставлены.'
+        'detail': 'Учетные данные не были предоставлены.',
     },
     response_only=False,
 )
@@ -43,7 +41,7 @@ not_found = OpenApiExample(
     summary='Объект не найден',
     description='Возвращает ошибку если объект не существует',
     value={
-        'detail': 'Страница не найдена.'
+        'detail': 'Страница не найдена.',
     },
     response_only=False,
 )
@@ -54,7 +52,7 @@ forbidden_response_example = OpenApiExample(
     description='Возвращает ошибку если недостаточно прав',
     value={
         'detail': 'У вас недостаточно прав '
-        'для выполнения данного действия.'
+        'для выполнения данного действия.',
     },
     response_only=False,
 )
