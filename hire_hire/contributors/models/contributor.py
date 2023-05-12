@@ -42,9 +42,9 @@ class Contributor(models.Model):
         verbose_name_plural = 'члены команды'
         ordering = ('role',)
 
+    def __str__(self):
+        return f'{self.first_name}, {self.last_name}'
+
     @property
     def thumbnail_image(self):
         return get_thumbnail(self.photo, settings.THUMBNAIL_SIZE).url
-
-    def __str__(self):
-        return f'{self.first_name}, {self.last_name}'
