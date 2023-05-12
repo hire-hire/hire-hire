@@ -37,14 +37,14 @@ class Contributor(models.Model):
 
     objects = ContributorManager()
 
-    @property
-    def thumbnail_image(self):
-        return get_thumbnail(self.photo, settings.THUMBNAIL_SIZE).url
-
     class Meta:
         verbose_name = 'член команды'
         verbose_name_plural = 'члены команды'
         ordering = ('role',)
+
+    @property
+    def thumbnail_image(self):
+        return get_thumbnail(self.photo, settings.THUMBNAIL_SIZE).url
 
     def __str__(self):
         return f'{self.first_name}, {self.last_name}'
