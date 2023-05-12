@@ -31,7 +31,6 @@ class ContributorContact(models.Model):
         return f'{self.social_network}: {self.contact}'
 
     def save(self, *args, **kwargs):
-        """Создавать более трех контактов запрещено, нарушает верстку."""
         if (
             ContributorContact.objects.
             get_contributor_contacts_count(self.contributor) >=
