@@ -1,11 +1,12 @@
 from rest_framework import mixins, viewsets
 
+from add_question.mixins import GetOrSetUserCookieMixin
 from add_question.models import AddQuestion
-from add_question.services import get_or_set_user_cookie
 from api_add_question.serializers import AddQuestionSerializer
 
 
 class AddQuestionViewSet(
+    GetOrSetUserCookieMixin,
     mixins.CreateModelMixin,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
@@ -15,8 +16,11 @@ class AddQuestionViewSet(
     serializer_class = AddQuestionSerializer
 
     def dispatch(self, request, *args, **kwargs):
-        response = get_or_set_user_cookie(
-            self, request, super().dispatch, *args, **kwargs,
+        response = self.get_or_set_user_cookie(
+            request,
+            super().dispatch,
+            *args,
+            **kwargs,
         )
         return response
 

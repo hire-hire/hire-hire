@@ -3,11 +3,12 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
 
 from add_question.forms import AddQuestionForm
+from add_question.mixins import GetOrSetUserCookieMixin
 from add_question.models import AddQuestion
-from add_question.services import count_questions_text, get_or_set_user_cookie
+from add_question.services import count_questions_text
 
 
-class AddQuestionMixin:
+class AddQuestionMixin(GetOrSetUserCookieMixin):
     limit_add_questions_per_day = settings.LIMIT_ADD_QUESTIONS_PER_DAY
 
     def dispatch(self, request, *args, **kwargs):
@@ -17,16 +18,19 @@ class AddQuestionMixin:
                 request.COOKIES.get('user_cookie'),
             )
         )
-        response = get_or_set_user_cookie(
-            self, request, super().dispatch, *args, **kwargs,
+        response = self.get_or_set_user_cookie(
+            request,
+            super().dispatch,
+            *args,
+            **kwargs,
         )
         return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context[
-            'added_questions'
-        ] = count_questions_text(self.add_questions_for24_count)
+        context['added_questions'] = count_questions_text(
+            self.add_questions_for24_count
+        )
         context[
             'limit_add_questions_per_day'
         ] = self.limit_add_questions_per_day
