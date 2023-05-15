@@ -26,13 +26,15 @@ class DefaultFilterMixin:
         return super().changelist_view(request, extra_context=extra_context)
 
 
-class GetOrSetUserCookieMixin:
-    def get_or_set_user_cookie(self, request, dispatch_func, *args, **kwargs):
-        self.user_cookie = request.COOKIES.get('user_cookie')
-        if not self.user_cookie:
-            self.user_cookie = uuid.uuid4().hex
+class GetOrSetUserCookieIdMixin:
+    def get_or_set_user_cookie_id(
+        self, request, dispatch_func, *args, **kwargs
+    ):
+        self.user_cookie_id = request.COOKIES.get('user_cookie_id')
+        if not self.user_cookie_id:
+            self.user_cookie_id = uuid.uuid4().hex
             response = dispatch_func(request, *args, **kwargs)
-            response.set_cookie('user_cookie', self.user_cookie)
+            response.set_cookie('user_cookie_id', self.user_cookie_id)
         else:
             response = dispatch_func(request, *args, **kwargs)
         return response

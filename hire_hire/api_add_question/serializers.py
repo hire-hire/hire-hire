@@ -16,7 +16,7 @@ class AddQuestionSerializer(serializers.ModelSerializer):
             AddQuestion.ip_address.field.name,
             AddQuestion.pub_date.field.name,
             AddQuestion.status.field.name,
-            AddQuestion.user_cookie.field.name,
+            AddQuestion.user_cookie_id.field.name,
         )
 
     def get_extra_data(self, obj):
@@ -24,7 +24,7 @@ class AddQuestionSerializer(serializers.ModelSerializer):
             'add_questions_for24_count': (
                 AddQuestion.objects.get_24_hours_added_question_count(
                     self.context.get('request').user,
-                    self.context.get('view').user_cookie,
+                    self.context.get('view').user_cookie_id,
                 )
             ),
             'limit_add_questions_per_day': (
@@ -35,6 +35,6 @@ class AddQuestionSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         questions_per_day_limit_validator(
             self.context.get('request').user,
-            self.context.get('view').user_cookie,
+            self.context.get('view').user_cookie_id,
         )
         return attrs
