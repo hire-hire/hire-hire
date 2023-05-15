@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MinLengthValidator
 from django.db import models
 
 from interview.managers import InterviewManager, QuestionManager
@@ -7,7 +8,6 @@ User = get_user_model()
 
 
 class Entity(models.Model):
-
     title = models.CharField('название', max_length=40)
 
     icon = models.ImageField(
@@ -22,7 +22,6 @@ class Entity(models.Model):
 
 
 class Category(Entity):
-
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
@@ -32,7 +31,6 @@ class Category(Entity):
 
 
 class Language(Entity):
-
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
@@ -64,9 +62,17 @@ class AbstractQuestion(models.Model):
         verbose_name='вопрос',
     )
 
-    text = models.TextField('текст вопроса')
+    text = models.TextField(
+        'текст вопроса',
+        max_length=500,
+        validators=[MinLengthValidator(10)],
+    )
 
-    answer = models.TextField('правильный ответ')
+    answer = models.TextField(
+        'правильный ответ',
+        max_length=500,
+        validators=[MinLengthValidator(10)],
+    )
 
     objects = QuestionManager()
 
@@ -83,11 +89,11 @@ class Question(AbstractQuestion):
     """
     Наследуется от AbstractQuestion.
     """
+
     pass
 
 
 class Interview(models.Model):
-
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
