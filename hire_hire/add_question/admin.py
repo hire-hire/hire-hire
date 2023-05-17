@@ -17,25 +17,32 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
     REJECT = '_reject'
 
     list_display = (
-        'pk',
-        'status',
-        'language',
-        'text',
-        'answer',
-        'ip_address',
-        'pub_date',
-        'author',
+        AddQuestion.id.field.name,
+        AddQuestion.status.field.name,
+        AddQuestion.language.field.name,
+        AddQuestion.text.field.name,
+        AddQuestion.answer.field.name,
+        AddQuestion.ip_address.field.name,
+        AddQuestion.pub_date.field.name,
+        AddQuestion.author.field.name,
     )
-    search_fields = ('language', 'text', 'answer')
-    list_filter = ('language', 'status')
+    search_fields = (
+        AddQuestion.language.field.name,
+        AddQuestion.text.field.name,
+        AddQuestion.answer.field.name,
+    )
+    list_filter = (
+        AddQuestion.language.field.name,
+        AddQuestion.status.field.name,
+    )
     default_filters = (('status__exact', AddQuestion.StatusChoice.PROPOSED),)
     empty_value_display = '-пусто-'
 
     readonly_fields = (
-        'status',
-        'ip_address',
-        'user_cookie_id',
-        'author',
+        AddQuestion.status.field.name,
+        AddQuestion.ip_address.field.name,
+        AddQuestion.user_cookie_id.field.name,
+        AddQuestion.author.field.name,
         'approve_button',
         'reject_button',
     )
