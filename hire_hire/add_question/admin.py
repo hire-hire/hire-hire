@@ -43,8 +43,6 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         AddQuestion.ip_address.field.name,
         AddQuestion.user_cookie_id.field.name,
         AddQuestion.author.field.name,
-        'approve_button',
-        'reject_button',
     )
     actions = ('approve', 'reject')
 
