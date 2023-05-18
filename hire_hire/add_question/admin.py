@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe
 
 from add_question.mixins import DefaultFilterMixin
 from add_question.models import AddQuestion
-from add_question.services import count_questions_text
+from add_question.services import get_count_questions_text
 from interview.models import Question
 
 
@@ -55,7 +55,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         queryset.update(status=AddQuestion.StatusChoice.APPROVED)
         self.message_user(
             request,
-            f'Одобрен{count_questions_text(len(questions))}.',
+            f'Одобрен{get_count_questions_text(len(questions))}.',
         )
 
     approve.short_description = 'Одобрить выбранные вопросы'
@@ -64,7 +64,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         queryset.update(status=AddQuestion.StatusChoice.REJECTED)
         self.message_user(
             request,
-            f'Отклонен{count_questions_text(len(queryset))}.',
+            f'Отклонен{get_count_questions_text(len(queryset))}.',
         )
 
     reject.short_description = 'Отклонить выбранные вопросы'
@@ -80,14 +80,14 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
             obj.save()
             self.message_user(request, 'Вопрос одобрен.')
             return HttpResponseRedirect(
-                reverse('admin:add_question_addquestion_changelist')
+                reverse('admin:add_question_addquestion_changelist'),
             )
         elif request.POST.get('status') == self.REJECT:
             obj.status = AddQuestion.StatusChoice.REJECTED
             obj.save()
             self.message_user(request, 'Вопрос отклонён.')
             return HttpResponseRedirect(
-                reverse('admin:add_question_addquestion_changelist')
+                reverse('admin:add_question_addquestion_changelist'),
             )
         return super().response_change(request, obj)
 
@@ -95,7 +95,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         return mark_safe(
             '<div class="submit-row">'
             f'<button type="submit" value={self.APPROVE} name="status">'
-            'ОДОБРИТЬ</button></div>'
+            'ОДОБРИТЬ</button></div>',
         )
 
     approve_button.short_description = 'Одобряем?'
@@ -104,7 +104,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         return mark_safe(
             '<div class="submit-row">'
             f'<button type="submit" value={self.REJECT} name="status">'
-            'ОТКЛОНИТЬ</button></div>'
+            'ОТКЛОНИТЬ</button></div>',
         )
 
     reject_button.short_description = 'Отклонить?'

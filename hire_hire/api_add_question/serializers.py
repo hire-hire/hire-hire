@@ -2,7 +2,7 @@ from django.conf import settings
 from rest_framework import serializers
 
 from add_question.models import AddQuestion
-from api_add_question.validators import questions_per_day_limit_validator
+from api_add_question.validators import validate_questions_per_day_limit
 
 
 class AddQuestionSerializer(serializers.ModelSerializer):
@@ -33,7 +33,7 @@ class AddQuestionSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        questions_per_day_limit_validator(
+        validate_questions_per_day_limit(
             self.context.get('request').user,
             self.context.get('view').user_cookie_id,
         )

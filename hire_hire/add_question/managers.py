@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from add_question.services import user_data_dict
+from add_question.services import get_user_data_dict
 
 
 class AddQuestionManager(models.Manager):
@@ -11,7 +11,7 @@ class AddQuestionManager(models.Manager):
             self.get_queryset()
             .filter(
                 pub_date__gte=ago_24_hours,
-                **user_data_dict(user, user_cookie_id),
+                **get_user_data_dict(user, user_cookie_id),
             )
             .count()
         )

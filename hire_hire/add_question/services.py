@@ -1,4 +1,4 @@
-def count_questions_text(count_questions):
+def get_count_questions_text(count_questions):
     last_digit = count_questions % 10
     if 10 <= count_questions <= 20 or last_digit == 0 or last_digit >= 5:
         return f'о {count_questions} вопросов'
@@ -7,7 +7,7 @@ def count_questions_text(count_questions):
     return f'о {count_questions} вопроса'
 
 
-def user_data_dict(user, user_cookie_id):
+def get_user_data_dict(user, user_cookie_id):
     return (
         dict(author=user)
         if user.is_authenticated

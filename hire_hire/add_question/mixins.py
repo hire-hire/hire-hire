@@ -2,6 +2,8 @@ import uuid
 
 from django.http import QueryDict
 
+from add_question.models import AddQuestion
+
 
 class DefaultFilterMixin:
     """
@@ -28,13 +30,22 @@ class DefaultFilterMixin:
 
 class GetOrSetUserCookieIdMixin:
     def get_or_set_user_cookie_id(
-        self, request, dispatch_func, *args, **kwargs
+        self,
+        request,
+        dispatch_func,
+        *args,
+        **kwargs,
     ):
-        self.user_cookie_id = request.COOKIES.get('user_cookie_id')
+        self.user_cookie_id = request.COOKIES.get(
+            AddQuestion.user_cookie_id.field.name,
+        )
         if not self.user_cookie_id:
             self.user_cookie_id = uuid.uuid4().hex
             response = dispatch_func(request, *args, **kwargs)
-            response.set_cookie('user_cookie_id', self.user_cookie_id)
+            response.set_cookie(
+                AddQuestion.user_cookie_id.field.name,
+                self.user_cookie_id,
+            )
         else:
             response = dispatch_func(request, *args, **kwargs)
         return response

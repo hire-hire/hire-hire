@@ -5,7 +5,7 @@ from django.views.generic import CreateView, TemplateView
 from add_question.forms import AddQuestionForm
 from add_question.mixins import GetOrSetUserCookieIdMixin
 from add_question.models import AddQuestion
-from add_question.services import count_questions_text
+from add_question.services import get_count_questions_text
 
 
 class AddQuestionMixin(GetOrSetUserCookieIdMixin):
@@ -28,8 +28,8 @@ class AddQuestionMixin(GetOrSetUserCookieIdMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['added_questions'] = count_questions_text(
-            self.add_questions_for24_count
+        context['added_questions'] = get_count_questions_text(
+            self.add_questions_for24_count,
         )
         context[
             'limit_add_questions_per_day'
