@@ -1,4 +1,7 @@
+from django.conf import settings
 from django.db import models
+
+from contributors.managers import ContributorContactManager
 
 
 class ContributorContact(models.Model):
@@ -8,7 +11,6 @@ class ContributorContact(models.Model):
         on_delete=models.CASCADE,
         related_name='contacts',
     )
-    # по этому полю фронт сможет подставлять соответсвующие соцсети значки
     social_network = models.CharField(
         'название соцсети',
         max_length=150,
@@ -19,6 +21,7 @@ class ContributorContact(models.Model):
         null=True,
         help_text='Укажите ссылку (github, telegram, vk и другие)',
     )
+    objects = ContributorContactManager()
 
     class Meta:
         verbose_name = 'контакт'
@@ -26,3 +29,13 @@ class ContributorContact(models.Model):
 
     def __str__(self):
         return f'{self.social_network}: {self.contact}'
+
+    def save(self, *args, **kwargs):
+        if not self.pk and (
+            ContributorContact.objects.
+            get_contributor_contacts_count(self.contributor) >=
+            settings.LIMIT_CONTRIBUTORS_CONTACTS
+        ):
+            raise ValueError('Нельзя добавлять больше 3х контактов')
+
+        super().save(*args, **kwargs)
