@@ -30,9 +30,9 @@ def user_token(user):
 
 
 @pytest.fixture
-def user_client(token):
+def user_client(user_token):
     from rest_framework.test import APIClient
 
     client = APIClient()
-    client.credentials(HTTP_AUTHORIZATION=f'JWT {token["access"]}')
+    client.credentials(HTTP_AUTHORIZATION=f'JWT {user_token["access"]}')
     return client

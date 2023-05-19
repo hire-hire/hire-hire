@@ -14,19 +14,19 @@ def category_2():
 
 
 @pytest.fixture
-def language_1():
+def language_1(category_1):
     from interview.models import Language
     return Language.objects.create(title='Python', category=category_1)
 
 
 @pytest.fixture
-def language_2():
+def language_2(category_1):
     from interview.models import Language
     return Language.objects.create(title='Javascript', category=category_1)
 
 
 @pytest.fixture
-def question_1():
+def question_1(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -40,7 +40,7 @@ def question_1():
 
 
 @pytest.fixture
-def question_2():
+def question_2(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -50,7 +50,7 @@ def question_2():
 
 
 @pytest.fixture
-def question_3():
+def question_3(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -63,7 +63,7 @@ def question_3():
 
 
 @pytest.fixture
-def question_4():
+def question_4(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -75,7 +75,7 @@ def question_4():
 
 
 @pytest.fixture
-def question_5():
+def question_5(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -85,7 +85,7 @@ def question_5():
 
 
 @pytest.fixture
-def question_6():
+def question_6(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -95,7 +95,7 @@ def question_6():
 
 
 @pytest.fixture
-def question_7():
+def question_7(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -105,7 +105,7 @@ def question_7():
 
 
 @pytest.fixture
-def question_8():
+def question_8(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -115,7 +115,7 @@ def question_8():
 
 
 @pytest.fixture
-def question_9():
+def question_9(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -125,7 +125,7 @@ def question_9():
 
 
 @pytest.fixture
-def question_10():
+def question_10(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -136,7 +136,7 @@ def question_10():
 
 
 @pytest.fixture
-def question_11():
+def question_11(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -149,7 +149,7 @@ def question_11():
 
 
 @pytest.fixture
-def question_12():
+def question_12(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -162,7 +162,7 @@ def question_12():
 
 
 @pytest.fixture
-def question_13():
+def question_13(language_1):
     from interview.models import Question
     return Question.objects.create(
         language=language_1,
@@ -170,4 +170,84 @@ def question_13():
              'строили на отшибе, подальше '
              'от жилищ. С какой целью?',
         answer='Чтобы пожар не уничтожил запасы продовольствия'
+    )
+
+
+@pytest.fixture
+def question_14(language_1):
+    from interview.models import Question
+    return Question.objects.create(
+        language=language_1,
+        text='вопрос 14',
+        answer='ответ на вопрос 14'
+    )
+
+
+@pytest.fixture
+def question_15(language_1):
+    from interview.models import Question
+    return Question.objects.create(
+        language=language_1,
+        text='вопрос 15',
+        answer='ответ на вопрос 15'
+    )
+
+
+@pytest.fixture
+def question_16(language_1):
+    from interview.models import Question
+    return Question.objects.create(
+        language=language_1,
+        text='вопрос 16',
+        answer='ответ на вопрос 16'
+    )
+
+
+@pytest.fixture
+def question_17(language_1):
+    from interview.models import Question
+    return Question.objects.create(
+        language=language_1,
+        text='вопрос 17',
+        answer='ответ на вопрос 17'
+    )
+
+
+@pytest.fixture
+def question_18(language_1):
+    from interview.models import Question
+    return Question.objects.create(
+        language=language_1,
+        text='вопрос 18',
+        answer='ответ на вопрос 18'
+    )
+
+
+@pytest.fixture
+def question_19(language_1):
+    from interview.models import Question
+    return Question.objects.create(
+        language=language_1,
+        text='вопрос 19',
+        answer='ответ на вопрос 19'
+    )
+
+
+@pytest.fixture
+def question_20(language_1):
+    from interview.models import Question
+    return Question.objects.create(
+        language=language_1,
+        text='вопрос 20',
+        answer='ответ на вопрос 20'
+    )
+
+
+@pytest.fixture
+def question_21(language_1):
+    from interview.models import Question
+    return Question.objects.create(
+        language=language_1,
+        text='вопрос 21',
+        answer='ответ на вопрос 21'
     )
