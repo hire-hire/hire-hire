@@ -15,7 +15,7 @@ class AddQuestionMixin(GetOrSetUserCookieIdMixin):
         self.add_questions_for24_count = (
             AddQuestion.objects.get_24_hours_added_question_count(
                 request.user,
-                request.COOKIES.get('user_cookie_id'),
+                request.COOKIES.get(AddQuestion.user_cookie_id.field.name),
             )
         )
         response = self.get_or_set_user_cookie_id(
