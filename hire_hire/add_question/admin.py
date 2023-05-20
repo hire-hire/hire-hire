@@ -16,12 +16,40 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
     APPROVE = '_approve'
     REJECT = '_reject'
 
+    def approve_button(self, obj):
+        return mark_safe(
+            '<div class="submit-row">'
+            f'<button type="submit" value={self.APPROVE} name="status">'
+            'ОДОБРИТЬ</button></div>',
+        )
+
+    approve_button.short_description = 'Одобряем?'
+
+    def reject_button(self, obj):
+        return mark_safe(
+            '<div class="submit-row">'
+            f'<button type="submit" value={self.REJECT} name="status">'
+            'ОТКЛОНИТЬ</button></div>',
+        )
+
+    reject_button.short_description = 'Отклонить?'
+
+    def get_text_truncated(self, obj):
+        return obj.text[:20]
+
+    get_text_truncated.short_description = 'текст вопроса'
+
+    def get_answer_truncated(self, obj):
+        return obj.answer[:20]
+
+    get_answer_truncated.short_description = 'правильный ответ'
+
     list_display = (
         AddQuestion.id.field.name,
         AddQuestion.status.field.name,
         AddQuestion.language.field.name,
-        AddQuestion.text.field.name,
-        AddQuestion.answer.field.name,
+        get_text_truncated.__name__,
+        get_answer_truncated.__name__,
         AddQuestion.ip_address.field.name,
         AddQuestion.pub_date.field.name,
         AddQuestion.author.field.name,
@@ -35,15 +63,18 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         AddQuestion.language.field.name,
         AddQuestion.status.field.name,
     )
-    default_filters = (('status__exact', AddQuestion.StatusChoice.PROPOSED),)
-    empty_value_display = '-пусто-'
-
     readonly_fields = (
         AddQuestion.status.field.name,
         AddQuestion.ip_address.field.name,
         AddQuestion.user_cookie_id.field.name,
         AddQuestion.author.field.name,
+        approve_button.__name__,
+        reject_button.__name__,
     )
+
+    default_filters = (('status__exact', AddQuestion.StatusChoice.PROPOSED),)
+    empty_value_display = '-пусто-'
+
     actions = ('approve', 'reject')
 
     def approve(self, request, queryset):
@@ -90,21 +121,3 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
                 reverse('admin:add_question_addquestion_changelist'),
             )
         return super().response_change(request, obj)
-
-    def approve_button(self, obj):
-        return mark_safe(
-            '<div class="submit-row">'
-            f'<button type="submit" value={self.APPROVE} name="status">'
-            'ОДОБРИТЬ</button></div>',
-        )
-
-    approve_button.short_description = 'Одобряем?'
-
-    def reject_button(self, obj):
-        return mark_safe(
-            '<div class="submit-row">'
-            f'<button type="submit" value={self.REJECT} name="status">'
-            'ОТКЛОНИТЬ</button></div>',
-        )
-
-    reject_button.short_description = 'Отклонить?'
