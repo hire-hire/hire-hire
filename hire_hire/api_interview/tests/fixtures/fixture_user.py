@@ -1,6 +1,5 @@
-import pytest
-
 from django.conf import settings
+import pytest
 
 
 @pytest.fixture
