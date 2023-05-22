@@ -16,7 +16,7 @@ class TestCategoryAPI:
                                              'неавторизованному юзеру')
 
     @pytest.mark.django_db(transaction=True)
-    def test_category_list_count(self, user_client, category_1, category_2):
+    def test_category_correct_data(self, user_client, category_1, category_2):
         response = user_client.get(self.url_category)
         categories = response.json()
 
@@ -24,6 +24,12 @@ class TestCategoryAPI:
                                           'не результирует в список')
         assert len(categories) == 2, ('Количество категорий '
                                       'не соответствует фикстуре')
+
+        title = categories[0]['title']
+
+        assert title == category_1.title, ('Название первой '
+                                           'категории не совпадает '
+                                           'с ожидаемым')
 
     @pytest.mark.django_db(transaction=True)
     def test_category_fields(self, user_client, category_1):
