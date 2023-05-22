@@ -4,18 +4,24 @@ from interview.models import Interview
 
 
 class TestInterviewApi:
-    url_interview = '/api/v1/interview/'
-    data = {'question_count': 10}
+
+    def setup_class(self):
+        self.url_interview = '/api/v1/interview/'
+        self.data = {'question_count': 10}
 
     @pytest.mark.django_db(transaction=True)
     def test_unavailable_not_auth(self, client, user_client):
         resp_no_auth = client.post(self.url_interview, data=self.data)
-        resp_auth = user_client.post(self.url_interview, data=self.data)
 
         assert resp_no_auth.status_code == 401, (f'Ответ неавторизованному '
                                                  f'от {self.url_interview}'
                                                  f'приходит не со '
                                                  f'статусом 401')
+
+    @pytest.mark.django_db(transaction=True)
+    def test_unavailable_auth(self, client, user_client):
+        resp_auth = user_client.post(self.url_interview, data=self.data)
+
         assert resp_auth.status_code == 201, (f'Ответ авторизованному от '
                                               f'{self.url_interview} '
                                               f'приходит не со '
@@ -42,10 +48,7 @@ class TestInterviewApi:
 
     @pytest.mark.django_db(transaction=True)
     def test_valid_question_count_created(
-            self, user_client, question_1, question_2,
-            question_3, question_4, question_5,
-            question_6, question_7, question_8,
-            question_9, question_10, question_11
+            self, user_client, all_questions,
     ):
         response = user_client.post(self.url_interview, data=self.data)
         length = len(response.json().get('questions'))
@@ -54,10 +57,7 @@ class TestInterviewApi:
                                      'интервью не совпадает с настройкой')
 
     @pytest.mark.django_db(transaction=True)
-    def test_no_extra_fields(self, user_client, category_1, language_1,
-                             question_1, question_3, question_4,
-                             question_5, question_6, question_7, question_8,
-                             question_9, question_10, question_11):
+    def test_no_extra_fields(self, user_client, all_questions):
         data = {'question_count': 10}
         response = user_client.post('/api/v1/interview/', data=data)
         question = response.json().get('questions')[0]

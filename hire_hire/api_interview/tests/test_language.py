@@ -4,7 +4,9 @@ from interview.models import Language
 
 
 class TestLanguageAPI:
-    url_language = '/api/v1/language/'
+
+    def setup_class(self):
+        self.url_language = '/api/v1/language/'
 
     @pytest.mark.django_db(transaction=True)
     def test_language_not_auth(self, client, category_1, language_1):
@@ -25,7 +27,7 @@ class TestLanguageAPI:
                                      'не соответствует фикстуре')
 
     @pytest.mark.django_db(transaction=True)
-    def test_category_fields(self, user_client, category_1, language_1):
+    def test_language_fields(self, user_client, category_1, language_1):
         response = user_client.get(self.url_language)
 
         languages = response.json()

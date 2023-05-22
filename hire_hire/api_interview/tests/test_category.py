@@ -4,14 +4,16 @@ from interview.models import Category
 
 
 class TestCategoryAPI:
-    url_category = '/api/v1/category/'
+
+    def setup_class(self):
+        self.url_category = '/api/v1/category/'
 
     @pytest.mark.django_db(transaction=True)
     def test_category_not_auth(self, client, category_1):
         response = client.get(self.url_category)
 
         assert response.status_code == 200, ('Категории не отдаются '
-                                             'авторизованному юзеру')
+                                             'неавторизованному юзеру')
 
     @pytest.mark.django_db(transaction=True)
     def test_category_list_count(self, user_client, category_1, category_2):
