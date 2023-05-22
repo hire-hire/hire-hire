@@ -1,33 +1,30 @@
 import pytest
 
+from interview.models import Category, Language, Question
+
 
 @pytest.fixture
 def category_1():
-    from interview.models import Category
     return Category.objects.create(title='Программирование')
 
 
 @pytest.fixture
 def category_2():
-    from interview.models import Category
     return Category.objects.create(title='Тестирование')
 
 
 @pytest.fixture
 def language_1(category_1):
-    from interview.models import Language
     return Language.objects.create(title='Python', category=category_1)
 
 
 @pytest.fixture
 def language_2(category_1):
-    from interview.models import Language
     return Language.objects.create(title='Javascript', category=category_1)
 
 
 @pytest.fixture
 def question_1(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='Какое слово всегда пишется неправильно?',
@@ -41,7 +38,6 @@ def question_1(language_1):
 
 @pytest.fixture
 def question_2(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='Сколько месяцев в году имеют 28 дней?',
@@ -51,7 +47,6 @@ def question_2(language_1):
 
 @pytest.fixture
 def question_3(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='С какой скоростью должна двигаться собака '
@@ -64,7 +59,6 @@ def question_3(language_1):
 
 @pytest.fixture
 def question_4(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='Собака была привязана к десятиметровой веревке, '
@@ -76,7 +70,6 @@ def question_4(language_1):
 
 @pytest.fixture
 def question_5(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='Как спрыгнуть с десятиметровой лестницы и не ушибиться?',
@@ -86,7 +79,6 @@ def question_5(language_1):
 
 @pytest.fixture
 def question_6(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='Что можно видеть с закрытыми глазами?',
@@ -96,7 +88,6 @@ def question_6(language_1):
 
 @pytest.fixture
 def question_7(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='Что в огне не горит и в воде не тонет?',
@@ -106,7 +97,6 @@ def question_7(language_1):
 
 @pytest.fixture
 def question_8(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='Кого австралийцы называют морской осой?',
@@ -116,7 +106,6 @@ def question_8(language_1):
 
 @pytest.fixture
 def question_9(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='Что нужно делать, когда видишь зелёного человечка?',
@@ -126,7 +115,6 @@ def question_9(language_1):
 
 @pytest.fixture
 def question_10(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='Москву раньше называли белокаменной. '
@@ -137,7 +125,6 @@ def question_10(language_1):
 
 @pytest.fixture
 def question_11(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='Жители средневековой Европы иногда '
@@ -150,7 +137,6 @@ def question_11(language_1):
 
 @pytest.fixture
 def question_12(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='В каком процессе вода заменила солнце, '
@@ -163,7 +149,6 @@ def question_12(language_1):
 
 @pytest.fixture
 def question_13(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='В прежние времена амбары '
@@ -175,7 +160,6 @@ def question_13(language_1):
 
 @pytest.fixture
 def question_14(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='вопрос 14',
@@ -185,7 +169,6 @@ def question_14(language_1):
 
 @pytest.fixture
 def question_15(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='вопрос 15',
@@ -195,7 +178,6 @@ def question_15(language_1):
 
 @pytest.fixture
 def question_16(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='вопрос 16',
@@ -205,7 +187,6 @@ def question_16(language_1):
 
 @pytest.fixture
 def question_17(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='вопрос 17',
@@ -215,7 +196,6 @@ def question_17(language_1):
 
 @pytest.fixture
 def question_18(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='вопрос 18',
@@ -225,7 +205,6 @@ def question_18(language_1):
 
 @pytest.fixture
 def question_19(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='вопрос 19',
@@ -235,7 +214,6 @@ def question_19(language_1):
 
 @pytest.fixture
 def question_20(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='вопрос 20',
@@ -245,7 +223,6 @@ def question_20(language_1):
 
 @pytest.fixture
 def question_21(language_1):
-    from interview.models import Question
     return Question.objects.create(
         language=language_1,
         text='вопрос 21',
