@@ -19,19 +19,8 @@ class TestQuestionAPI:
 
         fields = response.json()
 
+        assert type(fields) == dict, 'Отдается не словарь'
         assert len(fields) == 1, 'Отдается что-то кроме ответа'
-
-    @pytest.mark.django_db(transaction=True)
-    def test_no_extra_fields(self, user_client, category_1, language_1,
-                             question_1, question_3, question_4,
-                             question_5, question_6, question_7, question_8,
-                             question_9, question_10, question_11):
-        data = {'question_count': 10}
-        response = user_client.post('/api/v1/interview/', data=data)
-        question = response.json().get('questions')[0]
-
-        assert 'answer' not in question, ('В интервью отдаются '
-                                          'вопросы с ответами')
 
     @pytest.mark.django_db(transaction=True)
     def test_question_non_exist(self, user_client, question_13):

@@ -31,9 +31,9 @@ class TestLanguageAPI:
         languages = response.json()
         test_lang = languages[0]
         for f in Language._meta.fields:
-            assert (f.name in test_lang) is True,  (f'Нет поля {f.name}'
-                                                    f' в ответе '
-                                                    f'{self.url_language}')
+            assert f.name in test_lang,  (f'Нет поля {f.name}'
+                                          f' в ответе '
+                                          f'{self.url_language}')
 
     @pytest.mark.django_db(transaction=True)
     def test_category_available_not_auth(self, client, category_1, language_2):

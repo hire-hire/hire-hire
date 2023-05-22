@@ -49,6 +49,18 @@ class TestInterviewApi:
     ):
         response = user_client.post(self.url_interview, data=self.data)
         length = len(response.json().get('questions'))
-        setting = self.data['question_count']
-        assert length == setting, ('Кол-во вопросов в новом '
-                                   'интервью не совпадает с настройкой')
+        quest_cnt = self.data['question_count']
+        assert length == quest_cnt, ('Кол-во вопросов в новом '
+                                     'интервью не совпадает с настройкой')
+
+    @pytest.mark.django_db(transaction=True)
+    def test_no_extra_fields(self, user_client, category_1, language_1,
+                             question_1, question_3, question_4,
+                             question_5, question_6, question_7, question_8,
+                             question_9, question_10, question_11):
+        data = {'question_count': 10}
+        response = user_client.post('/api/v1/interview/', data=data)
+        question = response.json().get('questions')[0]
+
+        assert 'answer' not in question, ('В интервью отдаются '
+                                          'вопросы с ответами')
