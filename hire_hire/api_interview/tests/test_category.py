@@ -43,32 +43,38 @@ class TestCategoryAPI:
                                              f'в ответе {self.url_category}')
 
     @pytest.mark.django_db(transaction=True)
-    def test_category_available_not_auth(self, client, category_1):
+    def test_category_list_available_not_auth(self, client, category_1):
         response = client.get(self.url_category)
 
         assert response.status_code == 200, ('Список категорий '
                                              'недоступен без токена')
 
+    @pytest.mark.django_db(transaction=True)
+    def test_single_category_available_not_auth(self, client, category_1):
+
         response = client.get(
             self.url_category + f'{Category.objects.first().id}/'
         )
 
-        assert response.status_code in [200, 301], ('Конкретная категория'
-                                                    ' недоступна без токена')
+        assert response.status_code == 200, ('Конкретная категория'
+                                             'недоступна без токена')
 
     @pytest.mark.django_db(transaction=True)
-    def test_category_available_auth(self, user_client, category_1):
+    def test_category_list_available_auth(self, user_client, category_1):
         response = user_client.get(self.url_category)
 
         assert response.status_code == 200, ('Список категорий '
                                              'недоступен с токеном')
 
+    @pytest.mark.django_db(transaction=True)
+    def test_single_category_available_auth(self, user_client, category_1):
+
         response = user_client.get(
             self.url_category + f'{Category.objects.first().id}/'
         )
 
-        assert response.status_code in [200, 301], ('Конкретная категория'
-                                                    ' недоступна с токеном')
+        assert response.status_code == 200, ('Конкретная категория '
+                                             'недоступна с токеном')
 
     @pytest.mark.django_db(transaction=True)
     def test_category_non_exist(self, client, category_1, category_2):
