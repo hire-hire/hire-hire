@@ -24,6 +24,8 @@ djoser = "^2.1.0"
 drf-yasg = "^1.21.5"
 drf-spectacular = "^0.26.2"
 django-cors-headers = "^3.14.0"
+pytest = "7.3.1"
+pytest-django = "4.5.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
