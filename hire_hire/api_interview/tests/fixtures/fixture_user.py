@@ -1,5 +1,7 @@
 from django.conf import settings
 import pytest
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.test import APIClient
 
 
 @pytest.fixture
@@ -21,21 +23,17 @@ def moderator(django_user_model):
 
 @pytest.fixture
 def user_token(user):
-    from rest_framework_simplejwt.tokens import RefreshToken
     refresh = RefreshToken.for_user(user)
 
-    return {
-        'access': refresh.access_token
-    }
+    return refresh.access_token
 
 
 @pytest.fixture
 def user_client(user_token):
-    from rest_framework.test import APIClient
 
     client = APIClient()
     client.credentials(
         HTTP_AUTHORIZATION=f'{settings.SIMPLE_JWT["AUTH_HEADER_TYPES"][0]} '
-                           f'{user_token["access"]}'
+                           f'{user_token}'
     )
     return client

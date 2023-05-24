@@ -38,18 +38,25 @@ class TestLanguageAPI:
                                           f'{self.url_language}')
 
     @pytest.mark.django_db(transaction=True)
-    def test_category_available_not_auth(self, client, category_1, language_2):
+    def test_language_list_available_not_auth(
+            self, client, category_1, language_2,
+    ):
         response = client.get(self.url_language)
 
         assert response.status_code == 200, ('Список подкатегорий '
                                              'недоступен без токена')
 
+    @pytest.mark.django_db(transaction=True)
+    def test_single_language_available_not_auth(
+            self, client, category_1, language_2,
+    ):
+
         response = client.get(
             self.url_language + f'{Language.objects.first().id}/',
         )
 
-        assert response.status_code in [200, 301], ('Конкретная подкатегория '
-                                                    'недоступна без токена')
+        assert response.status_code == 200, ('Конкретная подкатегория '
+                                             'недоступна без токена')
 
     @pytest.mark.django_db(transaction=True)
     def test_category_available_auth(self, user_client,

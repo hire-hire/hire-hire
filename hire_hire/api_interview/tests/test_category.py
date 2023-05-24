@@ -38,9 +38,9 @@ class TestCategoryAPI:
         categories = response.json()
         test_category = categories[0]
         for field in Category._meta.fields:
-            is_field_found = (field.name in test_category)
-            assert is_field_found is True,  (f'Нет поля {field.name} '
-                                             f'в ответе {self.url_category}')
+            assert field.name in test_category, (
+                f'Нет поля {field.name} в ответе {self.url_category}'
+            )
 
     @pytest.mark.django_db(transaction=True)
     def test_category_list_available_not_auth(self, client, category_1):
