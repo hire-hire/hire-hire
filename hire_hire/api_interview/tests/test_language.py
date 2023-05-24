@@ -59,22 +59,26 @@ class TestLanguageAPI:
                                              'недоступна без токена')
 
     @pytest.mark.django_db(transaction=True)
-    def test_category_available_auth(self, user_client,
-                                     category_1, language_2):
+    def test_language_list_available_auth(self, user_client,
+                                          category_1, language_2):
         response = user_client.get(self.url_language)
 
         assert response.status_code == 200, ('Список подкатегорий '
                                              'недоступен с токеном')
 
+    @pytest.mark.django_db(transaction=True)
+    def test_single_language_available_auth(self, user_client,
+                                            category_1, language_2):
+
         response = user_client.get(
             self.url_language + f'{Language.objects.first().id}/',
         )
 
-        assert response.status_code in [200, 301], ('Конкретная подкатегория '
-                                                    'недоступна с токеном')
+        assert response.status_code == 200, ('Конкретная подкатегория '
+                                             'недоступна с токеном')
 
     @pytest.mark.django_db(transaction=True)
-    def test_category_non_exist(self, client, language_1,
+    def test_language_non_exist(self, client, language_1,
                                 category_1, language_2):
         response = client.get(self.url_language + '3/')
 
