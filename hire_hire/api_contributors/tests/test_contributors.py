@@ -65,3 +65,15 @@ class TestContributorsApi:
             contributor_contact1.social_network)
         assert contributor.get('contacts')[0].get('contact') == (
             contributor_contact1.contact)
+
+    @pytest.mark.django_db
+    def test_contributors_fields(self, client, contributor):
+        response = client.get(self.url_contributors)
+        contributor_api = response.json()[0]
+        assert contributor_api.get('first_name') == contributor.first_name
+        assert contributor_api.get('last_name') == contributor.last_name
+        assert contributor_api.get('middle_name') == contributor.middle_name
+        assert contributor_api.get('role') == contributor.role.name
+        assert contributor_api.get('photo').endswith('team/image2.png')
+        assert contributor_api.get('thumbnail_image') == (
+            contributor.thumbnail_image)

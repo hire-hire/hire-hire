@@ -8,13 +8,6 @@ import pytest
 from contributors.models import Contributor, ContributorContact, TeamRole
 
 
-@pytest.fixture()
-def mock_media(settings):
-    with tempfile.TemporaryDirectory() as temp_directory:
-        settings.MEDIA_ROOT = temp_directory
-        yield temp_directory
-
-
 @pytest.fixture
 def team_role():
     return TeamRole.objects.create(
@@ -24,13 +17,12 @@ def team_role():
 
 @pytest.fixture
 def contributor(team_role):
-    image = tempfile.NamedTemporaryFile(suffix='.jpg').name
     return Contributor.objects.create(
         first_name='Тихон',
         last_name='Б',
         role=team_role,
         middle_name=None,
-        photo=image,
+        photo='team/image2.png',
     )
 
 
