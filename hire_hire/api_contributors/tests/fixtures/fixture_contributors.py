@@ -2,8 +2,8 @@ from io import BytesIO
 import tempfile
 
 from django.core.files.base import File
-import pytest
 from PIL import Image
+import pytest
 
 from contributors.models import Contributor, ContributorContact, TeamRole
 
