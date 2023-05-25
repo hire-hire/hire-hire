@@ -20,8 +20,7 @@ class TestContributorsApi:
         test_contributor = contributors[0]
         for field in Contributor._meta.fields:
             if field.name != 'id':
-                is_field_found = (field.name in test_contributor)
-                assert is_field_found, (
+                assert field.name in test_contributor, (
                     f'Нет поля {field.name} '
                     f'в ответе {self.url_contributors}'
                 )
@@ -29,16 +28,17 @@ class TestContributorsApi:
     @pytest.mark.django_db
     def test_contributors_answer_type(self, client, contributor):
         response = client.get(self.url_contributors)
-        contributors = response.json()
         assert response.status_code == 200
+        contributors = response.json()
         assert isinstance(contributors, list)
         assert isinstance(contributors[0], dict)
 
     @pytest.mark.django_db
     def test_contributors_thumbnail_image(self, client, contributor):
         response = client.get(self.url_contributors)
-        contributors = response.json()
         assert response.status_code == 200
+        contributors = response.json()
+        assert len(contributors) == 1
         assert 'thumbnail_image' in contributors[0]
         assert (contributors[0]['thumbnail_image'] ==
                contributor.thumbnail_image)
@@ -47,9 +47,21 @@ class TestContributorsApi:
     def test_contributors_contacts(
             self, client, contributor, contributor_contact1):
         response = client.get(self.url_contributors)
-        contributors = response.json()
-        assert 'contacts' in contributors[0]
-        assert isinstance(contributors[0]['contacts'], list) is True
-        assert isinstance(contributors[0]['contacts'][0], dict) is True
-        assert 'social_network' in contributors[0]['contacts'][0]
-        assert 'contact' in contributors[0]['contacts'][0]
+        contributor = response.json()[0]
+        assert 'contacts' in contributor
+        assert isinstance(contributor.get('contacts'), list) is True
+        assert isinstance(contributor.get('contacts')[0], dict) is True
+        assert 'social_network' in contributor.get('contacts')[0]
+        assert 'contact' in contributor.get('contacts')[0]
+
+    @pytest.mark.django_db
+    def test_contributors_contacts_fields(
+            self, client, contributor,
+            contributor_contact1, contributor_contact2):
+        response = client.get(self.url_contributors)
+        contributor = response.json()[0]
+        assert len(contributor.get('contacts')) == 2
+        assert contributor.get('contacts')[0].get('social_network') == (
+            contributor_contact1.social_network)
+        assert contributor.get('contacts')[0].get('contact') == (
+            contributor_contact1.contact)

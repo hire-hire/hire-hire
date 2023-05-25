@@ -1,25 +1,46 @@
-# создать тестового contributor по модели Contributor
+from io import BytesIO
+import tempfile
+
+from django.core.files.base import File
 import pytest
+from PIL import Image
 
 from contributors.models import Contributor, ContributorContact, TeamRole
+
+
+@pytest.fixture()
+def mock_media(settings):
+    with tempfile.TemporaryDirectory() as temp_directory:
+        settings.MEDIA_ROOT = temp_directory
+        yield temp_directory
 
 
 @pytest.fixture
 def team_role():
     return TeamRole.objects.create(
-        name='разработчик'
+        name='разработчик',
     )
 
 
 @pytest.fixture
 def contributor(team_role):
+    image = tempfile.NamedTemporaryFile(suffix='.jpg').name
     return Contributor.objects.create(
         first_name='Тихон',
         last_name='Б',
         role=team_role,
         middle_name=None,
-        photo='photo.jpg',
+        photo=image,
     )
+
+
+@pytest.fixture
+def image_file(name='image2.png', ext='png', size=(50, 50), color=(256, 0, 0)):
+    file_obj = BytesIO()
+    image = Image.new('RGBA', size=size, color=color)
+    image.save(file_obj, ext)
+    file_obj.seek(0)
+    return File(file_obj, name=name)
 
 
 @pytest.fixture
