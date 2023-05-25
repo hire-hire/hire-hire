@@ -1,8 +1,3 @@
-from io import BytesIO
-import tempfile
-
-from django.core.files.base import File
-from PIL import Image
 import pytest
 
 from contributors.models import Contributor, ContributorContact, TeamRole
@@ -22,17 +17,8 @@ def contributor(team_role):
         last_name='Б',
         role=team_role,
         middle_name=None,
-        photo='team/image2.png',
+        photo='fixtures/image_for_tests.png',
     )
-
-
-@pytest.fixture
-def image_file(name='image2.png', ext='png', size=(50, 50), color=(256, 0, 0)):
-    file_obj = BytesIO()
-    image = Image.new('RGBA', size=size, color=color)
-    image.save(file_obj, ext)
-    file_obj.seek(0)
-    return File(file_obj, name=name)
 
 
 @pytest.fixture

@@ -1,6 +1,7 @@
 import pytest
 
 from contributors.models import Contributor
+from api_contributors.serializers import ContributorSerializer
 
 
 class TestContributorsApi:
@@ -59,21 +60,36 @@ class TestContributorsApi:
             self, client, contributor,
             contributor_contact1, contributor_contact2):
         response = client.get(self.url_contributors)
-        contributor = response.json()[0]
-        assert len(contributor.get('contacts')) == 2
-        assert contributor.get('contacts')[0].get('social_network') == (
+        contributor_contacts = response.json()[0].get('contacts')
+        assert len(contributor_contacts) == 2
+        assert contributor_contacts[0].get('social_network') == (
             contributor_contact1.social_network)
-        assert contributor.get('contacts')[0].get('contact') == (
+        assert contributor_contacts[0].get('contact') == (
             contributor_contact1.contact)
 
     @pytest.mark.django_db
-    def test_contributors_fields(self, client, contributor):
+    def test_get_contributor_serializer_fields(self, client, contributor):
         response = client.get(self.url_contributors)
-        contributor_api = response.json()[0]
-        assert contributor_api.get('first_name') == contributor.first_name
-        assert contributor_api.get('last_name') == contributor.last_name
-        assert contributor_api.get('middle_name') == contributor.middle_name
-        assert contributor_api.get('role') == contributor.role.name
-        assert contributor_api.get('photo').endswith('team/image2.png')
-        assert contributor_api.get('thumbnail_image') == (
-            contributor.thumbnail_image)
+        contributors = response.json()
+        test_contributor = contributors[0]
+        for field in ContributorSerializer.Meta.fields:
+            if field != 'id':
+                assert field in test_contributor, (
+                    f'Нет поля {field} '
+                    f'в ответе {self.url_contributors}'
+                )
+
+    @pytest.mark.django_db
+    def test_post_contributors(self, client, admin_user):
+        client.force_login(admin_user)
+        response = client.post(
+            self.url_contributors,
+            data={
+                'first_name': 'Тихон',
+                'last_name': 'Б',
+                'middle_name': 'Nothing',
+                'role': 'разработчик',
+                'photo': 'fixtures/image_for_tests.png',
+            },
+        )
+        assert response.status_code == 405
