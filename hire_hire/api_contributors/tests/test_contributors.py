@@ -17,8 +17,9 @@ class TestContributorsApi:
     @pytest.mark.django_db
     def test_get_contributors_fields(self, client, contributor):
         response = client.get(self.url_contributors)
-        contributors = response.json()
-        test_contributor = contributors[0]
+        assert response.status_code == 200
+        assert len(response.json()) != 0
+        test_contributor = response.json()[0]
         for field in Contributor._meta.fields:
             if field.name != 'id':
                 assert field.name in test_contributor, (
@@ -48,18 +49,23 @@ class TestContributorsApi:
     def test_contributors_contacts(
             self, client, contributor, contributor_contact1):
         response = client.get(self.url_contributors)
+        assert response.status_code == 200
+        assert len(response.json()) != 0
         contributor = response.json()[0]
         assert 'contacts' in contributor
-        assert isinstance(contributor.get('contacts'), list) is True
-        assert isinstance(contributor.get('contacts')[0], dict) is True
-        assert 'social_network' in contributor.get('contacts')[0]
-        assert 'contact' in contributor.get('contacts')[0]
+        contributor_contacts = contributor.get('contacts')[0]
+        assert isinstance(contributor.get('contacts'), list)
+        assert isinstance(contributor_contacts, dict)
+        assert 'social_network' in contributor_contacts
+        assert 'contact' in contributor_contacts
 
     @pytest.mark.django_db
     def test_contributors_contacts_fields(
             self, client, contributor,
             contributor_contact1, contributor_contact2):
         response = client.get(self.url_contributors)
+        assert response.status_code == 200
+        assert len(response.json()) != 0
         contributor_contacts = response.json()[0].get('contacts')
         assert len(contributor_contacts) == 2
         assert contributor_contacts[0].get('social_network') == (
@@ -70,8 +76,9 @@ class TestContributorsApi:
     @pytest.mark.django_db
     def test_get_contributor_serializer_fields(self, client, contributor):
         response = client.get(self.url_contributors)
-        contributors = response.json()
-        test_contributor = contributors[0]
+        assert response.status_code == 200
+        assert len(response.json()) != 0
+        test_contributor = response.json()[0]
         for field in ContributorSerializer.Meta.fields:
             if field != 'id':
                 assert field in test_contributor, (
