@@ -1,7 +1,7 @@
 import pytest
 
-from contributors.models import Contributor
 from api_contributors.serializers import ContributorSerializer
+from contributors.models import Contributor
 
 
 class TestContributorsApi:
