@@ -1,147 +1,234 @@
+import datetime
+
 from django.conf import settings
 from django.urls import reverse
 import pytest
-from rest_framework.test import APIClient
-from rest_framework_simplejwt.tokens import AccessToken
 
 from add_question.models import AddQuestion
-from interview.models import Category, Language
+
+# from interview.models import Language
 
 
-@pytest.fixture
-def category_1():
-    return Category.objects.create(title='Программирование')
+class TestApiAddQuestion:
+    # @pytest.mark.django_db
+    # def test_get_languages(
+    #     self,
+    #     client,
+    #     api_add_question_language_1,
+    #     api_add_question_language_2,
+    #     api_add_question_language_3,
+    # ):
+    #     url = '/api/v1/language/'
+    #     response = client.get(url)
+    #     assert (
+    #         response.status_code == 200
+    #     ), 'Статус код не верный при запросе языков!!! Проблемы с фикстурами.'
+    #     assert Language.objects.count() == 3, 'Проблемы с фикстурами языков!!!'
+    #     assert (
+    #         response.data[1]['title'] == api_add_question_language_2.title
+    #     ), 'Субкатегория не совпадает!!! Фикстуры языков не верны.'
 
+    @pytest.mark.django_db
+    def test_add_question_unauthorized_user(
+        self,
+        client,
+        api_add_question_language_1,
+        api_add_question_language_2,
+        api_add_question_language_3,
+    ):
+        url = reverse('api:api_add_question:add_question-list')
 
-@pytest.fixture
-def category_2():
-    return Category.objects.create(title='Тестирование')
+        assert not AddQuestion.objects.exists(), 'В базе уже есть вопросы!!!'
 
+        for i in range(1, settings.LIMIT_ADD_QUESTIONS_PER_DAY + 1):
+            data = {
+                'text': f'Вопрос номер {i}?',
+                'answer': f'Ответ номер {i}',
+                'language': api_add_question_language_2.id,
+            }
+            response = client.post(
+                path=url,
+                data=data,
+            )
+            assert (
+                response.status_code == 201
+            ), 'Статус код не верный при добавлении вопроса!!!'
+            assert AddQuestion.objects.count() == i, 'Вопрос не добавился!!!'
 
-@pytest.fixture
-def language_1(category_1):
-    return Language.objects.create(title='Javascript', category=category_1)
+            last_added_question = AddQuestion.objects.get(id=i)
+            assert (
+                last_added_question.text == f'Вопрос номер {i}?'
+            ), 'Текст вопроса не совпадает!!!'
+            assert (
+                last_added_question.answer == f'Ответ номер {i}'
+            ), 'Ответ не совпадает!!!'
+            assert (
+                last_added_question.language == api_add_question_language_2
+            ), 'Субкатегория не совпадает!!!'
+            assert (
+                last_added_question.status == AddQuestion.StatusChoice.PROPOSED
+            ), 'Статус не совпадает!!!'
+            assert (
+                last_added_question.author is None
+            ), 'У анонима автор не None!!!'
+            assert (
+                last_added_question.user_cookie_id is not None
+            ), 'У анонима user_cookie_id None!!!'
 
+        assert (
+            AddQuestion.objects.count() == settings.LIMIT_ADD_QUESTIONS_PER_DAY
+        ), 'В базе странное количество вопросов!!!'
 
-@pytest.fixture
-def language_2(category_1):
-    return Language.objects.create(title='Python', category=category_1)
-
-
-@pytest.fixture
-def language_3(category_1):
-    return Language.objects.create(title='Java', category=category_1)
-
-
-@pytest.fixture
-def api_client_unauth_user():
-    return APIClient()
-
-
-@pytest.fixture
-def api_client_auth_user(django_user_model):
-    auth_user = django_user_model.objects.create(
-        username='some_user',
-        password='Some_password_09876',
-    )
-    token = str(AccessToken.for_user(auth_user))
-    client = APIClient()
-    auth_header_type = settings.SIMPLE_JWT['AUTH_HEADER_TYPES'][0]
-    client.credentials(HTTP_AUTHORIZATION=auth_header_type + ' ' + token)
-    return client
-
-
-@pytest.mark.django_db
-def test_get_languages(
-    api_client_unauth_user, language_1, language_2, language_3
-):
-    """Проверка фикстур языка."""
-    url = '/api/v1/language/'
-    response = api_client_unauth_user.get(url)
-    assert response.status_code == 200, 'Ошибка при запросе языков!!!'
-    assert Language.objects.count() == 3, 'Проблемы с фикстурами языков!!!'
-    assert response.data[1]['title'] == 'Python'
-
-
-@pytest.mark.django_db
-def test_add_question_unauth(
-    api_client_unauth_user, language_1, language_2, language_3
-):
-    """Проверка добавления вопроса анонимом."""
-    url = reverse('api:api_add_question:add_question-list')
-
-    assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы!!!'
-
-    for i in range(1, settings.LIMIT_ADD_QUESTIONS_PER_DAY + 1):
         data = {
-            'text': f'Вопрос номер {i}?',
-            'answer': f'Ответ номер {i}',
-            'language': 2,
+            'text': 'Вопрос на котором лимит исчерпан?',
+            'answer': 'Ответ на котором лимит исчерпан',
+            'language': api_add_question_language_2.id,
         }
-        response = api_client_unauth_user.post(
+        response = client.post(
             path=url,
             data=data,
         )
-        assert response.status_code == 201, 'Ошибка при добавлении вопроса!!!'
-        assert AddQuestion.objects.count() == i, 'Вопрос не добавился!!!'
-        assert AddQuestion.objects.last().text == f'Вопрос номер {i}?'
-        assert AddQuestion.objects.last().answer == f'Ответ номер {i}'
-        assert AddQuestion.objects.last().language.title == 'Python'
-        assert AddQuestion.objects.last().status == 'proposed'
-        assert AddQuestion.objects.last().author is None
-        assert AddQuestion.objects.last().user_cookie_id is not None
+        assert (
+            response.status_code == 400
+        ), 'Статус код не верный, лимит не сработал!!!'
+        # AddQuestion.objects.create(
+        #     text='Вопрос на котором лимит исчерпан?',
+        #     answer='Ответ на котором лимит исчерпан',
+        #     language=api_add_question_language_2,
+        # )
+        assert not AddQuestion.objects.filter(
+            text=data.get('text'),
+            answer=data.get('answer'),
+            language=api_add_question_language_2,
+        ).exists(), 'Вопрос на котором лимит исчерпан добавился в базу!!!'
+        assert (
+            AddQuestion.objects.count() == 10
+        ), 'Странное количество вопросов в базе!!!'
 
-    assert AddQuestion.objects.count() == settings.LIMIT_ADD_QUESTIONS_PER_DAY
+    @pytest.mark.django_db
+    def test_add_question_authorized_user(
+        self,
+        api_add_question_user_1,
+        api_client_auth_user,
+        api_add_question_language_1,
+        api_add_question_language_2,
+        api_add_question_language_3,
+    ):
+        url = reverse('api:api_add_question:add_question-list')
 
-    data = {
-        'text': 'Вопрос на котором лимит исчерпан?',
-        'answer': 'Ответ на котором лимит исчерпан',
-        'language': 2,
-    }
-    response = api_client_unauth_user.post(
-        path=url,
-        data=data,
-    )
-    assert response.status_code == 400, 'Лимит не сработал!!!'
+        assert not AddQuestion.objects.exists(), 'В базе уже есть вопросы!!!'
 
+        for i in range(1, settings.LIMIT_ADD_QUESTIONS_PER_DAY + 1):
+            data = {
+                'text': f'Вопрос номер {i}?',
+                'answer': f'Ответ номер {i}',
+                'language': api_add_question_language_2.id,
+            }
+            response = api_client_auth_user.post(
+                path=url,
+                data=data,
+            )
+            assert (
+                response.status_code == 201
+            ), 'Статус код не верный при добавлении вопроса!!!'
+            assert AddQuestion.objects.count() == i, 'Вопрос не добавился!!!'
 
-@pytest.mark.django_db
-def test_add_question_auth(
-    api_client_auth_user, language_1, language_2, language_3
-):
-    """Проверка добавления вопроса авторизованным пользователем."""
-    url = reverse('api:api_add_question:add_question-list')
+            last_question = AddQuestion.objects.get(id=i)
+            assert (
+                last_question.text == f'Вопрос номер {i}?'
+            ), 'Текст вопроса не совпадает!!!'
+            assert (
+                last_question.answer == f'Ответ номер {i}'
+            ), 'Ответ не совпадает!!!'
+            assert (
+                last_question.language == api_add_question_language_2
+            ), 'Субкатегория не совпадает!!!'
+            assert (
+                last_question.status == AddQuestion.StatusChoice.PROPOSED
+            ), 'Статус не совпадает!!!'
+            assert (
+                last_question.author == api_add_question_user_1
+            ), 'У автоизированного пользователя автор не совпадает!!!'
+            assert (
+                last_question.user_cookie_id is None
+            ), 'У автоизированного пользователя user_cookie_id не None!!!'
 
-    assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы!!!'
+        assert (
+            AddQuestion.objects.count() == settings.LIMIT_ADD_QUESTIONS_PER_DAY
+        ), 'В базе странное количество вопросов!!!'
 
-    for i in range(1, settings.LIMIT_ADD_QUESTIONS_PER_DAY + 1):
         data = {
-            'text': f'Вопрос номер {i}?',
-            'answer': f'Ответ номер {i}',
-            'language': 2,
+            'text': 'Вопрос на котором лимит исчерпан?',
+            'answer': 'Ответ на котором лимит исчерпан',
+            'language': api_add_question_language_2.id,
         }
         response = api_client_auth_user.post(
             path=url,
             data=data,
         )
-        assert response.status_code == 201, 'Ошибка при добавлении вопроса!!!'
-        assert AddQuestion.objects.count() == i, 'Вопрос не добавился!!!'
-        assert AddQuestion.objects.last().text == f'Вопрос номер {i}?'
-        assert AddQuestion.objects.last().answer == f'Ответ номер {i}'
-        assert AddQuestion.objects.last().language.title == 'Python'
-        assert AddQuestion.objects.last().status == 'proposed'
-        assert AddQuestion.objects.last().author.username == 'some_user'
-        assert AddQuestion.objects.last().user_cookie_id is None
+        assert (
+            response.status_code == 400
+        ), 'Статус код не верный, лимит не сработал!!!'
+        assert not AddQuestion.objects.filter(
+            text=data.get('text'),
+            answer=data.get('answer'),
+            language=api_add_question_language_2,
+        ).exists(), 'Вопрос на котором лимит исчерпан добавился в базу!!!'
+        assert (
+            AddQuestion.objects.count() == 10
+        ), 'Странное количество вопросов в базе!!!'
 
-    assert AddQuestion.objects.count() == settings.LIMIT_ADD_QUESTIONS_PER_DAY
+    @pytest.mark.django_db
+    def test_add_question_with_not_allowed_fields(
+        self,
+        api_add_question_user_1,
+        api_add_question_user_2,
+        api_client_auth_user,
+        api_add_question_language_1,
+        api_add_question_language_2,
+        api_add_question_language_3,
+    ):
+        url = reverse('api:api_add_question:add_question-list')
 
-    data = {
-        'text': 'Вопрос на котором лимит исчерпан?',
-        'answer': 'Ответ на котором лимит исчерпан',
-        'language': 2,
-    }
-    response = api_client_auth_user.post(
-        path=url,
-        data=data,
-    )
-    assert response.status_code == 400, 'Лимит не сработал!!!'
+        assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы!!!'
+
+        some_datatime = datetime.datetime(2020, 1, 1, 1, 1, 1, 1)
+
+        data = {
+            'text': 'Вопрос номер 1?',
+            'answer': 'Ответ номер 1',
+            'language': api_add_question_language_2.id,
+            # not_allowed_field
+            'author': api_add_question_user_2,
+            'ip_address': '8:8:8:8',
+            'pub_date': some_datatime,
+            'status': AddQuestion.StatusChoice.APPROVED,
+            'user_cookie_id': 'some_fake_user_cookie_id',
+        }
+        response = api_client_auth_user.post(
+            path=url,
+            data=data,
+        )
+        assert (
+            response.status_code == 201
+        ), 'Статус код не верный при добавлении вопроса!!!'
+        assert AddQuestion.objects.count() == 1, 'Вопрос не добавился!!!'
+
+        added_question_with_wrong_data = AddQuestion.objects.get(id=1)
+        assert (
+            added_question_with_wrong_data.author == api_add_question_user_1
+        ), 'Подмена автора!!!'
+        assert (
+            added_question_with_wrong_data.ip_address == '127.0.0.1'
+        ), 'Подмена IP!!!'
+        assert (
+            added_question_with_wrong_data.pub_date != some_datatime
+        ), 'Подмена даты публикации!!!'
+        assert (
+            added_question_with_wrong_data.status
+            == AddQuestion.StatusChoice.PROPOSED
+        ), 'Подмена статуса!!!'
+        assert (
+            added_question_with_wrong_data.user_cookie_id
+            != 'some_fake_user_cookie_id'
+        ), 'Подмена user_cookie_id!!!'
