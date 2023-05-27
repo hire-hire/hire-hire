@@ -73,19 +73,22 @@ class DuelCreateSerializer(serializers.ModelSerializer):
         choices=settings.QUESTION_COUNT_CHOICE,
     )
     players = DuelPlayerSerializer(many=True)
+    language = serializers.IntegerField()
 
     class Meta:
         model = Duel
         fields = (
             'question_count',
             Duel.players.rel.name,
+            'language',
         )
 
     def create(self, validated_data):
         request = self.context.get('request')
         duel = create_duel(request.user)
         question_count = validated_data.get('question_count')
-        create_duel_questions(duel, question_count)
+        subcategory = validated_data.get('language')
+        create_duel_questions(duel, question_count, subcategory)
         players = validated_data.get('players')
         create_duel_players(duel, players)
         return duel
