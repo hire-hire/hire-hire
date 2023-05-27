@@ -73,7 +73,7 @@ class DuelCreateSerializer(serializers.ModelSerializer):
         choices=settings.QUESTION_COUNT_CHOICE,
     )
     players = DuelPlayerSerializer(many=True)
-    language = serializers.IntegerField()
+    language = serializers.IntegerField(required=False)
 
     class Meta:
         model = Duel
