@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'api_interview.apps.ApiInterviewConfig',
     'api_add_question.apps.ApiAddQuestionConfig',
     'api_duel.apps.ApiDuelConfig',
+    'api_users.apps.ApiUsersConfig',
 ]
 
 if DEBUG:
@@ -198,3 +199,8 @@ if DEBUG:
 else:
     CORS_ALLOWED_ORIGINS = ["https://test-hire-hire.proninteam.ru"]
 
+DJOSER = {
+    'SERIALIZERS': {
+        'current_user': 'api_users.serializers.CustomUserSerializer',
+    },
+}
