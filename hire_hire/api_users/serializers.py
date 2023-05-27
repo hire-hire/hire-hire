@@ -9,4 +9,8 @@ class CustomUserSerializer(UserSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'is_duel_moderator')
+        fields = (
+            User.id.field.name,
+            User.username.field.name,
+            User.is_duel_moderator.field.name,
+        )
