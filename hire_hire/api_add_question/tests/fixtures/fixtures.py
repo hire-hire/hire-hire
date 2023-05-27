@@ -19,21 +19,24 @@ def api_add_question_category_2():
 @pytest.fixture
 def api_add_question_language_1(api_add_question_category_1):
     return Language.objects.create(
-        title='Javascript', category=api_add_question_category_1
+        title='Javascript',
+        category=api_add_question_category_1,
     )
 
 
 @pytest.fixture
 def api_add_question_language_2(api_add_question_category_1):
     return Language.objects.create(
-        title='Python', category=api_add_question_category_1
+        title='Python',
+        category=api_add_question_category_1,
     )
 
 
 @pytest.fixture
 def api_add_question_language_3(api_add_question_category_1):
     return Language.objects.create(
-        title='Java', category=api_add_question_category_1
+        title='Java',
+        category=api_add_question_category_1,
     )
 
 
@@ -54,9 +57,15 @@ def api_add_question_user_2(django_user_model):
 
 
 @pytest.fixture
-def api_client_auth_user(api_add_question_user_1):
+def api_add_question_get_token(api_add_question_user_1):
+    return AccessToken.for_user(api_add_question_user_1)
+
+
+@pytest.fixture
+def api_client_auth_user(api_add_question_get_token):
     client = APIClient()
-    token = AccessToken.for_user(api_add_question_user_1)
     auth_header_type = settings.SIMPLE_JWT['AUTH_HEADER_TYPES'][0]
-    client.credentials(HTTP_AUTHORIZATION=f'{auth_header_type} {token}')
+    client.credentials(
+        HTTP_AUTHORIZATION=f'{auth_header_type} {api_add_question_get_token}'
+    )
     return client
