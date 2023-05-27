@@ -66,6 +66,6 @@ def api_client_auth_user(api_add_question_get_token):
     client = APIClient()
     auth_header_type = settings.SIMPLE_JWT['AUTH_HEADER_TYPES'][0]
     client.credentials(
-        HTTP_AUTHORIZATION=f'{auth_header_type} {api_add_question_get_token}'
+        HTTP_AUTHORIZATION=f'{auth_header_type} {api_add_question_get_token}',
     )
     return client

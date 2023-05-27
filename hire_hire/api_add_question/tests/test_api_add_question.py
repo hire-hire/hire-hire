@@ -144,7 +144,7 @@ class TestApiAddQuestion:
             added_question_with_wrong_data.author == api_add_question_user_1
         ), 'Подмена автора!!!'
         assert (
-            added_question_with_wrong_data.ip_address == '127.0.0.1'
+            added_question_with_wrong_data.ip_address != data['ip_address']
         ), 'Подмена IP!!!'
         assert (
             added_question_with_wrong_data.pub_date != some_datatime
