@@ -202,5 +202,5 @@ else:
 DJOSER = {
     'SERIALIZERS': {
         'current_user': 'api_users.serializers.CustomUserSerializer',
-    }
+    },
 }
