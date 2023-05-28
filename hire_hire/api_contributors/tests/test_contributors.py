@@ -89,7 +89,7 @@ class TestContributorsApi:
                 'last_name': 'Б',
                 'middle_name': 'Nothing',
                 'role': 'разработчик',
-                'photo': 'fixtures/image_for_tests.png',
+                'photo': 'fixtures/image_for_tests.jpg',
             },
         )
         assert response.status_code == 405
@@ -104,7 +104,7 @@ class TestContributorsApi:
                 'last_name': 'Б',
                 'middle_name': 'Nothing',
                 'role': 'разработчик',
-                'photo': 'fixtures/image_for_tests.png',
+                'photo': 'fixtures/image_for_tests.jpg',
             },
         )
         assert response.status_code == 405
