@@ -30,7 +30,7 @@ class TestContributorsApi:
         test_contributor = contributors[0]
         assert 'thumbnail_image' in test_contributor
         assert (test_contributor['thumbnail_image'] ==
-               contributor.thumbnail_image)
+                contributor.thumbnail_image)
 
     @pytest.mark.django_db
     def test_contributors_contacts(
@@ -40,12 +40,14 @@ class TestContributorsApi:
         response = response.json()
         assert len(response) != 0
         contributor = response[0]
-        if 'contacts' in contributor:
-            contributor_contacts = contributor.get('contacts')[0]
-            assert isinstance(contributor.get('contacts'), list)
-            assert isinstance(contributor_contacts, dict)
-            assert 'social_network' in contributor_contacts
-            assert 'contact' in contributor_contacts
+        assert 'contacts' in contributor
+        list_contacts = contributor.get('contacts')
+        assert len(list_contacts) != 0
+        assert isinstance(list_contacts, list)
+        contributor_contact = list_contacts[0]
+        assert isinstance(contributor_contact, dict)
+        assert 'social_network' in contributor_contact
+        assert 'contact' in contributor_contact
 
     @pytest.mark.django_db
     def test_contributors_contacts_fields(
@@ -87,7 +89,7 @@ class TestContributorsApi:
                 'last_name': 'Б',
                 'middle_name': 'Nothing',
                 'role': 'разработчик',
-                'photo': 'team/image_for_tests.png',
+                'photo': 'fixtures/image_for_tests.png',
             },
         )
         assert response.status_code == 405
@@ -102,7 +104,7 @@ class TestContributorsApi:
                 'last_name': 'Б',
                 'middle_name': 'Nothing',
                 'role': 'разработчик',
-                'photo': 'team/image_for_tests.png',
+                'photo': 'fixtures/image_for_tests.png',
             },
         )
         assert response.status_code == 405
