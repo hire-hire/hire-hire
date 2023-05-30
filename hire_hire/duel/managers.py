@@ -46,7 +46,7 @@ class DuelPlayerManager(models.Manager):
             return
 
         winner = get_object_or_404(
-            self.get_queryset().order_by('id'),
+            self.get_queryset(),
             pk=winner_pk,
             duel=duel,
         )

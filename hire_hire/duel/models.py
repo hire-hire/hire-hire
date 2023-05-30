@@ -67,6 +67,7 @@ class DuelPlayer(models.Model):
     class Meta:
         verbose_name = 'участник дуэли'
         verbose_name_plural = 'участники дуэли'
+        ordering = ['pk',]
 
     def __str__(self):
         return self.name[:15]
