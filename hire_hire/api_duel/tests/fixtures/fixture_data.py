@@ -1,5 +1,6 @@
 import pytest
 
+from duel.models import Duel, DuelPlayer, DuelQuestion
 from interview.models import Category, Language, Question
 
 QUESTIONS = {
@@ -47,3 +48,19 @@ def all_questions(language_1):
     ) for key, value in QUESTIONS.items())
     Question.objects.bulk_create(questions)
     return Question.objects.all()
+
+
+@pytest.fixture
+def duel_instance(moderator, all_questions):
+    duel = Duel.objects.create(owner=moderator)
+    DuelPlayer.objects.create(name='Ivan', duel=duel)
+    DuelPlayer.objects.create(name='Anna', duel=duel)
+    questions = Question.objects.all()[:10]
+    for question in questions:
+        DuelQuestion.objects.create(
+            duel=duel,
+            question=question,
+            is_answered=False,
+        )
+
+    return duel
