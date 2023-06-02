@@ -147,7 +147,7 @@ class TestDuelApi:
 
     @pytest.mark.django_db(transaction=True)
     def test_get_invalid_duel(self, moderator_client, duel_instance):
-        invalid_duel_pk = 99999999999  # This duel does not exist
+        invalid_duel_pk = 99999999999
         resp = moderator_client.get(f'{self.url_duel}{invalid_duel_pk}/')
         assert (
                 resp.status_code == 404
@@ -217,7 +217,7 @@ class TestDuelApi:
         question_ids = duel_instance.questions.values_list('id', flat=True)
 
         invalid_data = {
-            'winner_id': 123456789,  # This player does not exist
+            'winner_id': 123456789,
             'question_id': question_ids[0],
         }
 
@@ -244,7 +244,7 @@ class TestDuelApi:
 
         invalid_data = {
             'winner_id': player_ids[0],
-            'question_id': 123456789,  # This question does not exist
+            'question_id': 123456789,
         }
 
         resp = moderator_client.patch(
@@ -263,7 +263,7 @@ class TestDuelApi:
         wrong_answers_count_initial = duel_instance.wrong_answers_count
 
         data = {
-            'winner_id': -1,  # No winner
+            'winner_id': -1,
             'question_id': question_ids[0],
         }
 
