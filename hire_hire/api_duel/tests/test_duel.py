@@ -5,24 +5,14 @@ class TestDuelApi:
 
     def setup_class(self):
         self.url_duel = '/api/v1/duel/'
-        self.data = {
-            'question_count': 10,
-            'players': [
-                {
-                    'name': 'Ivan',
-                },
-                {
-                    'name': 'Anna',
-                },
-            ],
-        }
 
     @pytest.mark.django_db(transaction=True)
     def test_duel_unavailable_not_auth(
             self,
             client,
+            duel_data,
     ):
-        resp_no_auth = client.post(self.url_duel, data=self.data)
+        resp_no_auth = client.post(self.url_duel, data=duel_data)
 
         assert resp_no_auth.status_code == 401, (f'Ответ неавторизованному '
                                                  f'от {self.url_duel}'
@@ -33,8 +23,9 @@ class TestDuelApi:
     def test_duel_unavailable_auth(
             self,
             user_client,
+            duel_data,
     ):
-        resp_auth = user_client.post(self.url_duel, data=self.data)
+        resp_auth = user_client.post(self.url_duel, data=duel_data)
 
         assert resp_auth.status_code == 403, (f'Ответ авторизованному, '
                                               f'немодератору от '
@@ -68,8 +59,9 @@ class TestDuelApi:
             self,
             moderator_client,
             language_1,
+            duel_data,
     ):
-        data = self.data.copy()
+        data = duel_data
         data.update({'language': language_1.pk})
         resp_auth = moderator_client.post(
             self.url_duel,
@@ -88,8 +80,9 @@ class TestDuelApi:
             moderator_client,
             language_1,
             all_questions,
+            duel_data,
     ):
-        data = self.data.copy()
+        data = duel_data
         data.update({'language': language_1.pk})
         resp_auth = moderator_client.post(
             self.url_duel,
@@ -98,22 +91,23 @@ class TestDuelApi:
         )
         assert (
                 len(resp_auth.json().get('questions'))
-                == self.data.get('question_count')
+                == duel_data.get('question_count')
         ), 'Количество вопросов не совпадает с переданном количеством'
 
     @pytest.mark.django_db(transaction=True)
     def test_duel_valid_players_count(
             self,
             moderator_client,
+            duel_data,
     ):
         resp_auth = moderator_client.post(
             self.url_duel,
-            data=self.data,
+            data=duel_data,
             format='json',
         )
         assert (
                 len(resp_auth.json().get('players'))
-                == len(self.data.get('players'))
+                == len(duel_data.get('players'))
         ), 'Количество игроков не совпадает с переданном количеством'
 
     @pytest.mark.django_db(transaction=True)
