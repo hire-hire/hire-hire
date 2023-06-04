@@ -8,7 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 def moderator(django_user_model):
     return django_user_model.objects.create_user(
         username='Roman',
-        password='d1f5d68edc9',
+        password='Password1',
         is_duel_moderator=True,
     )
 
@@ -24,6 +24,6 @@ def moderator_client(moderator_token):
     client = APIClient()
     client.credentials(
         HTTP_AUTHORIZATION=f'{settings.SIMPLE_JWT["AUTH_HEADER_TYPES"][0]} '
-                           f'{moderator_token}'
+                           f'{moderator_token}',
     )
     return client
