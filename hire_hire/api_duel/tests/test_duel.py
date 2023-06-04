@@ -53,6 +53,7 @@ class TestDuelApi:
     def test_duel_available_auth_moderator(
             self,
             moderator_client,
+            all_questions,
             language_1,
             duel_data,
     ):
@@ -68,38 +69,10 @@ class TestDuelApi:
                                               f'{self.url_duel} '
                                               f'приходит не со '
                                               f'статусом 201')
-
-    @pytest.mark.django_db(transaction=True)
-    def test_duel_valid_question_count(
-            self,
-            moderator_client,
-            language_1,
-            all_questions,
-            duel_data,
-    ):
-        data = duel_data
-        data.update({'language': language_1.pk})
-        resp_auth = moderator_client.post(
-            self.url_duel,
-            data=data,
-            format='json',
-        )
         assert (
                 len(resp_auth.json().get('questions'))
                 == duel_data.get('question_count')
         ), 'Количество вопросов не совпадает с переданном количеством'
-
-    @pytest.mark.django_db(transaction=True)
-    def test_duel_valid_players_count(
-            self,
-            moderator_client,
-            duel_data,
-    ):
-        resp_auth = moderator_client.post(
-            self.url_duel,
-            data=duel_data,
-            format='json',
-        )
         assert (
                 len(resp_auth.json().get('players'))
                 == len(duel_data.get('players'))
