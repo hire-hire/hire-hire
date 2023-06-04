@@ -21,8 +21,6 @@ class TestDuelApi:
     def test_duel_unavailable_not_auth(
             self,
             client,
-            user_client,
-            moderator_client,
     ):
         resp_no_auth = client.post(self.url_duel, data=self.data)
 
@@ -34,9 +32,7 @@ class TestDuelApi:
     @pytest.mark.django_db(transaction=True)
     def test_duel_unavailable_auth(
             self,
-            client,
             user_client,
-            moderator_client,
     ):
         resp_auth = user_client.post(self.url_duel, data=self.data)
 
@@ -49,8 +45,6 @@ class TestDuelApi:
     @pytest.mark.django_db(transaction=True)
     def test_duel_valid_data_only(
             self,
-            client,
-            user_client,
             moderator_client,
     ):
         invalid_data_1 = {'question_count': 10}
@@ -72,13 +66,10 @@ class TestDuelApi:
     @pytest.mark.django_db(transaction=True)
     def test_duel_available_auth_moderator(
             self,
-            client,
-            user_client,
             moderator_client,
             language_1,
-            all_questions,
     ):
-        data = self.data
+        data = self.data.copy()
         data.update({'language': language_1.pk})
         resp_auth = moderator_client.post(
             self.url_duel,
@@ -94,13 +85,11 @@ class TestDuelApi:
     @pytest.mark.django_db(transaction=True)
     def test_duel_valid_question_count(
             self,
-            client,
-            user_client,
             moderator_client,
             language_1,
             all_questions,
     ):
-        data = self.data
+        data = self.data.copy()
         data.update({'language': language_1.pk})
         resp_auth = moderator_client.post(
             self.url_duel,
@@ -115,11 +104,7 @@ class TestDuelApi:
     @pytest.mark.django_db(transaction=True)
     def test_duel_valid_players_count(
             self,
-            client,
-            user_client,
             moderator_client,
-            language_1,
-            all_questions,
     ):
         resp_auth = moderator_client.post(
             self.url_duel,
