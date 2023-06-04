@@ -35,14 +35,14 @@ class TestDuelApi:
     @pytest.mark.django_db(transaction=True)
     def test_duel_valid_data_only(
             self,
-            moderator_client,
+            moderator_1_client,
     ):
         invalid_datas = [
             {'question_count': 10},
             {'players': [{'name': 'Juan'}]},
         ]
         for data in invalid_datas:
-            response = moderator_client.post(self.url_duel, data=data)
+            response = moderator_1_client.post(self.url_duel, data=data)
 
             assert response.status_code == 400, (f'Ответ от {self.url_duel} '
                                                  f'при некорректна дата '
@@ -52,14 +52,14 @@ class TestDuelApi:
     @pytest.mark.django_db(transaction=True)
     def test_duel_available_auth_moderator(
             self,
-            moderator_client,
+            moderator_1_client,
             all_questions,
             language_1,
             duel_data,
     ):
         data = duel_data
         data.update({'language': language_1.pk})
-        resp_auth = moderator_client.post(
+        resp_auth = moderator_1_client.post(
             self.url_duel,
             data=data,
             format='json',
@@ -86,26 +86,39 @@ class TestDuelApi:
         ), 'Ответ неавторизованному приходит не со статусом 401'
 
     @pytest.mark.django_db(transaction=True)
-    def test_get_duel_not_owner(self, user_client, duel_instance):
+    def test_get_duel_not_moderator(self, user_client, duel_instance):
         resp = user_client.get(f'{self.url_duel}{duel_instance.id}/')
         assert (
                 resp.status_code == 403
-        ), 'Ответ авторизованному невладелецу приходит не со статусом 403'
+        ), 'Ответ авторизованному немодератору приходит не со статусом 403'
 
     @pytest.mark.django_db(transaction=True)
-    def test_get_invalid_duel(self, moderator_client, duel_instance):
+    def test_get_duel_not_owner(
+            self,
+            moderator_2_client,
+            duel_instance,
+    ):
+        resp = moderator_2_client.get(
+            f'{self.url_duel}{duel_instance.pk}/'
+        )
+        assert (
+                resp.status_code == 404
+        ), 'Ответ невладелцу дуэли приходит не со статусом 404'
+
+    @pytest.mark.django_db(transaction=True)
+    def test_get_invalid_duel(self, moderator_1_client, duel_instance):
         invalid_duel_pk = 99999999999
-        resp = moderator_client.get(f'{self.url_duel}{invalid_duel_pk}/')
+        resp = moderator_1_client.get(f'{self.url_duel}{invalid_duel_pk}/')
         assert (
                 resp.status_code == 404
         ), 'Ответ при несуществующем объекте приходит не со статусом 404'
 
     @pytest.mark.django_db(transaction=True)
-    def test_get_duel_owner(self, moderator_client, duel_instance):
-        resp = moderator_client.get(f'{self.url_duel}{duel_instance.id}/')
+    def test_get_duel_owner(self, moderator_1_client, duel_instance):
+        resp = moderator_1_client.get(f'{self.url_duel}{duel_instance.id}/')
         assert (
                 resp.status_code == 200
-        ), 'Ответ авторизованному владелецу приходит не со статусом 200'
+        ), 'Ответ владелецу дуэли приходит не со статусом 200'
 
         assert (
                 len(resp.json().get('questions'))
@@ -125,14 +138,27 @@ class TestDuelApi:
         ), 'Ответ неавторизованному приходит не со статусом 401'
 
     @pytest.mark.django_db(transaction=True)
-    def test_patch_duel_not_owner(self, user_client, duel_instance):
+    def test_patch_duel_not_moderator(self, user_client, duel_instance):
         resp = user_client.patch(f'{self.url_duel}{duel_instance.id}/')
         assert (
                 resp.status_code == 403
-        ), 'Ответ авторизованному невладелецу приходит не со статусом 403'
+        ), 'Ответ немодератору дуэли приходит не со статусом 403'
 
     @pytest.mark.django_db(transaction=True)
-    def test_duel_update(self, moderator_client, duel_instance):
+    def test_patch_duel_not_owner(
+            self,
+            moderator_2_client,
+            duel_instance,
+    ):
+        resp = moderator_2_client.patch(
+            f'{self.url_duel}{duel_instance.pk}/'
+        )
+        assert (
+                resp.status_code == 404
+        ), 'Ответ невладелцу дуэли приходит не со статусом 404'
+
+    @pytest.mark.django_db(transaction=True)
+    def test_duel_update(self, moderator_1_client, duel_instance):
         player_ids = duel_instance.players.values_list('id', flat=True)
         question_ids = duel_instance.questions.values_list('id', flat=True)
 
@@ -141,7 +167,7 @@ class TestDuelApi:
             'question_id': question_ids[0],
         }
 
-        resp = moderator_client.patch(
+        resp = moderator_1_client.patch(
             f'{self.url_duel}{duel_instance.id}/',
             data=data,
             format='json',
@@ -160,7 +186,11 @@ class TestDuelApi:
         ), 'Поле is_answered вопроса не установлено в True'
 
     @pytest.mark.django_db(transaction=True)
-    def test_duel_update_invalid_winner(self, moderator_client, duel_instance):
+    def test_duel_update_invalid_winner(
+            self,
+            moderator_1_client,
+            duel_instance,
+    ):
         question_ids = duel_instance.questions.values_list('id', flat=True)
 
         invalid_data = {
@@ -168,7 +198,7 @@ class TestDuelApi:
             'question_id': question_ids[0],
         }
 
-        resp = moderator_client.patch(
+        resp = moderator_1_client.patch(
             f'{self.url_duel}{duel_instance.id}/',
             data=invalid_data,
             format='json',
@@ -181,7 +211,7 @@ class TestDuelApi:
     @pytest.mark.django_db(transaction=True)
     def test_duel_update_invalid_question(
             self,
-            moderator_client,
+            moderator_1_client,
             duel_instance,
     ):
         player_ids = duel_instance.players.values_list(
@@ -194,7 +224,7 @@ class TestDuelApi:
             'question_id': 123456789,
         }
 
-        resp = moderator_client.patch(
+        resp = moderator_1_client.patch(
             f'{self.url_duel}{duel_instance.id}/',
             data=invalid_data,
             format='json',
@@ -205,7 +235,7 @@ class TestDuelApi:
             'вопроса не приходит со статусом 404')
 
     @pytest.mark.django_db(transaction=True)
-    def test_duel_update_no_winner(self, moderator_client, duel_instance):
+    def test_duel_update_no_winner(self, moderator_1_client, duel_instance):
         question_ids = duel_instance.questions.values_list('id', flat=True)
         wrong_answers_count_initial = duel_instance.wrong_answers_count
 
@@ -214,7 +244,7 @@ class TestDuelApi:
             'question_id': question_ids[0],
         }
 
-        resp = moderator_client.patch(
+        resp = moderator_1_client.patch(
             f'{self.url_duel}{duel_instance.id}/',
             data=data,
             format='json',
@@ -233,7 +263,7 @@ class TestDuelApi:
     @pytest.mark.django_db(transaction=True)
     def test_duel_update_question_already_answered(
             self,
-            moderator_client,
+            moderator_1_client,
             duel_instance,
     ):
         player_ids = duel_instance.players.values_list('id', flat=True)
@@ -245,7 +275,7 @@ class TestDuelApi:
             'question_id': question_ids[0],
         }
 
-        resp = moderator_client.patch(
+        resp = moderator_1_client.patch(
             f'{self.url_duel}{duel_instance.id}/',
             data=data,
             format='json',
@@ -255,7 +285,7 @@ class TestDuelApi:
         ), 'Ответ после обновления приходит не со статусом 200'
 
         # Second update - should fail because the question was already answered
-        resp = moderator_client.patch(
+        resp = moderator_1_client.patch(
             f'{self.url_duel}{duel_instance.id}/',
             data=data,
             format='json',
