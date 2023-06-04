@@ -9,10 +9,10 @@ def duel_instance(moderator, all_questions):
     DuelPlayer.objects.create(name='Ivan', duel=duel)
     DuelPlayer.objects.create(name='Anna', duel=duel)
     questions = all_questions[:10]
-    for question in questions:
-        DuelQuestion.objects.create(
-            duel=duel,
-            question=question,
-            is_answered=False,
-        )
+
+    DuelQuestion.objects.bulk_create(
+        DuelQuestion(duel=duel, question=question, is_answered=False)
+        for question in questions
+    )
+
     return duel
