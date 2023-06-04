@@ -6,15 +6,17 @@ QUESTION_COUNT = 10
 
 
 @pytest.fixture
-def duel_instance(moderator, all_questions):
+def duel_instance(moderator, all_questions, duel_data):
     duel = Duel.objects.create(owner=moderator)
-    DuelPlayer.objects.create(name='Ivan', duel=duel)
-    DuelPlayer.objects.create(name='Anna', duel=duel)
-    questions = all_questions[:QUESTION_COUNT]
+
+    DuelPlayer.objects.bulk_create(
+        DuelPlayer(duel=duel, name=player.get('name'))
+        for player in duel_data.get('players')
+    )
 
     DuelQuestion.objects.bulk_create(
         DuelQuestion(duel=duel, question=question, is_answered=False)
-        for question in questions
+        for question in all_questions[:QUESTION_COUNT]
     )
 
     return duel

@@ -27,32 +27,27 @@ class TestDuelApi:
     ):
         resp_auth = user_client.post(self.url_duel, data=duel_data)
 
-        assert resp_auth.status_code == 403, (f'Ответ авторизованному, '
-                                              f'немодератору от '
-                                              f'{self.url_duel} '
-                                              f'приходит не со '
-                                              f'статусом 403')
+        assert resp_auth.status_code == 403, ('Ответ немодератору, '
+                                              'при создании дуэли '
+                                              'приходит не со '
+                                              'статусом 403')
 
     @pytest.mark.django_db(transaction=True)
     def test_duel_valid_data_only(
             self,
             moderator_client,
     ):
-        invalid_data_1 = {'question_count': 10}
-        response = moderator_client.post(self.url_duel, data=invalid_data_1)
+        invalid_datas = [
+            {'question_count': 10},
+            {'players': [{'name': 'Juan'}]},
+        ]
+        for data in invalid_datas:
+            response = moderator_client.post(self.url_duel, data=data)
 
-        assert response.status_code == 400, (f'Ответ от {self.url_duel} '
-                                             f'при некорректна дата без '
-                                             f'игроков приходит не со '
-                                             f'статусом 400')
-        invalid_data_2 = {'players': [{'name': 'Juan'}]}
-        response = moderator_client.post(self.url_duel, data=invalid_data_2)
-
-        assert response.status_code == 400, (f'Ответ от {self.url_duel} '
-                                             f'при некорректна дата без '
-                                             f'кол-во вопросов '
-                                             f'приходит не со '
-                                             f'статусом 400')
+            assert response.status_code == 400, (f'Ответ от {self.url_duel} '
+                                                 f'при некорректна дата '
+                                                 f'приходит не со '
+                                                 f'статусом 400')
 
     @pytest.mark.django_db(transaction=True)
     def test_duel_available_auth_moderator(
