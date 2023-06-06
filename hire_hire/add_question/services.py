@@ -6,7 +6,7 @@ def get_count_questions_text(count_questions):
         return f' {count_questions} вопрос'
     return f'о {count_questions} вопроса'
 
-
+  
 def get_user_data_dict(user, user_cookie_id):
     return (
         dict(author=user)

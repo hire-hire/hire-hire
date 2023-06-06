@@ -31,7 +31,7 @@ class ContributorContact(models.Model):
         return f'{self.social_network}: {self.contact}'
 
     def save(self, *args, **kwargs):
-        if (
+        if not self.pk and (
             ContributorContact.objects.
             get_contributor_contacts_count(self.contributor) >=
             settings.LIMIT_CONTRIBUTORS_CONTACTS
