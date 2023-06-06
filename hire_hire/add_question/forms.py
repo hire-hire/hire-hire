@@ -33,11 +33,10 @@ class AddQuestionForm(forms.ModelForm):
         }
 
     def clean(self):
-        cleaned_data = super().clean()
         add_questions_for24_count = self.initial.get(
             'add_questions_for24_count')
         limit_add_questions_per_day = self.initial.get(
             'limit_add_questions_per_day')
         if add_questions_for24_count >= limit_add_questions_per_day:
             self.add_error(None, 'Вы исчерпали лимит вопросов на день.')
-        return cleaned_data
+        return self.cleaned_data

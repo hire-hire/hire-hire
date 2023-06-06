@@ -1,5 +1,4 @@
 [flake8]
-application-import-names = hire_hire,add_question,contributors,duel,interview,homepage,users,api_contributors,api_interview,api_duel
+application-import-names = hire_hire,add_question,contributors,duel,interview,homepage,users,api_contributors,api_interview,api_add_question,api_duel
 exclude = .git,__pycache__,venv,manage.py,settings.py, migrations,
 import-order-style = google
-
