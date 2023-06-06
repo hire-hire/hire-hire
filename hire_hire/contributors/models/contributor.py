@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.db import models
 from sorl.thumbnail import ImageField
+from sorl.thumbnail.shortcuts import get_thumbnail
 
 from contributors.managers import ContributorManager
 
@@ -42,3 +44,7 @@ class Contributor(models.Model):
 
     def __str__(self):
         return f'{self.first_name}, {self.last_name}'
+
+    @property
+    def thumbnail_image(self):
+        return get_thumbnail(self.photo, settings.THUMBNAIL_SIZE).url

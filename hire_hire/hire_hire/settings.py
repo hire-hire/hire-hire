@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'sorl.thumbnail',
     'corsheaders',
 
     'contributors.apps.StaticInfoConfig',
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 if DEBUG:
-    INSTALLED_APPS += ['drf_yasg']
+    INSTALLED_APPS += ['drf_spectacular']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -116,9 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
     {
@@ -167,15 +165,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-}
-
-SWAGGER_SETTINGS = {
-    'USE_SESSION_AUTH': False,
+    'BLACKLIST_AFTER_ROTATION': False,
 }
 
 CSRF_TRUSTED_ORIGINS = [
@@ -187,7 +183,18 @@ USERNAME_MIN_LENGTH = 2
 USERNAME_MAX_LENGTH = 25
 PASSWORD_MAX_LENGTH = 40
 
+LIMIT_CONTRIBUTORS_CONTACTS = 3
+THUMBNAIL_SIZE = '1000x1000'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'HireHire API',
+    'DESCRIPTION': 'Interview service',
+    'VERSION': '0.0.1',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
     CORS_ALLOWED_ORIGINS = ["https://test-hire-hire.proninteam.ru"]
+
