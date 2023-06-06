@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'corsheaders',
 
     'contributors.apps.StaticInfoConfig',
     'duel.apps.DuelsConfig',
@@ -48,6 +49,7 @@ if DEBUG:
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -184,3 +186,8 @@ CSRF_TRUSTED_ORIGINS = [
 USERNAME_MIN_LENGTH = 2
 USERNAME_MAX_LENGTH = 25
 PASSWORD_MAX_LENGTH = 40
+
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGINS = ["https://test-hire-hire.proninteam.ru"]
