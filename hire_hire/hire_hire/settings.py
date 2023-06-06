@@ -119,6 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'users.validators.PasswordMaxLengthValidator',
+    },
 ]
 
 LANGUAGE_CODE = 'ru'
@@ -129,8 +132,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = '/static_files/'
+STATIC_ROOT = BASE_DIR / 'static_files'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -177,3 +180,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://hire-hire.proninteam.ru',
     'https://test-hire-hire.proninteam.ru'
 ]
+
+USERNAME_MIN_LENGTH = 2
+USERNAME_MAX_LENGTH = 25
+PASSWORD_MAX_LENGTH = 40
