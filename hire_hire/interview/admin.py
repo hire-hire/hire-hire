@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from interview.models import Language, Question
+from interview.models import Category, Language, Question
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Language)

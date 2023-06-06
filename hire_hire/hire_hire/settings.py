@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from django.urls import reverse_lazy
@@ -13,7 +14,7 @@ SECRET_KEY = os.getenv('D_KEY', default='share-like-repost')
 DEBUG = os.getenv('DEBUG_MODE', default='ON').lower() in ('on', 'yes', 'true')
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
+    '*'
 ]
 
 INSTALLED_APPS = [
@@ -25,14 +26,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cleanup.apps.CleanupConfig',
     'debug_toolbar',
+    'rest_framework',
+    'djoser',
 
     'contributors.apps.StaticInfoConfig',
     'duel.apps.DuelsConfig',
     'interview.apps.InterviewConfig',
     'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
+    'api.apps.ApiConfig',
+    'api_interview.apps.ApiInterviewConfig',
     'add_question.apps.AddquestionConfig',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ['drf_yasg']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,3 +151,22 @@ LIMIT_ADD_QUESTIONS_PER_DAY = 10
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+}
