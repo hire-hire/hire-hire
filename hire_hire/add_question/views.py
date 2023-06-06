@@ -4,7 +4,7 @@ from django.views.generic import CreateView, TemplateView
 
 from add_question.forms import AddQuestionForm
 from add_question.models import AddQuestion
-from add_question.services import count_questions_text, get_or_set_user_cookie
+from add_question.services import get_count_questions_text
 
 
 class AddQuestionMixin:
@@ -24,9 +24,9 @@ class AddQuestionMixin:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context[
-            'added_questions'
-        ] = count_questions_text(self.add_questions_for24_count)
+        context['added_questions'] = get_count_questions_text(
+            self.add_questions_for24_count,
+        )
         context[
             'limit_add_questions_per_day'
         ] = self.limit_add_questions_per_day
@@ -46,12 +46,12 @@ class AddQuestionView(AddQuestionMixin, CreateView):
         ] = self.limit_add_questions_per_day
         return initial
 
-    def form_valid(self, form):
+def form_valid(self, form):
         form.instance.ip_address = self.request.META.get('REMOTE_ADDR')
         if self.request.user.is_authenticated:
             form.instance.author = self.request.user
         else:
-            form.instance.user_cookie = self.user_cookie
+            form.instance.user_cookie_id = self.user_cookie_id
         return super().form_valid(form)
 
 
