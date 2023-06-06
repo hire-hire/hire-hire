@@ -62,7 +62,7 @@
         </form>
     </section>
     {% for question in questions %}
-        <p class="challenge__qa">{{ question.text }}? {{ question.answer }}</p>
+        <p class="challenge__qa">{{ question.text }} ||| {{ question.answer }}</p>
     {% endfor %}
     <script type="text/javascript"
             src="{{ static('js/challenge.js') }}"></script>

@@ -23,7 +23,7 @@
         <li class="header__item">
             <a id="profile-button" href="{{ url('users:profile') }}"
                 class="header__link header__link_type_blue page__link page__text header__link_no_border">
-                {{ user.username|truncate(13) }}
+                {{ user.username|truncate(13, False, '...', 0) }}
             </a>
         </li>
         {% else %}
