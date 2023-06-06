@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'api.apps.ApiConfig',
     'api_interview.apps.ApiInterviewConfig',
+    'add_question.apps.AddquestionConfig',
 ]
 
 if DEBUG:
@@ -145,6 +146,8 @@ QUESTION_COUNT_CHOICE = (
     (20, '20 вопросов'),
     (30, '30 вопросов'),
 )
+
+LIMIT_ADD_QUESTIONS_PER_DAY = 10
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')

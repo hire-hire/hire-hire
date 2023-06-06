@@ -11,6 +11,7 @@ urlpatterns = [
     path('contributors/', include('contributors.urls')),
     path('duel/', include('duel.urls')),
     path('interview/', include('interview.urls')),
+    path('add_question/', include('add_question.urls')),
 ]
 
 if settings.DEBUG:
