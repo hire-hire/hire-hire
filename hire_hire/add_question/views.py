@@ -46,7 +46,7 @@ class AddQuestionView(AddQuestionMixin, CreateView):
         ] = self.limit_add_questions_per_day
         return initial
 
-def form_valid(self, form):
+    def form_valid(self, form):
         form.instance.ip_address = self.request.META.get('REMOTE_ADDR')
         if self.request.user.is_authenticated:
             form.instance.author = self.request.user
