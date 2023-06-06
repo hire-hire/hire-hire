@@ -41,16 +41,6 @@ jobs:
           script: |
             cd ~/test
             sudo docker-compose stop backend_test
-            rm .env_test
-            touch .env_test
-            echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env_test
-            echo DB_NAME=${{ secrets.DB_NAME }} >> .env_test
-            echo POSTGRES_USER=${{ secrets.POSTGRES_USER_TEST }} >> .env_test
-            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD_TEST }} >> .env_test
-            echo DB_HOST=${{ secrets.DB_HOST_TEST }} >> .env_test
-            echo DB_PORT=${{ secrets.DB_PORT }} >> .env_test
-            echo D_KEY=${{ secrets.D_KEY_TEST }} >> .env_test
-            echo DEBUG_MODE=${{ secrets.DEBUG_MODE_TEST }} >> .env_test
             sudo docker-compose pull
             sudo docker-compose up -d
 

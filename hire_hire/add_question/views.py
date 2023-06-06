@@ -26,9 +26,9 @@ class AddQuestionMixin:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context[
-            'added_questions'
-        ] = count_questions_text(self.add_questions_for24_count)
+        context['added_questions'] = get_count_questions_text(
+            self.add_questions_for24_count,
+        )
         context[
             'limit_add_questions_per_day'
         ] = self.limit_add_questions_per_day
@@ -53,7 +53,7 @@ class AddQuestionView(AddQuestionMixin, CreateView):
         if self.request.user.is_authenticated:
             form.instance.author = self.request.user
         else:
-            form.instance.user_cookie = self.request.COOKIES.get('user_cookie')
+            form.instance.user_cookie_id = self.user_cookie_id
         return super().form_valid(form)
 
 

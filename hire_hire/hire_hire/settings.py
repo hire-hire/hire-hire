@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'debug_toolbar',
     'rest_framework',
+    'rest_framework.authtoken',
     'djoser',
 
     'contributors.apps.StaticInfoConfig',
@@ -34,9 +35,10 @@ INSTALLED_APPS = [
     'interview.apps.InterviewConfig',
     'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
+    'add_question.apps.AddquestionConfig',
     'api.apps.ApiConfig',
     'api_interview.apps.ApiInterviewConfig',
-    'add_question.apps.AddquestionConfig',
+    'api_duel.apps.ApiDuelConfig',
 ]
 
 if DEBUG:
@@ -152,7 +154,6 @@ LIMIT_ADD_QUESTIONS_PER_DAY = 10
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -170,3 +171,8 @@ SIMPLE_JWT = {
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://hire-hire.proninteam.ru',
+    'https://test-hire-hire.proninteam.ru'
+]
