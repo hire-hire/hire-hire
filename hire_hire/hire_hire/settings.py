@@ -202,6 +202,8 @@ else:
         "https://hire-hire.proninteam.ru",
     ]
 
+CORS_ALLOW_CREDENTIALS = True
+
 DJOSER = {
     'SERIALIZERS': {
         'current_user': 'api_users.serializers.CustomUserSerializer',
