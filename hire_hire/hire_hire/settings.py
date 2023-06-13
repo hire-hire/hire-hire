@@ -197,7 +197,10 @@ SPECTACULAR_SETTINGS = {
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
-    CORS_ALLOWED_ORIGINS = ["https://test-hire-hire.proninteam.ru"]
+    CORS_ALLOWED_ORIGINS = [
+        "https://test-hire-hire.proninteam.ru",
+        "https://hire-hire.proninteam.ru",
+    ]
 
 DJOSER = {
     'SERIALIZERS': {
