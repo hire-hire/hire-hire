@@ -1,7 +1,10 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api_add_question.views import AddQuestionViewSet
+from api_add_question.views import (
+    AddQuestionViewSet,
+    AddedQestionsAndLimitView,
+)
 
 app_name = 'api_add_question'
 
@@ -15,4 +18,9 @@ router_v1_add_question.register(
 
 urlpatterns = [
     path('', include(router_v1_add_question.urls)),
+    path(
+        'added_qestions_and_limit',
+        AddedQestionsAndLimitView.as_view(),
+        name='added_qestions_and_limit',
+    ),
 ]
