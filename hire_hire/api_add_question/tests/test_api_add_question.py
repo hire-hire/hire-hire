@@ -130,7 +130,7 @@ class TestApiAddQuestion:
         assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы!!!'
 
         some_datetime = datetime.datetime(2020, 1, 1, 1, 1, 1).strftime(
-            "%Y-%m-%d %H:%M:%S",
+            '%Y-%m-%d %H:%M:%S',
         )
         data = [
             {

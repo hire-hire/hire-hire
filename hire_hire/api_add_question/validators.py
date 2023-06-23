@@ -13,5 +13,5 @@ def validate_added_questions_per_day_limit(user, user_cookie_id):
         >= settings.LIMIT_ADD_QUESTIONS_PER_DAY
     ):
         raise serializers.ValidationError(
-            'Вы исчерпали лимит вопросов на день.'
+            'Вы исчерпали лимит вопросов на день.',
         )
