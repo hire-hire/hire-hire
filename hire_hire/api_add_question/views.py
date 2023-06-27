@@ -26,14 +26,17 @@ class AddQuestionViewSet(
         )
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(
-            data=request.data,
-            many=True,
-            max_length=settings.LIMIT_ADD_QUESTIONS_PER_DAY
+        remaining_question_limit = (
+            settings.LIMIT_ADD_QUESTIONS_PER_DAY
             - AddQuestion.objects.get_24_hours_added_question_count(
                 request.user,
                 self.user_cookie_id,
-            ),
+            )
+        )
+        serializer = self.get_serializer(
+            data=request.data,
+            many=True,
+            max_length=remaining_question_limit,
         )
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)

@@ -37,42 +37,37 @@ class TestApiAddQuestion:
         ), 'Вопрос не добавился!!!'
 
         for i in range(1, settings.LIMIT_ADD_QUESTIONS_PER_DAY + 1):
-            last_added_question = AddQuestion.objects.get(id=i)
+            added_question = AddQuestion.objects.get(id=i)
+            data_index = i - 1
             assert (
-                last_added_question.text == data[i - 1]['text']
+                added_question.text == data[data_index]['text']
             ), 'Текст вопроса не совпадает!!!'
             assert (
-                last_added_question.answer == data[i - 1]['answer']
+                added_question.answer == data[data_index]['answer']
             ), 'Ответ не совпадает!!!'
             assert (
-                last_added_question.language == language
+                added_question.language == language
             ), 'Субкатегория не совпадает!!!'
             assert (
-                last_added_question.status == AddQuestion.StatusChoice.PROPOSED
+                added_question.status == AddQuestion.StatusChoice.PROPOSED
             ), 'Статус не совпадает!!!'
+            assert added_question.author == author, 'Автор не совпадает!!!'
             assert (
-                last_added_question.author == author
-            ), 'Автор не совпадает!!!'
-            assert (
-                last_added_question.user_cookie_id is None
-                if author
-                else not None
+                added_question.user_cookie_id is None if author else not None
             ), 'user_cookie_id не совпадает!!!'
 
         assert (
             AddQuestion.objects.count() == settings.LIMIT_ADD_QUESTIONS_PER_DAY
         ), 'В базе неверное количество вопросов!!!'
 
-        data = [
-            {
-                'text': 'Вопрос на котором лимит исчерпан?',
-                'answer': 'Ответ на котором лимит исчерпан',
-                'language': language.id,
-            },
-        ]
+        data = {
+            'text': 'Вопрос на котором лимит исчерпан?',
+            'answer': 'Ответ на котором лимит исчерпан',
+            'language': language.id,
+        }
         response = client.post(
             path=self.url,
-            data=json.dumps(data),
+            data=json.dumps([data]),
             content_type='application/json',
         )
 
@@ -80,8 +75,8 @@ class TestApiAddQuestion:
             response.status_code == 400
         ), 'Статус код не верный, лимит не сработал!!!'
         assert not AddQuestion.objects.filter(
-            text=data[0].get('text'),
-            answer=data[0].get('answer'),
+            text=data.get('text'),
+            answer=data.get('answer'),
             language=language,
         ).exists(), 'Вопрос на котором лимит исчерпан добавился в базу!!!'
         assert (
@@ -129,9 +124,7 @@ class TestApiAddQuestion:
     ):
         assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы!!!'
 
-        some_datetime = datetime.datetime(2020, 1, 1, 1, 1, 1).strftime(
-            '%Y-%m-%d %H:%M:%S',
-        )
+        some_datetime = '2020-01-01 01:01:01'
         data = [
             {
                 'text': 'Вопрос номер 1?',
