@@ -19,7 +19,7 @@ router_v1_add_question.register(
 urlpatterns = [
     path('', include(router_v1_add_question.urls)),
     path(
-        'added_qestions_and_limit',
+        'added_qestions_and_limit/',
         AddedQestionsAndLimitView.as_view(),
         name='added_qestions_and_limit',
     ),
