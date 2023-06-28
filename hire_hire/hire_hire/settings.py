@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from django.urls import reverse_lazy
@@ -13,7 +14,7 @@ SECRET_KEY = os.getenv('D_KEY', default='share-like-repost')
 DEBUG = os.getenv('DEBUG_MODE', default='ON').lower() in ('on', 'yes', 'true')
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
+    '*'
 ]
 
 INSTALLED_APPS = [
@@ -25,6 +26,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cleanup.apps.CleanupConfig',
     'debug_toolbar',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+    'sorl.thumbnail',
+    'corsheaders',
 
     'contributors.apps.StaticInfoConfig',
     'duel.apps.DuelsConfig',
@@ -32,11 +38,20 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
     'add_question.apps.AddquestionConfig',
+    'api.apps.ApiConfig',
+    'api_interview.apps.ApiInterviewConfig',
+    'api_add_question.apps.ApiAddQuestionConfig',
+    'api_duel.apps.ApiDuelConfig',
+    'api_users.apps.ApiUsersConfig',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ['drf_spectacular']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -103,10 +118,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'users.validators.PasswordMaxLengthValidator',
     },
 ]
 
@@ -118,8 +133,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = '/static_files/'
+STATIC_ROOT = BASE_DIR / 'static_files'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -143,3 +158,54 @@ LIMIT_ADD_QUESTIONS_PER_DAY = 10
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'BLACKLIST_AFTER_ROTATION': False,
+}
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://hire-hire.proninteam.ru',
+    'https://test-hire-hire.proninteam.ru'
+]
+
+USERNAME_MIN_LENGTH = 2
+USERNAME_MAX_LENGTH = 25
+PASSWORD_MAX_LENGTH = 40
+
+LIMIT_CONTRIBUTORS_CONTACTS = 3
+THUMBNAIL_SIZE = '1000x1000'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'HireHire API',
+    'DESCRIPTION': 'Interview service',
+    'VERSION': '0.0.1',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGINS = [
+        "https://test-hire-hire.proninteam.ru",
+        "https://hire-hire.proninteam.ru",
+    ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+DJOSER = {
+    'SERIALIZERS': {
+        'current_user': 'api_users.serializers.CustomUserSerializer',
+    },
+}

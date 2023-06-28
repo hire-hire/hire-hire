@@ -8,7 +8,6 @@ User = get_user_model()
 
 
 class AddQuestion(AbstractQuestion):
-
     language = models.ForeignKey(
         Language,
         on_delete=models.CASCADE,
@@ -46,7 +45,7 @@ class AddQuestion(AbstractQuestion):
         default=StatusChoice.PROPOSED,
     )
 
-    user_cookie = models.CharField(
+    user_cookie_id = models.CharField(
         'user cookie id',
         max_length=32,
         blank=True,

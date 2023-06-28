@@ -133,9 +133,16 @@ dmypy.json
 .idea/
 .vscode/settings.json
 .vscode/launch.json
-media/
 
 node_modules/
 package.json
 package-lock.json
 .stylelintrc.json
+
+poetry.lock
+
+# folder for pytest image
+/*/media/*
+!/*/media
+!/*/media/fixtures
+!/*/media/fixtures/*

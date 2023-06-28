@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MinLengthValidator
 from django.db import models
 
 from interview.managers import InterviewManager, QuestionManager
@@ -6,15 +7,37 @@ from interview.managers import InterviewManager, QuestionManager
 User = get_user_model()
 
 
-class Language(models.Model):
-    """
-    Язык программирования - одна из сущностей,
-    объединяющих и разделяющих вопросы.
-    Выше специализация, ниже - сложность.
-    В MVP пока без них.
-    """
-
+class Entity(models.Model):
     title = models.CharField('название', max_length=40)
+
+    icon = models.ImageField(
+        'иконка',
+        upload_to='icons',
+        help_text='иконка',
+        default='icons/python3_logo.jpg',
+    )
+
+    class Meta:
+        abstract = True
+
+
+class Category(Entity):
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+
+    def __str__(self):
+        return self.title
+
+
+class Language(Entity):
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='languages',
+        verbose_name='категория',
+        null=True,
+    )
 
     class Meta:
         verbose_name = 'язык программирования'
@@ -39,9 +62,17 @@ class AbstractQuestion(models.Model):
         verbose_name='вопрос',
     )
 
-    text = models.TextField('текст вопроса')
+    text = models.TextField(
+        'текст вопроса',
+        max_length=500,
+        validators=[MinLengthValidator(10)],
+    )
 
-    answer = models.TextField('правильный ответ')
+    answer = models.TextField(
+        'правильный ответ',
+        max_length=500,
+        validators=[MinLengthValidator(10)],
+    )
 
     objects = QuestionManager()
 
@@ -58,17 +89,11 @@ class Question(AbstractQuestion):
     """
     Наследуется от AbstractQuestion.
     """
+
     pass
 
 
 class Interview(models.Model):
-    """
-    Объект конкретного интервью.
-    В MVP:
-        - содержит набор вопросов
-        - может быть связан с пользователем
-    """
-
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
