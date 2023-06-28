@@ -1,4 +1,4 @@
-import datetime
+import json
 
 from django.conf import settings
 from django.urls import reverse
@@ -14,41 +14,45 @@ class TestApiAddQuestion:
     def _test_add_question(self, client, author, language):
         assert not AddQuestion.objects.exists(), 'В базе уже есть вопросы!!!'
 
-        for i in range(1, settings.LIMIT_ADD_QUESTIONS_PER_DAY + 1):
-            data = {
+        data = [
+            {
                 'text': f'Вопрос номер {i}?',
                 'answer': f'Ответ номер {i}',
                 'language': language.id,
             }
-            response = client.post(
-                path=self.url,
-                data=data,
-            )
-            assert (
-                response.status_code == 201
-            ), 'Статус код не верный при добавлении вопроса!!!'
-            assert AddQuestion.objects.count() == i, 'Вопрос не добавился!!!'
+            for i in range(1, settings.LIMIT_ADD_QUESTIONS_PER_DAY + 1)
+        ]
+        response = client.post(
+            path=self.url,
+            data=json.dumps(data),
+            content_type='application/json',
+        )
 
-            last_added_question = AddQuestion.objects.get(id=i)
+        assert (
+            response.status_code == 201
+        ), 'Статус код не верный при добавлении вопроса!!!'
+        assert AddQuestion.objects.count() == len(
+            data,
+        ), 'Вопрос не добавился!!!'
+
+        for i in range(1, settings.LIMIT_ADD_QUESTIONS_PER_DAY + 1):
+            added_question = AddQuestion.objects.get(id=i)
+            current_data = data[i - 1]
             assert (
-                last_added_question.text == data['text']
+                added_question.text == current_data['text']
             ), 'Текст вопроса не совпадает!!!'
             assert (
-                last_added_question.answer == data['answer']
+                added_question.answer == current_data['answer']
             ), 'Ответ не совпадает!!!'
             assert (
-                last_added_question.language == language
+                added_question.language == language
             ), 'Субкатегория не совпадает!!!'
             assert (
-                last_added_question.status == AddQuestion.StatusChoice.PROPOSED
+                added_question.status == AddQuestion.StatusChoice.PROPOSED
             ), 'Статус не совпадает!!!'
+            assert added_question.author == author, 'Автор не совпадает!!!'
             assert (
-                last_added_question.author == author
-            ), 'Автор не совпадает!!!'
-            assert (
-                last_added_question.user_cookie_id is None
-                if author
-                else not None
+                added_question.user_cookie_id is None if author else True
             ), 'user_cookie_id не совпадает!!!'
 
         assert (
@@ -62,8 +66,10 @@ class TestApiAddQuestion:
         }
         response = client.post(
             path=self.url,
-            data=data,
+            data=json.dumps([data]),
+            content_type='application/json',
         )
+
         assert (
             response.status_code == 400
         ), 'Статус код не верный, лимит не сработал!!!'
@@ -117,23 +123,24 @@ class TestApiAddQuestion:
     ):
         assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы!!!'
 
-        some_datatime = datetime.datetime(2020, 1, 1, 1, 1, 1, 1)
-
+        some_datetime = '2020-01-01 01:01:01'
         data = {
             'text': 'Вопрос номер 1?',
             'answer': 'Ответ номер 1',
             'language': api_add_question_language_2.id,
             # below not allowed field
-            'author': api_add_question_user_2,
+            'author': api_add_question_user_2.id,
             'ip_address': '8:8:8:8',
-            'pub_date': some_datatime,
+            'pub_date': some_datetime,
             'status': AddQuestion.StatusChoice.APPROVED,
             'user_cookie_id': 'some_fake_user_cookie_id',
         }
         response = api_client_auth_user.post(
             path=self.url,
-            data=data,
+            data=json.dumps([data]),
+            content_type='application/json',
         )
+
         assert (
             response.status_code == 201
         ), 'Статус код не верный при добавлении вопроса!!!'
@@ -141,13 +148,14 @@ class TestApiAddQuestion:
 
         added_question_with_wrong_data = AddQuestion.objects.get(id=1)
         assert (
-            added_question_with_wrong_data.author == api_add_question_user_1
+            added_question_with_wrong_data.author.id
+            == api_add_question_user_1.id
         ), 'Подмена автора!!!'
         assert (
             added_question_with_wrong_data.ip_address != data['ip_address']
         ), 'Подмена IP!!!'
         assert (
-            added_question_with_wrong_data.pub_date != some_datatime
+            added_question_with_wrong_data.pub_date != some_datetime
         ), 'Подмена даты публикации!!!'
         assert (
             added_question_with_wrong_data.status

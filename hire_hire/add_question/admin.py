@@ -1,6 +1,6 @@
+from django import forms
 from django.contrib import admin
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.db import models
 from django.utils.safestring import mark_safe
 
 from add_question.mixins import DefaultFilterMixin
@@ -16,6 +16,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
     APPROVE = '_approve'
     REJECT = '_reject'
 
+    @admin.display(description='Одобряем?')
     def approve_button(self, obj):
         return mark_safe(
             '<div class="submit-row">'
@@ -23,8 +24,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
             'ОДОБРИТЬ</button></div>',
         )
 
-    approve_button.short_description = 'Одобряем?'
-
+    @admin.display(description='Отклонить?')
     def reject_button(self, obj):
         return mark_safe(
             '<div class="submit-row">'
@@ -32,27 +32,25 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
             'ОТКЛОНИТЬ</button></div>',
         )
 
-    reject_button.short_description = 'Отклонить?'
-
-    def get_text_truncated(self, obj):
-        return obj.text[:20]
-
-    get_text_truncated.short_description = 'текст вопроса'
-
-    def get_answer_truncated(self, obj):
-        return obj.answer[:20]
-
-    get_answer_truncated.short_description = 'правильный ответ'
+    formfield_overrides = {
+        models.TextField: {
+            'widget': forms.Textarea(attrs={'rows': 4, 'cols': 15}),
+        },
+    }
 
     list_display = (
         AddQuestion.id.field.name,
         AddQuestion.status.field.name,
         AddQuestion.language.field.name,
-        get_text_truncated.__name__,
-        get_answer_truncated.__name__,
+        AddQuestion.text.field.name,
+        AddQuestion.answer.field.name,
         AddQuestion.ip_address.field.name,
         AddQuestion.pub_date.field.name,
         AddQuestion.author.field.name,
+    )
+    list_editable = (
+        AddQuestion.text.field.name,
+        AddQuestion.answer.field.name,
     )
     search_fields = (
         AddQuestion.language.field.name,
@@ -64,10 +62,12 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         AddQuestion.status.field.name,
     )
     readonly_fields = (
+        AddQuestion.id.field.name,
         AddQuestion.status.field.name,
         AddQuestion.ip_address.field.name,
         AddQuestion.user_cookie_id.field.name,
         AddQuestion.author.field.name,
+        AddQuestion.pub_date.field.name,
         approve_button.__name__,
         reject_button.__name__,
     )
@@ -77,6 +77,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
 
     actions = ('approve', 'reject')
 
+    @admin.action(description='Одобрить выбранные вопросы.')
     def approve(self, request, queryset):
         questions = [
             Question(language=obj.language, text=obj.text, answer=obj.answer)
@@ -89,8 +90,7 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
             f'Одобрен{get_count_questions_text(len(questions))}.',
         )
 
-    approve.short_description = 'Одобрить выбранные вопросы'
-
+    @admin.action(description='Отклонить выбранные вопросы.')
     def reject(self, request, queryset):
         queryset.update(status=AddQuestion.StatusChoice.REJECTED)
         self.message_user(
@@ -98,9 +98,9 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
             f'Отклонен{get_count_questions_text(len(queryset))}.',
         )
 
-    reject.short_description = 'Отклонить выбранные вопросы'
-
     def response_change(self, request, obj):
+        """В change_view обработка нажатия кнопок 'Одобрить' и 'Отклонить'."""
+
         if request.POST.get('status') == self.APPROVE:
             Question.objects.create(
                 language=obj.language,
@@ -110,14 +110,8 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
             obj.status = AddQuestion.StatusChoice.APPROVED
             obj.save()
             self.message_user(request, 'Вопрос одобрен.')
-            return HttpResponseRedirect(
-                reverse('admin:add_question_addquestion_changelist'),
-            )
         elif request.POST.get('status') == self.REJECT:
             obj.status = AddQuestion.StatusChoice.REJECTED
             obj.save()
             self.message_user(request, 'Вопрос отклонён.')
-            return HttpResponseRedirect(
-                reverse('admin:add_question_addquestion_changelist'),
-            )
         return super().response_change(request, obj)

@@ -29,6 +29,15 @@ class DefaultFilterMixin:
 
 
 class GetOrSetUserCookieIdMixin:
+    def dispatch(self, request, *args, **kwargs):
+        response = self.get_or_set_user_cookie_id(
+            request,
+            super().dispatch,
+            *args,
+            **kwargs,
+        )
+        return response
+
     def get_or_set_user_cookie_id(
         self,
         request,
