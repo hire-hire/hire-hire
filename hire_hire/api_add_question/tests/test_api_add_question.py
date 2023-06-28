@@ -37,12 +37,12 @@ class TestApiAddQuestion:
 
         for i in range(1, settings.LIMIT_ADD_QUESTIONS_PER_DAY + 1):
             added_question = AddQuestion.objects.get(id=i)
-            data_index = i - 1
+            current_data = data[i - 1]
             assert (
-                added_question.text == data[data_index]['text']
+                added_question.text == current_data['text']
             ), 'Текст вопроса не совпадает!!!'
             assert (
-                added_question.answer == data[data_index]['answer']
+                added_question.answer == current_data['answer']
             ), 'Ответ не совпадает!!!'
             assert (
                 added_question.language == language
@@ -52,7 +52,7 @@ class TestApiAddQuestion:
             ), 'Статус не совпадает!!!'
             assert added_question.author == author, 'Автор не совпадает!!!'
             assert (
-                added_question.user_cookie_id is None if author else not None
+                added_question.user_cookie_id is None if author else True
             ), 'user_cookie_id не совпадает!!!'
 
         assert (
@@ -124,22 +124,20 @@ class TestApiAddQuestion:
         assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы!!!'
 
         some_datetime = '2020-01-01 01:01:01'
-        data = [
-            {
-                'text': 'Вопрос номер 1?',
-                'answer': 'Ответ номер 1',
-                'language': api_add_question_language_2.id,
-                # below not allowed field
-                'author': api_add_question_user_2.id,
-                'ip_address': '8:8:8:8',
-                'pub_date': some_datetime,
-                'status': AddQuestion.StatusChoice.APPROVED,
-                'user_cookie_id': 'some_fake_user_cookie_id',
-            },
-        ]
+        data = {
+            'text': 'Вопрос номер 1?',
+            'answer': 'Ответ номер 1',
+            'language': api_add_question_language_2.id,
+            # below not allowed field
+            'author': api_add_question_user_2.id,
+            'ip_address': '8:8:8:8',
+            'pub_date': some_datetime,
+            'status': AddQuestion.StatusChoice.APPROVED,
+            'user_cookie_id': 'some_fake_user_cookie_id',
+        }
         response = api_client_auth_user.post(
             path=self.url,
-            data=json.dumps(data),
+            data=json.dumps([data]),
             content_type='application/json',
         )
 
@@ -154,7 +152,7 @@ class TestApiAddQuestion:
             == api_add_question_user_1.id
         ), 'Подмена автора!!!'
         assert (
-            added_question_with_wrong_data.ip_address != data[0]['ip_address']
+            added_question_with_wrong_data.ip_address != data['ip_address']
         ), 'Подмена IP!!!'
         assert (
             added_question_with_wrong_data.pub_date != some_datetime
@@ -165,5 +163,5 @@ class TestApiAddQuestion:
         ), 'Подмена статуса!!!'
         assert (
             added_question_with_wrong_data.user_cookie_id
-            != data[0]['user_cookie_id']
+            != data['user_cookie_id']
         ), 'Подмена user_cookie_id!!!'
