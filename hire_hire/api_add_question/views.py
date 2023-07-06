@@ -12,8 +12,6 @@ from api_add_question.serializers import AddQuestionSerializer
 class AddQuestionViewSet(
     GetOrSetUserCookieIdMixin,
     mixins.CreateModelMixin,
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
     viewsets.GenericViewSet,
 ):
     queryset = AddQuestion.objects.all()
