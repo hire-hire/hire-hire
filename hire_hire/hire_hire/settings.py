@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'api_add_question.apps.ApiAddQuestionConfig',
     'api_duel.apps.ApiDuelConfig',
     'api_users.apps.ApiUsersConfig',
+    'api_donation.apps.ApiDonationConfig',
 ]
 
 if DEBUG:
@@ -208,4 +209,14 @@ DJOSER = {
     'SERIALIZERS': {
         'current_user': 'api_users.serializers.CustomUserSerializer',
     },
+}
+
+DONATION_SETTINGS = {
+    'default_currency': 'RUB',
+    'default_description': 'Пронину на пиво',
+    'is_auto_capture_on': True,
+    'currencies': [('RUB', 'Рубли')],
+    'api_key': 'test_SZj6f1ye3xeRuEbZDtjm00PRB29Xlt2S1csFlg6yX_Q',
+    'shop_id': 226110,
+    'return_url': 'https://test-hire-hire/donation/callback/',
 }
