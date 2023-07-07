@@ -17,6 +17,9 @@ class Currency(models.Model):
         verbose_name = 'валюта'
         verbose_name_plural = 'валюты'
 
+    def __str__(self):
+        return self.name
+
 
 class Price(models.Model):
     """
@@ -36,6 +39,9 @@ class Price(models.Model):
         verbose_name = 'цена'
         verbose_name_plural = 'цены'
 
+    def __str__(self):
+        return str(self.value)
+
 
 class IdempotenceKey(models.Model):
     """
@@ -53,4 +59,3 @@ class IdempotenceKey(models.Model):
     class Meta:
         verbose_name = 'ключ идемпотенции'
         verbose_name_plural = 'ключи идемпотенции'
-

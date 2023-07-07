@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api_donation.models import Currency, Price, IdempotenceKey
-from api_donation.serializers import PriceSerializer
+from api_donation.models import Price
+from api_donation.serializers import AcceptPayment, PriceSerializer
 from api_donation.services import create_payment
 
 
@@ -15,4 +15,11 @@ class DonationView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        return create_payment()
+        serializer = AcceptPayment(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(
+            create_payment(
+                serializer.validated_data.get('amount'),
+                serializer.validated_data.get('currency')
+            )
+        )

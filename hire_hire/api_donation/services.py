@@ -26,8 +26,8 @@ def create_payment(
         capture=sets.DONATION_SETTINGS.get('is_auto_capture_on'),
         description=sets.DONATION_SETTINGS.get('default_description'),
 ):
-    Configuration.account_id = sets.DONATION_SETTINGS.get('shop_id'),
-    Configuration.secret_key = sets.DONATION_SETTINGS.get('api_key'),
+    Configuration.account_id = sets.DONATION_SETTINGS.get('shop_id')
+    Configuration.secret_key = sets.DONATION_SETTINGS.get('api_key')
 
     idempotence_key = create_idempotence_key()
     payment = Payment.create(

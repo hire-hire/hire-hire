@@ -216,7 +216,7 @@ DONATION_SETTINGS = {
     'default_description': 'Пронину на пиво',
     'is_auto_capture_on': True,
     'currencies': [('RUB', 'Рубли')],
-    'api_key': 'test_SZj6f1ye3xeRuEbZDtjm00PRB29Xlt2S1csFlg6yX_Q',
-    'shop_id': 226110,
-    'return_url': 'https://test-hire-hire/donation/callback/',
+    'api_key': os.getenv('YOOKASSA_KEY', default='some_kassa_key'),
+    'shop_id': os.getenv('YOOKASSA_SHOP_ID', default='some_shop_id'),
+    'return_url': os.getenv('DONATE_CALLBACK', default='https://test-hire-hire/donation/callback/'),
 }
