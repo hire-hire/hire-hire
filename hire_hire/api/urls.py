@@ -2,9 +2,9 @@ from django.urls import include, path, re_path
 
 import api_add_question.urls
 import api_contributors.urls
+import api_donation.urls
 import api_duel.urls
 import api_interview.urls
-import api_donation.urls
 
 app_name = 'api'
 

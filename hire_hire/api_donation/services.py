@@ -2,7 +2,6 @@ import uuid
 
 from django.conf import settings as sets
 from django.db.utils import IntegrityError
-
 from yookassa import Configuration, Payment
 
 from api_donation.models import IdempotenceKey
