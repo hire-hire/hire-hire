@@ -218,7 +218,9 @@ class Donation:
     default_currency: str = 'RUB'
     default_description: str = 'Пронину на пиво'
     is_auto_capture_on: bool = True
-    currencies: list[tuple[str, str]] = field(default_factory=lambda: [('RUB', 'Рубли')])
+    currencies: list[tuple[str, str]] = field(
+        default_factory=lambda: [('RUB', 'Рубли')],
+    )
     api_key: str = 'some_kassa_key'
     shop_id: str = 'some_shop_id'
     return_url: str = 'https://test-hire-hire/donation/callback/'
@@ -231,5 +233,8 @@ DONATION = Donation(
     [('RUB', 'Рубли')],
     os.getenv('YOOKASSA_KEY', default='some_kassa_key'),
     os.getenv('YOOKASSA_SHOP_ID', default='some_shop_id'),
-    os.getenv('DONATE_CALLBACK', default='https://test-hire-hire/donation/callback/'),
+    os.getenv(
+        'DONATE_CALLBACK',
+        default='https://test-hire-hire/donation/callback/',
+    ),
 )
