@@ -21,7 +21,6 @@ class PriceSerializer(serializers.ModelSerializer):
 
 class AcceptPayment(serializers.Serializer):
     amount = serializers.IntegerField()
-    # currency = serializers.CharField(max_length=10)
     currency = serializers.ChoiceField(
         settings.DONATION_SETTINGS.get('currencies'),
     )
