@@ -8,15 +8,12 @@ from api_donation.models import IdempotenceKey
 
 
 def create_idempotence_key():
-    key = uuid.uuid4()
-    try:
-        return IdempotenceKey.objects.create(value=key)
-    except IntegrityError:
-        while True:
+    while True:
+        try:
             key = uuid.uuid4()
-            search = IdempotenceKey.objects.filter(value=key).exists()
-            if search is False:
-                return IdempotenceKey.objects.create(value=key)
+            return IdempotenceKey.objects.create(value=key)
+        except IntegrityError:
+            continue
 
 
 def create_payment(
