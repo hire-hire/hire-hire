@@ -33,7 +33,7 @@ class Price(models.Model):
         verbose_name_plural = 'цены'
 
     def __str__(self):
-        return str(self.value)
+        return str(self.value) + ' ' + str(self.currency.name)
 
 
 class IdempotenceKey(models.Model):
