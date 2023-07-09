@@ -1,6 +1,5 @@
 import uuid
 
-# from django.conf import settings as sets
 from django.conf import settings
 from django.db.utils import IntegrityError
 from yookassa import Configuration, Payment
@@ -17,12 +16,6 @@ def create_idempotence_key():
             continue
 
 
-# def create_payment(
-#         amount,
-#         currency=sets.DONATION_SETTINGS.get('default_currency'),
-#         capture=sets.DONATION_SETTINGS.get('is_auto_capture_on'),
-#         description=sets.DONATION_SETTINGS.get('default_description'),
-# ):
 def create_payment(
         amount,
         currency=settings.DONATION.default_currency,

@@ -8,7 +8,6 @@ class Currency(models.Model):
         'наименование',
         max_length=10,
         choices=settings.DONATION.currencies,
-        # choices=settings.DONATION_SETTINGS.get('currencies'),
     )
 
     class Meta:

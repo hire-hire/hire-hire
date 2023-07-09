@@ -212,16 +212,6 @@ DJOSER = {
     },
 }
 
-DONATION_SETTINGS = {
-    'default_currency': 'RUB',
-    'default_description': 'Пронину на пиво',
-    'is_auto_capture_on': True,
-    'currencies': [('RUB', 'Рубли')],
-    'api_key': os.getenv('YOOKASSA_KEY', default='some_kassa_key'),
-    'shop_id': os.getenv('YOOKASSA_SHOP_ID', default='some_shop_id'),
-    'return_url': os.getenv('DONATE_CALLBACK', default='https://test-hire-hire/donation/callback/'),
-}
-
 
 @dataclass(frozen=True)
 class Donation:
