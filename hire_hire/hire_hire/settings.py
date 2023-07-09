@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'api_interview.apps.ApiInterviewConfig',
     'api_add_question.apps.ApiAddQuestionConfig',
+    'api_donation.apps.ApiDonationConfig',
     'api_duel.apps.ApiDuelConfig',
     'api_users.apps.ApiUsersConfig',
-    'api_donation.apps.ApiDonationConfig',
 ]
 
 if DEBUG:

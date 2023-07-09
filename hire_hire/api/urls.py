@@ -11,9 +11,9 @@ app_name = 'api'
 urlpatterns = [
     path('', include(api_add_question.urls)),
     path('', include(api_contributors.urls)),
+    path('', include(api_donation.urls)),
     path('', include(api_duel.urls)),
     path('', include(api_interview.urls)),
-    path('', include(api_donation.urls)),
     re_path(r'^auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.jwt')),
 ]
