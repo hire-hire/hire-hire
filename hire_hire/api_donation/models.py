@@ -3,10 +3,7 @@ from django.db import models
 
 
 class Currency(models.Model):
-    """
-    Модель валют. Нужен только айдишник и строка, чойс из констант
-    Константы взять в юкассы
-    """
+
     name = models.CharField(
         'наименование',
         max_length=10,
@@ -22,10 +19,6 @@ class Currency(models.Model):
 
 
 class Price(models.Model):
-    """
-    Модель платежей
-    Нужен айдишник, инт цены, связь с валютой
-    """
 
     value = models.IntegerField('значение')
 
@@ -44,10 +37,6 @@ class Price(models.Model):
 
 
 class IdempotenceKey(models.Model):
-    """
-    Моделька для уникальный ключей платежей
-    Нужен айдишник, строка-ключ с признаком уникальности
-    """
 
     value = models.UUIDField('значение', unique=True)
 
