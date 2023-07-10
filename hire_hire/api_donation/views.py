@@ -20,6 +20,6 @@ class DonationView(APIView):
         return Response(
             create_payment(
                 serializer.validated_data.get('amount'),
-                serializer.validated_data.get('currency')
+                serializer.validated_data.get('currency'),
             )
         )
