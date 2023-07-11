@@ -156,7 +156,7 @@ QUESTION_COUNT_CHOICE = (
     (30, '30 вопросов'),
 )
 
-LIMIT_ADD_QUESTIONS_PER_DAY = 10
+LIMIT_ADD_QUESTIONS_PER_DAY = 1000
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
