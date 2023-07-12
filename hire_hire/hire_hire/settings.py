@@ -224,6 +224,7 @@ class Donation:
     api_key: str = 'some_kassa_key'
     shop_id: str = 'some_shop_id'
     return_url: str = 'https://test-hire-hire/donation/callback/'
+    api_url: str = 'https://api.yookassa.ru/v3/payments'
 
 
 DONATION = Donation(
@@ -237,4 +238,5 @@ DONATION = Donation(
         'DONATE_CALLBACK',
         default='https://test-hire-hire/donation/callback/',
     ),
+    os.getenv('YOKASSA_URL', default='https://api.yookassa.ru/v3/payments'),
 )

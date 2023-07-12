@@ -48,3 +48,6 @@ class IdempotenceKey(models.Model):
     class Meta:
         verbose_name = 'ключ идемпотенции'
         verbose_name_plural = 'ключи идемпотенции'
+
+    def __str__(self):
+        return str(self.value)
