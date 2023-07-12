@@ -1,9 +1,9 @@
 import uuid
-import requests
-from requests.auth import HTTPBasicAuth
 
 from django.conf import settings
 from django.db.utils import IntegrityError
+import requests
+from requests.auth import HTTPBasicAuth
 
 from api_donation.models import IdempotenceKey
 
