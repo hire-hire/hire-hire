@@ -1,59 +1,50 @@
-import uuid
+from http import HTTPStatus
 
-from django.conf import settings
-from django.db.utils import IntegrityError
-import requests
-from requests.auth import HTTPBasicAuth
-
-from api_donation.models import IdempotenceKey
-
-
-def create_idempotence_key():
-    while True:
-        try:
-            key = uuid.uuid4()
-            return IdempotenceKey.objects.create(value=key)
-        except IntegrityError:
-            continue
+from api_donation.exceptions import (
+    ERRORS_TO_RETURN,
+    CannotFindConfirmationURL,
+    YokassaBadRequest,
+    YokassaForbidden,
+    YookassaInternalError,
+    YookassaInvalidCredentials,
+    YokassaMethodNotAllowed,
+    YookassaNotFound,
+    YokassaTooManyRequests,
+    YokassaUnsupportedMediaType,
+)
+from api_donation.payment import Payment
 
 
-def create_payment(
-        amount,
-        currency=settings.DONATION.default_currency,
-        capture=settings.DONATION.is_auto_capture_on,
-        description=settings.DONATION.default_description,
-):
+def create_payment(amount, currency):
 
-    idempotence_key = str(create_idempotence_key())
+    payment = Payment(amount, currency)
 
-    payment_data = {
-        'amount': {
-            'value': amount,
-            'currency': currency,
-        },
-        'confirmation': {
-            'type': 'redirect',
-            'return_url': settings.DONATION.return_url,
-        },
-        'capture': capture,
-        'description': description,
-    }
+    try:
+        return payment.create(), HTTPStatus.OK
 
-    payment_headers = {
-        'Idempotence-Key': idempotence_key,
-        'Content-Type': 'application/json',
-    }
+    except YokassaBadRequest:
+        return ERRORS_TO_RETURN[YokassaBadRequest]
 
-    response = requests.post(
-        settings.DONATION.api_url,
-        json=payment_data,
-        headers=payment_headers,
-        auth=HTTPBasicAuth(
-            settings.DONATION.shop_id,
-            settings.DONATION.api_key,
-        )
-    )
+    except YokassaForbidden:
+        return ERRORS_TO_RETURN[YokassaForbidden]
 
-    response = response.json()
+    except YookassaInternalError:
+        return ERRORS_TO_RETURN[YookassaInternalError]
 
-    return response.get('confirmation').get('confirmation_url')
+    except YookassaInvalidCredentials:
+        return ERRORS_TO_RETURN[YookassaInvalidCredentials]
+
+    except YokassaMethodNotAllowed:
+        return ERRORS_TO_RETURN[YokassaMethodNotAllowed]
+
+    except YookassaNotFound:
+        return ERRORS_TO_RETURN[YookassaNotFound]
+
+    except YokassaTooManyRequests:
+        return ERRORS_TO_RETURN[YokassaTooManyRequests]
+
+    except YokassaUnsupportedMediaType:
+        return ERRORS_TO_RETURN[YokassaUnsupportedMediaType]
+
+    except CannotFindConfirmationURL:
+        return ERRORS_TO_RETURN[CannotFindConfirmationURL]
