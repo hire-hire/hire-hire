@@ -3,14 +3,14 @@ from http import HTTPStatus
 from api_donation.exceptions import (
     ERRORS_TO_RETURN,
     CannotFindConfirmationURL,
-    YokassaBadRequest,
-    YokassaForbidden,
+    YookassaBadRequest,
+    YookassaForbidden,
     YookassaInternalError,
     YookassaInvalidCredentials,
-    YokassaMethodNotAllowed,
+    YookassaMethodNotAllowed,
     YookassaNotFound,
-    YokassaTooManyRequests,
-    YokassaUnsupportedMediaType,
+    YookassaTooManyRequests,
+    YookassaUnsupportedMediaType,
 )
 from api_donation.payment import Payment
 
@@ -22,11 +22,11 @@ def create_payment(amount, currency):
     try:
         return payment.create(), HTTPStatus.OK
 
-    except YokassaBadRequest:
-        return ERRORS_TO_RETURN[YokassaBadRequest]
+    except YookassaBadRequest:
+        return ERRORS_TO_RETURN[YookassaBadRequest]
 
-    except YokassaForbidden:
-        return ERRORS_TO_RETURN[YokassaForbidden]
+    except YookassaForbidden:
+        return ERRORS_TO_RETURN[YookassaForbidden]
 
     except YookassaInternalError:
         return ERRORS_TO_RETURN[YookassaInternalError]
@@ -34,17 +34,17 @@ def create_payment(amount, currency):
     except YookassaInvalidCredentials:
         return ERRORS_TO_RETURN[YookassaInvalidCredentials]
 
-    except YokassaMethodNotAllowed:
-        return ERRORS_TO_RETURN[YokassaMethodNotAllowed]
+    except YookassaMethodNotAllowed:
+        return ERRORS_TO_RETURN[YookassaMethodNotAllowed]
 
     except YookassaNotFound:
         return ERRORS_TO_RETURN[YookassaNotFound]
 
-    except YokassaTooManyRequests:
-        return ERRORS_TO_RETURN[YokassaTooManyRequests]
+    except YookassaTooManyRequests:
+        return ERRORS_TO_RETURN[YookassaTooManyRequests]
 
-    except YokassaUnsupportedMediaType:
-        return ERRORS_TO_RETURN[YokassaUnsupportedMediaType]
+    except YookassaUnsupportedMediaType:
+        return ERRORS_TO_RETURN[YookassaUnsupportedMediaType]
 
     except CannotFindConfirmationURL:
         return ERRORS_TO_RETURN[CannotFindConfirmationURL]

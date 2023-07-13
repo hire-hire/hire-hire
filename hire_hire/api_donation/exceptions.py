@@ -17,23 +17,23 @@ class YookassaNotFound(Exception):
     pass
 
 
-class YokassaBadRequest(Exception):
+class YookassaBadRequest(Exception):
     pass
 
 
-class YokassaForbidden(Exception):
+class YookassaForbidden(Exception):
     pass
 
 
-class YokassaMethodNotAllowed(Exception):
+class YookassaMethodNotAllowed(Exception):
     pass
 
 
-class YokassaUnsupportedMediaType(Exception):
+class YookassaUnsupportedMediaType(Exception):
     pass
 
 
-class YokassaTooManyRequests(Exception):
+class YookassaTooManyRequests(Exception):
     pass
 
 
@@ -42,11 +42,11 @@ ERRORS_TO_RETURN = {
         'Не удается получить URL подтверждения оплаты',
         HTTPStatus.INTERNAL_SERVER_ERROR,
     ),
-    YokassaBadRequest: (
+    YookassaBadRequest: (
         'Ошибка в запросе в платежному сервису',
         HTTPStatus.BAD_REQUEST,
     ),
-    YokassaForbidden: (
+    YookassaForbidden: (
         'Недостаточно прав для операции',
         HTTPStatus.FORBIDDEN,
     ),
@@ -58,7 +58,7 @@ ERRORS_TO_RETURN = {
         'Ошибка аутентификации в платежном сервисе',
         HTTPStatus.UNAUTHORIZED,
     ),
-    YokassaMethodNotAllowed: (
+    YookassaMethodNotAllowed: (
         'Недопустимый метод',
         HTTPStatus.METHOD_NOT_ALLOWED,
     ),
@@ -66,11 +66,11 @@ ERRORS_TO_RETURN = {
         'Платежный сервис недоступен',
         HTTPStatus.NOT_FOUND,
     ),
-    YokassaTooManyRequests: (
+    YookassaTooManyRequests: (
         'Слишком много запросов к платежному сервису, попробуйте позднее',
         HTTPStatus.TOO_MANY_REQUESTS,
     ),
-    YokassaUnsupportedMediaType: (
+    YookassaUnsupportedMediaType: (
         'Некорректный тип контента',
         HTTPStatus.UNSUPPORTED_MEDIA_TYPE,
     )

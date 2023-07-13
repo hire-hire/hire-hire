@@ -8,27 +8,27 @@ from requests.auth import HTTPBasicAuth
 
 from api_donation.exceptions import (
     CannotFindConfirmationURL,
-    YokassaBadRequest,
-    YokassaForbidden,
+    YookassaBadRequest,
+    YookassaForbidden,
     YookassaInternalError,
     YookassaInvalidCredentials,
-    YokassaMethodNotAllowed,
+    YookassaMethodNotAllowed,
     YookassaNotFound,
-    YokassaTooManyRequests,
-    YokassaUnsupportedMediaType,
+    YookassaTooManyRequests,
+    YookassaUnsupportedMediaType,
 )
 from api_donation.models import IdempotenceKey
 
 
 BAD_STATUSES = {
-    HTTPStatus.BAD_REQUEST: YokassaBadRequest,
-    HTTPStatus.FORBIDDEN: YokassaForbidden,
+    HTTPStatus.BAD_REQUEST: YookassaBadRequest,
+    HTTPStatus.FORBIDDEN: YookassaForbidden,
     HTTPStatus.INTERNAL_SERVER_ERROR: YookassaInternalError,
-    HTTPStatus.METHOD_NOT_ALLOWED: YokassaMethodNotAllowed,
+    HTTPStatus.METHOD_NOT_ALLOWED: YookassaMethodNotAllowed,
     HTTPStatus.NOT_FOUND: YookassaNotFound,
-    HTTPStatus.TOO_MANY_REQUESTS: YokassaTooManyRequests,
+    HTTPStatus.TOO_MANY_REQUESTS: YookassaTooManyRequests,
     HTTPStatus.UNAUTHORIZED: YookassaInvalidCredentials,
-    HTTPStatus.UNSUPPORTED_MEDIA_TYPE: YokassaUnsupportedMediaType,
+    HTTPStatus.UNSUPPORTED_MEDIA_TYPE: YookassaUnsupportedMediaType,
 }
 
 
