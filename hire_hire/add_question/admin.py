@@ -127,8 +127,6 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         method.
         """
 
-        print(self.get_changelist_instance(request).__dict__)
-
         formset = self.get_changelist_formset(request)
         modified_objects = self._get_list_editable_queryset(
             request,
