@@ -129,12 +129,12 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
 
         print(self.get_changelist_instance(request).__dict__)
 
-        FormSet = self.get_changelist_formset(request)
+        formset = self.get_changelist_formset(request)
         modified_objects = self._get_list_editable_queryset(
             request,
-            FormSet.get_default_prefix(),
+            formset.get_default_prefix(),
         )
-        formset = FormSet(
+        formset = formset(
             request.POST,
             request.FILES,
             queryset=modified_objects,
@@ -161,12 +161,12 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
                         changecount += 1
             if changecount:
                 msg = ngettext(
-                    "%(count)s %(name)s was changed successfully.",
-                    "%(count)s %(name)s were changed successfully.",
+                    '%(count)s %(name)s was changed successfully.',
+                    '%(count)s %(name)s were changed successfully.',
                     changecount,
                 ) % {
-                    "count": changecount,
-                    "name": model_ngettext(self.opts, changecount),
+                    'count': changecount,
+                    'name': model_ngettext(self.opts, changecount),
                 }
                 self.message_user(request, msg, messages.SUCCESS)
 
