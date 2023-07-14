@@ -3,7 +3,7 @@ import uuid
 
 from django.conf import settings
 from django.db.utils import IntegrityError
-import requests
+from requests.api import post
 from requests.auth import HTTPBasicAuth
 
 from api_donation.exceptions import (
@@ -83,7 +83,7 @@ class Payment:
             raise BAD_STATUSES[sent_request.status_code]
 
     def create(self):
-        result = requests.post(
+        result = post(
             settings.DONATION.api_url,
             json=self._generate_data(),
             headers=self._generate_headers(),
