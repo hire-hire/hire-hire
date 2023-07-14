@@ -1,5 +1,5 @@
 from http import HTTPStatus
-import uuid
+from uuid import uuid4
 
 from django.conf import settings
 from django.db.utils import IntegrityError
@@ -52,7 +52,7 @@ class Payment:
     def _generate_idempotence_key():
         while True:
             try:
-                key = uuid.uuid4()
+                key = uuid4()
                 return IdempotenceKey.objects.create(value=key)
             except IntegrityError:
                 continue
