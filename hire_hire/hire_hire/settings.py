@@ -1,4 +1,5 @@
 import os
+from dataclasses import dataclass, field
 from datetime import timedelta
 from pathlib import Path
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'api_interview.apps.ApiInterviewConfig',
     'api_add_question.apps.ApiAddQuestionConfig',
+    'api_donation.apps.ApiDonationConfig',
     'api_duel.apps.ApiDuelConfig',
     'api_users.apps.ApiUsersConfig',
 ]
@@ -209,3 +211,32 @@ DJOSER = {
         'current_user': 'api_users.serializers.CustomUserSerializer',
     },
 }
+
+
+@dataclass(frozen=True)
+class Donation:
+    default_currency: str = 'RUB'
+    default_description: str = 'Пронину на пиво'
+    is_auto_capture_on: bool = True
+    currencies: list[tuple[str, str]] = field(
+        default_factory=lambda: [('RUB', 'Рубли')],
+    )
+    api_key: str = 'some_kassa_key'
+    shop_id: str = 'some_shop_id'
+    return_url: str = 'https://test-hire-hire/donation/callback/'
+    api_url: str = 'https://api.yookassa.ru/v3/payments'
+
+
+DONATION = Donation(
+    'RUB',
+    'Пронину на пиво',
+    True,
+    [('RUB', 'Рубли')],
+    os.getenv('YOOKASSA_KEY', default='some_kassa_key'),
+    os.getenv('YOOKASSA_SHOP_ID', default='some_shop_id'),
+    os.getenv(
+        'DONATE_CALLBACK',
+        default='https://test-hire-hire/donation/callback/',
+    ),
+    os.getenv('YOKASSA_URL', default='https://api.yookassa.ru/v3/payments'),
+)
