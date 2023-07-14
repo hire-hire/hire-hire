@@ -21,14 +21,38 @@ from api_donation.models import IdempotenceKey
 
 
 BAD_STATUSES = {
-    HTTPStatus.BAD_REQUEST: YookassaBadRequest,
-    HTTPStatus.FORBIDDEN: YookassaForbidden,
-    HTTPStatus.INTERNAL_SERVER_ERROR: YookassaInternalError,
-    HTTPStatus.METHOD_NOT_ALLOWED: YookassaMethodNotAllowed,
-    HTTPStatus.NOT_FOUND: YookassaNotFound,
-    HTTPStatus.TOO_MANY_REQUESTS: YookassaTooManyRequests,
-    HTTPStatus.UNAUTHORIZED: YookassaInvalidCredentials,
-    HTTPStatus.UNSUPPORTED_MEDIA_TYPE: YookassaUnsupportedMediaType,
+    HTTPStatus.BAD_REQUEST: YookassaBadRequest(
+        'Ошибка в запросе в платежному сервису',
+        int(HTTPStatus.BAD_REQUEST),
+    ),
+    HTTPStatus.FORBIDDEN: YookassaForbidden(
+        'Недостаточно прав для операции',
+        int(HTTPStatus.FORBIDDEN),
+    ),
+    HTTPStatus.INTERNAL_SERVER_ERROR: YookassaInternalError(
+        'Внутренняя ошибка платежного сервиса, попробуйте позднее',
+        int(HTTPStatus.INTERNAL_SERVER_ERROR),
+    ),
+    HTTPStatus.METHOD_NOT_ALLOWED: YookassaMethodNotAllowed(
+        'Недопустимый метод',
+        int(HTTPStatus.METHOD_NOT_ALLOWED),
+    ),
+    HTTPStatus.NOT_FOUND: YookassaNotFound(
+        'Платежный сервис недоступен',
+        int(HTTPStatus.NOT_FOUND),
+    ),
+    HTTPStatus.TOO_MANY_REQUESTS: YookassaTooManyRequests(
+        'Слишком много запросов к платежному сервису, попробуйте позднее',
+        int(HTTPStatus.TOO_MANY_REQUESTS),
+    ),
+    HTTPStatus.UNAUTHORIZED: YookassaInvalidCredentials(
+        'Ошибка аутентификации в платежном сервисе',
+        int(HTTPStatus.UNAUTHORIZED),
+    ),
+    HTTPStatus.UNSUPPORTED_MEDIA_TYPE: YookassaUnsupportedMediaType(
+        'Некорректный тип контента',
+        int(HTTPStatus.UNSUPPORTED_MEDIA_TYPE),
+    ),
 }
 
 
