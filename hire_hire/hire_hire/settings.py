@@ -155,6 +155,7 @@ QUESTION_COUNT_CHOICE = (
 )
 
 LIMIT_ADD_QUESTIONS_PER_DAY = 10
+ADMIN_PANEL_ADDED_QUESTION_PER_PAGE = 8
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile')

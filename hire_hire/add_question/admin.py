@@ -1,9 +1,8 @@
 from django import forms
-from django.contrib import admin, messages
-from django.contrib.admin.utils import model_ngettext
-from django.db import models, router, transaction
+from django.conf import settings
+from django.contrib import admin
+from django.db import models
 from django.utils.safestring import mark_safe
-from django.utils.translation import ngettext
 
 from add_question.mixins import DefaultFilterMixin
 from add_question.models import AddQuestion
@@ -15,7 +14,7 @@ from interview.models import Question
 class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
     """Админ панель предложенных вопросов."""
 
-    list_per_page = 8
+    list_per_page = settings.ADMIN_PANEL_ADDED_QUESTION_PER_PAGE
 
     APPROVE = '_approve'
     REJECT = '_reject'
@@ -118,54 +117,3 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
             obj.save()
             self.message_user(request, 'Вопрос отклонён.')
         return super().response_change(request, obj)
-
-    def response_action(self, request, queryset):
-        """
-        When we use an our custom action and we have list_editable fields this
-        part saves all the changes that have been made in list_editable fields.
-        That part of code is exactly part that we need from changelist_view
-        method.
-        """
-
-        formset = self.get_changelist_formset(request)
-        modified_objects = self._get_list_editable_queryset(
-            request,
-            formset.get_default_prefix(),
-        )
-        formset = formset(
-            request.POST,
-            request.FILES,
-            queryset=modified_objects,
-        )
-        if formset.is_valid():
-            changecount = 0
-            with transaction.atomic(using=router.db_for_write(self.model)):
-                for form in formset.forms:
-                    if form.has_changed():
-                        obj = self.save_form(request, form, change=True)
-                        self.save_model(request, obj, form, change=True)
-                        self.save_related(
-                            request,
-                            form,
-                            formsets=[],
-                            change=True,
-                        )
-                        change_msg = self.construct_change_message(
-                            request,
-                            form,
-                            None,
-                        )
-                        self.log_change(request, obj, change_msg)
-                        changecount += 1
-            if changecount:
-                msg = ngettext(
-                    '%(count)s %(name)s was changed successfully.',
-                    '%(count)s %(name)s were changed successfully.',
-                    changecount,
-                ) % {
-                    'count': changecount,
-                    'name': model_ngettext(self.opts, changecount),
-                }
-                self.message_user(request, msg, messages.SUCCESS)
-
-        return super().response_action(request, queryset)
