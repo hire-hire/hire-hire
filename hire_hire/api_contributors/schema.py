@@ -5,8 +5,6 @@ from drf_spectacular.utils import (
     OpenApiResponse,
 )
 
-from hire_hire.schema_settings import not_found
-
 
 class ContributorsView(OpenApiViewExtension):
     target_class = 'api_contributors.views.ContributorsListViewSet'
