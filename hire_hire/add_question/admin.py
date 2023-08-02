@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib import admin
 from django.db import models
 from django.utils.safestring import mark_safe
@@ -12,6 +13,8 @@ from interview.models import Question
 @admin.register(AddQuestion)
 class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
     """Админ панель предложенных вопросов."""
+
+    list_per_page = settings.ADMIN_PANEL_ADDED_QUESTION_PER_PAGE
 
     APPROVE = '_approve'
     REJECT = '_reject'
@@ -34,23 +37,22 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
 
     formfield_overrides = {
         models.TextField: {
-            'widget': forms.Textarea(attrs={'rows': 4, 'cols': 15}),
+            'widget': forms.Textarea(attrs={'rows': 3, 'cols': 45}),
         },
     }
 
     list_display = (
         AddQuestion.id.field.name,
         AddQuestion.status.field.name,
-        AddQuestion.language.field.name,
         AddQuestion.text.field.name,
         AddQuestion.answer.field.name,
-        AddQuestion.ip_address.field.name,
         AddQuestion.pub_date.field.name,
-        AddQuestion.author.field.name,
+        AddQuestion.language.field.name,
     )
     list_editable = (
         AddQuestion.text.field.name,
         AddQuestion.answer.field.name,
+        AddQuestion.language.field.name,
     )
     search_fields = (
         AddQuestion.language.field.name,

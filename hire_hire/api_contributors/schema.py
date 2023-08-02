@@ -5,8 +5,6 @@ from drf_spectacular.utils import (
     OpenApiResponse,
 )
 
-from hire_hire.schema_settings import not_found
-
 
 class ContributorsView(OpenApiViewExtension):
     target_class = 'api_contributors.views.ContributorsListViewSet'
@@ -27,9 +25,9 @@ class ContributorsView(OpenApiViewExtension):
                             OpenApiExample(
                                 'valid_result',
                                 summary='Валидный результат',
-                                description='Возвращает ошибку '
-                                            'о несоответствии кол-ва '
-                                            'вопросов допустимому',
+                                description='Возвращает список '
+                                            'участников команды '
+                                            'с ролями',
                                 value={
                                     'first_name': 'кукла',
                                     'last_name': 'колдуна',
@@ -50,21 +48,6 @@ class ContributorsView(OpenApiViewExtension):
                 },
             )
             def list(self):
-                pass
-
-            @extend_schema(
-                description='Информация по конкретному интервью',
-                tags=['Contributors'],
-                request=ContributorSerializer,
-                responses={
-                    200: OpenApiResponse(response=ContributorSerializer),
-                    404: OpenApiResponse(
-                        response=ContributorSerializer,
-                        examples=[not_found],
-                    ),
-                },
-            )
-            def retrieve(self):
                 pass
 
         return Extended

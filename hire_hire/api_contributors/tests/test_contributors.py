@@ -93,18 +93,3 @@ class TestContributorsApi:
             },
         )
         assert response.status_code == 405
-
-    @pytest.mark.django_db
-    def test_put_auth_user_not_allowed(self, client, admin_user, contributor):
-        client.force_login(admin_user)
-        response = client.put(
-            f'{self.url_contributors}{contributor.id}/',
-            data={
-                'first_name': 'Новое имя',
-                'last_name': 'Б',
-                'middle_name': 'Nothing',
-                'role': 'разработчик',
-                'photo': 'fixtures/image_for_tests.jpg',
-            },
-        )
-        assert response.status_code == 405
