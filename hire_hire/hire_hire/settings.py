@@ -238,7 +238,7 @@ DONATION = Donation(
     os.getenv('YOOKASSA_SHOP_ID', default='some_shop_id'),
     os.getenv(
         'DONATE_CALLBACK',
-        default='https://test-hire-hire/donation/callback/',
+        default='https://test-hire-hire.proninteam.ru/donation/callback/',
     ),
     os.getenv('YOKASSA_URL', default='https://api.yookassa.ru/v3/payments'),
 )
