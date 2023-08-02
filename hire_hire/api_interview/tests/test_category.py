@@ -20,7 +20,7 @@ class TestCategoryAPI:
         response = user_client.get(self.url_category)
         categories = response.json()
 
-        assert type(categories) == list, ('Получение категорий '
+        assert isinstance(categories, list), ('Получение категорий '
                                           'не результирует в список')
         assert len(categories) == 2, ('Количество категорий '
                                       'не соответствует фикстуре')
