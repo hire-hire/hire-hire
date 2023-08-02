@@ -22,7 +22,7 @@ class TestLanguageAPI:
         languages = response.json()
 
         assert isinstance(languages, list), ('Получение подкатегории '
-                                         'не результирует в список')
+                                             'не результирует в список')
         assert len(languages) == 2, ('Количество подкатегории '
                                      'не соответствует фикстуре')
 

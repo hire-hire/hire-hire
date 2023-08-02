@@ -21,7 +21,7 @@ class TestCategoryAPI:
         categories = response.json()
 
         assert isinstance(categories, list), ('Получение категорий '
-                                          'не результирует в список')
+                                              'не результирует в список')
         assert len(categories) == 2, ('Количество категорий '
                                       'не соответствует фикстуре')
 
