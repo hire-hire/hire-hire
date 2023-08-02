@@ -21,7 +21,7 @@ class TestLanguageAPI:
         response = user_client.get(self.url_language)
         languages = response.json()
 
-        assert type(languages) == list, ('Получение подкатегории '
+        assert isinstance(languages, list), ('Получение подкатегории '
                                          'не результирует в список')
         assert len(languages) == 2, ('Количество подкатегории '
                                      'не соответствует фикстуре')
