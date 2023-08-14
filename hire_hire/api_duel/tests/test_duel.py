@@ -154,8 +154,8 @@ class TestDuelApi:
             f'{self.url_duel}{duel_instance.pk}/'
         )
         assert (
-                resp.status_code == 404
-        ), 'Ответ невладелцу дуэли приходит не со статусом 404'
+                resp.status_code == 400
+        ), 'Ответ невладелцу дуэли приходит не со статусом 400'
 
     @pytest.mark.django_db(transaction=True)
     def test_duel_update(self, moderator_1_client, duel_instance):
@@ -204,9 +204,9 @@ class TestDuelApi:
             format='json',
         )
         assert (
-                resp.status_code == 404
+                resp.status_code == 400
         ), ('Ответ при указании несуществующего игрока '
-            'не приходит со статусом 404')
+            'не приходит со статусом 400')
 
     @pytest.mark.django_db(transaction=True)
     def test_duel_update_invalid_question(
@@ -230,9 +230,9 @@ class TestDuelApi:
             format='json',
         )
         assert (
-                resp.status_code == 404
+                resp.status_code == 400
         ), ('Ответ при указании несуществующего '
-            'вопроса не приходит со статусом 404')
+            'вопроса не приходит со статусом 400')
 
     @pytest.mark.django_db(transaction=True)
     def test_duel_update_no_winner(self, moderator_1_client, duel_instance):
