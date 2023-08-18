@@ -114,7 +114,7 @@ class QuestionLastDateUsed(models.Model):
     )
     date = models.DateTimeField(
         'дата использования',
-        auto_now_add=True,
+        auto_now=True,
     )
 
     objects = QuestionLastDateUsedManage()
