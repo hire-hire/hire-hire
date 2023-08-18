@@ -14,16 +14,18 @@ class QuestionManager(models.Manager):
             query = query.filter(language=category)
         return query
 
-    def get_random_questions(self, cnt, category=None, user=None):
-        print('START')
-        user_refresh, _ = int_models.LastUserRefreshDate.objects.get_or_create(
-            user=user,
-        )
+    def get_not_used_questions(self, user, user_refresh, category):
         default_range = timezone.now().date() - settings.QUESTION_REFRESH_RANGE
-        queryset = self.filter_by_category(category).exclude(
+        return self.filter_by_category(category).exclude(
             q_last_date_used__user=user,
             q_last_date_used__date__gt=min(default_range, user_refresh.date),
         )
+
+    def get_random_questions(self, cnt, category=None, user=None):
+        user_refresh, _ = int_models.LastUserRefreshDate.objects.get_or_create(
+            user=user,
+        )
+        queryset = self.get_not_used_questions(user, user_refresh, category)
 
         ids = list(queryset.values_list('id', flat=True))
         if len(ids) < cnt:
