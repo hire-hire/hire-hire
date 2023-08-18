@@ -61,11 +61,6 @@ class InterviewManager(models.Manager):
 
 class QuestionLastDateUsedManage(models.Manager):
     def create_objects(self, user, questions):
-        self.get_queryset().filter(
-            user=user,
-            question__id__in=questions
-        ).update(date=timezone.now())
-
         self.get_queryset().bulk_create(
             (
                 int_models.QuestionLastDateUsed(
@@ -74,5 +69,10 @@ class QuestionLastDateUsedManage(models.Manager):
                 )
                 for question in questions
             ),
-            ignore_conflicts=True
+            update_conflicts=True,
+            unique_fields=[
+                int_models.QuestionLastDateUsed.user.field.name,
+                int_models.QuestionLastDateUsed.question.field.name,
+            ],
+            update_fields=[int_models.QuestionLastDateUsed.date.field.name],
         )
