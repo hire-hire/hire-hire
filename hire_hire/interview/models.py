@@ -101,13 +101,13 @@ class QuestionLastDateUsed(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='q_last_date_used',
+        related_name='questions_last_date_used',
         verbose_name='пользователь',
     )
     question = models.ForeignKey(
         Question,
         on_delete=models.CASCADE,
-        related_name='q_last_date_used',
+        related_name='questions_last_date_used',
         verbose_name='вопрос',
     )
     date = models.DateTimeField(
@@ -130,7 +130,7 @@ class LastUserRefreshDate(models.Model):
         User,
         db_index=True,
         on_delete=models.CASCADE,
-        related_name='q_refresh_date',
+        related_name='questions_refresh_date',
         verbose_name='обновление лимита',
     )
     date = models.DateTimeField(

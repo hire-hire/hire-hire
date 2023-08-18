@@ -17,8 +17,8 @@ class QuestionManager(models.Manager):
     def get_not_used_questions(self, user, user_refresh, language):
         base_refresh_date = timezone.now() - settings.QUESTION_REFRESH_DELTA
         return self.filter_by_language(language).exclude(
-            q_last_date_used__user=user,
-            q_last_date_used__date__gt=max(
+            questions_last_date_used__user=user,
+            questions_last_date_used__date__gt=max(
                 base_refresh_date,
                 user_refresh.date,
             ),
