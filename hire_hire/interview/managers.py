@@ -21,22 +21,27 @@ class QuestionManager(models.Manager):
             q_last_date_used__date__gt=min(default_range, user_refresh.date),
         )
 
+    @staticmethod
+    def generate_ids_list(queryset):
+        return list(
+            queryset.values_list(int_models.Question.id.field.name, flat=True),
+        )
+
     def get_random_questions(self, cnt, category=None, user=None):
         user_refresh, _ = int_models.LastUserRefreshDate.objects.get_or_create(
             user=user,
         )
         queryset = self.get_not_used_questions(user, user_refresh, category)
 
-        ids = list(queryset.values_list('id', flat=True))
+        ids = self.generate_ids_list(queryset)
         if len(ids) < cnt:
             user_refresh.date = timezone.now()
             user_refresh.save()
 
             queryset = self.filter_by_category(category)
+            ids = self.generate_ids_list(queryset)
 
-        ids = list(queryset.values_list('id', flat=True))
         rand_ids = sample(ids, min(cnt, len(ids)))
-
         selected_questions = self.get_queryset().filter(id__in=rand_ids)
 
         int_models.QuestionLastDateUsed.objects.create_objects(
