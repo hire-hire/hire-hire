@@ -18,7 +18,7 @@ class QuestionManager(models.Manager):
         default_range = timezone.now().date() - settings.QUESTION_REFRESH_RANGE
         return self.filter_by_category(category).exclude(
             q_last_date_used__user=user,
-            q_last_date_used__date__gt=min(default_range, user_refresh.date),
+            q_last_date_used__date__gt=max(default_range, user_refresh.date),
         )
 
     @staticmethod
@@ -46,7 +46,7 @@ class QuestionManager(models.Manager):
 
         int_models.QuestionLastDateUsed.objects.create_objects(
             user=user,
-            question=selected_questions,
+            questions=selected_questions,
         )
         return selected_questions
 
