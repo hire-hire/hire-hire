@@ -2,7 +2,11 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from interview.managers import InterviewManager, QuestionManager
+from interview.managers import (
+    InterviewManager,
+    QuestionManager,
+    QuestionLastDateUsedManage,
+)
 
 User = get_user_model()
 
@@ -110,6 +114,8 @@ class QuestionLastDateUsed(models.Model):
         'дата использования',
         auto_now_add=True,
     )
+
+    objects = QuestionLastDateUsedManage()
 
     class Meta:
         verbose_name = 'последний раз использования вопроса'
