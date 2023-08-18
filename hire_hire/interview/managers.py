@@ -8,15 +8,15 @@ import interview.models as int_models
 
 
 class QuestionManager(models.Manager):
-    def filter_by_category(self, category):
+    def filter_by_language(self, language=None):
         query = self.get_queryset()
-        if category is not None:
-            query = query.filter(language=category)
+        if language is not None:
+            query = query.filter(language=language)
         return query
 
-    def get_not_used_questions(self, user, user_refresh, category):
+    def get_not_used_questions(self, user, user_refresh, language):
         default_range = timezone.now() - settings.QUESTION_REFRESH_RANGE
-        return self.filter_by_category(category).exclude(
+        return self.filter_by_language(language).exclude(
             q_last_date_used__user=user,
             q_last_date_used__date__gt=max(default_range, user_refresh.date),
         )
@@ -27,18 +27,18 @@ class QuestionManager(models.Manager):
             queryset.values_list(int_models.Question.id.field.name, flat=True),
         )
 
-    def get_random_questions(self, cnt, user, category=None):
+    def get_random_questions(self, cnt, user, language=None):
         user_refresh, _ = int_models.LastUserRefreshDate.objects.get_or_create(
             user=user,
         )
-        queryset = self.get_not_used_questions(user, user_refresh, category)
+        queryset = self.get_not_used_questions(user, user_refresh, language)
 
         ids = self.generate_ids_list(queryset)
         if len(ids) < cnt:
             user_refresh.date = timezone.now()
             user_refresh.save()
 
-            queryset = self.filter_by_category(category)
+            queryset = self.filter_by_language(language)
             ids = self.generate_ids_list(queryset)
 
         rand_ids = sample(ids, min(cnt, len(ids)))
