@@ -128,13 +128,15 @@ class QuestionLastDateUsed(models.Model):
 class LastUserRefreshDate(models.Model):
     user = models.ForeignKey(
         User,
+        unique=True,
+        db_index=True,
         on_delete=models.CASCADE,
         related_name='q_refresh_date',
         verbose_name='обновление лимита',
     )
     date = models.DateTimeField(
         'дата обновления',
-        auto_now_add=True,
+        auto_now=True,
     )
 
 
