@@ -120,8 +120,8 @@ class QuestionLastDateUsed(models.Model):
     objects = QuestionLastDateUsedManage()
 
     class Meta:
-        verbose_name = 'последний раз использования вопроса'
-        verbose_name_plural = 'последний раз использования вопросов'
+        verbose_name = 'дата последнего использования вопроса'
+        verbose_name_plural = 'даты последних использований вопросов'
 
         unique_together = ('user', 'question')
 

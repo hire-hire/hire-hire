@@ -61,7 +61,7 @@ class InterviewManager(models.Manager):
 
 class QuestionLastDateUsedManage(models.Manager):
     def create_objects(self, user, questions):
-        rows = self.get_queryset().filter(
+        self.get_queryset().filter(
             user=user,
             question__id__in=questions
         ).update(date=timezone.now())
