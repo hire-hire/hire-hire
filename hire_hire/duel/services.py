@@ -26,6 +26,9 @@ def create_duel(user, question_count, players_names):
             duel=duel,
             is_answered=False,
             question=question,
-        ) for question in Question.objects.get_random_questions(question_count)
+        ) for question in
+        Question.objects.get_random_questions(
+            question_count, user=user,
+        )
     ))
     return duel
