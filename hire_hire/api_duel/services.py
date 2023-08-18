@@ -25,7 +25,9 @@ def create_duel_questions(duel, question_count, subcategory, user):
             is_answered=False,
             question=question,
         ) for question in Question.objects.get_random_questions(
-            cnt=question_count, category=subcategory, user=user,
+            cnt=question_count,
+            category=subcategory,
+            user=user,
         )
     )
 
