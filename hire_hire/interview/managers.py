@@ -65,7 +65,6 @@ class QuestionLastDateUsedManage(models.Manager):
             user=user,
             question__id__in=questions
         ).update(date=timezone.now())
-        print('@!$!@$!@$!@$', rows)
 
         self.get_queryset().bulk_create(
             (
