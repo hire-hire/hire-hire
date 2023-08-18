@@ -57,11 +57,11 @@ class InterviewManager(models.Manager):
 
 
 class QuestionLastDateUsedManage(models.Manager):
-    def create_objects(self, user, question):
+    def create_objects(self, user, questions):
         self.get_queryset().bulk_create(
             int_models.QuestionLastDateUsed(
                 user=user,
                 question=question,
             )
-            for question in question
+            for question in questions
         )
