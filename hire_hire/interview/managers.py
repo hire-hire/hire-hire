@@ -27,7 +27,7 @@ class QuestionManager(models.Manager):
             queryset.values_list(int_models.Question.id.field.name, flat=True),
         )
 
-    def get_random_questions(self, cnt, category=None, user=None):
+    def get_random_questions(self, cnt, user, category=None):
         user_refresh, _ = int_models.LastUserRefreshDate.objects.get_or_create(
             user=user,
         )
