@@ -61,10 +61,19 @@ class InterviewManager(models.Manager):
 
 class QuestionLastDateUsedManage(models.Manager):
     def create_objects(self, user, questions):
+        rows = self.get_queryset().filter(
+            user=user,
+            question__id__in=questions
+        ).update(date=timezone.now())
+        print('@!$!@$!@$!@$', rows)
+
         self.get_queryset().bulk_create(
-            int_models.QuestionLastDateUsed(
-                user=user,
-                question=question,
-            )
-            for question in questions
+            (
+                int_models.QuestionLastDateUsed(
+                    user=user,
+                    question=question,
+                )
+                for question in questions
+            ),
+            ignore_conflicts=True
         )

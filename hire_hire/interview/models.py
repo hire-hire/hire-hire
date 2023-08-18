@@ -100,12 +100,14 @@ class Question(AbstractQuestion):
 class QuestionLastDateUsed(models.Model):
     user = models.ForeignKey(
         User,
+        db_index=True,
         on_delete=models.CASCADE,
         related_name='questions_last_date_used',
         verbose_name='пользователь',
     )
     question = models.ForeignKey(
         Question,
+        db_index=True,
         on_delete=models.CASCADE,
         related_name='questions_last_date_used',
         verbose_name='вопрос',
@@ -120,6 +122,8 @@ class QuestionLastDateUsed(models.Model):
     class Meta:
         verbose_name = 'последний раз использования вопроса'
         verbose_name_plural = 'последний раз использования вопросов'
+
+        unique_together = ('user', 'question')
 
     def __str__(self):
         return f'{self.user.pk} - {self.question.pk} - {self.time}'
