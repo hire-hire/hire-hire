@@ -4,8 +4,8 @@ from django.db import models
 
 from interview.managers import (
     InterviewManager,
-    QuestionManager,
     QuestionLastDateUsedManage,
+    QuestionManager,
 )
 
 User = get_user_model()
