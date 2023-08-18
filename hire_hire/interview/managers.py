@@ -15,7 +15,7 @@ class QuestionManager(models.Manager):
         return query
 
     def get_not_used_questions(self, user, user_refresh, category):
-        default_range = timezone.now().date() - settings.QUESTION_REFRESH_RANGE
+        default_range = timezone.now() - settings.QUESTION_REFRESH_RANGE
         return self.filter_by_category(category).exclude(
             q_last_date_used__user=user,
             q_last_date_used__date__gt=max(default_range, user_refresh.date),

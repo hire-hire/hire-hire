@@ -110,7 +110,7 @@ class QuestionLastDateUsed(models.Model):
         related_name='q_last_date_used',
         verbose_name='вопрос',
     )
-    date = models.DateField(
+    date = models.DateTimeField(
         'дата использования',
         auto_now_add=True,
     )
@@ -132,7 +132,7 @@ class LastUserRefreshDate(models.Model):
         related_name='q_refresh_date',
         verbose_name='обновление лимита',
     )
-    date = models.DateField(
+    date = models.DateTimeField(
         'дата обновления',
         auto_now_add=True,
     )
