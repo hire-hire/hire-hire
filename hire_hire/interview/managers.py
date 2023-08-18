@@ -15,10 +15,13 @@ class QuestionManager(models.Manager):
         return query
 
     def get_not_used_questions(self, user, user_refresh, language):
-        default_range = timezone.now() - settings.QUESTION_REFRESH_RANGE
+        base_refresh_date = timezone.now() - settings.QUESTION_REFRESH_DELTA
         return self.filter_by_language(language).exclude(
             q_last_date_used__user=user,
-            q_last_date_used__date__gt=max(default_range, user_refresh.date),
+            q_last_date_used__date__gt=max(
+                base_refresh_date,
+                user_refresh.date,
+            ),
         )
 
     @staticmethod
