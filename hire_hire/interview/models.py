@@ -97,17 +97,18 @@ class QuestionLastDateUsed(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='question_last_date_used',
+        related_name='q_last_date_used',
         verbose_name='пользователь',
     )
     question = models.ForeignKey(
         Question,
         on_delete=models.CASCADE,
-        related_name='question_last_date_used',
+        related_name='q_last_date_used',
         verbose_name='вопрос',
     )
-    time = models.DateField(
-        'время использования',
+    date = models.DateField(
+        'дата использования',
+        auto_now_add=True,
     )
 
     class Meta:
@@ -116,6 +117,19 @@ class QuestionLastDateUsed(models.Model):
 
     def __str__(self):
         return f'{self.user.pk} - {self.question.pk} - {self.time}'
+
+
+class LastUserRefreshDate(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='q_refresh_date',
+        verbose_name='обновление лимита',
+    )
+    date = models.DateField(
+        'дата обновления',
+        auto_now_add=True,
+    )
 
 
 class Interview(models.Model):

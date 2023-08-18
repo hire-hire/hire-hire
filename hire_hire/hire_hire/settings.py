@@ -151,10 +151,11 @@ AUTH_USER_MODEL = 'users.User'
 DEFAULT_QUESTIONS_COUNT = 10
 MAX_QUESTIONS_COUNT_BY_ONE_SESSION = 30
 QUESTION_COUNT_CHOICE = (
-    (10, '10 вопросов'),
+    (3, '3 вопросов'),
     (20, '20 вопросов'),
     (30, '30 вопросов'),
 )
+QUESTION_REFRESH_RANGE = timedelta(days=14)
 
 LIMIT_ADD_QUESTIONS_PER_DAY = 1000
 
