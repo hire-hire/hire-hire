@@ -93,6 +93,31 @@ class Question(AbstractQuestion):
     pass
 
 
+class QuestionLastDateUsed(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='question_last_date_used',
+        verbose_name='пользователь',
+    )
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name='question_last_date_used',
+        verbose_name='вопрос',
+    )
+    time = models.DateField(
+        'время использования',
+    )
+
+    class Meta:
+        verbose_name = 'последний раз использования вопроса'
+        verbose_name_plural = 'последний раз использования вопросов'
+
+    def __str__(self):
+        return f'{self.user.pk} - {self.question.pk} - {self.time}'
+
+
 class Interview(models.Model):
     user = models.ForeignKey(
         User,
