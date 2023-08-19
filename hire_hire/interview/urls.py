@@ -3,9 +3,9 @@ from rest_framework.routers import DefaultRouter
 
 from interview.views import (
     CategoryViewSet,
-    InterviewViewset,
+    InterviewViewSet,
     LanguageViewSet,
-    QuestionAnswerViewset,
+    QuestionAnswerViewSet,
 )
 
 router_v1_interview = DefaultRouter()
@@ -22,12 +22,12 @@ router_v1_interview.register(
 )
 router_v1_interview.register(
     r'interview',
-    InterviewViewset,
+    InterviewViewSet,
     basename='interview',
 )
 router_v1_interview.register(
     r'question',
-    QuestionAnswerViewset,
+    QuestionAnswerViewSet,
     basename='question',
 )
 
