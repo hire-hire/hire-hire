@@ -141,8 +141,6 @@ INTERNAL_IPS = [
 
 AUTH_USER_MODEL = 'users.User'
 
-DEFAULT_QUESTIONS_COUNT = 10
-MAX_QUESTIONS_COUNT_BY_ONE_SESSION = 30
 QUESTION_COUNT_CHOICE = (
     (10, '10 вопросов'),
     (20, '20 вопросов'),
@@ -153,9 +151,6 @@ QUESTION_REFRESH_DELTA = timedelta(days=14)
 LIMIT_ADD_QUESTIONS_PER_DAY = 10
 
 ADMIN_PANEL_ADDED_QUESTION_PER_PAGE = 8
-
-LOGIN_URL = reverse_lazy('users:login')
-LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -175,7 +170,7 @@ SIMPLE_JWT = {
 
 CSRF_TRUSTED_ORIGINS = [
     'https://hire-hire.proninteam.ru',
-    'https://test-hire-hire.proninteam.ru'
+    'https://test-hire-hire.proninteam.ru',
 ]
 
 USERNAME_MIN_LENGTH = 2
