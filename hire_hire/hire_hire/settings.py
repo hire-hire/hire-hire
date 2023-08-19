@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'contributors.apps.StaticInfoConfig',
     'duel.apps.DuelsConfig',
     'interview.apps.InterviewConfig',
-    'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
     'add_question.apps.AddquestionConfig',
     'api.apps.ApiConfig',
