@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from add_question.models import AddQuestion
-from api_add_question.validators import validate_added_questions_per_day_limit
+from add_question.validators import validate_added_questions_per_day_limit
 
 
 class AddQuestionSerializer(serializers.ModelSerializer):

@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'add_question.apps.AddquestionConfig',
     'api.apps.ApiConfig',
-    'api_add_question.apps.ApiAddQuestionConfig',
     'api_donation.apps.ApiDonationConfig',
     'api_duel.apps.ApiDuelConfig',
     'api_users.apps.ApiUsersConfig',
@@ -156,7 +155,7 @@ QUESTION_COUNT_CHOICE = (
 )
 QUESTION_REFRESH_DELTA = timedelta(days=14)
 
-LIMIT_ADD_QUESTIONS_PER_DAY = 1000
+LIMIT_ADD_QUESTIONS_PER_DAY = 10
 
 ADMIN_PANEL_ADDED_QUESTION_PER_PAGE = 8
 

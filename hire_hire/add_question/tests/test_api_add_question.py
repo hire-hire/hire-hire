@@ -9,7 +9,7 @@ from add_question.models import AddQuestion
 
 class TestApiAddQuestion:
     def setup_class(self):
-        self.url = reverse('api:api_add_question:add_question-list')
+        self.url = reverse('api:add_question:add_question-list')
 
     def _test_add_question(self, client, author, language):
         assert not AddQuestion.objects.exists(), 'В базе уже есть вопросы!!!'
@@ -86,40 +86,40 @@ class TestApiAddQuestion:
     def test_add_question_unauthorized_user(
         self,
         client,
-        api_add_question_language_1,
-        api_add_question_language_2,
-        api_add_question_language_3,
+        add_question_language_1,
+        add_question_language_2,
+        add_question_language_3,
     ):
         self._test_add_question(
             client,
             None,
-            api_add_question_language_2,
+            add_question_language_2,
         )
 
     @pytest.mark.django_db
     def test_add_question_authorized_user(
         self,
-        api_add_question_user_1,
+        add_question_user_1,
         api_client_auth_user,
-        api_add_question_language_1,
-        api_add_question_language_2,
-        api_add_question_language_3,
+        add_question_language_1,
+        add_question_language_2,
+        add_question_language_3,
     ):
         self._test_add_question(
             api_client_auth_user,
-            api_add_question_user_1,
-            api_add_question_language_2,
+            add_question_user_1,
+            add_question_language_2,
         )
 
     @pytest.mark.django_db
     def test_add_question_with_not_allowed_fields(
         self,
-        api_add_question_user_1,
-        api_add_question_user_2,
+        add_question_user_1,
+        add_question_user_2,
         api_client_auth_user,
-        api_add_question_language_1,
-        api_add_question_language_2,
-        api_add_question_language_3,
+        add_question_language_1,
+        add_question_language_2,
+        add_question_language_3,
     ):
         assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы!!!'
 
@@ -127,9 +127,9 @@ class TestApiAddQuestion:
         data = {
             'text': 'Вопрос номер 1?',
             'answer': 'Ответ номер 1',
-            'language': api_add_question_language_2.id,
+            'language': add_question_language_2.id,
             # below not allowed field
-            'author': api_add_question_user_2.id,
+            'author': add_question_user_2.id,
             'ip_address': '8:8:8:8',
             'pub_date': some_datetime,
             'status': AddQuestion.StatusChoice.APPROVED,
@@ -149,7 +149,7 @@ class TestApiAddQuestion:
         added_question_with_wrong_data = AddQuestion.objects.get(id=1)
         assert (
             added_question_with_wrong_data.author.id
-            == api_add_question_user_1.id
+            == add_question_user_1.id
         ), 'Подмена автора!!!'
         assert (
             added_question_with_wrong_data.ip_address != data['ip_address']
