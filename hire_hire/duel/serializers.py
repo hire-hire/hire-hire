@@ -4,7 +4,7 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
-from api_duel.services import (
+from duel.services import (
     create_duel,
     create_duel_players,
     create_duel_questions,

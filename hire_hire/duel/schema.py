@@ -19,10 +19,10 @@ from hire_hire.schema_settings import (
 
 
 class DuelView(OpenApiViewExtension):
-    target_class = 'api_duel.views.DuelViewSet'
+    target_class = 'duel.views.DuelViewSet'
 
     def view_replacement(self):
-        from api_duel.serializers import (
+        from duel.serializers import (
             DuelCreateSerializer, DuelPartialUpdateSerializer, DuelSerializer
         )
 

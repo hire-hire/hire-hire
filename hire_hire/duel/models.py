@@ -18,7 +18,7 @@ class Duel(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='duel',
-        verbose_name='владец игры',
+        verbose_name='владелец игры',
     )
 
     wrong_answers_count = models.IntegerField(
@@ -67,7 +67,7 @@ class DuelPlayer(models.Model):
     class Meta:
         verbose_name = 'участник дуэли'
         verbose_name_plural = 'участники дуэли'
-        ordering = ['pk',]
+        ordering = ['pk']
 
     def __str__(self):
         return self.name[:15]

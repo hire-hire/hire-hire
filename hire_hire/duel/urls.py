@@ -1,33 +1,16 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 
-from duel.views import (
-    DuelFinishView,
-    DuelFlowAnsweredView,
-    DuelFlowQuestionView,
-    DuelSettingsView,
+from duel.views import DuelViewSet
+
+router_v1_duel = DefaultRouter()
+
+router_v1_duel.register(
+    r'duel',
+    DuelViewSet,
+    basename='duel',
 )
 
-app_name = 'duel'
-
 urlpatterns = [
-    path(
-        'settings/',
-        DuelSettingsView.as_view(),
-        name='duel_settings',
-    ),
-    path(
-        '<int:duel_id>/finish/',
-        DuelFinishView.as_view(),
-        name='duel_finish',
-    ),
-    path(
-        '<int:duel_id>/answer/',
-        DuelFlowAnsweredView.as_view(),
-        name='duel_answer',
-    ),
-    path(
-        '<int:duel_id>/',
-        DuelFlowQuestionView.as_view(),
-        name='duel',
-    ),
+    path('', include(router_v1_duel.urls)),
 ]
