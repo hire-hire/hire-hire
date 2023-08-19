@@ -1,48 +1,55 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
-from django.urls import reverse
-from django.views.generic import FormView, ListView, TemplateView
+from rest_framework import mixins, permissions, viewsets
 
-from interview.forms import InterviewSettingsForm
-from interview.models import Interview, Language
-from interview.services import create_interview
-
-
-class LanguagesView(ListView):
-    model = Language
-    template_name = 'interview/interviews.html'
+from interview.serializers import (
+    CategoryListSerializer,
+    CategoryRetrieveSerializer,
+    InterviewCreateSerializer,
+    InterviewSerializer,
+    LanguageSerializer,
+    QuestionsAnswerSerializer,
+)
+from interview.models import Category, Interview, Language, Question
 
 
-class InterviewSettingsView(LoginRequiredMixin, FormView):
-    form_class = InterviewSettingsForm
-    template_name = 'interview/test-settings.html'
+class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = CategoryListSerializer
+    queryset = Category.objects.all()
 
-    def form_valid(self, form):
-        interview = create_interview(
-            user=self.request.user,
-            question_count=form.cleaned_data['questions_count'],
-        )
-        self.success_url = reverse(
-            'interview:interview',
-            kwargs={'interview_id': interview.pk},
-        )
-        return super().form_valid(form)
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return CategoryListSerializer
+        return CategoryRetrieveSerializer
 
 
-class InterviewFlowView(LoginRequiredMixin, TemplateView):
-    template_name = 'interview/challenge.html'
+class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = LanguageSerializer
+    queryset = Language.objects.all()
 
-    def get_context_data(self, interview_id, **kwargs):
-        context = super().get_context_data(**kwargs)
-        interview = get_object_or_404(
-            Interview.objects.get_interview_by_user(
-                interview_pk=interview_id,
+
+class InterviewViewSet(
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    viewsets.GenericViewSet,
+):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        if self.action == 'retrieve':
+            return Interview.objects.get_interview_by_user(
                 user=self.request.user,
+                interview_pk=self.kwargs.get('pk'),
             )
-        )
-        context['questions'] = interview.questions.all()
-        return context
+        return Interview.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return InterviewCreateSerializer
+        return InterviewSerializer
 
 
-class InterviewFinishView(TemplateView):
-    template_name = 'interview/test-finished.html'
+class QuestionAnswerViewSet(
+    mixins.RetrieveModelMixin, viewsets.GenericViewSet,
+):
+    serializer_class = QuestionsAnswerSerializer
+    queryset = Question.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)

@@ -1,6 +1,0 @@
-.duel__players {
-  display: grid;
-  grid-template-columns: 1fr 64px 1fr;
-  gap: 64px;
-  margin-bottom: 40px;
-}

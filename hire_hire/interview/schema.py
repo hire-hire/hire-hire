@@ -11,10 +11,10 @@ from hire_hire.schema_settings import not_authenticated, not_found
 
 
 class CategoryView(OpenApiViewExtension):
-    target_class = 'api_interview.views.CategoryViewSet'
+    target_class = 'interview.views.CategoryViewSet'
 
     def view_replacement(self):
-        from api_interview.serializers import (
+        from interview.serializers import (
             CategoryListSerializer, CategoryRetrieveSerializer,
         )
 
@@ -100,10 +100,10 @@ class CategoryView(OpenApiViewExtension):
 
 
 class LanguageView(OpenApiViewExtension):
-    target_class = 'api_interview.views.LanguageViewSet'
+    target_class = 'interview.views.LanguageViewSet'
 
     def view_replacement(self):
-        from api_interview.serializers import LanguageSerializer
+        from interview.serializers import LanguageSerializer
 
         class Extended(self.target_class):
 
@@ -139,10 +139,10 @@ class LanguageView(OpenApiViewExtension):
 
 
 class InterviewView(OpenApiViewExtension):
-    target_class = 'api_interview.views.InterviewViewset'
+    target_class = 'interview.views.InterviewViewset'
 
     def view_replacement(self):
-        from api_interview.serializers import (
+        from interview.serializers import (
             InterviewCreateSerializer, InterviewSerializer,
         )
 
@@ -213,10 +213,10 @@ class InterviewView(OpenApiViewExtension):
 
 
 class QuestionAnswerView(OpenApiViewExtension):
-    target_class = 'api_interview.views.QuestionAnswerViewset'
+    target_class = 'interview.views.QuestionAnswerViewset'
 
     def view_replacement(self):
-        from api_interview.serializers import QuestionsAnswerSerializer
+        from interview.serializers import QuestionsAnswerSerializer
 
         class Extended(self.target_class):
 

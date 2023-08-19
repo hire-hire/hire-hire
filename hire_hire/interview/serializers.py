@@ -1,7 +1,7 @@
 from django.conf import settings
 from rest_framework import serializers
 
-from api_interview.services import create_interview
+from interview.services import create_interview
 from interview.models import Category, Interview, Language, Question
 
 

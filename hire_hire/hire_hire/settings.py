@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'add_question.apps.AddquestionConfig',
     'api.apps.ApiConfig',
-    'api_interview.apps.ApiInterviewConfig',
     'api_add_question.apps.ApiAddQuestionConfig',
     'api_donation.apps.ApiDonationConfig',
     'api_duel.apps.ApiDuelConfig',

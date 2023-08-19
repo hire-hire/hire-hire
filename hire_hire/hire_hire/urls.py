@@ -9,12 +9,6 @@ from drf_spectacular.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('api.urls')),
-    path('old/', include('homepage.urls')),
-    path('old/auth/', include('users.urls')),
-    path('old/contributors/', include('contributors.urls')),
-    path('old/duel/', include('duel.urls')),
-    path('old/interview/', include('interview.urls')),
-    path('old/add_question/', include('add_question.urls')),
 ]
 
 
