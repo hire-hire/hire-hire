@@ -7,10 +7,10 @@ from drf_spectacular.utils import (
 
 
 class ContributorsView(OpenApiViewExtension):
-    target_class = 'api_contributors.views.ContributorsListViewSet'
+    target_class = 'contributors.views.ContributorsListViewSet'
 
     def view_replacement(self):
-        from api_contributors.serializers import ContributorSerializer
+        from contributors.serializers import ContributorSerializer
 
         class Extended(self.target_class):
 
@@ -37,7 +37,7 @@ class ContributorsView(OpenApiViewExtension):
                                     'contacts': [
                                         {
                                             'social_network': 'сеть1',
-                                            'contact': 'http://ya.ru',
+                                            'contact': 'https://ya.ru',
                                         }
                                     ]
                                 },

@@ -1,9 +1,11 @@
-from django.views.generic import ListView
+from rest_framework import mixins
+from rest_framework.viewsets import GenericViewSet
 
-from contributors.models.contributor import Contributor
+from contributors.serializers import ContributorSerializer
+from contributors.models import Contributor
 
 
-class ContributorsView(ListView):
-    template_name = 'contributors/contributors_list.html'
-    queryset = Contributor.objects.get_contributors_with_contacts_and_roles()
-    context_object_name = 'contributors'
+class ContributorsListViewSet(mixins.ListModelMixin, GenericViewSet):
+    queryset = (Contributor.objects.
+                get_contributors_with_contacts_and_roles())
+    serializer_class = ContributorSerializer
