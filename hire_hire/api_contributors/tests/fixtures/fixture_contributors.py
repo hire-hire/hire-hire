@@ -17,7 +17,7 @@ def contributor(team_role):
         last_name='Б',
         role=team_role,
         middle_name=None,
-        photo='fixtures/image_for_tests.jpg',
+        photo='fixtures/image_for_tests.png',
     )
 
 
