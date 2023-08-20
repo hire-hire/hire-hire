@@ -46,7 +46,7 @@ class AddQuestionViewSet(
         )
 
 
-class AddedQestionsAndLimitView(
+class AddedQuestionsAndLimitView(
     GetOrSetUserCookieIdMixin,
     APIView,
 ):
