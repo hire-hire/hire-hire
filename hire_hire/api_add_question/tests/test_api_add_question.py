@@ -8,6 +8,8 @@ from add_question.models import AddQuestion
 
 
 class TestApiAddQuestion:
+    settings.LIMIT_ADD_QUESTIONS_PER_DAY = 20
+
     def setup_class(self):
         self.url = reverse('api:api_add_question:add_question-list')
 
