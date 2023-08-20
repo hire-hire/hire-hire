@@ -71,7 +71,7 @@ class AbstractQuestion(models.Model):
     answer = models.TextField(
         'правильный ответ',
         max_length=500,
-        validators=[MinLengthValidator(10)],
+        validators=[MinLengthValidator(2)],
     )
 
     objects = QuestionManager()
