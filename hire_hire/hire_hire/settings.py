@@ -155,8 +155,10 @@ QUESTION_COUNT_CHOICE = (
     (20, '20 вопросов'),
     (30, '30 вопросов'),
 )
+QUESTION_REFRESH_DELTA = timedelta(days=14)
 
 LIMIT_ADD_QUESTIONS_PER_DAY = 1000
+
 ADMIN_PANEL_ADDED_QUESTION_PER_PAGE = 8
 
 LOGIN_URL = reverse_lazy('users:login')

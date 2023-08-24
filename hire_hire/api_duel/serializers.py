@@ -88,7 +88,7 @@ class DuelCreateSerializer(serializers.ModelSerializer):
         duel = create_duel(request.user)
         question_count = validated_data.get('question_count')
         subcategory = validated_data.get('language')
-        create_duel_questions(duel, question_count, subcategory)
+        create_duel_questions(duel, question_count, subcategory, request.user)
         players = validated_data.get('players')
         create_duel_players(duel, players)
         return duel

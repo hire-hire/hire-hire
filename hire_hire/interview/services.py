@@ -6,7 +6,7 @@ def create_interview(user, question_count):
         user=user,
     )
     interview.questions.add(
-        *Question.objects.get_random_questions(question_count),
+        *Question.objects.get_random_questions(question_count, user=user),
     )
 
     return interview

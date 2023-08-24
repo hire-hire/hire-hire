@@ -18,14 +18,16 @@ def create_duel_players(duel, players):
     ))
 
 
-def create_duel_questions(duel, question_count, subcategory):
+def create_duel_questions(duel, question_count, subcategory, user):
     DuelQuestion.objects.bulk_create(
         DuelQuestion(
             duel=duel,
             is_answered=False,
             question=question,
         ) for question in Question.objects.get_random_questions(
-            question_count, subcategory,
+            cnt=question_count,
+            language=subcategory,
+            user=user,
         )
     )
 

@@ -2,7 +2,11 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from interview.managers import InterviewManager, QuestionManager
+from interview.managers import (
+    InterviewManager,
+    QuestionLastDateUsedManage,
+    QuestionManager,
+)
 
 User = get_user_model()
 
@@ -91,6 +95,52 @@ class Question(AbstractQuestion):
     """
 
     pass
+
+
+class QuestionLastDateUsed(models.Model):
+    user = models.ForeignKey(
+        User,
+        db_index=True,
+        on_delete=models.CASCADE,
+        related_name='questions_last_date_used',
+        verbose_name='пользователь',
+    )
+    question = models.ForeignKey(
+        Question,
+        db_index=True,
+        on_delete=models.CASCADE,
+        related_name='questions_last_date_used',
+        verbose_name='вопрос',
+    )
+    date = models.DateTimeField(
+        'дата использования',
+        auto_now=True,
+    )
+
+    objects = QuestionLastDateUsedManage()
+
+    class Meta:
+        verbose_name = 'дата последнего использования вопроса'
+        verbose_name_plural = 'даты последних использований вопросов'
+
+        unique_together = ('user', 'question')
+
+    def __str__(self):
+        return f'{self.user.pk} - {self.question.pk} - {self.time}'
+
+
+class LastUserRefreshDate(models.Model):
+    user = models.OneToOneField(
+        User,
+        db_index=True,
+        on_delete=models.CASCADE,
+        related_name='questions_refresh_date',
+        verbose_name='обновление лимита',
+    )
+    date = models.DateTimeField(
+        'дата обновления',
+        auto_now=True,
+    )
 
 
 class Interview(models.Model):
