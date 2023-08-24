@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import transaction
-from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
+from api_duel.exceptions import DuelQuestionDoesNotExist
 from api_duel.services import (
     create_duel,
     create_duel_players,
@@ -112,7 +112,13 @@ class DuelPartialUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         winner_pk = validated_data.get('winner_id')
         question_id = validated_data.get('question_id')
-        duel_question = get_object_or_404(instance.questions, pk=question_id)
+        try:
+            duel_question = DuelQuestion.objects.get(
+                duel=instance,
+                pk=question_id,
+            )
+        except DuelQuestion.DoesNotExist:
+            raise DuelQuestionDoesNotExist
         with transaction.atomic():
             update_duel_question_status(duel_question=duel_question)
             update_duel_player_score(winner_pk=winner_pk, duel=instance)
