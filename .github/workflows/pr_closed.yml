@@ -40,7 +40,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd ~/test
-            sudo docker-compose stop backend_test
+            sudo docker-compose stop
             sudo docker-compose pull
             sudo docker-compose up -d
 
