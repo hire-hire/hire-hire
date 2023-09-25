@@ -18,7 +18,7 @@ class DonationView(APIView):
         serializer = AcceptPayment(data=request.data)
         serializer.is_valid(raise_exception=True)
         response, status = create_payment(
-                serializer.validated_data.get('amount'),
-                serializer.validated_data.get('currency'),
-            )
+            serializer.validated_data.get('amount'),
+            serializer.validated_data.get('currency'),
+        )
         return Response(response, status=status)

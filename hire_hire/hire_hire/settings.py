@@ -3,7 +3,6 @@ from dataclasses import dataclass, field
 from datetime import timedelta
 from pathlib import Path
 
-from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -36,15 +35,10 @@ INSTALLED_APPS = [
     'contributors.apps.StaticInfoConfig',
     'duel.apps.DuelsConfig',
     'interview.apps.InterviewConfig',
-    'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
     'add_question.apps.AddquestionConfig',
     'api.apps.ApiConfig',
-    'api_interview.apps.ApiInterviewConfig',
-    'api_add_question.apps.ApiAddQuestionConfig',
     'api_donation.apps.ApiDonationConfig',
-    'api_duel.apps.ApiDuelConfig',
-    'api_users.apps.ApiUsersConfig',
 ]
 
 if DEBUG:
@@ -68,21 +62,6 @@ TEMPLATES_DIR = BASE_DIR / 'templates'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': [TEMPLATES_DIR],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'users.context_processors.get_login_and_signup_forms',
-            ],
-            'environment': 'hire_hire.jinja2.environment',
-        },
-    },
-    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
@@ -92,7 +71,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'users.context_processors.get_login_and_signup_forms',
             ],
         },
     },
@@ -148,8 +126,6 @@ INTERNAL_IPS = [
 
 AUTH_USER_MODEL = 'users.User'
 
-DEFAULT_QUESTIONS_COUNT = 10
-MAX_QUESTIONS_COUNT_BY_ONE_SESSION = 30
 QUESTION_COUNT_CHOICE = (
     (10, '10 вопросов'),
     (20, '20 вопросов'),
@@ -157,12 +133,9 @@ QUESTION_COUNT_CHOICE = (
 )
 QUESTION_REFRESH_DELTA = timedelta(days=int(os.getenv('QUESTION_REFRESH_DELTA', default='14')))
 
-LIMIT_ADD_QUESTIONS_PER_DAY = 1000
+LIMIT_ADD_QUESTIONS_PER_DAY = 10
 
 ADMIN_PANEL_ADDED_QUESTION_PER_PAGE = 8
-
-LOGIN_URL = reverse_lazy('users:login')
-LOGIN_REDIRECT_URL = reverse_lazy('users:profile')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -182,7 +155,7 @@ SIMPLE_JWT = {
 
 CSRF_TRUSTED_ORIGINS = [
     'https://hire-hire.proninteam.ru',
-    'https://test-hire-hire.proninteam.ru'
+    'https://test-hire-hire.proninteam.ru',
 ]
 
 USERNAME_MIN_LENGTH = 2
@@ -211,7 +184,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 DJOSER = {
     'SERIALIZERS': {
-        'current_user': 'api_users.serializers.CustomUserSerializer',
+        'current_user': 'users.serializers.CustomUserSerializer',
     },
 }
 

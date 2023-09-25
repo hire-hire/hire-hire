@@ -1,8 +1,0 @@
-.main {
-  max-width: 1920px;
-  width: 84%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-grow: 1;
-}

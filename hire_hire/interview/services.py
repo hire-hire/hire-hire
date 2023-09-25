@@ -1,12 +1,12 @@
 from interview.models import Interview, Question
 
 
-def create_interview(user, question_count):
-    interview = Interview.objects.create(
-        user=user,
+def create_interview(ser_validated_data):
+    question_count = ser_validated_data.pop('question_count')
+    instance = Interview.objects.create(**ser_validated_data)
+    questions = Question.objects.get_random_questions(
+        cnt=question_count,
+        user=ser_validated_data['user'],
     )
-    interview.questions.add(
-        *Question.objects.get_random_questions(question_count, user=user),
-    )
-
-    return interview
+    instance.questions.add(*questions)
+    return instance

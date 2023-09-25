@@ -1,9 +1,17 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 
-from contributors.views import ContributorsView
+from contributors.views import ContributorsListViewSet
 
-app_name = 'contributors'
+router_v1_contributors = DefaultRouter()
+
+
+router_v1_contributors.register(
+    r'contributors',
+    ContributorsListViewSet,
+    basename='contributors',
+)
 
 urlpatterns = [
-    path('', ContributorsView.as_view(), name='contributors_list'),
+    path('', include(router_v1_contributors.urls)),
 ]

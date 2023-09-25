@@ -1,33 +1,36 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 
 from interview.views import (
-    InterviewFinishView,
-    InterviewFlowView,
-    InterviewSettingsView,
-    LanguagesView,
+    CategoryViewSet,
+    InterviewViewSet,
+    LanguageViewSet,
+    QuestionAnswerViewSet,
 )
 
-app_name = 'interview'
+router_v1_interview = DefaultRouter()
+
+router_v1_interview.register(
+    r'category',
+    CategoryViewSet,
+    basename='category',
+)
+router_v1_interview.register(
+    r'language',
+    LanguageViewSet,
+    basename='language',
+)
+router_v1_interview.register(
+    r'interview',
+    InterviewViewSet,
+    basename='interview',
+)
+router_v1_interview.register(
+    r'question',
+    QuestionAnswerViewSet,
+    basename='question',
+)
 
 urlpatterns = [
-    path(
-        'settings/',
-        InterviewSettingsView.as_view(),
-        name='settings',
-    ),
-    path(
-        '<int:interview_id>/',
-        InterviewFlowView.as_view(),
-        name='interview',
-    ),
-    path(
-        'finish/',
-        InterviewFinishView.as_view(),
-        name='finish',
-    ),
-    path(
-        'languages/',
-        LanguagesView.as_view(),
-        name='languages',
-    ),
+    path('', include(router_v1_interview.urls)),
 ]
