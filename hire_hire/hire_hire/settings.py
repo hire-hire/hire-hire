@@ -131,7 +131,7 @@ QUESTION_COUNT_CHOICE = (
     (20, '20 вопросов'),
     (30, '30 вопросов'),
 )
-QUESTION_REFRESH_DELTA = timedelta(days=14)
+QUESTION_REFRESH_DELTA = timedelta(days=int(os.getenv('QUESTION_REFRESH_DELTA', default='14')))
 
 LIMIT_ADD_QUESTIONS_PER_DAY = 10
 
@@ -199,7 +199,7 @@ class Donation:
     )
     api_key: str = 'some_kassa_key'
     shop_id: str = 'some_shop_id'
-    return_url: str = 'https://test-hire-hire/donation/callback/'
+    return_url: str = 'https://test-hire-hire.proninteam.ru/donation/callback/'
     api_url: str = 'https://api.yookassa.ru/v3/payments'
 
 

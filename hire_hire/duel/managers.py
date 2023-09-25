@@ -1,6 +1,7 @@
 from django.db import models
 from django.shortcuts import get_object_or_404
 
+from api_duel.exceptions import DuelPlayerDoesNotExist
 import duel.models
 
 
@@ -45,11 +46,13 @@ class DuelPlayerManager(models.Manager):
             duel.save()
             return
 
-        winner = get_object_or_404(
-            self.get_queryset(),
-            pk=winner_pk,
-            duel=duel,
-        )
+        try:
+            winner = self.model.objects.get(
+                duel=duel,
+                pk=winner_pk,
+            )
+        except self.model.DoesNotExist:
+            raise DuelPlayerDoesNotExist
 
         winner.good_answers_count += 1
         winner.save()
