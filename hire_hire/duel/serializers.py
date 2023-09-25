@@ -4,6 +4,7 @@ from django.db import transaction
 from rest_framework import serializers
 
 from duel.exceptions import DuelQuestionDoesNotExist
+from duel.models import Duel, DuelPlayer, DuelQuestion
 from duel.services import (
     create_duel,
     create_duel_players,
@@ -11,7 +12,6 @@ from duel.services import (
     update_duel_player_score,
     update_duel_question_status,
 )
-from duel.models import Duel, DuelPlayer, DuelQuestion
 from interview.serializers import QuestionsSerializer
 
 
