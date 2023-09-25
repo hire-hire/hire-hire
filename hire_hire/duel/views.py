@@ -1,12 +1,12 @@
 from rest_framework import mixins, permissions, viewsets
 
+from duel.models import Duel
 from duel.permissions import IsDuelModerator
 from duel.serializers import (
     DuelCreateSerializer,
     DuelPartialUpdateSerializer,
     DuelSerializer,
 )
-from duel.models import Duel
 
 
 class DuelViewSet(

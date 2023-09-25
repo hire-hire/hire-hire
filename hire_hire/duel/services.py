@@ -1,6 +1,5 @@
 from duel.exceptions import QuestionAlreadyAnswered
 from duel.models import Duel, DuelPlayer, DuelQuestion
-
 from interview.models import Question
 
 

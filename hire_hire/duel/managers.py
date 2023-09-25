@@ -1,7 +1,7 @@
 from django.db import models
 from django.shortcuts import get_object_or_404
 
-from api_duel.exceptions import DuelPlayerDoesNotExist
+from duel.exceptions import DuelPlayerDoesNotExist
 import duel.models
 
 

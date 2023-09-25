@@ -11,8 +11,9 @@ from duel.services import (
     update_duel_player_score,
     update_duel_question_status,
 )
-from interview.serializers import QuestionsSerializer
 from duel.models import Duel, DuelPlayer, DuelQuestion
+from interview.serializers import QuestionsSerializer
+
 
 User = get_user_model()
 

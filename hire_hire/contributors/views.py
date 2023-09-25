@@ -1,8 +1,8 @@
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 
-from contributors.serializers import ContributorSerializer
 from contributors.models import Contributor
+from contributors.serializers import ContributorSerializer
 
 
 class ContributorsListViewSet(mixins.ListModelMixin, GenericViewSet):
