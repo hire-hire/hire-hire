@@ -1,4 +1,8 @@
+import logging
+
 from http import HTTPStatus
+
+logger = logging.getLogger(__name__)
 
 from api_donation.exceptions import (
     CannotFindConfirmationURL,
@@ -26,4 +30,5 @@ def create_payment(amount, currency):
             YookassaInvalidCredentials, YookassaMethodNotAllowed,
             YookassaNotFound, YookassaTooManyRequests,
             YookassaUnsupportedMediaType) as e:
+        logging.error(f'Ошибка от Юкассы: {e.args}')
         return e.args

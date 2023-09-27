@@ -1,3 +1,5 @@
+import logging
+
 from http import HTTPStatus
 from uuid import uuid4
 
@@ -18,6 +20,9 @@ from api_donation.exceptions import (
     YookassaUnsupportedMediaType,
 )
 from api_donation.models import IdempotenceKey
+
+
+logger = logging.getLogger(__name__)
 
 
 BAD_STATUSES = {
@@ -67,6 +72,11 @@ class Payment:
             capture=settings.DONATION.is_auto_capture_on,
             description=settings.DONATION.default_description,
     ):
+        logger.debug(
+            f'creating payment object; '
+            f'amount={amount},'
+            f'currency={currency}'
+        )
         self.amount = amount
         self.currency = currency
         self.capture = capture
@@ -77,8 +87,10 @@ class Payment:
         while True:
             try:
                 key = uuid4()
+                logger.debug('Trying to generate idempotence key')
                 return IdempotenceKey.objects.create(value=key)
             except IntegrityError:
+                logger.debug('idempotence key already exists, retry')
                 continue
 
     def _generate_headers(self):
