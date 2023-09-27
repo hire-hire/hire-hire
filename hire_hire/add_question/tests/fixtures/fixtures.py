@@ -69,3 +69,8 @@ def api_client_auth_user(add_question_get_token):
         HTTP_AUTHORIZATION=f'{auth_header_type} {add_question_get_token}',
     )
     return client
+
+
+@pytest.fixture(autouse=True)
+def override_limit_add_questions_per_day(monkeypatch):
+    monkeypatch.setattr(settings, 'LIMIT_ADD_QUESTIONS_PER_DAY', 10)
