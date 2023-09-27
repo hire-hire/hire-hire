@@ -11,7 +11,6 @@ class AddQuestion(AbstractQuestion):
     language = models.ForeignKey(
         Language,
         on_delete=models.CASCADE,
-        default=1,
         related_name='add_questions',
         verbose_name='язык',
     )
