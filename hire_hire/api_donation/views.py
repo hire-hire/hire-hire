@@ -27,5 +27,4 @@ class DonationView(APIView):
             serializer.validated_data.get('amount'),
             serializer.validated_data.get('currency'),
         )
-        logger.debug('payment created successfully, now returning url to user')
         return Response(response, status=status)
