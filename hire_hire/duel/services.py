@@ -39,10 +39,10 @@ def create_duel_questions(duel, question_count, subcategory, user):
 
 def update_duel_question_status(duel_question):
     if duel_question.is_answered:
-        logger.debug(f'duel_question is already answered')
+        logger.debug('duel_question is already answered')
         raise QuestionAlreadyAnswered
     if duel_question:
-        logger.debug(f'changing duel_question status')
+        logger.debug('changing duel_question status')
         duel_question.is_answered = True
         duel_question.save()
 

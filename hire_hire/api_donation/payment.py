@@ -1,6 +1,5 @@
-import logging
-
 from http import HTTPStatus
+import logging
 from uuid import uuid4
 
 from django.conf import settings

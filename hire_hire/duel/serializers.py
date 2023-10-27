@@ -119,7 +119,11 @@ class DuelPartialUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         winner_pk = validated_data.get('winner_id')
         question_id = validated_data.get('question_id')
-        logger.debug(f'INPUT: winner_id={winner_pk}, question_id={question_id} for duel_ID={instance.id}')
+        logger.debug(
+            f'INPUT: winner_id={winner_pk}, '
+            f'question_id={question_id} '
+            f'for duel_ID={instance.id}',
+        )
         try:
             duel_question = DuelQuestion.objects.get(
                 duel=instance,

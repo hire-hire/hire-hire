@@ -1,8 +1,5 @@
-import logging
-
 from http import HTTPStatus
-
-logger = logging.getLogger('custom')
+import logging
 
 from api_donation.exceptions import (
     CannotFindConfirmationURL,
@@ -16,6 +13,9 @@ from api_donation.exceptions import (
     YookassaUnsupportedMediaType,
 )
 from api_donation.payment import Payment
+
+
+logger = logging.getLogger('custom')
 
 
 def create_payment(amount, currency):
