@@ -5,7 +5,7 @@ import traceback
 from django.utils.deprecation import MiddlewareMixin
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('custom')
 
 
 class CatchErrorsMiddleware(MiddlewareMixin):

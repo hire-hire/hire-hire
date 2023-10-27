@@ -3,7 +3,7 @@ import logging
 from interview.models import Interview, Question
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('custom')
 
 
 def create_interview(ser_validated_data):

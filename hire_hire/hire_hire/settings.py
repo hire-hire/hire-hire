@@ -1,9 +1,11 @@
 import os
+import logging
 from dataclasses import dataclass, field
 from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
+import sentry_sdk
 
 load_dotenv()
 
@@ -219,24 +221,39 @@ DONATION = Donation(
     os.getenv('YOKASSA_URL', default='https://api.yookassa.ru/v3/payments'),
 )
 
+YADISK_CREDS = {
+    'TOKEN': 'y0_AgAAAAA4AVWIAAqQTAAAAADtyKK216hi4p66Q4m0uIzzZ7pPAN1ZCk0',
+    'REQUEST_URL': 'https://cloud-api.yandex.net/v1/disk/resources',
+    'PATH_PARAM': '?path=app:/',
+    'OVERWRITE': '&overwrite=true',
+    'ENV_DIRECTORY': 'test',
+    'FILE_PREFIX': 'log-',
+    'FILE_EXTENSION': '.txt',
+}
+LOGGER = logging.Logger('custom', logging.INFO)
+
+sentry_sdk.init(
+    dsn="https://8e3154231874434253ea16868146b067@o4506122573709312.ingest.sentry.io/4506122575740928",
+)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'console': {
+        'sentry': {
             'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
         },
     },
     'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console',
+        'sentry': {
+            'class': 'sentry_sdk.integrations.logging.EventHandler',
+            'formatter': 'sentry',
         },
     },
     'loggers': {
-        '': {
+        'custom': {
             'level': 'DEBUG',
-            'handlers': ['console'],
+            'handlers': ['sentry'],
         },
     },
 }
