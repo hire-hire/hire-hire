@@ -17,7 +17,7 @@ from duel.services import (
 from interview.serializers import QuestionsSerializer
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('custom')
 User = get_user_model()
 
 

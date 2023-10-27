@@ -2,7 +2,7 @@ import logging
 
 from http import HTTPStatus
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('custom')
 
 from api_donation.exceptions import (
     CannotFindConfirmationURL,

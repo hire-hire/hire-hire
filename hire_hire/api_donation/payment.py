@@ -22,7 +22,7 @@ from api_donation.exceptions import (
 from api_donation.models import IdempotenceKey
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('custom')
 
 
 BAD_STATUSES = {

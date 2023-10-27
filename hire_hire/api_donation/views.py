@@ -8,7 +8,7 @@ from api_donation.serializers import AcceptPayment, PriceSerializer
 from api_donation.services import create_payment
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('custom')
 
 
 class DonationView(APIView):

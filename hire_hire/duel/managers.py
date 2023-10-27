@@ -7,7 +7,7 @@ from duel.exceptions import DuelPlayerDoesNotExist
 import duel.models
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('custom')
 
 
 class DuelManager(models.Manager):

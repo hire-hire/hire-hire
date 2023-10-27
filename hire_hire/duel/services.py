@@ -5,7 +5,7 @@ from duel.models import Duel, DuelPlayer, DuelQuestion
 from interview.models import Question
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('custom')
 
 
 def create_duel(owner):

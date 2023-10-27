@@ -8,7 +8,7 @@ from django.utils import timezone
 import interview.models as int_models
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('custom')
 
 
 class QuestionManager(models.Manager):
