@@ -26,6 +26,7 @@ drf-spectacular = "^0.26.2"
 django-cors-headers = "^3.14.0"
 pytest = "7.3.1"
 pytest-django = "4.5.2"
+sentry-sdk = "1.32.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
