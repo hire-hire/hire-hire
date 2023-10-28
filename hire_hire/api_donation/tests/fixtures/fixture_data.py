@@ -32,6 +32,7 @@ def price_300(currency_rub):
         currency=currency_rub,
     )
 
+
 @pytest.fixture()
 def some_client():
     client = APIClient()
