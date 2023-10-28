@@ -2,12 +2,8 @@ from drf_spectacular.extensions import OpenApiViewExtension
 from drf_spectacular.utils import (
     extend_schema,
     OpenApiExample,
-    OpenApiParameter,
     OpenApiResponse,
-    OpenApiTypes,
 )
-
-from hire_hire.schema_settings import not_authenticated, not_found
 
 
 class DonationSchemaView(OpenApiViewExtension):
@@ -31,10 +27,11 @@ class DonationSchemaView(OpenApiViewExtension):
                             OpenApiExample(
                                 '200',
                                 summary='Валидный ответ',
-                                description='Возвращает заведенные в админке платежи',
+                                description='Возвращает заведенные'
+                                            ' в админке платежи',
                                 value={
                                     'id': 1,
-                                    'currency': "RUB",
+                                    'currency': 'RUB',
                                     'value': 100,
                                 },
                             ),
@@ -58,9 +55,9 @@ class DonationSchemaView(OpenApiViewExtension):
                                 summary='Валидный ответ',
                                 description='Возвращает ссылку на платежку',
                                 value={
-                                    'id': "https://yoomoney.ru/"
-                                          "checkout/payments/v2/"
-                                          "contract?orderId=",
+                                    'id': 'https://yoomoney.ru/'
+                                          'checkout/payments/v2/'
+                                          'contract?orderId=',
                                 },
                             ),
                         ],
@@ -70,10 +67,14 @@ class DonationSchemaView(OpenApiViewExtension):
                         examples=[
                             OpenApiExample(
                                 '401',
-                                summary='Не удалось авторизоваться в платежном сервисе',
-                                description='Возвращает ошибку аутентификации в платежном сервисе',
+                                summary='Не удалось авторизоваться'
+                                        ' в платежном сервисе',
+                                description='Возвращает ошибку '
+                                            'аутентификации в '
+                                            'платежном сервисе',
                                 value={
-                                    'detail': 'Ошибка аутентификации в платежном сервисе',
+                                    'detail': 'Ошибка аутентификации'
+                                              ' в платежном сервисе',
                                 },
                                 response_only=False,
                             ),
