@@ -139,7 +139,7 @@ class LanguageView(OpenApiViewExtension):
 
 
 class InterviewView(OpenApiViewExtension):
-    target_class = 'interview.views.InterviewViewset'
+    target_class = 'interview.views.InterviewViewSet'
 
     def view_replacement(self):
         from interview.serializers import (
@@ -213,7 +213,7 @@ class InterviewView(OpenApiViewExtension):
 
 
 class QuestionAnswerView(OpenApiViewExtension):
-    target_class = 'interview.views.QuestionAnswerViewset'
+    target_class = 'interview.views.QuestionAnswerViewSet'
 
     def view_replacement(self):
         from interview.serializers import QuestionsAnswerSerializer
