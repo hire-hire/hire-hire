@@ -11,7 +11,7 @@ class DonationSchemaView(OpenApiViewExtension):
 
     def view_replacement(self):
         from api_donation.serializers import (
-            PriceSerializer, AcceptPayment
+            AcceptPayment, PriceSerializer,
         )
 
         class Extended(self.target_class):
