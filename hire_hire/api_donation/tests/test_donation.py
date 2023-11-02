@@ -28,8 +28,8 @@ class TestDonationAPI:
             self,
             some_client,
     ):
-        data = {'amount': 300, 'currency': 'SHIT'}
+        data = {'amount': 300, 'currency': 'NOT_CORRECT_VALUE'}
         response = some_client.post(self.url, data=data)
-        assert response.status_code == 400, ('При запросе на создание'
-                                             ' невалидного платежа '
+        assert response.status_code == 400, ('При запросе на создание '
+                                             'платежа с невалид валютой'
                                              'неожиданный код ответа')
