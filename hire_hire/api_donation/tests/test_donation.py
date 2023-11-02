@@ -18,8 +18,12 @@ class TestDonationAPI:
 
         prices = response.json()
         assert isinstance(prices, list), 'Прайсы пришли не списком'
+        assert len(prices) == 1, 'Пришли какие-то неожиданные цены'
 
-        amount = prices[0]['value']
+        price = prices[0]
+        assert 'value' in price, 'Пришла цена без значения'
+
+        amount = price['value']
         assert amount == price_100.value, ('Некорректная сумма '
                                            'первого платежа')
 
