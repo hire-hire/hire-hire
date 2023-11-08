@@ -1,4 +1,3 @@
-import django.http
 from django.http import QueryDict
 
 

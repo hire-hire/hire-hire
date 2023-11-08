@@ -19,8 +19,8 @@ class TestApiAddQuestion:
     ):
         assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы'
         data = [{
-            'text': f'Super vopros?',
-            'answer': f'Super otvet',
+            'text': 'Super vopros?',
+            'answer': 'Super otvet',
             'language': add_question_language_1.id,
         }]
         response = client.post(
