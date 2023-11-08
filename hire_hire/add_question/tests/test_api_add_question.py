@@ -41,8 +41,6 @@ class TestApiAddQuestion:
             add_question_user_1,
             api_client_auth_user,
             add_question_language_1,
-            add_question_language_2,
-            add_question_language_3,
     ):
         assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы'
 
@@ -124,9 +122,7 @@ class TestApiAddQuestion:
             add_question_user_1,
             add_question_user_2,
             api_client_auth_user,
-            add_question_language_1,
             add_question_language_2,
-            add_question_language_3,
     ):
         assert AddQuestion.objects.count() == 0, 'В базе уже есть вопросы'
 
