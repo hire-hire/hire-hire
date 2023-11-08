@@ -17,6 +17,6 @@ class AddQuestionSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         validate_added_questions_per_day_limit(
             self.context.get('request').user,
-            self.context.get('view').user_cookie_id,
         )
+
         return attrs
