@@ -8,10 +8,7 @@ from add_question.models import AddQuestion
 from add_question.serializers import AddQuestionSerializer
 
 
-class AddQuestionViewSet(
-    mixins.CreateModelMixin,
-    viewsets.GenericViewSet,
-):
+class AddQuestionViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = AddQuestionSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -19,9 +16,9 @@ class AddQuestionViewSet(
         serializer.save(author=self.request.user)
 
 
-class AddedQuestionsAndLimitView(
-    APIView,
-):
+class AddedQuestionsAndLimitView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         return Response({
             'add_questions_for24_count': (
