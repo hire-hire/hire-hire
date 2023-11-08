@@ -12,6 +12,9 @@ class AddQuestionViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = AddQuestionSerializer
     permission_classes = (IsAuthenticated,)
 
+    def get_serializer(self, data):
+        return super().get_serializer(data=data, many=True)
+
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
