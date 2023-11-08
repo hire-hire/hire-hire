@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 
 from add_question.models import AddQuestion
 from add_question.serializers import AddQuestionSerializer
+from add_question.services import get_user_max_can_save_questions
 
 
 class AddQuestionViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -13,7 +14,13 @@ class AddQuestionViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
 
     def get_serializer(self, data):
-        return super().get_serializer(data=data, many=True)
+        max_length = get_user_max_can_save_questions(user=self.request.user)
+
+        return super().get_serializer(
+            data=data,
+            many=True,
+            max_length=max_length,
+        )
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

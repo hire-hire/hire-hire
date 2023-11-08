@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from add_question.models import AddQuestion
-from add_question.validators import validate_added_questions_per_day_limit
 
 
 class AddQuestionSerializer(serializers.ModelSerializer):
@@ -13,10 +12,3 @@ class AddQuestionSerializer(serializers.ModelSerializer):
             AddQuestion.pub_date.field.name,
             AddQuestion.status.field.name,
         )
-
-    def validate(self, attrs):
-        validate_added_questions_per_day_limit(
-            self.context.get('request').user,
-        )
-
-        return attrs
