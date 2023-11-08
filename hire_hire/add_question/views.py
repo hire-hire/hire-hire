@@ -37,6 +37,6 @@ class AddedQuestionsAndLimitView(APIView):
                 )
             ),
             'limit_add_questions_per_day': (
-                settings.LIMIT_ADD_QUESTIONS_PER_DAY,
+                settings.LIMIT_ADD_QUESTIONS_PER_DAY
             ),
         })
