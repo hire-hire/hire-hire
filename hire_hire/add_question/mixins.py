@@ -1,4 +1,5 @@
-from django.http import HttpRequest, QueryDict
+import django.http
+from django.http import QueryDict
 
 
 class DefaultFilterMixin:
@@ -15,7 +16,7 @@ class DefaultFilterMixin:
 
     def changelist_view(self, request, extra_context=None):
         if (
-                request.method == HttpRequest.GET
+                request.method == 'GET'
                 and not request.GET
                 and self.default_filters is not None
         ):
