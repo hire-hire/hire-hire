@@ -12,9 +12,11 @@ class AddQuestionViewSet(
     mixins.CreateModelMixin,
     viewsets.GenericViewSet,
 ):
-    queryset = AddQuestion.objects.all()
     serializer_class = AddQuestionSerializer
     permission_classes = (IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 class AddedQuestionsAndLimitView(
