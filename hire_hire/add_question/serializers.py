@@ -10,10 +10,8 @@ class AddQuestionSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = (
             AddQuestion.author.field.name,
-            AddQuestion.ip_address.field.name,
             AddQuestion.pub_date.field.name,
             AddQuestion.status.field.name,
-            AddQuestion.user_cookie_id.field.name,
         )
 
     def validate(self, attrs):

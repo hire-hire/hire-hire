@@ -66,8 +66,6 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
     readonly_fields = (
         AddQuestion.id.field.name,
         AddQuestion.status.field.name,
-        AddQuestion.ip_address.field.name,
-        AddQuestion.user_cookie_id.field.name,
         AddQuestion.author.field.name,
         AddQuestion.pub_date.field.name,
         approve_button.__name__,
