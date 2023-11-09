@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MinLengthValidator
 from django.db import models
 
 from add_question.managers import AddQuestionManager
@@ -14,11 +15,18 @@ class AddQuestion(AbstractQuestion):
         related_name='add_questions',
         verbose_name='язык',
     )
+
     author = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
         related_name='add_questions',
         verbose_name='автор',
+    )
+
+    answer = models.TextField(
+        'ответ',
+        max_length=500,
+        validators=[MinLengthValidator(2)],
     )
 
     class StatusChoice(models.TextChoices):

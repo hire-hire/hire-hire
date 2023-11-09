@@ -53,6 +53,11 @@ class QuestionManager(models.Manager):
         )
         return selected_questions
 
+    def get_question_with_answers_and_author(self):
+        return self.get_queryset().prefetch_related(
+            int_models.Question.answers.rel.name,
+        ).select_related(int_models.Question.author.field.name)
+
 
 class InterviewManager(models.Manager):
     def get_interview_by_user(self, interview_pk, user):

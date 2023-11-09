@@ -1,7 +1,13 @@
 from django.conf import settings
 from rest_framework import serializers
 
-from interview.models import Category, Interview, Language, Question
+from interview.models import (
+    Category,
+    Interview,
+    Language,
+    Question,
+    QuestionAnswer,
+)
 from interview.services import create_interview
 
 
@@ -21,10 +27,31 @@ class CategoryRetrieveSerializer(CategoryListSerializer):
     languages = LanguageSerializer(many=True)
 
 
-class QuestionsAnswerSerializer(serializers.ModelSerializer):
+class QuestionAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionAnswer
+        fields = (
+            QuestionAnswer.text.field.name,
+            QuestionAnswer.is_correct.field.name,
+        )
+
+
+class QuestionsRetrieveSerializer(serializers.ModelSerializer):
+    answers = QuestionAnswerSerializer(many=True)
+    author_username = serializers.SerializerMethodField()
+
     class Meta:
         model = Question
-        fields = (Question.answer.field.name,)
+        fields = (
+            'answers',
+            Question.text.field.name,
+            Question.language.field.name,
+            'author_username',
+        )
+
+    @staticmethod
+    def get_author_username(question):
+        return question.author.username
 
 
 class QuestionsSerializer(serializers.ModelSerializer):
