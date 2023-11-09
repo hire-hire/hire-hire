@@ -52,18 +52,11 @@ class Language(Entity):
 
 
 class AbstractQuestion(models.Model):
-    """
-    Модель для наследования.
-    Вопрос. В MVP:
-        - содержит верный ответ
-        - связан только с Языком Программирования.
-    """
-
     language = models.ForeignKey(
         Language,
         on_delete=models.CASCADE,
         related_name='questions',
-        verbose_name='вопрос',
+        verbose_name='язык',
     )
 
     text = models.TextField(
@@ -90,10 +83,6 @@ class AbstractQuestion(models.Model):
 
 
 class Question(AbstractQuestion):
-    """
-    Наследуется от AbstractQuestion.
-    """
-
     pass
 
 
