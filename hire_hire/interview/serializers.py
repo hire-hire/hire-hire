@@ -42,6 +42,8 @@ class QuestionsRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = (
+            Question.text.field.name,
+            Question.language.field.name,
             'answers',
         )
 

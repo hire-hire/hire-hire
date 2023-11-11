@@ -216,3 +216,4 @@ DONATION = Donation(
     ),
     os.getenv('YOKASSA_URL', default='https://api.yookassa.ru/v3/payments'),
 )
+

@@ -52,4 +52,4 @@ class QuestionAnswerViewSet(
 ):
     serializer_class = QuestionsRetrieveSerializer
     queryset = Question.objects.get_question_with_answers_and_author()
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
