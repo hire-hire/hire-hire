@@ -12,8 +12,6 @@ from interview.models import Question, QuestionAnswer
 
 @admin.register(AddQuestion)
 class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
-    """Админ панель предложенных вопросов."""
-
     list_per_page = settings.ADMIN_PANEL_ADDED_QUESTION_PER_PAGE
 
     APPROVE = '_approve'
