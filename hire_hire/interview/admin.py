@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from interview.models import Category, Language, Question
+from interview.models import Category, Language, Question, QuestionAnswer
 
 
 @admin.register(Category)
@@ -13,6 +13,10 @@ class LanguageAdmin(admin.ModelAdmin):
     pass
 
 
+class QuestionAnswerInline(admin.StackedInline):
+    model = QuestionAnswer
+
+
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    pass
+    inlines = (QuestionAnswerInline,)

@@ -52,18 +52,11 @@ class Language(Entity):
 
 
 class AbstractQuestion(models.Model):
-    """
-    Модель для наследования.
-    Вопрос. В MVP:
-        - содержит верный ответ
-        - связан только с Языком Программирования.
-    """
-
     language = models.ForeignKey(
         Language,
         on_delete=models.CASCADE,
         related_name='questions',
-        verbose_name='вопрос',
+        verbose_name='язык',
     )
 
     text = models.TextField(
@@ -72,10 +65,11 @@ class AbstractQuestion(models.Model):
         validators=[MinLengthValidator(10)],
     )
 
-    answer = models.TextField(
-        'правильный ответ',
-        max_length=500,
-        validators=[MinLengthValidator(2)],
+    author = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        related_name='questions',
+        verbose_name='автор',
     )
 
     objects = QuestionManager()
@@ -90,11 +84,33 @@ class AbstractQuestion(models.Model):
 
 
 class Question(AbstractQuestion):
-    """
-    Наследуется от AbstractQuestion.
-    """
-
     pass
+
+
+class QuestionAnswer(models.Model):
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name='answers',
+        verbose_name='вопрос',
+    )
+
+    text = models.TextField(
+        'ответ',
+        max_length=500,
+        validators=[MinLengthValidator(2)],
+    )
+
+    is_correct = models.BooleanField(
+        'правильный ответ',
+    )
+
+    class Meta:
+        verbose_name = 'ответ на вопрос'
+        verbose_name_plural = 'ответы на вопрос'
+
+    def __str__(self):
+        return f'{self.text[:45]}'
 
 
 class QuestionLastDateUsed(models.Model):

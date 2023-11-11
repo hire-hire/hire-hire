@@ -7,13 +7,11 @@ from django.utils.safestring import mark_safe
 from add_question.mixins import DefaultFilterMixin
 from add_question.models import AddQuestion
 from add_question.services import get_count_questions_text
-from interview.models import Question
+from interview.models import Question, QuestionAnswer
 
 
 @admin.register(AddQuestion)
 class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
-    """Админ панель предложенных вопросов."""
-
     list_per_page = settings.ADMIN_PANEL_ADDED_QUESTION_PER_PAGE
 
     APPROVE = '_approve'
@@ -79,11 +77,26 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
 
     @admin.action(description='Одобрить выбранные вопросы.')
     def approve(self, request, queryset):
-        questions = [
-            Question(language=obj.language, text=obj.text, answer=obj.answer)
-            for obj in queryset
-        ]
+        questions = []
+        answers = []
+        for obj in queryset:
+            question = Question(
+                author=obj.author,
+                language=obj.language,
+                text=obj.text,
+            )
+
+            questions.append(question)
+            answers.append(
+                QuestionAnswer(
+                    is_correct=True,
+                    question=question,
+                    text=obj.answer,
+                ),
+            )
+
         Question.objects.bulk_create(questions)
+        QuestionAnswer.objects.bulk_create(answers)
         queryset.update(status=AddQuestion.StatusChoice.APPROVED)
         self.message_user(
             request,
@@ -102,11 +115,17 @@ class AddQuestionAdmin(DefaultFilterMixin, admin.ModelAdmin):
         """В change_view обработка нажатия кнопок 'Одобрить' и 'Отклонить'."""
 
         if request.POST.get('status') == self.APPROVE:
-            Question.objects.create(
+            question = Question.objects.create(
+                author=obj.author,
                 language=obj.language,
                 text=obj.text,
-                answer=obj.answer,
             )
+            QuestionAnswer.objects.create(
+                is_correct=True,
+                text=obj.answer,
+                question=question,
+            )
+
             obj.status = AddQuestion.StatusChoice.APPROVED
             obj.save()
             self.message_user(request, 'Вопрос одобрен.')

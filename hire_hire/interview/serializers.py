@@ -1,7 +1,13 @@
 from django.conf import settings
 from rest_framework import serializers
 
-from interview.models import Category, Interview, Language, Question
+from interview.models import (
+    Category,
+    Interview,
+    Language,
+    Question,
+    QuestionAnswer,
+)
 from interview.services import create_interview
 
 
@@ -21,19 +27,42 @@ class CategoryRetrieveSerializer(CategoryListSerializer):
     languages = LanguageSerializer(many=True)
 
 
-class QuestionsAnswerSerializer(serializers.ModelSerializer):
+class QuestionAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionAnswer
+        fields = (
+            QuestionAnswer.text.field.name,
+            QuestionAnswer.is_correct.field.name,
+        )
+
+
+class QuestionsRetrieveSerializer(serializers.ModelSerializer):
+    answers = QuestionAnswerSerializer(many=True)
+
     class Meta:
         model = Question
-        fields = (Question.answer.field.name,)
+        fields = (
+            Question.text.field.name,
+            Question.language.field.name,
+            'answers',
+        )
 
 
 class QuestionsSerializer(serializers.ModelSerializer):
+    author_username = serializers.SerializerMethodField()
+
     class Meta:
         model = Question
         fields = (
             Question.id.field.name,
             Question.text.field.name,
+            Question.language.field.name,
+            'author_username',
         )
+
+    @staticmethod
+    def get_author_username(question):
+        return question.author.username
 
 
 class InterviewCreateSerializer(serializers.ModelSerializer):
@@ -51,7 +80,9 @@ class InterviewCreateSerializer(serializers.ModelSerializer):
         return create_interview(validated_data)
 
     def to_representation(self, instance):
-        serializer = InterviewSerializer(instance)
+        serializer = InterviewSerializer(
+            Interview.objects.get_with_questions_author(instance.pk),
+        )
         return serializer.data
 
 

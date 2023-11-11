@@ -216,22 +216,22 @@ class QuestionAnswerView(OpenApiViewExtension):
     target_class = 'interview.views.QuestionAnswerViewSet'
 
     def view_replacement(self):
-        from interview.serializers import QuestionsAnswerSerializer
+        from interview.serializers import QuestionsRetrieveSerializer
 
         class Extended(self.target_class):
 
             @extend_schema(
                 description='Получение ответа на конкретный вопрос',
                 tags=['Interview'],
-                request=QuestionsAnswerSerializer,
+                request=QuestionsRetrieveSerializer,
                 responses={
-                    200: OpenApiResponse(response=QuestionsAnswerSerializer),
+                    200: OpenApiResponse(response=QuestionsRetrieveSerializer),
                     401: OpenApiResponse(
-                        response=QuestionsAnswerSerializer,
+                        response=QuestionsRetrieveSerializer,
                         examples=[not_authenticated],
                     ),
                     404: OpenApiResponse(
-                        response=QuestionsAnswerSerializer,
+                        response=QuestionsRetrieveSerializer,
                         examples=[not_found],
                     ),
                 },

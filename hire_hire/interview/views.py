@@ -7,7 +7,7 @@ from interview.serializers import (
     InterviewCreateSerializer,
     InterviewSerializer,
     LanguageSerializer,
-    QuestionsAnswerSerializer,
+    QuestionsRetrieveSerializer,
 )
 
 
@@ -50,6 +50,6 @@ class InterviewViewSet(
 class QuestionAnswerViewSet(
     mixins.RetrieveModelMixin, viewsets.GenericViewSet,
 ):
-    serializer_class = QuestionsAnswerSerializer
-    queryset = Question.objects.all()
+    serializer_class = QuestionsRetrieveSerializer
+    queryset = Question.objects.get_question_with_answers_and_author()
     permission_classes = (permissions.IsAuthenticated,)
