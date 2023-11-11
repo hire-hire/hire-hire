@@ -65,7 +65,8 @@ class InterviewManager(models.Manager):
 
     def get_with_questions_author(self, interview_pk):
         return self.get_queryset().prefetch_related(
-            'questions__author',
+            int_models.Interview.questions.field.name + '__' +
+            int_models.Question.author.field.name,
         ).get(pk=interview_pk)
 
 
