@@ -1,7 +1,6 @@
 import pytest
 
-from interview.models import Category, Language, Question
-
+from interview.models import Category, Language, Question, QuestionAnswer
 
 QUESTIONS = {
     'вопрос1': 'ответ на вопрос 1',
@@ -50,11 +49,20 @@ def language_2(category_1):
 
 
 @pytest.fixture
-def all_questions(language_1):
-    questions = (Question(
-        language=language_1,
-        text=key,
-        answer=value,
-    ) for key, value in QUESTIONS.items())
+def all_questions(user, language_1):
+    questions = []
+    answers = []
+    for text, ans in QUESTIONS.items():
+        question = Question(language=language_1, author=user, text=text)
+        questions.append(question)
+        answers.append(
+            QuestionAnswer(text=ans, is_correct=True, question=question)
+        )
+        answers.extend([
+            QuestionAnswer(text='bad', is_correct=False, question=question)
+            for _ in range(3)
+        ])
+
     Question.objects.bulk_create(questions)
+    QuestionAnswer.objects.bulk_create(answers)
     return Question.objects.all()

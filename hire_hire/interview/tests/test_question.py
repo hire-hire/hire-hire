@@ -20,6 +20,7 @@ class TestQuestionAPI:
         fields = response.json()
 
         assert isinstance(fields, dict), 'Отдается не словарь'
+
         assert len(fields) == 1, 'Отдается что-то кроме ответа'
 
     @pytest.mark.django_db(transaction=True)

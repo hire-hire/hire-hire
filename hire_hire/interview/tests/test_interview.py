@@ -59,8 +59,8 @@ class TestInterviewApi:
     @pytest.mark.django_db(transaction=True)
     def test_no_extra_fields(self, user_client, all_questions):
         data = {'question_count': 10}
-        response = user_client.post('/api/v1/interview/', data=data)
+        response = user_client.post(self.url_interview, data=data)
         question = response.json().get('questions')[0]
 
-        assert 'answer' not in question, ('В интервью отдаются '
-                                          'вопросы с ответами')
+        assert 'answers' not in question, ('В интервью отдаются '
+                                           'вопросы с ответами')

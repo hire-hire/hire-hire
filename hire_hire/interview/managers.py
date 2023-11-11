@@ -63,6 +63,11 @@ class InterviewManager(models.Manager):
     def get_interview_by_user(self, interview_pk, user):
         return self.get_queryset().filter(pk=interview_pk, user=user)
 
+    def get_with_questions_author(self, interview_pk):
+        return self.get_queryset().prefetch_related(
+            'questions__author',
+        ).get(pk=interview_pk)
+
 
 class QuestionLastDateUsedManage(models.Manager):
     def create_objects(self, user, questions):

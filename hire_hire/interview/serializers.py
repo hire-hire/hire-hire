@@ -38,12 +38,21 @@ class QuestionAnswerSerializer(serializers.ModelSerializer):
 
 class QuestionsRetrieveSerializer(serializers.ModelSerializer):
     answers = QuestionAnswerSerializer(many=True)
-    author_username = serializers.SerializerMethodField()
 
     class Meta:
         model = Question
         fields = (
             'answers',
+        )
+
+
+class QuestionsSerializer(serializers.ModelSerializer):
+    author_username = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Question
+        fields = (
+            Question.id.field.name,
             Question.text.field.name,
             Question.language.field.name,
             'author_username',
@@ -52,15 +61,6 @@ class QuestionsRetrieveSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_author_username(question):
         return question.author.username
-
-
-class QuestionsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = (
-            Question.id.field.name,
-            Question.text.field.name,
-        )
 
 
 class InterviewCreateSerializer(serializers.ModelSerializer):
@@ -78,7 +78,9 @@ class InterviewCreateSerializer(serializers.ModelSerializer):
         return create_interview(validated_data)
 
     def to_representation(self, instance):
-        serializer = InterviewSerializer(instance)
+        serializer = InterviewSerializer(
+            Interview.objects.get_with_questions_author(instance.pk),
+        )
         return serializer.data
 
 
