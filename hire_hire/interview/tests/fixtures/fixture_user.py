@@ -8,7 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 def user(django_user_model):
     return django_user_model.objects.create_user(
         username='Polzovatel',
-        password='123456qw'
+        password='123456qw',
     )
 
 
@@ -30,7 +30,6 @@ def user_token(user):
 
 @pytest.fixture
 def user_client(user_token):
-
     client = APIClient()
     client.credentials(
         HTTP_AUTHORIZATION=f'{settings.SIMPLE_JWT["AUTH_HEADER_TYPES"][0]} '

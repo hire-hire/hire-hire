@@ -16,20 +16,9 @@ class AddQuestion(AbstractQuestion):
     )
     author = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
+        on_delete=models.PROTECT,
         related_name='add_questions',
         verbose_name='автор',
-    )
-    ip_address = models.GenericIPAddressField(
-        'IP-адрес',
-        blank=True,
-        null=True,
-    )
-    pub_date = models.DateTimeField(
-        'дата публикации',
-        auto_now_add=True,
     )
 
     class StatusChoice(models.TextChoices):
@@ -44,11 +33,9 @@ class AddQuestion(AbstractQuestion):
         default=StatusChoice.PROPOSED,
     )
 
-    user_cookie_id = models.CharField(
-        'user cookie id',
-        max_length=32,
-        blank=True,
-        null=True,
+    pub_date = models.DateTimeField(
+        'дата публикации',
+        auto_now_add=True,
     )
 
     objects = AddQuestionManager()
