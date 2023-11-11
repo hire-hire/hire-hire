@@ -1,6 +1,6 @@
 import pytest
 
-from interview.models import Interview
+from interview.models import Interview, Question
 
 
 class TestInterviewApi:
@@ -62,5 +62,7 @@ class TestInterviewApi:
         response = user_client.post(self.url_interview, data=data)
         question = response.json().get('questions')[0]
 
-        assert 'answers' not in question, ('В интервью отдаются '
-                                           'вопросы с ответами')
+        assert Question.answers.rel.name not in question, (
+            'В интервью отдаются '
+            'вопросы с ответами'
+        )
