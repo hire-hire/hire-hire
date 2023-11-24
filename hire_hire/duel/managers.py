@@ -1,8 +1,13 @@
+import logging
+
 from django.db import models
 from django.shortcuts import get_object_or_404
 
 from duel.exceptions import DuelPlayerDoesNotExist
 import duel.models
+
+
+logger = logging.getLogger('custom')
 
 
 class DuelManager(models.Manager):
@@ -13,6 +18,9 @@ class DuelManager(models.Manager):
         return get_object_or_404(query.filter(pk=duel_pk, owner=user))
 
     def filter_duel_by_user(self, duel_pk, user):
+        logger.debug(
+            f'trying to find duel by INPUT: duel_pk={duel_pk}, user={user}',
+        )
         return (
             self.get_queryset()
             .filter(pk=duel_pk, owner=user)
@@ -42,6 +50,7 @@ class DuelQuestionManager(models.Manager):
 class DuelPlayerManager(models.Manager):
     def update_player_and_duel_score(self, winner_pk, duel):
         if winner_pk == -1:
+            logger.debug('no winners found')
             duel.wrong_answers_count += 1
             duel.save()
             return
@@ -55,4 +64,5 @@ class DuelPlayerManager(models.Manager):
             raise DuelPlayerDoesNotExist
 
         winner.good_answers_count += 1
+        logger.debug('winner found and updated')
         winner.save()

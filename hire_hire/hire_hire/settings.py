@@ -1,9 +1,11 @@
 import os
+import logging
 from dataclasses import dataclass, field
 from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
+import sentry_sdk
 
 load_dotenv()
 
@@ -216,3 +218,31 @@ DONATION = Donation(
     ),
     os.getenv('YOKASSA_URL', default='https://api.yookassa.ru/v3/payments'),
 )
+
+LOGGER = logging.Logger('custom', logging.INFO)
+
+sentry_sdk.init(
+    dsn=os.getenv('SENTRY_DSN'),
+)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'sentry': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'class': 'sentry_sdk.integrations.logging.EventHandler',
+            'formatter': 'sentry',
+        },
+    },
+    'loggers': {
+        'custom': {
+            'level': 'DEBUG',
+            'handlers': ['sentry'],
+        },
+    },
+}

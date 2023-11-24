@@ -1,3 +1,4 @@
+import logging
 from random import sample
 
 from django.conf import settings
@@ -5,6 +6,9 @@ from django.db import models
 from django.utils import timezone
 
 import interview.models as int_models
+
+
+logger = logging.getLogger('custom')
 
 
 class QuestionManager(models.Manager):
@@ -34,10 +38,13 @@ class QuestionManager(models.Manager):
         user_refresh, _ = int_models.LastUserRefreshDate.objects.get_or_create(
             user=user,
         )
+        logger.debug(f'user_refresh_date={user_refresh.date}')
         queryset = self.get_not_used_questions(user, user_refresh, language)
 
         ids = self.generate_ids_list(queryset)
+        logger.debug(f'not_used_question_LENGTH={len(ids)}')
         if len(ids) < cnt:
+            logger.debug('no refresh date found, creating')
             user_refresh.date = timezone.now()
             user_refresh.save()
 
@@ -56,6 +63,7 @@ class QuestionManager(models.Manager):
 
 class InterviewManager(models.Manager):
     def get_interview_by_user(self, interview_pk, user):
+        logger.debug(f'user={user}, interview={interview_pk}')
         return self.get_queryset().filter(pk=interview_pk, user=user)
 
 

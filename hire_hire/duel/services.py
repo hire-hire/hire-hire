@@ -1,9 +1,15 @@
+import logging
+
 from duel.exceptions import QuestionAlreadyAnswered
 from duel.models import Duel, DuelPlayer, DuelQuestion
 from interview.models import Question
 
 
+logger = logging.getLogger('custom')
+
+
 def create_duel(owner):
+    logger.debug(f'creating duel for user={owner}')
     return Duel.objects.create(owner=owner)
 
 
@@ -33,8 +39,10 @@ def create_duel_questions(duel, question_count, subcategory, user):
 
 def update_duel_question_status(duel_question):
     if duel_question.is_answered:
+        logger.debug('duel_question is already answered')
         raise QuestionAlreadyAnswered
     if duel_question:
+        logger.debug('changing duel_question status')
         duel_question.is_answered = True
         duel_question.save()
 
